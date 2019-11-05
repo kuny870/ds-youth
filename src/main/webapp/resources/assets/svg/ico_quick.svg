@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+    <defs>
+        <filter id="a" width="200" height="200" x="0" y="0" filterUnits="userSpaceOnUse">
+            <feOffset dy="2" in="SourceAlpha"/>
+            <feGaussianBlur result="blurOut" stdDeviation="3.873"/>
+            <feFlood flood-color="#040000" result="floodOut"/>
+            <feComposite in="floodOut" in2="blurOut" operator="atop"/>
+            <feComponentTransfer>
+                <feFuncA slope=".3" type="linear"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="b">
+            <feOffset in="SourceAlpha"/>
+            <feGaussianBlur result="blurOut" stdDeviation="3.162"/>
+            <feFlood flood-color="#FFF" result="floodOut"/>
+            <feComposite in="floodOut" in2="blurOut" operator="out" result="compOut"/>
+            <feComposite in="compOut" in2="SourceAlpha" operator="in"/>
+            <feComponentTransfer>
+                <feFuncA slope=".1" type="linear"/>
+            </feComponentTransfer>
+            <feBlend in2="SourceGraphic" mode="multiply"/>
+        </filter>
+        <linearGradient id="c" x1="0%" x2="0%" y1="100%" y2="0%">
+            <stop offset="0%" stop-opacity=".65"/>
+            <stop offset="100%" stop-color="#FFF" stop-opacity=".65"/>
+        </linearGradient>
+    </defs>
+    <path fill="#F63B70" fill-rule="evenodd" d="M99.499 11.999c47.221 0 85.5 38.28 85.5 85.5 0 47.221-38.279 85.5-85.5 85.5-47.22 0-85.5-38.279-85.5-85.5 0-47.22 38.28-85.5 85.5-85.5z" filter="url(#b)"/>
+    <path fill="url(#c)" d="M99.499 11.999c47.221 0 85.5 38.28 85.5 85.5 0 47.221-38.279 85.5-85.5 85.5-47.22 0-85.5-38.279-85.5-85.5 0-47.22 38.28-85.5 85.5-85.5z"/>
+    <path fill="#FFF" fill-rule="evenodd" d="M81.999 113.999v-6.373h48v6.373h-48zm0-20.202h48v6.404h-48v-6.404zm0-13.798h48v6.374h-48v-6.374zm-7.5 36a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-14a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-14a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
+</svg>

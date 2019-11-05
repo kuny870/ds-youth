@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'TmonMonsori.ttf';
+  src: url('TmonMonsori.ttf.eot');
+  src: url('TmonMonsori.ttf.woff2') format('woff2'),
+       url('TmonMonsori.ttf.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TmonMonsoriBlack';
+  src: url('TmonMonsoriBlack.woff') format('woff'),
+       url('TmonMonsoriBlack.ttf') format('truetype'),
+       url('TmonMonsoriBlack.svg#TmonMonsoriBlack') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

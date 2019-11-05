@@ -1,0 +1,170 @@
+<html lang="ko">
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{description}">
+        <meta name="keywords" content="{keywords}">
+        <meta name="author" content="{author}">
+
+        <!-- google/facebook meta -->
+        <meta property="og:url" content="{url}" />
+        <meta property="og:type" content="{type}" />
+        <meta property="og:title" content="{title}" />
+        <meta property="og:description" content="{description}" />
+        <meta property="og:image" content="{image}" />
+        <meta property="og:site_name" content="{site_name}" />
+        <meta property="fb:admins" content="{fb id}" />
+        
+        <!-- twitter meta -->
+        <meta name="twitter:card" content="{card}">
+        <meta name="twitter:site" content="{site}">
+        <meta name="twitter:title" content="{title}">
+        <meta name="twitter:description" content="{description}">
+        <!-- <meta name="twitter:creator" content="@author_handle"> -->
+        <!-- Twitter Summary card images must be at least 120x120px -->
+        <meta name="twitter:image" content="{image}">        
+        
+        <!--검색허용여부-->
+        <meta name="robots" content="{index,follow}">
+        <meta name="generator" content="inffly" />
+        <!--IE최신브라우저로 변경-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+
+        <!-- title -->
+        <title>{title}</title>
+
+        <!--favicon-->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="apple-touch-icon" href="../assets/images/logo_black.png" />
+        <link href="../assets/images/logo_black.png" rel="apple-touch-icon-precomposed" type="image/png" />
+        
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700&amp;subset=korean" rel="stylesheet">
+		<link href="../assets/css/reset.css" rel="stylesheet">
+        <link href="../assets/css/common.css" rel="stylesheet">                
+        <link href="../assets/css/general.css" rel="stylesheet">    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        /* load_javascript */
+        function load_javascript ( url, callback ) {
+            var head= document.getElementsByTagName('head')[0];
+            var script= document.createElement('script');
+            script.type= 'text/javascript';
+            var loaded = false;
+            script.onreadystatechange= function () {
+                if (this.readyState == 'loaded' || this.readyState == 'complete') {
+                    if (loaded) {
+                        return;
+                    }
+                    loaded = true;
+                    run_func( callback, url );
+                };
+            }
+            script.onload = function () {
+                run_func(callback,url);
+            }
+            script.src = url;
+            head.appendChild(script);
+        };
+
+        /* javascript run func */
+        function run_func ( callback, url ) {
+            callback = String(callback);
+            if ( 0 < callback.length ) {
+                if(typeof(window[callback]) == "function"){
+                    eval(callback+'()');
+                }else{
+                    if ( url ) {
+                        /* javascript url load */
+                        load_javascript(url, callback);
+                    } else {
+                        setTimeout(function(){ 
+                            run_func( callback, url );
+                        }, 500);
+                    };
+                };
+            };
+        };
+        </script>   
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121902734-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-121902734-1');
+        </script>
+	</head>
+	<body>
+        <div class="container">
+            <div class="header">
+                <h1>쿠폰관리</h1>
+            </div>
+            <ul class="tab x2 clearfix">
+                <li>
+                    <button type="button" class="btn-tab">사용가능 쿠폰</button>
+                </li>
+                <li>
+                    <button type="button" class="btn-tab selected">사용한 쿠폰
+</button>
+                </li>                
+            </ul>
+            
+            <div class="contents-coupon">
+                <div class="coupon-list">
+                    <div class="coupon coupon-closed">
+                        <div class="row">
+                            <div class="col col-left">
+                                <p class="discount text-center">10%</p>
+                            </div>
+                            <div class="col col-right">
+                                <h3 class="name">신규 회원가입 10% 할인 쿠폰</h3>
+                                <div class="info">
+                                    <p class="terms">1만원 이상 구매</p>
+                                    <p class="limit">최대 3,000원</p>
+                                    <p class="date"><span class="from">2019.02.10</span>&nbsp;~&nbsp;<span class="to">2019.02.10</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coupon coupon-closed">
+                        <div class="row">
+                            <div class="col col-left">
+                                <p class="discount text-center">1,000원</p>
+                            </div>
+                            <div class="col col-right">
+                                <h3 class="name">신규 회원가입 10% 할인 쿠폰</h3>
+                                <div class="info">
+                                    <p class="terms">1만원 이상 구매</p>
+                                    <p class="limit">최대 3,000원</p>
+                                    <p class="date"><span class="from">2019.02.10</span>&nbsp;~&nbsp;<span class="to">2019.02.10</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="coupon coupon-closed">
+                        <div class="row">
+                            <div class="col col-left">
+                                <p class="discount text-center">10%</p>
+                            </div>
+                            <div class="col col-right">
+                                <h3 class="name">신규 회원가입 10% 할인 쿠폰</h3>
+                                <div class="info">
+                                    <p class="terms">1만원 이상 구매</p>
+                                    <p class="limit">최대 3,000원</p>
+                                    <p class="date"><span class="from">2019.02.10</span>&nbsp;~&nbsp;<span class="to">2019.02.10</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

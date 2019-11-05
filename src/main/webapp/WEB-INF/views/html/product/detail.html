@@ -1,0 +1,378 @@
+<html lang="ko">
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{description}">
+        <meta name="keywords" content="{keywords}">
+        <meta name="author" content="{author}">
+
+        <!-- google/facebook meta -->
+        <meta property="og:url" content="{url}" />
+        <meta property="og:type" content="{type}" />
+        <meta property="og:title" content="{title}" />
+        <meta property="og:description" content="{description}" />
+        <meta property="og:image" content="{image}" />
+        <meta property="og:site_name" content="{site_name}" />
+        <meta property="fb:admins" content="{fb id}" />
+        
+        <!-- twitter meta -->
+        <meta name="twitter:card" content="{card}">
+        <meta name="twitter:site" content="{site}">
+        <meta name="twitter:title" content="{title}">
+        <meta name="twitter:description" content="{description}">
+        <!-- <meta name="twitter:creator" content="@author_handle"> -->
+        <!-- Twitter Summary card images must be at least 120x120px -->
+        <meta name="twitter:image" content="{image}">        
+        
+        <!--검색허용여부-->
+        <meta name="robots" content="{index,follow}">
+        <meta name="generator" content="inffly" />
+        <!--IE최신브라우저로 변경-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+
+        <!-- title -->
+        <title>{title}</title>
+
+        <!--favicon-->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="apple-touch-icon" href="../assets/images/logo_black.png" />
+        <link href="../assets/images/logo_black.png" rel="apple-touch-icon-precomposed" type="image/png" />
+        
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700&amp;subset=korean" rel="stylesheet">
+		<link href="../assets/css/reset.css" rel="stylesheet">
+        <link href="../assets/css/common.css" rel="stylesheet">                
+        <link href="../assets/css/general.css" rel="stylesheet">    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        /* load_javascript */
+        function load_javascript ( url, callback ) {
+            var head= document.getElementsByTagName('head')[0];
+            var script= document.createElement('script');
+            script.type= 'text/javascript';
+            var loaded = false;
+            script.onreadystatechange= function () {
+                if (this.readyState == 'loaded' || this.readyState == 'complete') {
+                    if (loaded) {
+                        return;
+                    }
+                    loaded = true;
+                    run_func( callback, url );
+                };
+            }
+            script.onload = function () {
+                run_func(callback,url);
+            }
+            script.src = url;
+            head.appendChild(script);
+        };
+
+        /* javascript run func */
+        function run_func ( callback, url ) {
+            callback = String(callback);
+            if ( 0 < callback.length ) {
+                if(typeof(window[callback]) == "function"){
+                    eval(callback+'()');
+                }else{
+                    if ( url ) {
+                        /* javascript url load */
+                        load_javascript(url, callback);
+                    } else {
+                        setTimeout(function(){ 
+                            run_func( callback, url );
+                        }, 500);
+                    };
+                };
+            };
+        };
+        </script>   
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121902734-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-121902734-1');
+        </script>
+	</head>
+	<body>
+        <div class="container">
+            <div class="header-product">
+                <span class="shop-title">Jenny Shop</span>
+                <span class="shop-link">링크복사</span>
+            </div>
+            <div class="contents-product">
+                <form id="proudct-form">
+                    <div class="section">
+                        <div class="image-slide">
+                            <!-- Swiper -->
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide" style="background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Whale_shark_Georgia_aquarium.jpg/600px-Whale_shark_Georgia_aquarium.jpg)">
+                                    </div>
+                                    <div class="swiper-slide" style="background-image:url(http://newsimg.hankookilbo.com/2016/11/29/201611291099122790_1.jpg)">
+                                    </div>
+                                    <div class="swiper-slide" style="background-image:url(https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Whale_shark_Georgia_aquarium.jpg/600px-Whale_shark_Georgia_aquarium.jpg)">
+                                    </div>
+                                    <div class="swiper-slide" style="background-image:url(http://newsimg.hankookilbo.com/2016/11/29/201611291099122790_1.jpg)">
+                                    </div>
+                                </div>
+                                <!-- Add Pagination -->
+                                <div class="swiper-pagination"></div>
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="product-info">
+                            <h1>마로아 아쿠아밤 특가</h1>
+                            <div class="price">
+                                <input type="hidden" id="input-product-discount-price" value="22000">
+                                <span class="discount">22,000원</span>
+                                <span class="cost">84,000원</span>                        
+                            </div>                        
+                            <div class="period">
+                                <span class="date">19.01.20~19.01.29</span>
+                                <span class="line">|</span>
+                                <span class="tiem">오후 18:00 종료</span>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="section">
+                        <div class="product-img">
+                            <h2>상품정보 상세정보</h2>
+                            <div class="detail-img"></div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="product-detailinfo">
+                            <h2>상품정보 제공공시</h2>
+                            <p class="word">
+                                Sleeping 하울 뱃지 입니다. 금도금, 밤하늘 배경 글리터 추가되어있고 일반적인 뱃지들 보다 크기가 있는 편입니다.
+                            </p>
+                            <div id="accordion" class="accordion">
+                                <div class="row">
+                                    <p class="menu-header">주의사항</p>
+                                    <img src="../assets/images/ico_accordion_down.png">
+                                    <div class="menu-body">
+                                        <p>
+                                            주의사항 내용
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="menu-header">주의사항</p>
+                                    <img src="../assets/images/ico_accordion_down.png">
+                                    <div class="menu-body">
+                                        <p>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="menu-header">주의사항</p>
+                                    <img src="../assets/images/ico_accordion_down.png">
+                                    <div class="menu-body">
+                                        <p>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="menu-header">주의사항</p>
+                                    <img src="../assets/images/ico_accordion_down.png">
+                                    <div class="menu-body">
+                                        <p>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="menu-header">주의사항</p>
+                                    <img src="../assets/images/ico_accordion_down.png">
+                                    <div class="menu-body">
+                                        <p>
+                                            주문취소 및 대금의 환불은 플리마켓 웹사이트 로그인 후 마이페이지에
+                                            서 반품 신청 할 수 있습니다. 소비자의 주문에 운송장 등록이 되기전까
+                                            지는 즉시 환불 처리되지만, 운송장 등록이 된 후에는 청약철회가 신청
+                                            되는 것이며, 물품 반환이 먼저 진행됩니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="section">
+                        <div class="product-buy">
+                            <button class="btn" id="btn-option-show" type="button">바로 구매하기</button>
+                        </div>
+                    </div>
+                    
+                    <!-------- 20190227 추가 시작 -------->
+                    <div class="product-option-modal" id="product-option-modal">
+                        <div class="container">
+                            <button type="button" id="btn-close" class="close">
+                                <span></span>
+                            </button>
+                            <div class="option-selected">
+                                <div id="btn-option-re">
+                                    <p class="top-label"><b>옵션</b>을 선택해주세요.</p>
+                                </div>
+                                <div class="selected-option-container">
+                                </div>
+                                <div class="option-total clearfix">
+                                    <div class="left">
+                                        <p>
+                                            <span>1</span>개 선택
+                                        </p>
+                                    </div>
+                                    <div class="right">
+                                        <input type="hidden" id="input-product-sum-price" value="0">
+                                        총&nbsp;<span id="product-sum-price">0원</span>
+                                    </div>
+                                </div>
+                                <div class="section">
+                                    <div class="product-buy">
+                                        <button class="btn" type="submit">바로 구매하기</button>
+                                    </div>
+                                </div>                                
+                                
+                            </div>    
+                            <div class="option a-depth">
+                                <p class="top-label"><b>옵션</b>을 선택해주세요.</p>                                    
+                                <ul>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">A</span>
+                                        </div>
+                                        <div class="center text-overflow">
+                                            <span class="name" data-id="111" data-value="보몬드 리제너레이팅 셀룰러데이 오브제티브">보몬드 리제너레이팅 셀룰러데이 오브제티브</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="3000">3,000원</span>
+                                        </div>
+                                    </li>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">A</span>
+                                        </div>
+                                        <div class="center text-overflow">
+                                            <span class="name" data-id="222" data-value="Baby Doll limited edtion by Yves Saint Laurent 1.6oz">Baby Doll limited edtion by Yves Saint Laurent 1.6oz</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="6000">6,000원</span>
+                                        </div>
+                                    </li>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">A</span>
+                                        </div>
+                                        <div class="center text-overflow">
+                                            <span class="name" data-id="333" data-value="Chanel Rouge Coco Hydrating Conditioning Lip Balm - 3g/0.1oz by CHANEL">Chanel Rouge Coco Hydrating Conditioning Lip Balm - 3g/0.1oz by CHANEL</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="7000">7,000원</span>
+                                        </div>
+                                    </li>                                    
+                                </ul>
+                            </div>
+                            <div class="option b-depth">
+                                <p class="top-label"><b>옵션</b>을 선택해주세요.</p>                                    
+                                <ul>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">B</span>
+                                        </div>
+                                        <div class="center text-overflow">
+                                            <span class="name" data-id="111" data-value="보몬드 리제너레이팅 셀룰러데이 오브제티브">보몬드 리제너레이팅 셀룰러데이 오브제티브</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="3000">3,000원</span>
+                                        </div>
+                                    </li>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">B</span>
+                                        </div>
+                                        <div class="center text-overflow">
+                                            <span class="name" data-id="222" data-value="Baby Doll limited edtion by Yves Saint Laurent 1.6oz">Baby Doll limited edtion by Yves Saint Laurent 1.6oz</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="6000">6,000원</span>
+                                        </div>
+                                    </li>
+                                    <li class="item clearfix">
+                                        <div class="left">
+                                            <span class="sort" data-value="A">B</span>
+                                        </div>
+                                        <div class="center">
+                                            <span class="name" data-id="333" data-value="Chanel Rouge Coco Hydrating Conditioning Lip Balm - 3g/0.1oz by CHANEL">Chanel Rouge Coco Hydrating Conditioning Lip Balm - 3g/0.1oz by CHANEL</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="price" data-value="7000">7,000원</span>
+                                        </div>
+                                    </li>                                    
+                                </ul>
+                            </div>                            
+                        </div>
+                    </div>
+                    <!-------- 20190227 추가 끝 -------->
+                </form>
+                <!-- 템플릿 -->
+                <ul id="option-item-template" class="option-item template" style="display: none">
+                    <li class="item item-parent clearfix" id="product-selected-item">
+                        <div class="option-item-child">
+                            <div class="left">
+                                <span class="sort">A</span>
+                            </div>
+                            <div class="center text-overflow">
+                                <span class="name text-overflow">보몬드 리제너레이팅 셀룰러데이 오브제티브</span>
+                            </div>
+                            <div class="right">
+                                <span>
+                                    <button type="button" class="btn-item-delete">x</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="option-item-child">
+                            <div class="center count">
+                                <button class="minus" type="button" id="btn-decrease"></button>
+                                <span id="product-buy-cnt">1</span>
+                                <input type="hidden" id="input-product-buy-cnt" value="1">
+                                <button class="plus" type="button" id="btn-increase">+</button>
+                            </div>
+                            <div class="right sum-price">
+                                <span id="product-buy-price">3,000원</span>
+                                <input type="hidden" id="input-product-name" value="0">
+                                <input type="hidden" id="input-product-id" value="0">
+                                <input type="hidden" id="input-product-price" value="3000">
+                                <input type="hidden" id="input-product-buy-price">
+                            </div>
+                        </div>
+                    </li>
+                </ul>                 
+            </div>
+        </div>
+        <button type="button" class="btn-quick">
+        </button>
+        
+        
+		<link href="../assets/plugin/swiper/css/swiper.min.css" rel="stylesheet">                
+		<link href="../assets/plugin/swiper/css/custom.css" rel="stylesheet">        
+        <script src="../assets/plugin/swiper/js/swiper.min.js"></script>
+        <!-------- 20190227 추가 시작 -------->        
+        <script src="../assets/js/ui.js"></script>        
+        <script src="../assets/js/component/component.product.form.js"></script>
+        <script type="text/javascript">run_func( 'initProudctForm', '' );</script>        
+        <!-------- 20190227 추가 끝 -------->        
+        <script>
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+            el: '.swiper-pagination',
+            },
+        });
+        </script>        
+    </body>
+</html>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.BoardMapper">
+	
+	<!-- 의견 게시판 -->
+	<resultMap id="BoardOpinionMap" type="BoardOpinion">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="content" jdbcType="VARCHAR" property="content" />
+	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
+  	</resultMap>
+  	
+  	<!-- 자유 게시판 -->
+  	<resultMap id="BoardFreeMap" type="BoardFree">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="content" jdbcType="VARCHAR" property="content" />
+	    <result column="reg_user" jdbcType="INTEGER" property="regUser" />
+	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
+	    <result column="mod_date" jdbcType="VARCHAR" property="modDate" />
+	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+	    
+	    <association property="user" resultMap="org.ds.dsyouth.mapper.AuthMapper.UserMap" columnPrefix="u_" />
+  	</resultMap>
+  	
+  	<!-- 리더배포자료 게시판 -->
+  	<resultMap id="LeaderInfoMap" type="LeaderInfo">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="title" jdbcType="VARCHAR" property="title" />
+	    <result column="origin_img" jdbcType="VARCHAR" property="originImg" />
+	    <result column="replace_img" jdbcType="VARCHAR" property="replaceImg" />
+	    <result column="reg_user" jdbcType="INTEGER" property="regUser" />
+	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
+	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+	    
+	    <association property="user" resultMap="org.ds.dsyouth.mapper.AuthMapper.UserMap" columnPrefix="u_" />
+  	</resultMap>
+  	
+  	<!-- QT -->
+  	<resultMap id="QTMap" type="QT">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="year" jdbcType="VARCHAR" property="year" />
+	    <result column="month" jdbcType="VARCHAR" property="month" />
+	    <result column="day" jdbcType="VARCHAR" property="day" />
+	    <result column="title" jdbcType="VARCHAR" property="title" />
+	    <result column="bible" jdbcType="VARCHAR" property="bible" />
+	    <result column="content" jdbcType="VARCHAR" property="content" />
+  	</resultMap>
+  	
+  	
+  	<!-- 의견 등록 -->
+  	<insert id="insertBoardOpinion" parameterType="BoardOpinion">
+         insert into board_opinion
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="content != null">
+                      content,
+                </if>
+         </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="content != null">
+                	#{content},
+          		</if>
+      	</trim>
+  	</insert>
+  	
+	<!-- 의견 불러오기 -->
+	<select id="selectBoardOpinionList" parameterType="BoardOpinion" resultMap="BoardOpinionMap">
+		select
+			id,
+		    content,
+		    reg_date
+		from board_opinion
+		order by reg_date desc
+	</select>
+	
+	
+	
+	<!-- 자유 게시판 등록 -->
+  	<insert id="insertBoardFree" parameterType="BoardFree">
+         insert into board_free
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="content != null">
+                      content,
+                </if>
+                <if test="regUser != null">
+                      reg_user,
+                </if>
+         </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+	            <if test="content != null">
+                   #{content},
+	            </if>
+	            <if test="regUser != null">
+                   #{regUser},
+	            </if>
+      	 </trim>
+  	</insert>
+  	
+	<!-- 자유 게시판 불러오기 -->
+	<select id="selectBoardFreeList" parameterType="BoardFree" resultMap="BoardFreeMap">
+		select
+			bf.id,
+			bf.reg_user,
+			u.id,
+			u.login_id as u_login_id,
+			u.name as u_name,
+		    bf.content,
+		    bf.reg_date,
+		    bf.mod_date,
+		    bf.del_yn
+		from board_free bf
+		LEFT OUTER JOIN user u ON u.id = bf.reg_user
+		where bf.del_yn = 'N'
+		order by bf.reg_date desc
+	</select>
+	
+	
+	<!-- 리더배포자료 전체 불러오기 -->
+	<select id="selectLeaderInfoList" resultMap="LeaderInfoMap">
+		select
+			li.id,
+			li.title,
+			li.origin_img,
+			li.replace_img,
+			li.reg_user,
+			li.reg_date,
+			li.del_yn,
+			u.id as u_id,
+			u.login_id as u_login_id,
+			u.name as u_name
+		from leader_info li
+		LEFT OUTER JOIN user u ON u.id = li.reg_user
+		where li.del_yn = 'N'
+		order by li.reg_date desc
+	</select>
+
+	<!-- 리더배포자료 불러오기 -->
+	<select id="selectLeaderInfo" parameterType="String" resultMap="LeaderInfoMap">
+		select
+			id,
+			title,
+			origin_img,
+			replace_img,
+			reg_user,
+			reg_date,
+			del_yn
+		from leader_info
+		where id = #{id}
+			and del_yn = 'N'
+	</select>	
+	
+	<!-- 리더배포자료 삭제 -->
+	<update id="deleteLeaderInfo" parameterType="LeaderInfo">
+		update leader_info set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 리더배포자료 등록 -->
+  	<insert id="insertLeaderInfo" parameterType="LeaderInfo">
+         insert into leader_info
+         <trim prefix="(" suffix=")" suffixOverrides=",">
+         		<if test="title != null">
+                      title,
+                </if>
+                <if test="originImg != null">
+                      origin_img,
+                </if>
+                <if test="replaceImg != null">
+                      replace_img,
+                </if>
+                <if test="regUser != null">
+                      reg_user,
+                </if>
+         </trim>
+         <trim prefix="values (" suffix=")" suffixOverrides=",">
+	            <if test="title != null">
+                   #{title},
+	            </if>
+	            <if test="originImg != null">
+                   #{originImg},
+	            </if>
+	            <if test="replaceImg != null">
+                   #{replaceImg},
+	            </if>
+	            <if test="regUser != null">
+                   #{regUser},
+	            </if>
+      	 </trim>
+  	</insert>
+  	
+  	
+  	<!-- qt 불러오기 -->
+	<select id="selectQT" parameterType="org.ds.dsyouth.search.QTSearch" resultMap="QTMap">
+		select
+			id,
+			year,
+			month,
+			day,
+			title,
+			bible,
+			content
+		from qt
+		where year = #{year}
+			and month = #{month}
+			and day = #{day}
+	</select>	
+  	
+
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.AttendanceMapper">
+	
+	<!-- 팀별 출석부 명단 -->
+	<resultMap id="AttendanceMap" type="Attendance">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+	    <result column="att_yn" jdbcType="VARCHAR" property="attYn" />
+		<result column="year" jdbcType="INTEGER" property="year" />
+		<result column="month" jdbcType="INTEGER" property="month" />
+		<result column="first_week" jdbcType="VARCHAR" property="firstWeek" />
+		<result column="second_week" jdbcType="VARCHAR" property="secondWeek" />
+		<result column="third_week" jdbcType="VARCHAR" property="thirdWeek" />
+		<result column="fourth_week" jdbcType="VARCHAR" property="fourthWeek" />
+		<result column="fifth_week" jdbcType="VARCHAR" property="fifthWeek" />
+		
+		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
+		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
+		<association property="group" resultMap="org.ds.dsyouth.mapper.AdminMapper.GroupMap" columnPrefix="g_" />
+		<association property="samePeriod" resultMap="org.ds.dsyouth.mapper.AdminMapper.SamePeriodMap" columnPrefix="sp_" />
+  	</resultMap>
+  	
+  	
+  	<!-- 출석부 등록 -->
+	<insert id="insertAttendance" parameterType="Attendance">
+       insert into attendance
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="memberId != null">
+                       member_id,
+                 </if>
+                 <if test="attYn != null">
+                       att_yn,
+                 </if>
+                 <if test="year != null">
+                       year,
+                 </if>
+                 <if test="month != null">
+                       month,
+                 </if>
+                 <if test="firstWeek != null">
+                       first_week,
+                 </if>
+                 <if test="secondWeek != null">
+                       second_week,
+                 </if>
+                 <if test="thirdWeek != null">
+                       third_week,
+                 </if>
+                 <if test="fourthWeek != null">
+                       fourth_week,
+                 </if>
+                 <if test="fifthWeek != null">
+                       fifth_week,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="memberId != null">
+	                 #{memberId},
+	           </if>
+	           <if test="attYn != null">
+	                 #{attYn},
+	           </if>
+	           <if test="year != null">
+	                 #{year},
+	           </if>
+	           <if test="month != null">
+	                 #{month},
+	           </if>
+	           <if test="firstWeek != null">
+	                 #{firstWeek},
+	           </if>
+	           <if test="secondWeek != null">
+	                 #{secondWeek},
+	           </if>
+	           <if test="thirdWeek != null">
+	                 #{thirdWeek},
+	           </if>
+	           <if test="fourthWeek != null">
+	                 #{fourthWeek},
+	           </if>
+	           <if test="fifthWeek != null">
+	                 #{fifthWeek},
+	           </if>
+       </trim>
+   </insert>
+   
+  	
+	<!-- 팀별 출석부 명단 불러오기 -->
+	<select id="selectAttendance" parameterType="org.ds.dsyouth.search.AttendanceSearch" resultMap="AttendanceMap">
+		select
+			at.id as id,
+			at.member_id as member_id,
+			at.att_yn as att_yn,
+		    at.year as year,
+		    at.month as month,
+		    at.first_week as first_week,
+		    at.second_week as second_week,
+		    at.third_week as third_week,
+		    at.fourth_week as fourth_week,
+		    at.fifth_week as fifth_week,
+			m.id as m_id,
+			m.name as m_name,
+			m.guider as m_guider,
+		    m.depart_id as m_depart_id,
+		    m.team_id as m_team_id,
+		    m.group_id as m_group_id,
+		    m.group_grade as m_group_grade,
+		    m.date_of_birth as m_date_of_birth,
+		    m.htel as m_htel,
+		    m.gender as m_gender,
+		    m.same_period_id as m_same_period_id,
+		    m.reg_user as m_reg_user,
+		    m.reg_date as m_reg_date,
+		    m.mod_date as m_mod_date,
+		    m.long_absent as m_long_absent,
+		    m.del_yn as m_del_yn,
+		    t.t_short_name as t_t_short_name,
+		    g.g_name as g_g_name,
+		    sp.birth_year as sp_birth_year
+		from attendance at
+		LEFT OUTER JOIN member m ON m.id = at.member_id
+		LEFT OUTER JOIN team t ON t.id = m.team_id
+		LEFT OUTER JOIN `group` g ON g.id = m.group_id
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id  
+		where m.del_yn = 'N'
+			<if test="team != null and team != ''">
+				and t.t_short_name = #{team}
+			</if>
+			<if test="year != null and year != ''">
+				and at.year = #{year}
+			</if>
+			<if test="month != null and month != ''">
+				and at.month = #{month}
+			</if>
+		order by g.g_name asc, m.group_grade desc, m.long_absent asc, m.name asc, at.id asc
+	</select>
+	
+	
+	<!-- 출석부 정보 수정 -->
+	<update id="updateAttendance" parameterType="Attendance">
+		update attendance
+    	<set>
+			<if test="memberId != null">
+				member_id = #{memberId},
+			</if>
+			<if test="attYn != null">
+				att_yn = #{attYn},
+			</if>
+	      	<if test="year != null">
+	        	year = #{year},
+	      	</if>
+	      	<if test="month != null">
+	        	month = #{month},
+	      	</if>
+	      	<if test="firstWeek != null">
+	        	first_week = #{firstWeek},
+	      	</if>
+	      	<if test="secondWeek != null">
+	        	second_week = #{secondWeek},
+	      	</if>
+	      	<if test="thirdWeek != null">
+	        	third_week = #{thirdWeek},
+	      	</if>
+	      	<if test="fourthWeek != null">
+	        	fourth_week = #{fourthWeek},
+	      	</if>
+	      	<if test="fifthWeek != null">
+	        	fifth_week = #{fifthWeek},
+	      	</if>
+	    </set>
+		where id = #{id}
+	</update>
+	
+</mapper>

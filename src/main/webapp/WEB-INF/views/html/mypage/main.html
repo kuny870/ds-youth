@@ -1,0 +1,188 @@
+<html lang="ko">
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{description}">
+        <meta name="keywords" content="{keywords}">
+        <meta name="author" content="{author}">
+
+        <!-- google/facebook meta -->
+        <meta property="og:url" content="{url}" />
+        <meta property="og:type" content="{type}" />
+        <meta property="og:title" content="{title}" />
+        <meta property="og:description" content="{description}" />
+        <meta property="og:image" content="{image}" />
+        <meta property="og:site_name" content="{site_name}" />
+        <meta property="fb:admins" content="{fb id}" />
+        
+        <!-- twitter meta -->
+        <meta name="twitter:card" content="{card}">
+        <meta name="twitter:site" content="{site}">
+        <meta name="twitter:title" content="{title}">
+        <meta name="twitter:description" content="{description}">
+        <!-- <meta name="twitter:creator" content="@author_handle"> -->
+        <!-- Twitter Summary card images must be at least 120x120px -->
+        <meta name="twitter:image" content="{image}">        
+        
+        <!--검색허용여부-->
+        <meta name="robots" content="{index,follow}">
+        <meta name="generator" content="inffly" />
+        <!--IE최신브라우저로 변경-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+
+        <!-- title -->
+        <title>{title}</title>
+
+        <!--favicon-->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="apple-touch-icon" href="../assets/images/logo_black.png" />
+        <link href="../assets/images/logo_black.png" rel="apple-touch-icon-precomposed" type="image/png" />
+        
+		<link href="../assets/css/reset.css" rel="stylesheet">
+        <link href="../assets/css/common.css" rel="stylesheet">                
+        <link href="../assets/css/general.css" rel="stylesheet">    
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        /* load_javascript */
+        function load_javascript ( url, callback ) {
+            var head= document.getElementsByTagName('head')[0];
+            var script= document.createElement('script');
+            script.type= 'text/javascript';
+            var loaded = false;
+            script.onreadystatechange= function () {
+                if (this.readyState == 'loaded' || this.readyState == 'complete') {
+                    if (loaded) {
+                        return;
+                    }
+                    loaded = true;
+                    run_func( callback, url );
+                };
+            }
+            script.onload = function () {
+                run_func(callback,url);
+            }
+            script.src = url;
+            head.appendChild(script);
+        };
+
+        /* javascript run func */
+        function run_func ( callback, url ) {
+            callback = String(callback);
+            if ( 0 < callback.length ) {
+                if(typeof(window[callback]) == "function"){
+                    eval(callback+'()');
+                }else{
+                    if ( url ) {
+                        /* javascript url load */
+                        load_javascript(url, callback);
+                    } else {
+                        setTimeout(function(){ 
+                            run_func( callback, url );
+                        }, 500);
+                    };
+                };
+            };
+        };
+        </script>   
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121902734-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-121902734-1');
+        </script>
+	</head>
+	<body>
+        <div class="container">
+            <p class="shop_name text-center">
+                 ffly market               
+            </p>
+            <div class="header">
+                <h1>마이페이지</h1>
+            </div>
+            <div class="mypage-wrap">
+                <h3>설정</h3>
+                <div class="mypage-rows">
+                    <div class="mypage-row">
+                        <a href="#!">기본정보 관리</a>
+                    </div>
+<!--                    연동 전-->
+                    <div class="mypage-row clearfix">
+                        <div class="auth">
+                            <p class="menu">계정연동 관리</p>
+                            <p class="id id-before">인스타그램을 연결해주세요.</p>
+                            <p class="follower-before">
+                                팔로워
+                                <span class="data"> - </span>
+                                비즈니스 계정인증
+                                <span class="data"> - </span>
+                            </p>
+                        </div>
+                        <label class="toggle-insta"> 
+                            <input type="checkbox" name="" id="">
+                            <span class="ico"></span>
+                        </label>
+                    </div>
+<!--                    연동 후-->
+<!--
+                    <div class="mypage-row clearfix">
+                        <div class="auth">
+                            <p class="menu">계정연동 관리</p>
+                            <p class="id">brioncho_inffly</p>
+                            <p class="follower">팔로워<span class="data">1,3K</span></p>
+                        </div>
+                        <label class="toggle-insta"> 
+                            <input type="checkbox" name="" id="" checked>
+                            <span class="ico"></span>
+                        </label>
+                    </div>
+-->
+                    <div class="mypage-row">
+                        <a href="#!">배송지 관리</a>
+                    </div>
+                </div>
+                <h3>구매</h3>
+                <div class="mypage-rows">
+                    <div class="mypage-row">
+                        <a href="#!">주문·배송 관리</a>
+                    </div>
+                    <div class="mypage-row">
+                        <a href="#!">반품·환불 관리</a>
+                    </div>
+                    <div class="mypage-row">
+                        <a href="#!">쿠폰관리</a>
+                    </div>
+                </div>
+                <h3>판매</h3>
+                <div class="mypage-rows">
+                    <div class="mypage-row">
+                        <a href="#!">판매·배송 관리</a>    
+                    </div>
+                    <div class="mypage-row">
+                        <a href="#!">파트너 찾기</a>    
+                    </div>
+                    <div class="mypage-row">
+                        <a href="#!">판매신청</a>    
+                    </div>
+                </div>
+                <h3>&nbsp;</h3>
+                <div class="mypage-rows">
+                    <div class="mypage-row mypage-row-bottom">
+                        <a href="#!">로그아웃</a>  
+                    </div>
+                    <div class="mypage-row mypage-row-bottom">
+                        <a href="#!">회원탈퇴</a>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

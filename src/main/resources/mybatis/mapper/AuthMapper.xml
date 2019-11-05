@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.AuthMapper">
+	
+	<!-- 권한 -->
+	<resultMap id="AuthMap" type="Auth">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="no" jdbcType="INTEGER" property="no" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+  	</resultMap>
+  	
+	<!-- 일반 회원 -->
+	<resultMap id="UserMap" type="User">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="login_id" jdbcType="VARCHAR" property="loginId" />
+	    <result column="login_pw" jdbcType="VARCHAR" property="loginPw" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="depart_id" jdbcType="INTEGER" property="departId" />
+		<result column="team_id" jdbcType="INTEGER" property="teamId" />
+		<result column="date_of_birth" jdbcType="VARCHAR" property="dateOfBirth" />
+		<result column="htel" jdbcType="VARCHAR" property="htel" />
+		<result column="gender" jdbcType="VARCHAR" property="gender" />
+	    <result column="session_id" jdbcType="VARCHAR" property="sessionId" />
+	    <result column="use_cookie" jdbcType="VARCHAR" property="useCookie" />
+	    <result column="auth_id" jdbcType="INTEGER" property="authId" />
+	    <result column="auth_exec" jdbcType="INTEGER" property="authExec" />
+	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
+	    <result column="mod_date" jdbcType="VARCHAR" property="modDate" />
+	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+	    
+	    <association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
+	    <association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
+	    <association property="auth" resultMap="org.ds.dsyouth.mapper.AuthMapper.AuthMap" columnPrefix="a_" />
+  	</resultMap>
+  	
+  	<!-- 주소 -->
+  	<resultMap id="AddressMap" type="Address">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="addr1" jdbcType="VARCHAR" property="addr1" />
+	    <result column="addr2" jdbcType="VARCHAR" property="addr2" />
+	    <result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+	    <result column="memo" jdbcType="VARCHAR" property="memo" />
+	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
+  	
+  	
+  	<!-- 권한 List 불러오기 -->
+  	<select id="selectAuthList" resultMap="AuthMap">
+		select
+			id,
+			`no`,
+			`name`,
+			`description`
+		from auth
+		<!-- where `no` != 9 -->
+	</select>
+	
+	<!-- 권한의 cnt 구하기 -->
+	<select id="selectAuthCnt" parameterType="int" resultType="int">
+		select count(*) from ( 
+			select
+				id
+			from user
+			where auth_id = #{id}
+			and del_yn = 'N'
+		) a
+	</select>
+	
+	<!-- 국장 권한의 cnt 구하기 -->
+	<select id="selectAuthExecCnt" resultType="int">
+		select count(*) from ( 
+			select
+				id
+			from user
+			where auth_exec = 1
+				and auth_id != 1
+			and del_yn = 'N'
+		) a
+	</select>
+	
+	<!-- 권한 초기화 -->
+	<update id="deleteAuth" parameterType="Auth">
+		update user set auth_id = 7 where auth_id = #{id}
+	</update>
+	
+	<!-- 국장 권한 초기화 -->
+	<update id="deleteAuthExec">
+		update user set auth_exec = 0 where auth_id != 1
+	</update>
+	
+	<!-- 회원 권한 User List 불러오기 -->
+  	<select id="selectUserListByAuth" resultMap="UserMap">
+		select
+			u.id,
+		    u.login_id,
+		    u.login_pw,
+		    u.name,
+		    u.depart_id,
+		    u.team_id,
+		    u.date_of_birth,
+		    u.htel,
+		    u.gender,
+		    u.session_id,
+		    u.use_cookie,
+		    u.auth_id,
+		    u.auth_exec,
+		    u.reg_date,
+		    u.mod_date,
+		    u.del_yn,
+		    a.no as a_no,
+		    a.name as a_name,
+		    d.d_name as d_d_name,
+		    t.t_short_name as t_t_short_name
+		from user u
+		LEFT OUTER JOIN auth a ON a.id = u.auth_id
+		LEFT OUTER JOIN depart d ON d.id = u.depart_id
+		LEFT OUTER JOIN team t ON t.id = u.team_id
+		where u.login_id != 'admin'
+			and u.del_yn = 'N'
+		order by d.d_name asc, t.t_short_name asc, u.name asc
+	</select>
+	
+	<!-- 회원 관리 User List 불러오기 -->
+  	<select id="selectUserListByUser" resultMap="UserMap">
+		select
+			u.id,
+		    u.login_id,
+		    u.login_pw,
+		    u.name,
+		    u.depart_id,
+		    u.team_id,
+		    u.date_of_birth,
+		    u.htel,
+		    u.gender,
+		    u.session_id,
+		    u.use_cookie,
+		    u.auth_id,
+		    u.auth_exec,
+		    u.reg_date,
+		    u.mod_date,
+		    u.del_yn,
+		    a.no as a_no,
+		    a.name as a_name,
+		    d.d_name as d_d_name,
+		    t.t_short_name as t_t_short_name
+		from user u
+		LEFT OUTER JOIN auth a ON a.id = u.auth_id
+		LEFT OUTER JOIN depart d ON d.id = u.depart_id
+		LEFT OUTER JOIN team t ON t.id = u.team_id
+		where u.login_id != 'admin'
+		order by u.del_yn asc, d.d_name asc, t.t_short_name asc, u.name asc
+	</select>
+  	
+	<!-- 사용자 회원가입 -->
+	<insert id="insertUser" parameterType="User">
+       insert into user
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="loginId != null">
+                       login_id,
+                 </if>
+                 <if test="loginPw != null">
+                       login_pw,
+                 </if>
+                 <if test="name != null">
+                       name,
+                 </if>
+                 <if test="dateOfBirth != null">
+                       date_of_birth,
+                 </if>
+                 <if test="htel != null">
+                       htel,
+                 </if>
+                 <if test="departId != null">
+                       depart_id,
+                 </if>
+                 <if test="teamId != null">
+                       team_id,
+                 </if>
+                 <if test="gender != null">
+                       gender,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+                 <if test="loginId != null">
+                 #{loginId},
+	           </if>
+	           <if test="loginPw != null">
+	                 #{loginPw},
+	           </if>
+	           <if test="name != null">
+	                 #{name},
+	           </if>
+	           <if test="dateOfBirth != null">
+	                 #{dateOfBirth},
+	           </if>
+	           <if test="htel != null">
+	                 #{htel},
+	           </if>
+	           <if test="departId != null">
+	                 #{departId},
+	           </if>
+	           <if test="teamId != null">
+	                 #{teamId},
+	           </if>
+	           <if test="gender != null">
+	                 #{gender},
+	           </if>
+	       </trim>
+   </insert>
+
+
+	<!-- loginId 값으로 사용자 불러오기 -->
+	<select id="selectUserByLoginId" parameterType="User" resultMap="UserMap">
+		select
+			u.id,
+		    u.login_id,
+		    u.login_pw,
+		    u.name,
+		    u.depart_id,
+		    u.team_id,
+		    u.date_of_birth,
+		    u.htel,
+		    u.gender,
+		    u.session_id,
+		    u.use_cookie,
+		    u.auth_id,
+		    u.auth_exec,
+		    u.reg_date,
+		    u.mod_date,
+		    u.del_yn,
+		    d.d_name as d_d_name,
+		    t.t_short_name as t_t_short_name,
+		    a.no as a_no
+		from user u
+		LEFT OUTER JOIN depart d ON d.id = u.depart_id
+		LEFT OUTER JOIN team t ON t.id = u.team_id
+		LEFT OUTER JOIN auth a ON a.id = u.auth_id  
+		where u.login_id = #{loginId}
+		and u.del_yn = 'N'
+	</select>
+
+	<!-- 회원 기본정보 수정 -->
+	<update id="updateUser" parameterType="User">
+		update user
+	    <set>
+			<if test="loginPw != null">
+				login_pw = #{loginPw},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="dateOfBirth != null">
+				date_of_birth = #{dateOfBirth},
+			</if>
+	      	<if test="htel != null">
+	        	htel = #{htel},
+	      	</if>
+	      	<if test="departId != null">
+	        	depart_id = #{departId},
+	      	</if>
+	      	<if test="teamId != null">
+	        	team_id = #{teamId},
+	      	</if>
+	      	<if test="gender != null">
+	        	gender = #{gender},
+	      	</if>
+	      	<if test="authId != null">
+	        	auth_id = #{authId},
+	      	</if>
+	      	<if test="authExec != null">
+	        	auth_exec = #{authExec}
+	      	</if>
+	    </set>
+		where id = #{id}
+	</update>
+	
+	
+	<!-- 회원 탈퇴(강퇴) -->
+	<update id="deleteUser" parameterType="User">
+		update user set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 회원 복구 -->
+	<update id="restoreUser" parameterType="User">
+		update user set del_yn = 'N' where id = #{id}
+	</update>
+	
+
+	<!-- 주소 불러오기 -->
+	<select id="selectAddressList" parameterType="User" resultMap="AddressMap">
+		select
+			id,
+			user_id,
+			`name`,
+			addr1,
+			addr2,
+			zipcode,
+			memo,
+			del_yn
+		from address
+		where user_id = #{loginId} and del_yn = 'N'
+		order by reg_date desc
+	</select>
+	
+	
+	<!-- 주소 등록하기  -->
+	<insert id="insertAddress" parameterType="Address" useGeneratedKeys="true" keyProperty="id">
+		insert into address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="name != null">
+				`name`,
+			</if>
+			<if test="addr1 != null">
+				addr1,
+			</if>
+			<if test="addr2 != null">
+				addr2,
+			</if>
+			<if test="zipcode != null">
+				zipcode,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+	        	#{userId},
+	        </if>
+	        <if test="name != null">
+	        	#{name},
+	        </if>
+	        <if test="addr1 != null">
+	        	#{addr1},
+	        </if>
+	        <if test="addr2 != null">
+	        	#{addr2},
+	        </if>
+	        <if test="zipcode != null">
+	        	#{zipcode},
+	        </if>
+	        <if test="memo != null">
+	        	#{memo},
+	        </if>
+	    </trim>
+	</insert>
+	
+	
+	<!-- 주소 수정 -->
+	<update id="updateAddress" parameterType="Address">
+		update address
+	    <set>
+	      <if test="userId != null">
+	        login_id = #{loginId},
+	      </if>
+	      <if test="name != null">
+	        `name` = #{name},
+	      </if>
+	      <if test="addr1 != null">
+	        addr1 = #{addr1},
+	      </if>
+	      <if test="addr2 != null">
+	        addr2 = #{addr2},
+	      </if>
+	      <if test="zipcode != null">
+	        zipcode = #{zipcode},
+	      </if>
+	      <if test="memo != null">
+	        memo = #{memo},
+	      </if>
+	    </set>
+		where id = #{id}
+	</update>
+	
+	<!-- 선택한 주소 불러오기 -->
+	<select id="selectAddress" parameterType="Address" resultMap="AddressMap">
+		select 
+			id,
+			user_id,
+			`name`,
+			addr1,
+			addr2,
+			zipcode,
+			memo
+		from address
+		where id = #{id} and del_yn = 'N'
+	</select>
+	
+	
+	<!-- 주소 삭제 -->
+	<update id="deleteAddress" parameterType="Address">
+		update address set del_yn = 'Y' where id = #{id}
+	</update>
+
+
+	<!-- sessionId 값 등록 -->
+	<update id="insertSessionId" parameterType="User">
+		update user set session_id = #{sessionId}, use_cookie = 'Y' where login_id = #{loginId}
+	</update>
+
+
+	<!-- sessionId 값 불러오기 -->
+	<select id="selectSessionId" parameterType="String" resultMap="UserMap">
+		select * from user where session_id = #{sessionId}	
+	</select>
+		
+	
+	<!-- sessionId 값 삭제 -->
+	<update id="deleteSessionId" parameterType="User">
+		update user set session_id = '', use_cookie = 'N' where id = #{id}
+	</update>
+	
+</mapper>

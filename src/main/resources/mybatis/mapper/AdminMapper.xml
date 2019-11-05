@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.AdminMapper">
+	
+	<!-- 부서 -->
+	<resultMap id="DepartMap" type="Depart">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="d_name" jdbcType="VARCHAR" property="dName" />
+		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
+  	
+  	<!-- 팀 -->
+	<resultMap id="TeamMap" type="Team">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="depart_id" jdbcType="INTEGER" property="departId" />
+		<result column="t_short_name" jdbcType="VARCHAR" property="tShortName" />
+		<result column="t_full_name" jdbcType="VARCHAR" property="tFullName" />
+		<result column="t_theme" jdbcType="VARCHAR" property="tTheme" />
+		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+		
+		<association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
+  	</resultMap>
+  	
+  	<!-- 순 -->
+	<resultMap id="GroupMap" type="Group">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="depart_id" jdbcType="INTEGER" property="departId" />
+		<result column="team_id" jdbcType="INTEGER" property="teamId" />
+		<result column="g_name" jdbcType="VARCHAR" property="gName" />
+		<result column="cnt" jdbcType="INTEGER" property="cnt" />
+		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+		
+		<association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
+		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
+  	</resultMap>
+  	
+  	<!-- 동기 -->
+	<resultMap id="SamePeriodMap" type="SamePeriod">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="birth_year" jdbcType="INTEGER" property="birthYear" />
+		<result column="cnt" jdbcType="INTEGER" property="cnt" />
+		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
+	
+  	
+  	
+  	<!-- 부서 등록 -->
+	<insert id="insertDepart" parameterType="Depart">
+       insert into depart
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="dName != null">
+                       d_name,
+                 </if>
+                 <if test="regUser != null">
+                       reg_user,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="dName != null">
+	                 #{dName},
+	           </if>
+	           <if test="regUser != null">
+	                 #{regUser},
+	           </if>
+       </trim>
+   </insert>
+
+
+	<!-- 부서 리스트 불러오기 -->
+	<select id="selectDepartList" resultMap="DepartMap">
+		select
+			id,
+			d_name,
+			del_yn
+		from depart
+		where del_yn = 'N'
+			and d_name != '기타'
+		order by d_name asc
+	</select>
+	
+	<!-- 회원가입시 기타 부서 포함 부서 리스트 불러오기 -->
+	<select id="selectDepartListByJoin" resultMap="DepartMap">
+		select
+			id,
+			d_name,
+			del_yn
+		from depart
+		where del_yn = 'N'
+		order by id asc
+	</select>
+	
+	
+	<!-- 같은 부서 있는지 체크 -->
+	<select id="selectDepartByDName" parameterType="Depart" resultMap="DepartMap">
+		select
+			id,
+			d_name,
+			del_yn
+		from depart
+		where del_yn = 'N'
+			and d_name = #{dName}
+	</select>
+
+	
+	<!-- 부서 삭제 -->
+	<update id="deleteDepart" parameterType="Depart">
+		update depart set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 부서 삭제 (해당 부서의 멤버가 모두 삭제 됨)-->
+	<update id="deleteDepartId" parameterType="Depart">
+		update member set del_yn = 'Y' where depart_id = #{id}
+	</update>
+	
+	
+	
+	
+	<!-- 팀 등록 -->
+	<insert id="insertTeam" parameterType="Team">
+       insert into team
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="departId != null">
+                       depart_id,
+                 </if>
+                 <if test="tShortName != null">
+                       t_short_name,
+                 </if>
+                 <if test="tFullName != null">
+                       t_full_name,
+                 </if>
+                 <if test="tTheme != null">
+                       t_theme,
+                 </if>
+                 <if test="regUser != null">
+                       reg_user,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="departId != null">
+	                 #{departId},
+	           </if>
+	           <if test="tShortName != null">
+	                 #{tShortName},
+	           </if>
+	           <if test="tFullName != null">
+	                 #{tFullName},
+	           </if>
+	           <if test="tTheme != null">
+	                 #{tTheme},
+	           </if>
+	           <if test="regUser != null">
+	                 #{regUser},
+	           </if>
+       </trim>
+   </insert>
+
+
+	<!-- 팀 리스트 불러오기 -->
+	<select id="selectTeamList" resultMap="TeamMap">
+		select
+			t.id,
+		 	t.depart_id,
+ 			t.t_short_name,
+ 			t.t_full_name,
+ 			t.t_theme,
+ 			t.del_yn,
+ 			d.d_name as d_d_name
+		from team t
+		LEFT OUTER JOIN depart d ON d.id = t.depart_id  
+		where t.del_yn = 'N'
+			and t.t_short_name != '기타'
+		order by d.d_name asc, t.t_short_name asc
+	</select>
+	
+	<!-- 같은 팀이 있는지 체크 -->
+	<select id="selectTeamByShortTeam" parameterType="Team" resultMap="TeamMap">
+		select
+			id,
+		 	depart_id,
+ 			t_short_name,
+ 			t_full_name,
+ 			t_theme,
+ 			del_yn
+		from team
+		where del_yn = 'N'
+			and t_short_name = #{tShortName}
+	</select>
+
+
+	<!-- 팀리스트 불러오기 (by 부서) -->
+  	<select id="selectTeamByDepart" parameterType="String" resultMap="TeamMap">
+  		select 
+  			 id,
+  			 depart_id,
+  			 t_short_name,
+  			 t_full_name,
+  			 t_theme,
+  			 del_yn
+  		from team 
+  		where depart_id = #{departId}
+  		order by t_short_name asc
+  	</select>
+  	
+  	
+  	<!-- 순 리스트 불러오기 (by 팀) -->
+  	<select id="selectGroupListByTeam" parameterType="String" resultMap="GroupMap">
+  		select 
+  			 id,
+  			 depart_id,
+  			 team_id,
+  			 g_name,
+  			 reg_user,
+  			 del_yn
+  		from `group` 
+  		where team_id = #{teamId}
+  			and del_yn = 'N'
+  		order by g_name asc
+  	</select>
+  	
+  	
+	<!-- 팀명 값으로 팀 불러오기 -->
+	<select id="selectTeam" parameterType="Team" resultMap="TeamMap">
+		select
+			*
+		from team
+		where t_short_name = #{tShortName}
+		and del_yn = 'N'
+	</select>
+	
+	
+	<!-- 팀 Id 값으로 팀 불러오기 -->
+	<select id="selectTeamById" parameterType="int" resultMap="TeamMap">
+		select
+			*
+		from team
+		where id = #{teamId}
+		and del_yn = 'N'
+	</select>
+
+
+	<!-- 팀 정보 수정 -->
+	<update id="updateTeam" parameterType="Team">
+		update team
+	    <set>
+	      	<if test="departId != null">
+	        	depart_id = #{departId},
+	      	</if>
+	    	<if test="tShortName != null">
+	    		t_short_name = #{tShortName},
+	    	</if>
+			<if test="tFullName != null">
+				t_full_name = #{tFullName},
+			</if>
+	      	<if test="tTheme != null">
+	        	t_theme = #{tTheme}
+	      	</if>
+	    </set>
+		where id = #{id}
+	</update>
+	
+	
+	<!-- 팀 삭제 -->
+	<update id="deleteTeam" parameterType="Team">
+		update team set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 팀 삭제 (해당 팀의 멤버가 모두 삭제 됨) -->
+	<update id="deleteTeamId" parameterType="Team">
+		update member set del_yn = 'Y' where team_id = #{id}
+	</update>
+	
+	
+	
+	<!-- 순명 등록 -->
+	<insert id="insertGroup" parameterType="Group">
+       insert into `group`
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+          		 <if test="departId != null">
+                       depart_id,
+                 </if>
+                 <if test="teamId != null">
+                       team_id,
+                 </if>
+                 <if test="gName != null">
+                       g_name,
+                 </if>
+                 <if test="regUser != null">
+                       reg_user,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="departId != null">
+	                 #{departId},
+	           </if>
+	           <if test="teamId != null">
+	                 #{teamId},
+	           </if>
+	           <if test="gName != null">
+	                 #{gName},
+	           </if>
+	           <if test="regUser != null">
+	                 #{regUser},
+	           </if>
+       </trim>
+   </insert>
+   
+   
+   <!-- 순명 정보 수정 -->
+	<update id="updateGroup" parameterType="Group">
+		update `group`
+	    <set>
+	      	<if test="departId != null">
+	        	depart_id = #{departId},
+	      	</if>
+	    	<if test="teamId != null">
+	    		team_id = #{teamId},
+	    	</if>
+			<if test="gName != null">
+				g_name = #{gName}
+			</if>
+	    </set>
+		where id = #{id}
+	</update>
+
+
+	<!-- 순명 리스트 불러오기 -->
+	<select id="selectGroupList" resultMap="GroupMap">
+		select
+			g.id,
+			g.depart_id,
+			g.team_id,
+			g.g_name,
+			g.reg_user,
+			g.del_yn,
+			d.d_name as d_d_name,
+			t.t_short_name as t_t_short_name
+		from `group` g
+		LEFT OUTER JOIN depart d ON d.id = g.depart_id  
+		LEFT OUTER JOIN team t ON t.id = g.team_id  
+		where g.del_yn = 'N'
+		order by g.team_id asc, g.g_name asc
+	</select>
+
+	
+	<!-- 순명 삭제 -->
+	<update id="deleteGroup" parameterType="Group">
+		update `group` set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 순명 삭제에 의한 멤버 상태 초기화 -->
+	<update id="deleteGroupId" parameterType="Group">
+		update member set group_id = null, group_grade = '순원' where group_id = #{id}
+	</update>
+	
+	
+	<!-- 동기 List 불러오기 -->
+	<select id="selectSamePeriodList" resultMap="SamePeriodMap">
+		select
+			id,
+			birth_year,
+			del_yn
+		from same_period
+		where del_yn = 'N'
+		order by birth_year desc
+	</select>
+	
+	<!-- 동일한 동기있는지 체크 -->
+	<select id="selectSamePeriodByBirthYear" parameterType="SamePeriod" resultMap="SamePeriodMap">
+		select
+			id,
+			birth_year,
+			del_yn
+		from same_period
+		where del_yn = 'N'
+			and birth_year = #{birthYear}
+	</select>
+	
+	
+	 <!-- 동기 등록 -->
+	 <insert id="insertSamePeriod" parameterType="SamePeriod">
+       insert into same_period
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+          		 <if test="birthYear != null">
+                       birth_year,
+                 </if>
+                 <if test="regUser != null">
+                       reg_user,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="birthYear != null">
+	                 #{birthYear},
+	           </if>
+	           <if test="regUser != null">
+	                 #{regUser},
+	           </if>
+       </trim>
+   	</insert>
+	
+	<!-- 동기 삭제 -->
+	<update id="deleteSamePeriod" parameterType="SamePeriod">
+		update same_period set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 동기 삭제에 의한 멤버 상태 초기화 -->
+	<update id="deleteSamePeriodId" parameterType="SamePeriod">
+		update member set same_period_id = null where same_period_id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,288 @@
+<html lang="ko">
+    <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="{description}">
+        <meta name="keywords" content="{keywords}">
+        <meta name="author" content="{author}">
+
+        <!-- google/facebook meta -->
+        <meta property="og:url" content="{url}" />
+        <meta property="og:type" content="{type}" />
+        <meta property="og:title" content="{title}" />
+        <meta property="og:description" content="{description}" />
+        <meta property="og:image" content="{image}" />
+        <meta property="og:site_name" content="{site_name}" />
+        <meta property="fb:admins" content="{fb id}" />
+        
+        <!-- twitter meta -->
+        <meta name="twitter:card" content="{card}">
+        <meta name="twitter:site" content="{site}">
+        <meta name="twitter:title" content="{title}">
+        <meta name="twitter:description" content="{description}">
+        <!-- <meta name="twitter:creator" content="@author_handle"> -->
+        <!-- Twitter Summary card images must be at least 120x120px -->
+        <meta name="twitter:image" content="{image}">        
+        
+        <!--검색허용여부-->
+        <meta name="robots" content="{index,follow}">
+        <meta name="generator" content="inffly" />
+        <!--IE최신브라우저로 변경-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+
+        <!-- title -->
+        <title>{title}</title>
+
+        <!--favicon-->
+        <link rel="shortcut icon" href="../assets/images/favicon.ico">
+        <link rel="apple-touch-icon" href="../assets/images/logo_black.png" />
+        <link href="../assets/images/logo_black.png" rel="apple-touch-icon-precomposed" type="image/png" />
+        
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700&amp;subset=korean" rel="stylesheet">
+		<link href="../assets/css/reset.css" rel="stylesheet">
+        <link href="../assets/css/common.css" rel="stylesheet">                
+        <link href="../assets/css/general.css" rel="stylesheet">
+        <link href="../assets/css/buy.form.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        /* load_javascript */
+        function load_javascript ( url, callback ) {
+            var head= document.getElementsByTagName('head')[0];
+            var script= document.createElement('script');
+            script.type= 'text/javascript';
+            var loaded = false;
+            script.onreadystatechange= function () {
+                if (this.readyState == 'loaded' || this.readyState == 'complete') {
+                    if (loaded) {
+                        return;
+                    }
+                    loaded = true;
+                    run_func( callback, url );
+                };
+            }
+            script.onload = function () {
+                run_func(callback,url);
+            }
+            script.src = url;
+            head.appendChild(script);
+        };
+
+        /* javascript run func */
+        function run_func ( callback, url ) {
+            callback = String(callback);
+            if ( 0 < callback.length ) {
+                if(typeof(window[callback]) == "function"){
+                    eval(callback+'()');
+                }else{
+                    if ( url ) {
+                        /* javascript url load */
+                        load_javascript(url, callback);
+                    } else {
+                        setTimeout(function(){ 
+                            run_func( callback, url );
+                        }, 500);
+                    };
+                };
+            };
+        };
+        </script>   
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121902734-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-121902734-1');
+        </script>
+        
+	</head>
+	<body>
+        <div class="container">
+            <div class="header">
+                <h1>결제정보</h1>
+                <p>결제하기를 누르면 회원가입은 즉시 완료됩니다.</p>                
+            </div>
+            <div class="form">
+                <form id="buy-form" enctype="application/x-www-form-urlencoded">
+                    <div class="form-middle form-middle-pay"> 
+                        <!-- 
+                        <div class="form-pay">
+                            <div class="row">
+                                <div class="col col-4">
+                                    <div class="pay-radio pay-radio-chk">
+                                        <span>카카오 페이</span>
+                                        <input type="radio" id="pay-radio" name="radio_group_pay" hidden value="1" checked>
+                                    </div>
+                                </div>
+                                <div class="col col-4">
+                                    <div class="pay-radio pay-radio">
+                                        <span>네이버 페이</span>
+                                        <input type="radio" id="pay-radio" name="radio_group_pay" hidden value="2">
+                                    </div>
+                                </div>
+                                <div class="col col-4">
+                                    <div class="pay-radio pay-radio">
+                                        <span>PAYCO</span>
+                                        <input type="radio" id="pay-radio" name="radio_group_pay" hidden value="3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-6">
+                                    <div class="pay-radio">
+                                        <span>신용카드</span>
+                                        <input type="radio" id="pay-radio" name="radio_group_pay" hidden value="4">
+                                    </div>
+                                </div>
+                                <div class="col col-6">
+                                    <div class="pay-radio pay-radio">
+                                        <span>휴대폰 소액결제</span>
+                                        <input type="radio" id="pay-radio" name="radio_group_pay" hidden value="5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         -->
+                         <div class="form-payinfo form-discount">
+                        	<h3 class="title">할인 수단</h3>
+                        	<div class="select" id="btn-coupon">
+                        		<span class="coupon-name">쿠폰을 선택하세요.</span>
+                        		<span class="icon"></span>
+                        	</div> 
+                        	<p class="label-coupon">사용 가능 쿠폰  Ι <span>9</span>장</p>
+                        </div>
+                        <div class="form-payinfo form-pay">
+                        	<h3 class="title">결제 수단</h3>
+                        	<div class="select" id="btn-pay">
+                        		<span class="pay-name">결제 수단을 선택하세요.</span>
+                        		<span class="icon"></span>
+                        	</div>							                        	
+                        </div>
+                        <div class="form-terms">
+                            <label class="radio-inline">
+                                <input type="checkbox" name="inlineRadioOptions" id="" value="">
+                                <a href="#none">이용약관</a>에 동의합니다. (필수)
+                            </label>
+                            <label class="radio-inline">
+                                <input type="checkbox" name="inlineRadioOptions" id="" value="">
+                                <a href="#none">개인정보처리방침</a>에 동의합니다. (필수)
+                            </label>
+                            <label class="radio-inline">
+                                <input type="checkbox" name="inlineRadioOptions" id="" value="">
+                                회원가입, 구매에 동의합니다. (필수)
+                            </label>
+                            <label class="radio-inline">
+                                <input type="checkbox" name="inlineRadioOptions" id="" value="">
+                                할인혜택, 쿠폰 등 마케팅 수신 동의 (선택)
+                            </label>
+                        </div>    
+                        
+                        <div class="form-price clearfix">
+                            <div class="left">
+                                <span>결제금액</span>
+                            </div>
+                            <div class="right">
+                                <!--<input id="input-total-price" type="hidden" value="${sTotalPrice + sProduct.deliveryPrice }">-->
+                                <input id="input-total-price" type="hidden" value="23000">
+                                <span id="total-price"><fmt:formatNumber value="${sTotalPrice + sProduct.deliveryPrice }" pattern="#,###"/>원</span>
+                            </div>                            
+                        </div>
+						
+						<div class="product-option-modal" id="coupon-option-modal">
+	                        <div class="container">
+	                            <button type="button" id="btn-close" class="close">
+	                                <span></span>
+	                            </button>  
+	                            <div class="option a-depth">
+	                                <p class="top-label"><b>쿠폰</b>을 선택해주세요.</p>
+	                                <div class="line"></div>                                    
+	                                <ul class="payinfo">
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">선택안함</span>
+					                            <input type="radio" name="coupon" value="" data-value="0">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">신규회원가입 10% 할인 쿠폰</span>
+												<span class="text-2">최대 3,000원</span>
+					                            <input type="radio" name="coupon" value="" data-value="3000">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="product-option-modal" id="pay-option-modal">
+	                        <div class="container">
+	                            <button type="button" id="btn-close" class="close">
+	                                <span></span>
+	                            </button>  
+	                            <div class="option a-depth">
+	                                <p class="top-label"><b>결제수단</b>을 선택해주세요.</p>
+	                                <div class="line"></div>                                    
+	                                <ul class="payinfo">
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">카카오페이</span>
+					                            <input type="radio" name="coupon" id="">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">네이버페이</span>
+					                            <input type="radio" name="coupon" id="">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">PAYCO</span>
+					                            <input type="radio" name="coupon" id="">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">신용카드결제</span>
+					                            <input type="radio" name="coupon" id="">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                    <li class="item-payinfo clearfix">
+	                              			<label class="radio-inline radio-payinfo"> 
+					                            <span class="text">휴대폰 결제</span>
+					                            <input type="radio" name="coupon" id="">
+					                            <span class="ico"></span> 
+					                        </label>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                    </div>
+                    </div>
+                    <div class="form-bottom">
+                        <button id="btn-pg" class="btn" type="button">결제하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------- 20190227 추가 시작 -------->        
+        <script src="../assets/js/ui.js"></script>        
+        <script src="../assets/js/component/component.buy.form.js"></script>
+        <script type="text/javascript">run_func( 'initBuyForm', '' );</script>        
+        <!-------- 20190227 추가 끝 -------->                 
+        
+    </body>
+</html>
