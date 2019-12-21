@@ -43,7 +43,7 @@
 			                    		<c:if test="${family.id != null }">
 				                    		<tr>
 					                            <td class="css-a">
-					                            	<a href="${contextPath }/admin/retreat/family/list/${family.id}">${family.famName} (${family.cnt})</a>
+					                            	<a href="${contextPath }/admin/retreat/family/member/list/${family.id}/${family.famName}">${family.famName} (${family.cnt})</a>
 					                            	<input type="hidden" id="${family.id}-input-hidden" value="${family.famName}" />
 					                            </td>
 				                            	<td>

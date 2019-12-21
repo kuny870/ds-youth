@@ -146,6 +146,28 @@
 		where f.del_yn = 'N'
 		order by f.fam_name asc;
 	</select>
+
+	
+	<!-- keon -->
+	<!-- 가족원 불러오기 by 검색 -->
+	<select id="selectFamilyMemberList" parameterType="org.ds.dsyouth.search.RetreatSearch" resultMap="FamilyMemberMap">
+		select
+			fm.id,
+		    fm.member_id,
+		    fm.family_id,
+		    fm.depart_id,
+		    fm.retreat_id,
+		    fm.group_grade
+		from family_member fm
+		LEFT OUTER JOIN family f ON f.id = fm.family_id
+		LEFT OUTER JOIN retreat r ON r.id = fm.retreat_id
+		LEFT OUTER JOIN member m ON m.id = fm.member_id
+		where 1=1
+			and m.del_yn = 'N'
+			<if test="familyId != null and familyId != ''">
+				and t.id = #{teamId}
+			</if>
+	</select>
 	
 	
 	<!-- 수련회 삭제 -->

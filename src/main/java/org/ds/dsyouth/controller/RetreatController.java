@@ -92,14 +92,15 @@ public class RetreatController {
 	 * 관리자 모드 : FamilyMember List
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/retreat/family/member/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/retreat/family/member/list/{familyId}/{familyName}", method = RequestMethod.GET)
 	public ModelAndView admin_retreat_family_member_list(RetreatSearch retreatSearch) {
 
 		List<FamilyMember> famMemberList = retreatService.getFamilyMemberList(retreatSearch);
 		
-		ModelAndView mav = new ModelAndView("retreat/admin/famMember");
-		
+		ModelAndView mav = new ModelAndView("retreat/admin/family_member");
+
 		mav.addObject("famMemberList", famMemberList);
+		mav.addObject("retreatSearch", retreatSearch);
 		
 		return mav;
 	}

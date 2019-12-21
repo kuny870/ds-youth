@@ -5,13 +5,23 @@ public class RetreatSearch {
 	private String year;
 	private String season;
 	private String familyId;
+	private String familyName;
 	private String name;
 
 	public RetreatSearch() {
 		this.year = "전체";
 		this.season = "전체";
 		this.familyId = "전체";
+		this.familyName = "";
 		this.name = "";
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
 	}
 
 	public String getYear() {
