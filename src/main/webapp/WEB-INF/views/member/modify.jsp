@@ -35,7 +35,8 @@
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	<input type="hidden" id="id" name="id" value="${member.id }" />
-                    	<label>
+                    	
+                    	<%-- <label>
                     		<c:set var="checked" value=""/>
                     		<c:if test="${member.longAbsent == 'Y' }">
                     			<c:set var="checked" value="checked"/>
@@ -43,13 +44,32 @@
                     		<input type="hidden" id="longAbsent" name="longAbsent" value="${member.longAbsent }" />
                         	<input type="checkbox" id="longAbsentChk" name="longAbsentChk" ${checked}>
 	                      		장기결석 여부
-	            		</label> 
+	            		</label> --%>
+	            		
+	            		<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
+                    	<div class="customer-select selectbox">
+                            <select class="select-fix" id="memState" name="memState">
+                            	<c:forEach var="ms" items="${memState }">
+                            		<c:set var="selected" value="" />
+									<c:if test="${ms.getCode() eq member.memState}">
+										<c:set var="selected" value="selected" />
+									</c:if>
+									<option value="${ms.getCode()}" ${selected }>${ms.getValue()}</option>
+								</c:forEach>
+                            </select>                        
+	                    </div>
+	                   	
+	                   	<label></label>
+	            		 
+	            		<!-- 이름 -->
                         <label>
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="${member.name}">
-                        </label>                        
+                        </label>   
+                        <!-- 생년월일 -->                     
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="${member.dateOfBirth}" maxlength="6" oninput="numberMaxLength6(this);" autocomplete="off">
                         </label>
+                        <!-- 휴대폰 번호 -->
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="${member.htel}" maxlength="11" oninput="numberMaxLength11(this);" autocomplete="off">
                         </label>
@@ -61,6 +81,8 @@
                         	<input type="hidden" name="departId" value="${member.departId }">
                         	<input type="hidden" name="teamId" value="${member.teamId }">
                         </c:if>
+                        
+                        <!-- 부서 -->
                         <div class="customer-select selectbox">
 	                            <select class="select-fix" id="departId" name="departId" onchange="getTeam(this.value);" ${disabled}>
 	                            	<c:forEach var="depart" items="${departList }">
@@ -72,6 +94,8 @@
 									</c:forEach>
 	                            </select>                        
 	                    </div>
+	                    
+	                    <!-- 팀 -->
 	                    <div class="customer-select selectbox">
                             <select class="select-fix" id="teamId" name="teamId" onchange="getGuider(this.value);" ${disabled}>
                             	<c:forEach var="team" items="${teamList }">
@@ -84,6 +108,7 @@
                             </select>                        
 	                   </div>
 	                   
+	                   <!-- 새가족일 경우 인도자 -->
 	                   <div>
 		                   <label>
 	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="${member.guider}" autocomplete="off" style="margin-top: 6vw; display: none;">                        
@@ -93,6 +118,7 @@
                         
                     </div>
                     
+                    <!-- 성별 -->
                     <c:if test="${member.gender == '남'}">
 					    <c:set var="genderMale" value="checked"/>
 					</c:if>

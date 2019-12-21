@@ -5,8 +5,8 @@ public class Attendance {
 	private Integer id;
 	private Integer memberId;
 	private String attYn;
-	private Integer year;
-	private Integer month;
+	private String year;
+	private String month;
 	private String firstWeek;
 	private String secondWeek;
 	private String thirdWeek;
@@ -60,16 +60,16 @@ public class Attendance {
 	public void setAttYn(String attYn) {
 		this.attYn = attYn;
 	}
-	public Integer getYear() {
+	public String getYear() {
 		return year;
 	}
-	public void setYear(Integer year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
-	public Integer getMonth() {
+	public String getMonth() {
 		return month;
 	}
-	public void setMonth(Integer month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 	public String getFirstWeek() {

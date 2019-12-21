@@ -21,7 +21,7 @@ public class Member {
 	private Integer regUser;
 	private Date regDate;
 	private Date modDate;
-	private String longAbsent;
+	private String memState;
 	private String delYn;
 	private Depart depart;
 	private Team team;
@@ -162,11 +162,11 @@ public class Member {
 	public void setGroupGrade(String groupGrade) {
 		this.groupGrade = groupGrade;
 	}
-	public String getLongAbsent() {
-		return longAbsent;
+	public String getMemState() {
+		return memState;
 	}
-	public void setLongAbsent(String longAbsent) {
-		this.longAbsent = longAbsent;
+	public void setMemState(String memState) {
+		this.memState = memState;
 	}
 
 }

@@ -29,6 +29,7 @@ public class AttendanceRestController {
 	 */
 	@RequestMapping(value = "/attDetail/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse attDetail_regist(
+			String year,
 			String[] aId,
 			String[] firstWeek,
 			String[] secondWeek,
@@ -43,6 +44,7 @@ public class AttendanceRestController {
 			
 			for (int i = 0; i < aId.length; i++) {
 				Attendance att = new Attendance();
+				att.setYear(year);
 				att.setId(StringHelper.parseInt(aId[i]));
 				att.setFirstWeek(firstWeek[i]);
 				att.setSecondWeek(secondWeek[i]);

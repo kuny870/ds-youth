@@ -35,28 +35,46 @@
                     	<input type="hidden" id="sGroupId" name="sGroupId" value="${memberSearch.groupId }" />
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
-                    	<label>
+                    	
+                    	<!-- <label>
                     		<input type="hidden" id="longAbsent" name="longAbsent" value="" />
                         	<input type="checkbox" id="longAbsentChk" name="longAbsentChk">
 	                      		장기결석 여부
-	            		</label>
+	            		</label> -->
 	            		
+                    	<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
+                    	<div class="customer-select selectbox">
+                            <select class="select-fix" id="memState" name="memState">
+                            	<c:forEach var="ms" items="${memState}">
+									<option value="${ms.getCode()}">${ms.getValue()}</option>
+								</c:forEach>
+                            </select>                        
+	                    </div>
+	                    
+	                    <label></label>
+	                    
+	            		<!-- 이름 -->
                         <label>
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="" autocomplete="off">
-                        </label>                        
+                        </label>   
+                        <!-- 생년월일 -->                     
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="" maxlength="6" oninput="numberMaxLength6(this);" autocomplete="off">
                         </label>
+                        <!-- 휴대폰 번호 -->
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength11(this);" autocomplete="off">                        
                         </label>
                         
+                       
                         <c:set var="disabled" value=""/>
                         <c:if test="${login.authId > 2}">
                         	<c:set var="disabled" value="disabled"/>
                         	<input type="hidden" id="departId" name="departId" value="${login.departId }">
                         	<input type="hidden" id="teamId" name="teamId" value="${login.teamId }">
                         </c:if>
+                        
+                        <!-- 부서 -->
                         <div class="customer-select selectbox">
                             <select class="select-fix" id="departId" name="departId" onchange="getTeam(this.value);" ${disabled}>
                             	<c:forEach var="depart" items="${departList }">
@@ -68,6 +86,7 @@
 								</c:forEach>
                             </select>                        
 	                    </div>
+	                    <!-- 팀 -->
 	                    <div class="customer-select selectbox">
                             <select class="select-fix" id="teamId" name="teamId" onchange="getGuider(this.value);" ${disabled}>
                             	<c:forEach var="team" items="${teamList }">
@@ -80,6 +99,7 @@
                             </select>                        
 	                   </div>
 	                   
+	                   <!-- 새가족일 경우 인도자 -->
 	                   <div>
 		                   <label>
 	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="" autocomplete="off" style="margin-top: 6vw; display: none;">                        
@@ -87,6 +107,8 @@
 	                   </div>
 	                   
                     </div>
+                    
+                    <!-- 성별 -->
                     <div class="form-bottom-radio">
                         <label class="radio-inline radio-gender"> 
                             <input type="radio" name="gender" value="남">

@@ -15,6 +15,7 @@ import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.page.Paging;
 import org.ds.dsyouth.search.MemberSearch;
+import org.ds.dsyouth.search.type.EMemState;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
@@ -55,9 +56,9 @@ public class MemberController {
 			teamList = adminService.getTeamByDepart(user.getDepartId().toString());
 		}
 			
-		
 		ModelAndView mav = new ModelAndView("member/regist");
 		
+		mav.addObject("memState", EMemState.values());
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
 		mav.addObject("memberSearch", memberSearch);
@@ -75,6 +76,7 @@ public class MemberController {
 		
 		ModelAndView mav = new ModelAndView("member/modify");
 		
+		mav.addObject("memState", EMemState.values());
 		mav.addObject("member", member);
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);

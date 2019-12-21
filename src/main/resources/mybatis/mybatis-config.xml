@@ -5,14 +5,15 @@
  
     <settings>
 	  <setting name="cacheEnabled"              value="true"/>
-      <setting name="lazyLoadingEnabled"        value="false"/>
+      <setting name="lazyLoadingEnabled"        value="true"/>
       <setting name="useGeneratedKeys"          value="true"/>
       <setting name="defaultExecutorType"       value="REUSE"/>
       <setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
-
+	
 	<typeAliases>
 		<package name="org.ds.dsyouth.model"/>
 	</typeAliases>
 
 </configuration>
+

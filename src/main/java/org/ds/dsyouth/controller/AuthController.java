@@ -75,6 +75,9 @@ public class AuthController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(HttpServletRequest request) {
 		
+//		System.out.print("test!!!!!!!!!!!!!!!!!!!!");
+//		ApplicationContext context = new ClassPathXmlApplicationContext("jobScheduler.xml");
+		
 		ModelAndView mav = new ModelAndView();
 		
 		// login 체크

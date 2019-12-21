@@ -114,17 +114,18 @@
 		    m.reg_user as m_reg_user,
 		    m.reg_date as m_reg_date,
 		    m.mod_date as m_mod_date,
-		    m.long_absent as m_long_absent,
+		    m.mem_state as m_mem_state,
 		    m.del_yn as m_del_yn,
 		    t.t_short_name as t_t_short_name,
 		    g.g_name as g_g_name,
 		    sp.birth_year as sp_birth_year
-		from attendance at
+		from attendance_${year} at
 		LEFT OUTER JOIN member m ON m.id = at.member_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
 		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id  
 		where m.del_yn = 'N'
+			and m.mem_state != '6'
 			<if test="team != null and team != ''">
 				and t.t_short_name = #{team}
 			</if>
@@ -134,13 +135,13 @@
 			<if test="month != null and month != ''">
 				and at.month = #{month}
 			</if>
-		order by g.g_name asc, m.group_grade desc, m.long_absent asc, m.name asc, at.id asc
+		order by g.g_name asc, m.group_grade desc, m.mem_state asc, m.name asc, at.id asc
 	</select>
 	
 	
 	<!-- 출석부 정보 수정 -->
 	<update id="updateAttendance" parameterType="Attendance">
-		update attendance
+		update attendance_${year}
     	<set>
 			<if test="memberId != null">
 				member_id = #{memberId},

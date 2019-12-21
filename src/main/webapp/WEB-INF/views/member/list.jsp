@@ -56,7 +56,7 @@
 	                    </select>
                     </div>        
                     
-                    <div class="customer-select2 selectbox" style="width: 22%; margin-left:-30px; float: left;">
+                    <div class="customer-select2 selectbox" style="width: 22%; margin-left:-30px; margin-right:-3px; float: left;">
                          <input type="text" class="md-input2" id="nameKW" name="nameKW" placeholder="이름" value="" style="border: 1px solid #ccc;">
 		            </div>
 		            <div>

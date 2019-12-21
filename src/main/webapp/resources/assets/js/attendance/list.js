@@ -1,5 +1,6 @@
 // 출석 적용
 function attendanceRegist() {
+	var year = $('#year').val();
 	var aId = document.getElementsByName("aId");
 	var firstWeek = document.getElementsByName("firstWeek");
 	var secondWeek = document.getElementsByName("secondWeek");
@@ -65,6 +66,7 @@ function attendanceRegist() {
         url: url,
         traditional : true,
         data: {
+        	'year' : year,
         	'aId' : aIdArray,
         	'firstWeek' : firstArray,
         	'secondWeek' : secondArray,
@@ -88,11 +90,13 @@ function attendanceRegist() {
 }
 
 
+// 출석 조회
 function attSearch() {
 	
 	var team = $('#team').val();
+	var year = $('#year').val();
 	var month = $('#month').val();
 	
-	location.href = contextPath + "/attendance/list?team=" + team + "&month=" + month;
+	location.href = contextPath + "/attendance/list?team=" + team + "&year=" + year + "&month=" + month;
 	
 }

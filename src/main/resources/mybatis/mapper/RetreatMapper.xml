@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.RetreatMapper">
+	
+	<!-- 수련회명 -->
+	<resultMap id="RetreatMap" type="Retreat">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="year" jdbcType="VARCHAR" property="year" />
+		<result column="season" jdbcType="VARCHAR" property="season" />
+		<result column="retreat_name" jdbcType="VARCHAR" property="retreatName" />
+		<result column="header_first" jdbcType="VARCHAR" property="headerFirst" />
+		<result column="header_second" jdbcType="VARCHAR" property="headerSecond" />
+		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
+  	
+  	<!-- 가족명 -->
+  	<resultMap id="FamilyMap" type="Family">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="retreat_id" jdbcType="INTEGER" property="retreatId" />
+		<result column="fam_name" jdbcType="VARCHAR" property="famName" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+		
+		<association property="retreat" resultMap="org.ds.dsyouth.mapper.RetreatMapper.RetreatMap" columnPrefix="r_" />
+  	</resultMap>
+  	
+  	<!-- 가족원 -->
+  	<resultMap id="FamilyMemberMap" type="FamilyMember">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="member_id" jdbcType="INTEGER" property="memberId" />
+		<result column="family_id" jdbcType="INTEGER" property="familyId" />
+		<result column="retreat_id" jdbcType="INTEGER" property="retreatId" />
+		<result column="group_grade" jdbcType="INTEGER" property="groupGrade" />
+		
+		<association property="retreat" resultMap="org.ds.dsyouth.mapper.RetreatMapper.RetreatMap" columnPrefix="r_" />
+		<association property="family" resultMap="org.ds.dsyouth.mapper.RetreatMapper.FamilyMap" columnPrefix="f_" />
+		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
+  	</resultMap>
+  	
+  	
+  	
+	<!-- 수련회 등록 -->
+	<insert id="insertRetreat" parameterType="Retreat" useGeneratedKeys="true" keyProperty="id">
+       insert into retreat
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="year != null">
+                       year,
+                 </if>
+                 <if test="season != null">
+                       season,
+                 </if>
+                 <if test="retreatName != null">
+                       retreat_name,
+                 </if>
+                 <if test="headerFirst != null">
+                       header_first,
+                 </if>
+                 <if test="headerSecond != null">
+                       header_second,
+                 </if>
+				 <if test="regUser != null">
+					 reg_user,
+				 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="year != null">
+	                 #{year},
+	           </if>
+	           <if test="season != null">
+	                 #{season},
+	           </if>
+	           <if test="retreatName != null">
+	                 #{retreatName},
+	           </if>
+	           <if test="headerFirst != null">
+	                 #{headerFirst},
+	           </if>
+	           <if test="headerSecond != null">
+	                 #{headerSecond},
+	           </if>
+	           <if test="regUser != null">
+	                 #{regUser},
+	           </if>
+       </trim>
+   </insert>
+   
+   
+   <!-- 가족 등록 -->
+	<insert id="insertFamily" parameterType="Family" useGeneratedKeys="true" keyProperty="id">
+       insert into family
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="retreatId != null">
+                       retreat_id,
+                 </if>
+                 <if test="famName != null">
+                       fam_name,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="retreatId != null">
+	                 #{retreatId},
+	           </if>
+	           <if test="famName != null">
+	                 #{famName},
+	           </if>
+       </trim>
+   </insert>
+
+
+	<!-- 수련회 목록 불러오기 -->
+	<select id="selectRetreatList" resultMap="RetreatMap">
+		select
+			id,
+			year,
+			season,
+			retreat_name,
+			header_first,
+			header_second,
+			reg_user,
+			del_yn
+		from retreat
+		where del_yn = 'N'
+	</select>
+
+
+	<!-- 가족장 목록 불러오기 -->
+	<select id="selectFamilyList" resultMap="FamilyMap">
+		select
+			f.id,
+			f.retreat_id,
+			f.fam_name,
+			f.del_yn,
+			(
+				select count(*) from ( 
+					select
+						fm.id
+					from family_member fm
+					LEFT OUTER JOIN family f ON f.id = fm.family_id
+					where f.del_yn = 'N'
+				) a
+			) as cnt
+		from family f
+        LEFT OUTER JOIN retreat r ON r.id = f.retreat_id
+        LEFT OUTER JOIN family_member fm ON fm.family_id = f.id 
+		where f.del_yn = 'N'
+		order by f.fam_name asc;
+	</select>
+	
+	
+	<!-- 수련회 삭제 -->
+	<update id="deleteRetreat" parameterType="Retreat">
+		update retreat set del_yn = 'Y' where id = #{id}
+	</update>
+	
+	<!-- 가족명 삭제 -->
+	<update id="deleteFamily" parameterType="Family">
+		update family set del_yn = 'Y' where id = #{id}
+	</update>
+	
+</mapper>

@@ -77,12 +77,12 @@ $("#memberModifyForm").submit(function(e) {
 		var $dateOfBirth = $('#dateOfBirth');
 		var $htel = $('#htel');
 
-		var absentChk = $(longAbsentChk).prop("checked");
+		/*var absentChk = $(longAbsentChk).prop("checked");
 		if(absentChk){
 			$('#longAbsent').val("Y");
 		}else {
 			$('#longAbsent').val("N");
-		}
+		}*/
 		
 		var validateMessage = null;
 		var validateFocus = null;

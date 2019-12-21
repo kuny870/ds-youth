@@ -43,3 +43,5 @@ function leaderInfoList() {location.href = contextPath + "/leaderInfo/list";}	//
 function voteCompleted() {location.href = contextPath + "/mypage/vote";}	// 완료된 투표
 function addressList() {location.href = contextPath + "/mypage/address/list/" + loginId;}	// 주소 list
 function addressRegist() {location.href = contextPath + "/mypage/address/regist";}	//	주소 등록
+function retreat() {location.href = contextPath + "/admin/retreat/list";}	// 수련회 목록
+function retreatRegist() {location.href = contextPath + "/admin/retreat/regist";}		// 수련회 등록

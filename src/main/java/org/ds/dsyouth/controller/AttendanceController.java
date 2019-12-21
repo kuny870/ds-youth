@@ -1,5 +1,6 @@
 package org.ds.dsyouth.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,7 @@ import org.ds.dsyouth.search.type.SMonthSearchType;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,6 +62,16 @@ public class AttendanceController {
 		// 이번년도 구하기
 		String year = DateHelper.getDate().substring(0, 4);
 		
+		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
+		List yearList = new ArrayList();
+		int yearInt = StringHelper.parseIntAndArrayRange(year);
+		for(int i = yearInt; i >= 2019; i--) {
+			yearList.add(i);
+			if(yearList.size() == 5) {
+				break;
+			}
+		}
+		
 		ModelAndView mav = new ModelAndView("attendance/list");
 		
 		mav.addObject("attendanceList", attendanceList);
@@ -68,8 +80,10 @@ public class AttendanceController {
 		mav.addObject("teamList", teamList);
 		mav.addObject("SMonthSearchType", SMonthSearchType.values());
 		mav.addObject("attSearch", attSearch);
+		mav.addObject("yearList", yearList);
 		mav.addObject("year", year);
 		mav.addObject("sunday", sunday);
+		
 		
 		return mav;
 	}

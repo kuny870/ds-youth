@@ -55,6 +55,24 @@
 	                        </c:choose>
 	                    </div>
 	                </div>
+	                
+	                <!-- 수련회 -->
+	                <h3>수련회</h3>
+	                <div class="mypage-rows">
+	                    <div class="mypage-row">
+                      		<a href="${contextPath }/admin/retreat/list">수련회 관리</a>
+	                    </div>
+	                    <div class="mypage-row">
+	                    	<c:choose>
+                       			<c:when test="${retreatList.size() == 0}">
+                       				<a href="#" onclick="alert('수련회 관리에서 가족을 편성해 주세요!')">가족 편성표</a>
+                       			</c:when>
+                       			<c:otherwise>
+                       				<a href="${contextPath }/retreat/list">가족 편성표</a>
+                       			</c:otherwise>
+	                        </c:choose>
+	                    </div>
+	                </div>
 				
 					<h3>동기</h3>
 					<div class="mypage-rows">

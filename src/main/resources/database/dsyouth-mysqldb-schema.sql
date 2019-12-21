@@ -131,6 +131,42 @@ create table same_period (
 	constraint pk_same_period primary key (id)
 );
 
+-- 수련회명
+create table retreat (
+	id int(50) not null AUTO_INCREMENT, -- 고유번호
+	year varchar(10) not null,			-- 수련회 연도
+	season varchar(20) not null,		-- 여름 / 겨울
+	retreat_name varchar(30) not null,	-- 수련회명
+	header_first varchar(20) null,	-- 대가족장
+	header_second varchar(20) null,	-- 시간청지기
+	reg_user int(20) not null,			-- 등록자
+	del_yn varchar(10) not null default 'N',		-- 삭제 여부
+	
+	constraint pk_retreat primary key (id)
+);
+
+
+-- 가족명
+create table family (
+	id int(50) not null AUTO_INCREMENT, -- 고유번호
+	retreat_id int(10) not null,		-- 수련회 id
+	fam_name varchar(50) not null,		-- 가족명
+	del_yn varchar(10) not null default 'N',		-- 삭제 여부
+	
+	constraint pk_family primary key (id)
+);
+
+
+-- 가족원
+create table family_member (
+	id int(50) not null AUTO_INCREMENT, -- 고유번호
+	retreat_id int(10) not null,		-- 수련회 id
+	family_id int(10) not null,			-- 가족명 id
+	member_id int(10) not null,			-- 가족원 id
+	group_grade int(10) not null,		-- 가족 레벨 / 0:가족원, 1:리더, 9:가족장
+	
+	constraint pk_family primary key (id)
+);
 
 
 -- 리더배포자료 게시판

@@ -15,7 +15,7 @@ public class AttendanceSearch {
 	}
 
 	public String getYear() {
-		return DateHelper.getYear();
+		return year;
 	}
 
 	public void setYear(String year) {

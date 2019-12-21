@@ -20,7 +20,7 @@
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
 	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
 	    <result column="mod_date" jdbcType="VARCHAR" property="modDate" />
-	    <result column="long_absent" jdbcType="VARCHAR" property="longAbsent" />
+	    <result column="mem_state" jdbcType="VARCHAR" property="memState" />
 	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
 	    
 	    <association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
@@ -70,8 +70,8 @@
 				 <if test="regUser != null">
 					 reg_user,
 				 </if>
-				 <if test="longAbsent != null">
-					 long_absent,
+				 <if test="memState != null">
+					 mem_state,
 				 </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -111,8 +111,8 @@
 		       <if test="regUser != null">
 		        	 #{regUser},
 		       </if>
-		       <if test="longAbsent != null">
-		        	 #{longAbsent},
+		       <if test="memState != null">
+		        	 #{memState},
 		       </if>
        </trim>
    </insert>
@@ -125,6 +125,7 @@
 				m.id,
 			    m.team_id,
 			    m.group_id,
+			    m.mem_state,
 			    m.del_yn,
 			    t.id as t_id,
 			    g.id as g_id
@@ -132,6 +133,7 @@
 			LEFT OUTER JOIN team t ON t.id = m.team_id
 			LEFT OUTER JOIN `group` g ON g.id = m.group_id
 			where m.del_yn = 'N'
+				and m.mem_state != '6'
 				<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
 					and t.id = #{teamId}
 				</if>
@@ -140,6 +142,7 @@
 				</if>
 				<if test="nameKW != null and nameKW != ''">
 					and m.name = #{nameKW}
+					and m.mem_state != '5'
 				</if>
 		) a
 	</select>
@@ -162,7 +165,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.id as t_id,
@@ -176,6 +179,7 @@
 		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		where m.del_yn = 'N'
+			and m.mem_state != '6'
 			<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
 				and t.id = #{teamId}
 			</if>
@@ -184,6 +188,7 @@
 			</if>
 			<if test="nameKW != null and nameKW != ''">
 				and m.name like concat ('%', #{nameKW}, '%')
+				and m.mem_state != '5'
 			</if>
 		order by m.name asc
 		LIMIT #{startRow}, #{boardSize}
@@ -208,7 +213,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name,
@@ -219,7 +224,10 @@
 		LEFT OUTER JOIN team t ON t.id = m.team_id
 		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where t.t_short_name = #{team} and m.del_yn = 'N'
+		where t.t_short_name = #{team} 
+			and m.del_yn = 'N'
+			and m.mem_state != '5'
+			and m.mem_state != '6'
 		order by g.g_name asc, m.group_grade desc, m.name asc
 	</select>
 	
@@ -241,7 +249,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name,
@@ -253,6 +261,8 @@
 		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		where m.del_yn = 'N'
+			and m.mem_state != '5'
+			and m.mem_state != '6'
 		order by m.name asc
 	</select>
 	
@@ -275,7 +285,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name,
@@ -287,6 +297,8 @@
 		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		where m.del_yn = 'N'
+			and m.mem_state != '5'
+			and m.mem_state != '6'
 		order by d.d_name asc, t.t_short_name asc, m.name asc
 	</select>
 	
@@ -309,7 +321,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name,
@@ -322,6 +334,8 @@
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		where m.same_period_id = #{sId}
 			and m.del_yn = 'N'
+			and m.mem_state != '5'
+			and m.mem_state != '6'
 		order by d.d_name asc, t.t_short_name, m.name asc
 	</select>
 	
@@ -345,7 +359,7 @@
 		    m.reg_user,
 		    m.reg_date,
 		    m.mod_date,
-		    m.long_absent,
+		    m.mem_state,
 		    m.del_yn,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name,
@@ -397,8 +411,8 @@
 	      	<if test="profileImg != null">
 	        	profile_img = #{profileImg},
 	      	</if>
-	      	<if test="longAbsent != null">
-	        	long_absent = #{longAbsent}
+	      	<if test="memState != null">
+	        	mem_state = #{memState}
 	      	</if>
 	    </set>
 		where id = #{id}
@@ -418,7 +432,9 @@
 				id
 			from member
 			where group_id = #{id}
-			and del_yn = 'N'
+				and del_yn = 'N'
+				and mem_state != '5'
+				and mem_state != '6'
 		) a
 	</select>
 	
@@ -429,7 +445,9 @@
 				id
 			from member
 			where same_period_id = #{id}
-			and del_yn = 'N'
+				and del_yn = 'N'
+				and mem_state != '5'
+				and mem_state != '6'
 		) a
 	</select>
 	

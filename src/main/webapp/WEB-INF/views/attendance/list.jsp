@@ -30,7 +30,7 @@
 				<div class="div-container">
                     
 					<div class="customer-select2 selectbox" style="width: 37.3%; margin-left:5%; float: left;">
-						 <select class="select-fix" id="team" name="team" style="width:90%; height:27px; font-size: 13px;">
+						 <select class="select-fix" id="team" name="team" style="width:70%; height:27px; font-size: 11px;">
 	                       	<c:forEach var="team" items="${teamList }">
 	                       		<c:set var="selected" value="" />
 	                       		<c:choose>
@@ -50,18 +50,31 @@
 	                    </select> 
                     </div>
                     
-                    <div class="customer-select2 selectbox" style="width: 25%; margin-left: 3%; float: left;">
+                    <div class="customer-select2 selectbox" style="width: 22%; margin-left: -27px; float: left;">
+						<!-- 년 선택 -->
+                   		<select class="select-fix" id="year" name="year" style="height:27px; font-size: 11px;">
+	                       	<c:forEach var="year" items="${yearList }">
+	                       		<c:set var="selected" value="" />
+								<c:if test="${year eq attSearch.getYear() }">
+									<c:set var="selected" value="selected" />
+								</c:if>
+								<option value="${year}" ${selected} >${year}년</option>
+							</c:forEach>
+	                    </select>
+                    </div>    
+                    
+                    <div class="customer-select2 selectbox" style="width: 20%; margin-left: 3%; float: left;">
 						<!-- 월 선택 -->
-                   		<select class="select-fix" id="month" name="month" style="height:27px; font-size: 13px;">
+                   		<select class="select-fix" id="month" name="month" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="month" items="${SMonthSearchType }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${month.getVName() eq attendanceSearch.getMonth() }">
+								<c:if test="${month.getVName() eq attSearch.getMonth() }">
 									<c:set var="selected" value="selected" />
 								</c:if>
 								<option value="${month.getVName()}" ${selected} >${month.getVName()}월</option>
 							</c:forEach>
-	                    </select>  
-                    </div>        
+	                    </select>
+                    </div>    
                     
 		            <div>
 		            	<button class="basic-btn attendance-list-btn" onclick="attSearch()">조회</button>
@@ -117,7 +130,7 @@
 				                            <c:if test="${att.member.groupGrade == '순장' }">
 				                            	<c:set var="bold" value="700"/>
 				                            </c:if>
-				                            <c:if test="${att.member.longAbsent == 'Y' }">
+				                            <c:if test="${att.member.memState != '1' }">
 				                            	<c:set var="italic" value="italic"/>
 				                            </c:if>
 				                            <td style="font-weight: ${bold}; font-style: ${italic};">
