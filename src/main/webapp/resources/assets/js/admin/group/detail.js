@@ -1,29 +1,35 @@
 // 순공부 적용
-function groupRegist(gId) {
+function attGroup() {
 
+	var gId = $('#gId').val();
+	var year = $('#year').val();
+	var season = $('#season').val();
+	
 	var chks = document.getElementsByName("chks");  //컨트롤 name이 chks인 컨트롤 컬렉션을 가지고 옵니다.
-	var arr = new Array();
+	var memberArr = new Array();
 	
     for (var i = 0; i < chks.length; i++) {
     	if(chks[i].checked) //checkbox가 체크 됐는지 안됐는지 체크..
         {
-            arr.push(chks[i].id);
+    		memberArr.push(chks[i].id);
         }
     }
 
-    if(arr == "") {
+    if(memberArr == "") {
     	alert("적용할 대상을 선택해 주세요.");
     	return false;
     }
 
-    var url = contextPath + "/rest/groupDetail/regist"
+    var url = contextPath + "/rest/attGroup/edit"
     $.ajax({
         type: "POST",
         url: url,
         traditional : true,
         data: {
         	'gId' : gId,
-        	'arr' : arr
+        	'memberArr' : memberArr,
+        	'year' : year,
+        	'season' : season
         }, // serializes the form’s elements.
         success: function(result)
         {
@@ -40,63 +46,45 @@ function groupRegist(gId) {
      });
 }
 
-// 순장 적용
-function groupLeader(id, name, grade, gName, mGName, gId) {
-	if(grade != "순장" || gName != mGName){
-		var conf = confirm(name+ " 을(를) 순장으로 적용 하시겠습니까?");
-		if(conf){
-			var url = contextPath + "/rest/member/edit"
-		    $.ajax({
-		        type: "POST",
-		        url: url,
-		        traditional : true,
-		        data: {
-		        	'id' : id,
-		        	'groupId' : gId,
-		        	'groupGrade' : '순장'
-		        }, // serializes the form’s elements.
-		        success: function(result)
-		        {
-		            if(result.success) { // show response from the php script.
-		            	alert("적용 되었습니다.")
-		          	  	location.reload();
-		            }else {
-		          	  	alert(result.message);
-		            }
-		        },
-		 		  fail: function(result) {
-		 			  alert("순장 적용에 실패 했습니다.");
-		 		  }
-		     });
-		}
-		
+// 출석부에 groupGrade (순장/순원) 적용
+function attGroupGrade(mId, name, grade) {
+
+	var year = $('#year').val();
+	var season = $('#season').val();
+	
+	if(grade == "순원") {
+		grade = "순장";
 	}else {
-		var conf = confirm(name+ " 을(를) 순원으로 적용 하시겠습니까?");
-		if(conf){
-			var url = contextPath + "/rest/member/edit"
-		    $.ajax({
-		        type: "POST",
-		        url: url,
-		        traditional : true,
-		        data: {
-		        	'id' : id,
-		        	'groupName' : gId,
-		        	'groupGrade' : '순원'
-		        }, // serializes the form’s elements.
-		        success: function(result)
-		        {
-		            if(result.success) { // show response from the php script.
-		            	alert("적용 되었습니다.")
-		          	  	location.reload();
-		            }else {
-		          	  	alert(result.message);
-		            }
-		        },
-		 		  fail: function(result) {
-		 			  alert("순원 적용에 실패 했습니다.");
-		 		  }
-		     });
-		}
+		grade = "순원"
 	}
+	
+	var conf = confirm(name+ " 을(를) " + grade + "으로 적용 하시겠습니까?");
+	if(conf){
+		var url = contextPath + "/rest/attGroupGrade/edit"
+	    $.ajax({
+	        type: "POST",
+	        url: url,
+	        traditional : true,
+	        data: {
+	        	'memberId' : mId,
+	        	'groupGrade' : grade,
+	        	'year' : year,
+	        	'season' : season
+	        }, // serializes the form’s elements.
+	        success: function(result)
+	        {
+	            if(result.success) { // show response from the php script.
+	            	alert("적용 되었습니다.")
+	          	  	location.reload();
+	            }else {
+	          	  	alert(result.message);
+	            }
+	        },
+	 		  fail: function(result) {
+	 			  alert(groupName + " 적용에 실패 했습니다.");
+	 		  }
+	     });
+	}
+		
 }
 

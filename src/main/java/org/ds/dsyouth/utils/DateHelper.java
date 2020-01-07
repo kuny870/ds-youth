@@ -178,6 +178,16 @@ public class DateHelper {
 		return hour;
 	}
     
+    // 작년
+    public static String getLastYear() {
+    	GregorianCalendar cal = new GregorianCalendar();
+    	long date = cal.getTime().getTime() + 32400000;
+    	String year = (new SimpleDateFormat("yyyy")).format(date);
+    	Integer lastYearInt = StringHelper.parseInt(year) - 1;
+    	year = lastYearInt.toString();
+    	return year;
+    }
+    
     // 오늘 년
     public static String getYear() {
     	GregorianCalendar cal = new GregorianCalendar();

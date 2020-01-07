@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface AttendanceMapper {
 
 	List<Attendance> selectAttendance(AttendanceSearch attendanceSearch);	// 팀별 출석명단 불러오기
-	boolean updateAttendance(Attendance attendance);
+	boolean updateAttendanceCheck(Attendance attendance);					// 출석부 체크
+	boolean updateAttendanceGroup(Attendance attendance);					// 출석부 group 수정
+	boolean updateAttendanceGroupGrade(Attendance attendance);				// 출석부 group_grade 수정
 	boolean insertAttendance(Attendance attendance);
 	
 }

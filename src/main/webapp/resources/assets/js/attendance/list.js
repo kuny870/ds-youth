@@ -91,7 +91,7 @@ function attendanceRegist() {
 
 
 // 출석 조회
-function attSearch() {
+function attendanceSearch() {
 	
 	var team = $('#team').val();
 	var year = $('#year').val();

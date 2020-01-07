@@ -22,9 +22,7 @@
 			    <span class="shop-link-login" onclick="mypage()">
 			    	<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			    </span>
-                <p class="shop_name text-center">
-		            	리더배포자료               
-		        </p>
+                <p class="head_title text-center">리더배포자료</p>
             
 				<div class="div-container">
 				

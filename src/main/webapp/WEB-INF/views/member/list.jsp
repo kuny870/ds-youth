@@ -25,9 +25,7 @@
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	팀원 관리               
-		        </p>
+			    <p class="head_title text-center">팀원 관리</p>
             
 				<div class="div-container">
 					<div class="customer-select2 selectbox" style="width: 37.3%; float: left;">
@@ -91,11 +89,12 @@
 				                            <td>${i.index + 1}</td>
 				                            <td>
 				                            	<div class="css-team-list-a">
-				                            		<a href="${contextPath}/member/modify?id=${mem.id}&pageNo=${memberSearch.pageNo}&teamId=${memberSearch.teamId}&groupId=${memberSearch.groupId}&nameKW=${memberSearch.nameKW}">${mem.name}
+				                            		<a href="${contextPath}/member/modify?id=${mem.id}&pageNo=${memberSearch.pageNo}&teamId=${memberSearch.teamId}&groupId=${memberSearch.groupId}&nameKW=${memberSearch.nameKW}">
+				                            			${mem.name}
 				                            			<c:if test="${mem.samePeriodId != null }">
 				                            				<c:choose>
 						                            			<c:when test="${year - mem.samePeriod.birthYear < 19}">
-						                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
+						                            				(${fn:substring(mem.samePeriod.birthYear,2,4)})
 						                            			</c:when>
 						                            			<c:when test="${year - mem.samePeriod.birthYear == 19}">
 						                            				(1)
@@ -131,10 +130,10 @@
 				                            </td>
 				                            <td>
 				                            	<c:choose>
-												    <c:when test="${mem.team.tShortName  == '제1새가족'}">
+												    <c:when test="${mem.team.tShortName  == '1새가족'}">
 					                    				1새
 						                            </c:when>
-						                            <c:when test="${mem.team.tShortName  == '제2새가족'}">
+						                            <c:when test="${mem.team.tShortName  == '2새가족'}">
 					                    				2새
 						                            </c:when>
 						                            <c:otherwise>

@@ -101,11 +101,7 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public boolean removeGroup(Group group) {
-		boolean result = adminMapper.deleteGroup(group);
-		if(result) {
-			adminMapper.deleteGroupId(group);
-		}
-		return result;
+		return adminMapper.deleteGroup(group);
 	}
 
 
@@ -113,10 +109,17 @@ public class AdminServiceImpl implements AdminService {
 	 * 순명 리스트 불러오기
 	 */
 	@Override
-	public List<Group> getGroupList() {
-		return adminMapper.selectGroupList();
+	public List<Group> getGroupList(Group group) {
+		return adminMapper.selectGroupList(group);
 	}
 	
+	/**
+	 * 순 불러오기
+	 */
+	@Override
+	public Group getGroup(int id) {
+		return adminMapper.selectGroup(id);
+	}
 	
 	/**
 	 * 팀 등록
@@ -171,7 +174,7 @@ public class AdminServiceImpl implements AdminService {
 	 * 팀 불러오기 by teamId
 	 */
 	@Override
-	public Team getTeamById(int teamId) {
+	public Team getTeamById(String teamId) {
 		return adminMapper.selectTeamById(teamId);
 	}
 	
@@ -235,8 +238,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Group> getGroupListByTeam(String teamId) {
-		return adminMapper.selectGroupListByTeam(teamId);
+	public List<Group> getGroupListByTeam(Group group) {
+		return adminMapper.selectGroupListByTeam(group);
 	}
 
 

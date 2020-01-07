@@ -24,9 +24,7 @@
 			<span class="shop-link-login" onclick="team()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="shop_name text-center">
-                 	팀 설정               
-            </p>
+			<p class="head_title text-center">팀 설정</p>
             <div class="form">
                 <form enctype="application/x-www-form-urlencoded" id="teamModifyForm">
                     <div class="form-middle">

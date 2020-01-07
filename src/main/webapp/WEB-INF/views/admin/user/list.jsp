@@ -22,13 +22,13 @@
    				<span class="shop-link-login" onclick="adminList()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	회원 관리          
-		        </p>
+			    <p class="head_title text-center">회원 관리</p>
             
 				<div class="div-container">
 				
-					<div style="margin-left: 20px; color: blue; margin-bottom: 10px;">＊ 임시 비밀번호('000000') 발급 시 아이디를 클릭해 주세요.</div>
+					<div style="margin-left: 20px; color: blue; margin-bottom: 10px; font-size: 3.3vw;">
+						＊ 임시 비밀번호('000000') 발급 시 아이디를 클릭해 주세요.
+					</div>
 					
 					<div class="sales-table">
 			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">

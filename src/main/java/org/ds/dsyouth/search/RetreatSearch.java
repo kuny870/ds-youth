@@ -1,19 +1,53 @@
 package org.ds.dsyouth.search;
 
+import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
+
 public class RetreatSearch {
 	
-	private String year;
+	private String year;		// 수련회 년도
+	private String thisYear;	// 현재 년
+	private int thisMonth;		// 현재 월
 	private String season;
 	private String familyId;
+	private String retreatId;
+	private String retreatName;
 	private String familyName;
 	private String name;
 
 	public RetreatSearch() {
-		this.year = "전체";
-		this.season = "전체";
-		this.familyId = "전체";
+		this.thisYear = DateHelper.getYear();
+		this.thisMonth = StringHelper.parseInt(DateHelper.getMonth());
+		this.season = "";
+		this.familyId = "";
+		this.retreatId = "";
 		this.familyName = "";
 		this.name = "";
+		this.retreatName = "";
+	}
+
+	public String getThisYear() {
+		return thisYear;
+	}
+
+	public void setThisYear(String thisYear) {
+		this.thisYear = thisYear;
+	}
+
+	public int getThisMonth() {
+		return thisMonth;
+	}
+
+	public void setThisMonth(int thisMonth) {
+		this.thisMonth = thisMonth;
+	}
+
+	public String getRetreatName() {
+		return retreatName;
+	}
+
+	public void setRetreatName(String retreatName) {
+		this.retreatName = retreatName;
 	}
 
 	public String getFamilyName() {
@@ -40,6 +74,14 @@ public class RetreatSearch {
 		this.season = season;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getFamilyId() {
 		return familyId;
 	}
@@ -48,12 +90,12 @@ public class RetreatSearch {
 		this.familyId = familyId;
 	}
 
-	public String getName() {
-		return name;
+	public String getRetreatId() {
+		return retreatId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRetreatId(String retreatId) {
+		this.retreatId = retreatId;
 	}
 
 }

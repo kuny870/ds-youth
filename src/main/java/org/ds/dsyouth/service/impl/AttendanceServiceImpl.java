@@ -16,7 +16,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	
 	@Autowired
 	private AttendanceMapper attendanceMapper;
-
+	
 
 	/**
 	 * 팀별 출석부 명단 불러오기
@@ -26,12 +26,63 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return attendanceMapper.selectAttendance(attSearch);
 	}
 
+	
 	/**
-	 * 출석 적용
+	 * 출석부 체크
 	 */
 	@Override
-	public boolean modifyAttendance(Attendance attendance) {
-		return attendanceMapper.updateAttendance(attendance);
+	public boolean modifyAttendanceCheck(Attendance attendance) {
+		return attendanceMapper.updateAttendanceCheck(attendance);
+	}
+	
+	
+	/**
+	 * 출석부 수정 - group
+	 */
+	@Override
+	public boolean modifyAttendanceGroup(Attendance attendance) {
+		
+		boolean result = false;
+		
+		if("상반기".equals(attendance.getSeason())) {
+			for(Integer i = 1; i < 7; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroup(attendance);
+			}
+		}else if("하반기".equals(attendance.getSeason())) {
+			for(Integer i = 7; i < 13; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroup(attendance);
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 출석부 수정 - group_grade
+	 */
+	@Override
+	public boolean modifyAttendanceGroupGrade(Attendance attendance) {
+		
+		boolean result = false;
+		
+		// thisMonth : 현재달이 상반기인 경우
+		if("상반기".equals(attendance.getSeason())) {
+			for(Integer i = 1; i < 7; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroupGrade(attendance);
+			}
+		// thisMonth : 현재달이 하반기인 경우	
+		}else {
+			for(Integer i = 7; i < 13; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroupGrade(attendance);
+			}
+		}
+		
+		return result;
 	}
 
 }

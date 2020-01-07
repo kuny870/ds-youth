@@ -3,7 +3,7 @@ package org.ds.dsyouth.model;
 public class Family {
 
 	private Integer id;
-	private Integer retreatId;
+	private String retreatId;
 	private String famName;
 	private int cnt;
 	private String delYn;
@@ -22,10 +22,10 @@ public class Family {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getRetreatId() {
+	public String getRetreatId() {
 		return retreatId;
 	}
-	public void setRetreatId(Integer retreatId) {
+	public void setRetreatId(String retreatId) {
 		this.retreatId = retreatId;
 	}
 	public String getFamName() {

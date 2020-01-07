@@ -1,5 +1,8 @@
 package org.ds.dsyouth.search;
 
+import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
+
 public class MemberSearch {
 	
 //	public static final int BOARDSIZE = 30; // 글 게시판에 한 페이지 당 보이게 될 게시글 수는 30개로 픽스
@@ -12,17 +15,38 @@ public class MemberSearch {
 	private int boardSize; // 한 화면에 보이게 될 게시글 개수
 	private String startDate;
 	private String endDate;
-
+	private String year;
+	private int month;
+	
 	public MemberSearch() {
 		this.setPageNo(1);
 		this.setTeamId("");
 		this.setGroupId("");
 		this.setNameKW("");
 		this.boardSize = 10;
+		this.year = DateHelper.getYear();
+		this.month = StringHelper.parseInt(DateHelper.getMonth());
 		
 		setStartRow(pageNo);
 	}
 	
+	
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
 	public int getPageNo() {
 		return pageNo;
 	}

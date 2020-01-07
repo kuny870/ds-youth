@@ -10,8 +10,6 @@
 		<result column="guider" jdbcType="VARCHAR" property="guider" />
 		<result column="depart_id" jdbcType="INTEGER" property="departId" />
 		<result column="team_id" jdbcType="INTEGER" property="teamId" />
-		<result column="group_id" jdbcType="INTEGER" property="groupId" />
-		<result column="group_grade" jdbcType="VARCHAR" property="groupGrade" />
 		<result column="date_of_birth" jdbcType="VARCHAR" property="dateOfBirth" />
 		<result column="htel" jdbcType="VARCHAR" property="htel" />
 		<result column="gender" jdbcType="VARCHAR" property="gender" />
@@ -27,12 +25,13 @@
 	    <association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
 	    <association property="group" resultMap="org.ds.dsyouth.mapper.AdminMapper.GroupMap" columnPrefix="g_" />
 	    <association property="samePeriod" resultMap="org.ds.dsyouth.mapper.AdminMapper.SamePeriodMap" columnPrefix="sp_" />
+	    <association property="attendance" resultMap="org.ds.dsyouth.mapper.AttendanceMapper.AttendanceMap" columnPrefix="at_" />
   	</resultMap>
   	
   	
 	<!-- 청년부 멤버 등록 -->
 	<insert id="insertMember" parameterType="Member" useGeneratedKeys="true" keyProperty="id">
-       insert into member
+       INSERT INTO member
           <trim prefix="(" suffix=")" suffixOverrides=",">
                  <if test="name != null">
                        name,
@@ -51,12 +50,6 @@
                  </if>
                  <if test="teamId != null">
                        team_id,
-                 </if>
-                 <if test="groupId != null">
-                       group_id,
-                 </if>
-                 <if test="groupGrade != null">
-                       group_grade,
                  </if>
                  <if test="gender != null">
                        gender,
@@ -93,12 +86,6 @@
 	           <if test="teamId != null">
 	                 #{teamId},
 	           </if>
-	           <if test="groupId != null">
-	                 #{groupId},
-	           </if>
-	           <if test="groupGrade != null">
-	                 #{groupGrade},
-	           </if>
 	           <if test="gender != null">
 	                 #{gender},
 	           </if>
@@ -120,263 +107,250 @@
 
 	<!-- 검색어에 해당하는 멤버 인원수 구하기 -->
 	<select id="selectMemberCount" parameterType="org.ds.dsyouth.search.MemberSearch" resultType="int">
-		select count(*) from ( 
-			select
-				m.id,
-			    m.team_id,
-			    m.group_id,
-			    m.mem_state,
-			    m.del_yn,
-			    t.id as t_id,
-			    g.id as g_id
-			from member m
+		SELECT COUNT(*) FROM ( 
+			SELECT
+				m.id
+			FROM member m
 			LEFT OUTER JOIN team t ON t.id = m.team_id
-			LEFT OUTER JOIN `group` g ON g.id = m.group_id
-			where m.del_yn = 'N'
-				and m.mem_state != '6'
+			LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id AND at.month = #{month}
+			WHERE 1=1
+				AND m.del_yn = 'N'
+				AND m.mem_state NOT IN ('6')
 				<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
-					and t.id = #{teamId}
+					AND t.id = #{teamId}
 				</if>
 				<if test="groupId != null and groupId != '' and groupId != 0">
-					and g.id = #{groupId}
+					AND at.group_id = #{groupId}
 				</if>
 				<if test="nameKW != null and nameKW != ''">
-					and m.name = #{nameKW}
-					and m.mem_state != '5'
+					AND m.name = #{nameKW}
+					AND m.mem_state NOT IN ('5')
 				</if>
 		) a
 	</select>
 
 	<!-- 검색어에 해당하는 멤버 리스트 불러오기 -->
 	<select id="selectMemberListBySearch" parameterType="org.ds.dsyouth.search.MemberSearch" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.id as t_id,
-		    t.t_short_name as t_t_short_name,
-		    g.id as g_id,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.profile_img
+		    , m.reg_user
+		    , m.reg_date
+		    , m.mod_date
+		    , m.mem_state
+		    , m.del_yn
+		    , d.d_name as d_d_name
+		    , t.id as t_id
+		    , t.t_short_name as t_t_short_name
+		    , at.group_id as at_group_id
+		    , g.id as g_id
+		    , substring(g.g_name, 3) as g_g_name
+		    , sp.birth_year as sp_birth_year
+		FROM member m
 		LEFT OUTER JOIN depart d ON d.id = m.depart_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
+		LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id AND at.month = #{month}
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where m.del_yn = 'N'
-			and m.mem_state != '6'
+		WHERE 1=1
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('6')
 			<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
-				and t.id = #{teamId}
+				AND t.id = #{teamId}
 			</if>
 			<if test="groupId != null and groupId != '' and groupId != 0">
-				and g.id = #{groupId}
+				AND at.group_id = #{groupId}
 			</if>
 			<if test="nameKW != null and nameKW != ''">
-				and m.name like concat ('%', #{nameKW}, '%')
-				and m.mem_state != '5'
+				AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+				AND m.mem_state NOT IN ('5')
 			</if>
-		order by m.name asc
-		LIMIT #{startRow}, #{boardSize}
+		GROUP BY
+			m.id
+		ORDER BY 
+			m.name ASC
+		LIMIT 
+			#{startRow}, #{boardSize}
 	</select>
 	
 	
 	<!-- 팀별 멤버 리스트 불러오기 -->
-	<select id="selectMemberListByTeam" parameterType="String" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
+	<select id="selectMemberListByGroup" parameterType="Group" resultMap="MemberMap">
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , at.group_id as at_group_id
+		    , g.g_name as g_g_name
+		    , at.group_grade as at_group_grade
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.profile_img
+		    , m.reg_user
+		    , m.reg_date
+		    , m.mod_date
+		    , m.mem_state
+		    , m.del_yn
+		    , d.d_name as d_d_name
+		    , t.id as t_id
+		    , t.t_short_name as t_t_short_name
+		    , g.id as g_id
+		    , g.g_name as g_g_name
+		    , sp.birth_year as sp_birth_year
+		FROM member m
+        LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id
 		LEFT OUTER JOIN depart d ON d.id = m.depart_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where t.t_short_name = #{team} 
-			and m.del_yn = 'N'
-			and m.mem_state != '5'
-			and m.mem_state != '6'
-		order by g.g_name asc, m.group_grade desc, m.name asc
+		WHERE 1=1
+			AND t.id = #{teamId}
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
+			AND IF(#{season} = '상반기', at.month BETWEEN 1 and 6, at.month BETWEEN 7 and 12)
+		GROUP BY
+			at.member_id
+		ORDER BY
+			FIELD(at.group_id, #{id}) DESC
+			, at.group_id DESC
+			, at.group_grade DESC
+			, g.g_name ASC
+			, m.name ASC
+		
 	</select>
 	
-	<!-- 전체 멤버 리스트 불러오기 -->
-	<select id="selectMemberList" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
-		LEFT OUTER JOIN depart d ON d.id = m.depart_id
-		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
-		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where m.del_yn = 'N'
-			and m.mem_state != '5'
-			and m.mem_state != '6'
-		order by m.name asc
+	
+	<!-- 순장 data를 가지고 있는 memberList 값 -->
+	<select id="selectMemberListByGroupGrade" parameterType="Group" resultMap="MemberMap">
+		SELECT
+			m.name
+            , at.group_id as at_group_id
+		FROM member m
+		LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id
+		WHERE 1=1
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
+            AND at.group_grade = '순장'
+            AND g.season = #{season}
+		GROUP BY
+			m.id
+		ORDER BY
+			m.name ASC
 	</select>
 	
 	
 	<!-- 전체 멤버 리스트 불러오기 by 동기 -->
-	<select id="selectMemberListBySamePeriod" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
+	<select id="selectMemberListBySamePeriod" parameterType="String" resultMap="MemberMap">
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.profile_img
+		    , m.reg_user
+		    , m.reg_date
+		    , m.mod_date
+		    , m.mem_state
+		    , m.del_yn
+		    , d.d_name as d_d_name
+		    , t.t_short_name as t_t_short_name
+		    , sp.birth_year as sp_birth_year
+		FROM member m
 		LEFT OUTER JOIN depart d ON d.id = m.depart_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where m.del_yn = 'N'
-			and m.mem_state != '5'
-			and m.mem_state != '6'
-		order by d.d_name asc, t.t_short_name asc, m.name asc
+		WHERE 1=1
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
+		ORDER BY
+			FIELD(sp.id, #{sId}) DESC
+			, d.d_name ASC
+			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			, FIELD(t.t_short_name, '기쁨') ASC
+			, t.t_short_name ASC
+			, m.name ASC
 	</select>
 	
 	
 	<!-- 동기별 멤버 불러오기 -->
 	<select id="selectMemberListBySamePeriodPer" parameterType="String" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.profile_img
+		    , m.reg_user
+		    , m.reg_date
+		    , m.mod_date
+		    , m.mem_state
+		    , m.del_yn
+		    , d.d_name as d_d_name
+		    , t.t_short_name as t_t_short_name
+		    , sp.birth_year as sp_birth_year
+		FROM member m
 		LEFT OUTER JOIN depart d ON d.id = m.depart_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where m.same_period_id = #{sId}
-			and m.del_yn = 'N'
-			and m.mem_state != '5'
-			and m.mem_state != '6'
-		order by d.d_name asc, t.t_short_name, m.name asc
+		WHERE 1=1
+			AND m.same_period_id = #{sId}
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
+		ORDER BY 
+			d.d_name ASC
+			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			, FIELD(t.t_short_name, '기쁨') ASC
+			, t.t_short_name ASC
+			, m.name ASC
 	</select>
 	
 	
 
 	<!-- Id 값으로 멤버 불러오기 -->
 	<select id="selectMember" parameterType="Member" resultMap="MemberMap">
-		select
-			m.id,
-		    m.name,
-		    m.guider,
-		    m.depart_id,
-		    m.team_id,
-		    m.group_id,
-		    m.group_grade,
-		    m.date_of_birth,
-		    m.htel,
-		    m.gender,
-		    m.same_period_id,
-		    m.profile_img,
-		    m.reg_user,
-		    m.reg_date,
-		    m.mod_date,
-		    m.mem_state,
-		    m.del_yn,
-		    d.d_name as d_d_name,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from member m
-		LEFT OUTER JOIN depart d ON d.id = m.depart_id
-		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
-		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
-		where m.id = #{id}
-		and m.del_yn = 'N'
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.mem_state
+		FROM member m
+		WHERE 1=1
+			AND m.id = #{id}
+			AND m.del_yn = 'N'
 	</select>
 
 	<!-- 멤버 정보 수정 -->
 	<update id="updateMember" parameterType="Member">
-		update member
+		UPDATE member
     	<set>
 			<if test="name != null">
 				name = #{name},
@@ -396,12 +370,6 @@
 	      	<if test="teamId != null">
 	        	team_id = #{teamId},
 	      	</if>
-	      	<if test="groupId != null">
-	        	group_id = #{groupId},
-	      	</if>
-	      	<if test="groupGrade != null">
-	        	group_grade = #{groupGrade},
-	      	</if>
 	      	<if test="gender != null">
 	        	gender = #{gender},
 	      	</if>
@@ -415,39 +383,42 @@
 	        	mem_state = #{memState}
 	      	</if>
 	    </set>
-		where id = #{id}
+		WHERE id = #{id}
 	</update>
 	
 	
 	<!-- 멤버 삭제 -->
 	<update id="deleteMember" parameterType="Member">
-		update member set del_yn = 'Y' where id = #{id}
+		UPDATE member SET del_yn = 'Y' WHERE id = #{id}
 	</update>
 	
 	
 	<!-- 그룹의 cnt 구하기 -->
-	<select id="selectGroupCnt" parameterType="int" resultType="int">
-		select count(*) from ( 
-			select
-				id
-			from member
-			where group_id = #{id}
-				and del_yn = 'N'
-				and mem_state != '5'
-				and mem_state != '6'
+	<select id="selectGroupCnt" parameterType="Group" resultType="int">
+		SELECT COUNT(*) FROM ( 
+			SELECT
+				at.id
+			FROM attendance_${year} at
+            LEFT OUTER JOIN member m ON m.id = at.member_id
+			WHERE 1=1
+				AND at.group_id = #{id}
+				AND m.del_yn = 'N'
+				AND m.mem_state NOT IN ('5', '6')
+			GROUP BY
+				at.member_id
 		) a
 	</select>
 	
 	<!-- 동기의 cnt 구하기 -->
 	<select id="selectSamePeriodCnt" parameterType="int" resultType="int">
-		select count(*) from ( 
-			select
+		SELECT COUNT(*) FROM ( 
+			SELECT
 				id
-			from member
-			where same_period_id = #{id}
-				and del_yn = 'N'
-				and mem_state != '5'
-				and mem_state != '6'
+			FROM member m
+			WHERE 1=1
+				AND m.same_period_id = #{id}
+				AND m.del_yn = 'N'
+				AND m.mem_state NOT IN ('5', '6')
 		) a
 	</select>
 	

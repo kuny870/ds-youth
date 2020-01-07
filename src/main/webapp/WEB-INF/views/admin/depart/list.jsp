@@ -22,9 +22,7 @@
    				<span class="shop-link-login" onclick="adminList()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	부서 관리               
-		        </p>
+			    <p class="head_title text-center">부서 관리</p>
             
 				<div class="div-container">
 					

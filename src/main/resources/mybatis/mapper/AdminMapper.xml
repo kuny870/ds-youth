@@ -14,7 +14,7 @@
   	<!-- 팀 -->
 	<resultMap id="TeamMap" type="Team">
 	    <id column="id" jdbcType="INTEGER" property="id" />
-	    <result column="depart_id" jdbcType="INTEGER" property="departId" />
+	    <result column="depart_id" jdbcType="VARCHAR" property="departId" />
 		<result column="t_short_name" jdbcType="VARCHAR" property="tShortName" />
 		<result column="t_full_name" jdbcType="VARCHAR" property="tFullName" />
 		<result column="t_theme" jdbcType="VARCHAR" property="tTheme" />
@@ -27,8 +27,10 @@
   	<!-- 순 -->
 	<resultMap id="GroupMap" type="Group">
 	    <id column="id" jdbcType="INTEGER" property="id" />
-	    <result column="depart_id" jdbcType="INTEGER" property="departId" />
-		<result column="team_id" jdbcType="INTEGER" property="teamId" />
+	    <result column="year" jdbcType="VARCHAR" property="year" />
+	    <result column="season" jdbcType="VARCHAR" property="season" />
+	    <result column="depart_id" jdbcType="VARCHAR" property="departId" />
+		<result column="team_id" jdbcType="VARCHAR" property="teamId" />
 		<result column="g_name" jdbcType="VARCHAR" property="gName" />
 		<result column="cnt" jdbcType="INTEGER" property="cnt" />
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
@@ -162,19 +164,23 @@
 
 	<!-- 팀 리스트 불러오기 -->
 	<select id="selectTeamList" resultMap="TeamMap">
-		select
-			t.id,
-		 	t.depart_id,
- 			t.t_short_name,
- 			t.t_full_name,
- 			t.t_theme,
- 			t.del_yn,
- 			d.d_name as d_d_name
-		from team t
+		SELECT
+			t.id
+			, t.depart_id
+			, t.t_short_name
+			, t.t_full_name
+			, t.t_theme
+			, t.del_yn
+			, d.d_name as d_d_name
+		FROM team t
 		LEFT OUTER JOIN depart d ON d.id = t.depart_id  
-		where t.del_yn = 'N'
-			and t.t_short_name != '기타'
-		order by d.d_name asc, t.t_short_name asc
+		WHERE t.del_yn = 'N'
+			AND t.t_short_name != '기타'
+		ORDER BY
+			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			, d.d_name ASC
+			, FIELD(t.t_short_name, '기쁨') ASC
+			, t.t_short_name ASC
 	</select>
 	
 	<!-- 같은 팀이 있는지 체크 -->
@@ -194,32 +200,41 @@
 
 	<!-- 팀리스트 불러오기 (by 부서) -->
   	<select id="selectTeamByDepart" parameterType="String" resultMap="TeamMap">
-  		select 
-  			 id,
-  			 depart_id,
-  			 t_short_name,
-  			 t_full_name,
-  			 t_theme,
-  			 del_yn
-  		from team 
-  		where depart_id = #{departId}
-  		order by t_short_name asc
+  		SELECT 
+  			 id
+  			 , depart_id
+  			 , t_short_name
+  			 , t_full_name
+  			 , t_theme
+  			 , del_yn
+  		FROM team t
+  		WHERE t.depart_id = #{departId}
+  		ORDER BY
+  			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+  			, FIELD(t.t_short_name, '기쁨') ASC
+  			, t.t_short_name ASC
   	</select>
   	
   	
   	<!-- 순 리스트 불러오기 (by 팀) -->
-  	<select id="selectGroupListByTeam" parameterType="String" resultMap="GroupMap">
-  		select 
-  			 id,
-  			 depart_id,
-  			 team_id,
-  			 g_name,
-  			 reg_user,
-  			 del_yn
-  		from `group` 
-  		where team_id = #{teamId}
-  			and del_yn = 'N'
-  		order by g_name asc
+  	<select id="selectGroupListByTeam" parameterType="Group" resultMap="GroupMap">
+  		SELECT 
+  			 id
+  			 , year
+  			 , season
+  			 , depart_id
+  			 , team_id
+  			 , substring(g_name, 3) as g_name
+  			 , reg_user
+  			 , del_yn
+  		FROM `group` 
+  		WHERE 1=1 
+  			AND team_id = #{teamId}
+  			AND year = #{year}
+  			AND season = #{season}
+  			AND del_yn = 'N'
+  		ORDER BY 
+  			g_name ASC
   	</select>
   	
   	
@@ -234,7 +249,7 @@
 	
 	
 	<!-- 팀 Id 값으로 팀 불러오기 -->
-	<select id="selectTeamById" parameterType="int" resultMap="TeamMap">
+	<select id="selectTeamById" parameterType="String" resultMap="TeamMap">
 		select
 			*
 		from team
@@ -280,6 +295,12 @@
 	<insert id="insertGroup" parameterType="Group">
        insert into `group`
           <trim prefix="(" suffix=")" suffixOverrides=",">
+          		 <if test="year != null">
+                       year,
+                 </if>
+                 <if test="season != null">
+                       season,
+                 </if>
           		 <if test="departId != null">
                        depart_id,
                  </if>
@@ -294,6 +315,12 @@
                  </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="year != null">
+	                 #{year},
+	           </if>
+	           <if test="season != null">
+	                 #{season},
+	           </if>
 	           <if test="departId != null">
 	                 #{departId},
 	           </if>
@@ -314,6 +341,12 @@
 	<update id="updateGroup" parameterType="Group">
 		update `group`
 	    <set>
+	    	<if test="year != null">
+	        	year = #{year},
+	      	</if>
+	      	<if test="season != null">
+	        	season = #{season},
+	      	</if>
 	      	<if test="departId != null">
 	        	depart_id = #{departId},
 	      	</if>
@@ -329,32 +362,59 @@
 
 
 	<!-- 순명 리스트 불러오기 -->
-	<select id="selectGroupList" resultMap="GroupMap">
-		select
-			g.id,
-			g.depart_id,
-			g.team_id,
-			g.g_name,
-			g.reg_user,
-			g.del_yn,
-			d.d_name as d_d_name,
-			t.t_short_name as t_t_short_name
-		from `group` g
+	<select id="selectGroupList" parameterType="Group" resultMap="GroupMap">
+		SELECT
+			g.id
+			, g.year
+			, g.season
+			, g.depart_id
+			, g.team_id
+			, g.g_name
+			, g.reg_user
+			, g.del_yn
+			, d.d_name as d_d_name
+			, t.t_short_name as t_t_short_name
+		FROM `group` g
 		LEFT OUTER JOIN depart d ON d.id = g.depart_id  
 		LEFT OUTER JOIN team t ON t.id = g.team_id  
-		where g.del_yn = 'N'
-		order by g.team_id asc, g.g_name asc
+		WHERE 1=1 
+  			AND g.year = #{year}
+  			AND g.season = #{season}
+  			AND g.del_yn = 'N'
+		ORDER BY
+			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			, d.d_name ASC
+			, FIELD(t.t_short_name, '기쁨') ASC
+			, t.t_short_name ASC
+			, g.g_name ASC
+	</select>
+	
+	
+	<!-- 순명 불러오기 -->
+	<select id="selectGroup" parameterType="int" resultMap="GroupMap">
+		SELECT
+			g.id
+			, g.year
+			, g.season
+			, g.depart_id
+			, g.team_id
+			, g.g_name
+			, g.reg_user
+			, g.del_yn
+			, d.d_name as d_d_name
+			, t.t_short_name as t_t_short_name
+		FROM `group` g
+		LEFT OUTER JOIN depart d ON d.id = g.depart_id  
+		LEFT OUTER JOIN team t ON t.id = g.team_id  
+		WHERE
+			g.id = #{id}
+			AND g.del_yn = 'N'
 	</select>
 
 	
 	<!-- 순명 삭제 -->
 	<update id="deleteGroup" parameterType="Group">
 		update `group` set del_yn = 'Y' where id = #{id}
-	</update>
-	
-	<!-- 순명 삭제에 의한 멤버 상태 초기화 -->
-	<update id="deleteGroupId" parameterType="Group">
-		update member set group_id = null, group_grade = '순원' where group_id = #{id}
 	</update>
 	
 	

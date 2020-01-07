@@ -24,9 +24,8 @@
 			<span class="shop-link-login" onclick="retreat()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="shop_name text-center">
-                 	수련회 등록               
-            </p>
+			<p class="head_title text-center">수련회 등록</p>
+			
             <div class="form">
                 <form id="retreatRegistForm">
                     <div class="form-middle">

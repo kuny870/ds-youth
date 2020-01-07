@@ -18,7 +18,7 @@
   <body>
     <div class="container">
    		<div class="header-product">
-            <p class="shop_name text-center" style="background: white;">
+            <p class="main_title text-center" style="background: white;">
                  <img src="${resourcesPath }/assets/images/dsyouth_logo.png" class="main-img"> <span class="main-title"> 청년부</span>
             </p>
             <div class="mypage-wrap">
@@ -37,10 +37,10 @@
 	                    <div class="mypage-row">
 	                    	<c:choose>
                        			<c:when test="${departList.size() == 0 || teamList.size() == 0}">
-                       				<a href="#" onclick="alert('부서와 팀을 먼저 셋팅해주세요!')">출석 관리</a>
+                       				<a href="#" onclick="alert('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/attendance/list?team=${login.team.tShortName}">출석 관리</a>
+                       				<a href="${contextPath }/attendance/list?team=${login.team.tShortName}">출석부</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>
@@ -59,19 +59,22 @@
 	                <!-- 수련회 -->
 	                <h3>수련회</h3>
 	                <div class="mypage-rows">
-	                    <div class="mypage-row">
-                      		<a href="${contextPath }/admin/retreat/list">수련회 관리</a>
+	                	<div class="mypage-row">
+               				<%-- <a href="${contextPath }/retreat/list">가족 편성표</a> --%>
+               				<a href="#" onclick="alert('준비중 입니다.')">가족 편성표</a>
 	                    </div>
-	                    <div class="mypage-row">
-	                    	<c:choose>
-                       			<c:when test="${retreatList.size() == 0}">
-                       				<a href="#" onclick="alert('수련회 관리에서 가족을 편성해 주세요!')">가족 편성표</a>
-                       			</c:when>
-                       			<c:otherwise>
-                       				<a href="${contextPath }/retreat/list">가족 편성표</a>
-                       			</c:otherwise>
-	                        </c:choose>
-	                    </div>
+	                	<c:if test="${login.loginId == 'admin' 
+	                					|| login.name == '문시은'
+	                					|| login.name == '유호연'
+	                					|| login.name == '이지선'
+	                					|| login.name == '최민호'
+	                					|| login.name == '맹주옥'
+	                					|| login.name == '서유리'
+	                					|| login.name == '김재달'}">
+		                    <div class="mypage-row">
+	                      		<a href="${contextPath }/admin/retreat/list">수련회 관리</a>
+		                    </div>
+	                    </c:if>
 	                </div>
 				
 					<h3>동기</h3>
@@ -111,6 +114,7 @@
                     </div>
                 </div> --%>
                 
+                <!-- 
                 <h3>게시판</h3>
                 <div class="mypage-rows">
                     <div class="mypage-row">
@@ -120,7 +124,8 @@
                         <a href="${contextPath }/board/free">자유 게시판</a>
                     </div>
                 </div>
-                
+                 -->
+                 
                 <h3>설정</h3>
                 <div class="mypage-rows">
                 	<c:if test="${login.authId != 1}">

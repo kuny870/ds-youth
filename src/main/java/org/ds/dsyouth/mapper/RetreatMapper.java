@@ -17,8 +17,14 @@ public interface RetreatMapper {
 	boolean insertFamily(Family family);
 	boolean deleteFamily(Family family);
 	
-	boolean insertFamilyMember(FamilyMember famMember);
+	boolean insertFamilyMember(FamilyMember fm);
+	boolean updateFamilyMember(FamilyMember fm);
+	boolean deleteFamilyMemberByRetreat(Retreat retreat);
+//	boolean deleteFamilyMemberByFamily(Family family);
+	boolean createFamilyMemberTable(Retreat retreat);
 	
+	Retreat selectRetreat(String id);
+	Family selectFamily(String id);
 	List<Retreat> selectRetreatList();
 	List<Family> selectFamilyList(Retreat retreat);
 	List<FamilyMember> selectFamilyMemberList(RetreatSearch retreatSearch);

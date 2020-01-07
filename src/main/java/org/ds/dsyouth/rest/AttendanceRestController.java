@@ -21,6 +21,68 @@ public class AttendanceRestController {
 
 	
 	/**
+	 * 출석부 수정 - group
+	 * @param groupStudy
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/attGroup/edit", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse attGroup_regist(
+			String gId,
+			String[] memberArr,
+			String year,
+			String season,
+			HttpServletRequest request) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			for (int i = 0; i < memberArr.length; i++) {
+				Attendance att = new Attendance();
+				att.setMemberId(memberArr[i]);
+				att.setGroupId(gId);
+				att.setYear(year);
+				att.setSeason(season);
+				attendanceService.modifyAttendanceGroup(att);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
+	/**
+	 * 출석부 수정 - group_grade
+	 * @param attendance
+	 * @return
+	 */
+	@RequestMapping(value = "/attGroupGrade/edit", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse attGroupGrade_edit(
+			Attendance attendance) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			attendanceService.modifyAttendanceGroupGrade(attendance);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
+	/**
 	 * 출석 적용
 	 * @param aId
 	 * @param arr
@@ -53,7 +115,7 @@ public class AttendanceRestController {
 				if(fifthWeek != null) {
 					att.setFifthWeek(fifthWeek[i]);
 				}
-				attendanceService.modifyAttendance(att);
+				attendanceService.modifyAttendanceCheck(att);
 			}
 			
 		} catch (Exception e) {

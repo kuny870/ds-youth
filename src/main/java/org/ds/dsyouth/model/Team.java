@@ -3,7 +3,7 @@ package org.ds.dsyouth.model;
 public class Team {
 
 	private Integer id;
-	private Integer departId;
+	private String departId;
 	private String tShortName;
 	private String tFullName;
 	private String tTheme;
@@ -29,10 +29,10 @@ public class Team {
 	public void settFullName(String tFullName) {
 		this.tFullName = tFullName;
 	}
-	public Integer getDepartId() {
+	public String getDepartId() {
 		return departId;
 	}
-	public void setDepartId(Integer departId) {
+	public void setDepartId(String departId) {
 		this.departId = departId;
 	}
 	public Depart getDepart() {

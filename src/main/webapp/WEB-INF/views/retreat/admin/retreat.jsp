@@ -22,9 +22,7 @@
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	수련회               
-		        </p>
+			    <p class="head_title text-center">수련회 관리</p>
             
 				<div class="div-container">
 					
@@ -41,7 +39,7 @@
 			                    <tbody>
 			                    	<c:forEach var="retreat" items="${retreatList}" varStatus="i">
 			                    		<tr>
-				                            <td class="css-a">
+				                            <td class="css-a3">
 				                            	<a href="${contextPath }/admin/retreat/family/list/${retreat.id}">${retreat.year} ${retreat.season} ${retreat.retreatName}</a>
 				                            	<input type="hidden" id="${retreat.id}-input-hidden" value="${retreat.year} ${retreat.season} ${retreat.retreatName}" />
 				                            </td>

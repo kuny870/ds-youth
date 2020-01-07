@@ -12,8 +12,6 @@ public class Member {
 	private String dateOfBirth;
 	private Integer departId;
 	private Integer teamId;
-	private Integer groupId;
-	private String groupGrade;
 	private String htel;
 	private String gender;
 	private Integer samePeriodId;
@@ -23,11 +21,20 @@ public class Member {
 	private Date modDate;
 	private String memState;
 	private String delYn;
+	
 	private Depart depart;
 	private Team team;
 	private Group group;
 	private SamePeriod samePeriod;
+	private Attendance attendance;
 	
+	
+	public Attendance getAttendance() {
+		return attendance;
+	}
+	public void setAttendance(Attendance attendance) {
+		this.attendance = attendance;
+	}
 	public String getGuider() {
 		return guider;
 	}
@@ -42,12 +49,6 @@ public class Member {
 	}
 	public SamePeriod getSamePeriod() {
 		return samePeriod;
-	}
-	public Integer getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
 	}
 	public Group getGroup() {
 		return group;
@@ -155,12 +156,6 @@ public class Member {
 	}
 	public void setSamePeriodId(Integer samePeriodId) {
 		this.samePeriodId = samePeriodId;
-	}
-	public String getGroupGrade() {
-		return groupGrade;
-	}
-	public void setGroupGrade(String groupGrade) {
-		this.groupGrade = groupGrade;
 	}
 	public String getMemState() {
 		return memState;

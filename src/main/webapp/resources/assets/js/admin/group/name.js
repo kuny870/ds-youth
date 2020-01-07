@@ -1,7 +1,7 @@
 //순명 등록
 $("#registGroupForm").submit(function(e) {
 
-	var $team = $('#team');
+	var $team = $('#teamId');
 	var $gName = $('#gName');
 
 	var validateMessage = null;
@@ -55,6 +55,9 @@ function modify(id) {
 	var $targetModifyBtn = $("button[id="+ id + "-modify-btn]");
 	var $targetRemoveBtn = $("button[id="+ id + "-remove-btn]");
 	
+	var year = $('#year').val();
+	var season = $('#season').val();
+	
 	// aTag 와 input 태그 크로스
 	if(gNameATag.style.display != 'none'){
 		gNameATag.style.display = 'none';
@@ -79,7 +82,9 @@ function modify(id) {
     	          url: url,
     	          data: {
     	        	  id : id,
-    	        	  gName : gNameInput.value
+    	        	  gName : gNameInput.value,
+    	        	  year : year,
+    	        	  season : season
     	          }, // serializes the form’s elements.
     	          success: function(result)
     	          {
@@ -146,4 +151,15 @@ function remove(id) {
     	
     }
 
+}
+
+
+// 순 리스트 조회
+function groupSearch() {
+	
+	var year = $('#year').val();
+	var season = $('#season').val();
+	
+	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
+	
 }

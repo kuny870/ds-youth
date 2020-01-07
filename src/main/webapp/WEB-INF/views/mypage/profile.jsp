@@ -24,9 +24,8 @@
 			<span class="shop-link-login" onclick="mypage()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="shop_name text-center">
-                 	기본정보 관리               
-            </p>
+			<p class="head_title text-center">기본정보 관리</p>
+			
             <div class="form">
                 <form enctype="application/x-www-form-urlencoded" id="profileForm">
                     <div class="form-middle">

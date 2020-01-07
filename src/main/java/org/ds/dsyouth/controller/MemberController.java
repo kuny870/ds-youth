@@ -93,9 +93,11 @@ public class MemberController {
 		
 		List<Depart> departList = adminService.getDepartList();
 		List<Team> teamList = adminService.getTeamList();
-		List<Group> groupList = adminService.getGroupListByTeam(memberSearch.getTeamId());
+		Group group = new Group();
+		group.setTeamId(memberSearch.getTeamId());
+		List<Group> groupList = adminService.getGroupListByTeam(group);
 
-		String year = DateHelper.getDate().substring(0, 4);
+		String year = DateHelper.getYear();
 		
 		ModelAndView mav = new ModelAndView("member/list");
 		
@@ -125,7 +127,7 @@ public class MemberController {
 			samePeriodList.get(i).setCnt(cnt);
 		}
 		
-		String year = DateHelper.getDate().substring(0, 4);
+		String year = DateHelper.getYear();
 		
 		ModelAndView mav = new ModelAndView("samePeriod/list");
 		
@@ -146,7 +148,7 @@ public class MemberController {
 
 		List<Member> memberList = memberService.getMemberListBySamePeriodPer(map.get("sId"));
 		
-		String year = DateHelper.getDate().substring(0, 4);
+		String year = DateHelper.getYear();
 		
 		ModelAndView mav = new ModelAndView("samePeriod/detail");
 		

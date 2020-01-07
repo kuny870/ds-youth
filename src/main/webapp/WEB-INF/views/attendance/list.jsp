@@ -23,9 +23,8 @@
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	출석 관리       
-		        </p>
+			    <p class="main_title text-center">출석부</p>
+			    <!-- <img src="${resourcesPath }/assets/images/excel_download.png" class="attendance-img" onclick="excelDown('${attendanceSearch.year}','${attendanceSearch.month }')"> -->
             
 				<div class="div-container">
                     
@@ -55,7 +54,7 @@
                    		<select class="select-fix" id="year" name="year" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="year" items="${yearList }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${year eq attSearch.getYear() }">
+								<c:if test="${year eq attendanceSearch.getYear() }">
 									<c:set var="selected" value="selected" />
 								</c:if>
 								<option value="${year}" ${selected} >${year}년</option>
@@ -68,7 +67,7 @@
                    		<select class="select-fix" id="month" name="month" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="month" items="${SMonthSearchType }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${month.getVName() eq attSearch.getMonth() }">
+								<c:if test="${month.getVName() eq attendanceSearch.getMonth() }">
 									<c:set var="selected" value="selected" />
 								</c:if>
 								<option value="${month.getVName()}" ${selected} >${month.getVName()}월</option>
@@ -77,7 +76,7 @@
                     </div>    
                     
 		            <div>
-		            	<button class="basic-btn attendance-list-btn" onclick="attSearch()">조회</button>
+		            	<button class="basic-btn attendance-list-btn" onclick="attendanceSearch()">조회</button>
 		            </div>
 
                     
@@ -90,7 +89,7 @@
 			                            <th class="th-5p6">No</th>
 			                            <th class="th-20p0">
 			                            	 <c:choose>
-							                	<c:when test="${attendanceSearch.getTeam() == '제1새가족' || attendanceSearch.getTeam() == '제2새가족'}">
+							                	<c:when test="${attendanceSearch.getTeam() == '1새가족' || attendanceSearch.getTeam() == '2새가족'}">
 							                		인도자
 							                	</c:when>
 							                	<c:otherwise>
@@ -105,126 +104,150 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                    	<c:forEach var="att" items="${attendanceList}" varStatus="i">
-			                    		<input type="hidden" id="${att.id}" name="aId"/>
-			                    		<tr>
-				                            <td>${i.index + 1}</td>
-				                            <td>
-				                            	<c:choose>
-			                            			<c:when test="${att.attYn == 'Y'}">
-			                            				 <c:choose>
-										                	<c:when test="${attendanceSearch.getTeam() == '제1새가족' || attendanceSearch.getTeam() == '제2새가족'}">
-										                		${att.member.guider}
-										                	</c:when>
-										                	<c:otherwise>
-										                		${att.group.gName}
-										                	</c:otherwise>
-										                </c:choose>
-			                            			</c:when>
-			                            			<c:otherwise>
-			                            			</c:otherwise>
-			                            		</c:choose>
-				                            </td>
-				                            <c:set var="bold" value=""/>
-				                            <c:set var="italic" value=""/>
-				                            <c:if test="${att.member.groupGrade == '순장' }">
-				                            	<c:set var="bold" value="700"/>
-				                            </c:if>
-				                            <c:if test="${att.member.memState != '1' }">
-				                            	<c:set var="italic" value="italic"/>
-				                            </c:if>
-				                            <td style="font-weight: ${bold}; font-style: ${italic};">
-				                            	<c:choose>
-			                            			<c:when test="${att.attYn == 'Y'}">
-			                            				${att.member.name }
-			                            				<!-- 동기 표시 -->
-			                            				<c:if test="${att.member.samePeriodId != null }">
-						                            		<c:choose>
-						                            			<c:when test="${year - att.samePeriod.birthYear < 19}">
-						                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 19}">
-						                            				(1)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 20}">
-						                            				(2)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 21}">
-						                            				(3)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 22}">
-						                            				(4)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 23}">
-						                            				(5)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 24}">
-						                            				(6)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 25}">
-						                            				(7)
-						                            			</c:when>
-						                            			<c:when test="${year - att.samePeriod.birthYear == 26}">
-						                            				(8)
-						                            			</c:when>
-						                            			<c:otherwise>
-						                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
-						                            			</c:otherwise>
-						                            		</c:choose>
-						                            	</c:if>
-			                            			</c:when>
-			                            			<c:otherwise>
-			                            				2부
-			                            			</c:otherwise>
-			                            		</c:choose>
-				                            </td>
-				                            <c:forEach var="sun" items="${sunday}" varStatus="i">
-				                            	<c:set var="checked" value=""/>
-				                            	<c:choose>
-			                            			<c:when test="${i.index == 0}">
-			                            				<c:if test="${att.firstWeek == 'Y' }" >
-						                            		<c:set var="checked" value="checked"/>
-						                            	</c:if>
-						                            	<td>
-						                            		<input type="checkbox" id="firstWeek" name="firstWeek" ${checked} >
-						                            	</td>
-			                            			</c:when>
-			                            			<c:when test="${i.index == 1}">
-			                            				<c:if test="${att.secondWeek == 'Y' }" >
-						                            		<c:set var="checked" value="checked"/>
-						                            	</c:if>
-						                            	<td>
-						                            		<input type="checkbox" id="secondWeek" name="secondWeek" ${checked} >
-						                            	</td>
-			                            			</c:when>
-			                            			<c:when test="${i.index == 2}">
-			                            				<c:if test="${att.thirdWeek == 'Y' }" >
-						                            		<c:set var="checked" value="checked"/>
-						                            	</c:if>
-						                            	<td>
-						                            		<input type="checkbox" id="thirdWeek" name="thirdWeek" ${checked} >
-						                            	</td>
-			                            			</c:when>
-			                            			<c:when test="${i.index == 3}">
-			                            				<c:if test="${att.fourthWeek == 'Y' }" >
-						                            		<c:set var="checked" value="checked"/>
-						                            	</c:if>
-						                            	<td>
-						                            		<input type="checkbox" id="fourthWeek" name="fourthWeek" ${checked} >
-						                            	</td>
-			                            			</c:when>
-			                            			<c:otherwise>
-			                            				<c:if test="${att.fifthWeek == 'Y' }" >
-						                            		<c:set var="checked" value="checked"/>
-						                            	</c:if>
-						                            	<td>
-						                            		<input type="checkbox" id="fifthWeek" name="fifthWeek" ${checked} >
-						                            	</td>
-			                            			</c:otherwise>
-			                            		</c:choose>
-				                            </c:forEach>
-				                        </tr>
-									</c:forEach>
+			                    
+			                    
+			                    	<c:choose>
+										<c:when test="${attendanceList.size() == 0}">
+											<tr>
+												<td colspan="7">
+													<div class="no-attendance">순편성을 진행해 주세요</div>
+												</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+											
+											<c:forEach var="att" items="${attendanceList}" varStatus="i">
+					                    		<input type="hidden" id="${att.id}" name="aId"/>
+					                    		<tr>
+						                            <td>${i.index + 1}</td>
+						                            <td>
+						                            	<c:choose>
+					                            			<c:when test="${att.attYn == 'Y'}">
+					                            				 <c:choose>
+												                	<c:when test="${attendanceSearch.getTeam() == '1새가족' || attendanceSearch.getTeam() == '2새가족'}">
+												                		${att.member.guider}
+												                	</c:when>
+												                	<c:otherwise>
+												                		${att.group.gName}
+												                	</c:otherwise>
+												                </c:choose>
+					                            			</c:when>
+					                            			<c:otherwise>
+					                            			</c:otherwise>
+					                            		</c:choose>
+						                            </td>
+						                            <c:set var="bold" value=""/>
+						                            <c:set var="italic" value=""/>
+						                            <c:if test="${att.groupGrade == '순장' }">
+						                            	<c:set var="bold" value="700"/>
+						                            </c:if>
+						                            <c:if test="${att.member.memState != '1' }">
+						                            	<c:set var="italic" value="italic"/>
+						                            </c:if>
+						                            <td style="font-weight: ${bold}; font-style: ${italic};">
+						                            	<c:choose>
+					                            			<c:when test="${att.attYn == 'Y'}">
+					                            				${att.member.name }
+					                            				<!-- 동기 표시 -->
+					                            				<c:if test="${att.member.samePeriodId != null }">
+								                            		<c:choose>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear < 19}">
+								                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 19}">
+								                            				(1)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 20}">
+								                            				(2)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 21}">
+								                            				(3)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 22}">
+								                            				(4)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 23}">
+								                            				(5)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 24}">
+								                            				(6)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 25}">
+								                            				(7)
+								                            			</c:when>
+								                            			<c:when test="${attendanceSearch.getYear() - att.samePeriod.birthYear == 26}">
+								                            				(8)
+								                            			</c:when>
+								                            			<c:otherwise>
+								                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
+								                            			</c:otherwise>
+								                            		</c:choose>
+								                            	</c:if>
+					                            			</c:when>
+					                            			<c:otherwise>
+					                            				2부
+					                            			</c:otherwise>
+					                            		</c:choose>
+						                            </td>
+						                            <c:forEach var="sun" items="${sunday}" varStatus="i">
+						                            	<c:set var="checked" value=""/>
+						                            	<c:choose>
+					                            			<c:when test="${i.index == 0}">
+					                            				<c:if test="${att.firstWeek == 'Y' }" >
+								                            		<c:set var="checked" value="checked"/>
+								                            	</c:if>
+								                            	<td>
+								                            		<input type="checkbox" id="firstWeek" name="firstWeek" ${checked} >
+								                            	</td>
+					                            			</c:when>
+					                            			<c:when test="${i.index == 1}">
+					                            				<c:if test="${att.secondWeek == 'Y' }" >
+								                            		<c:set var="checked" value="checked"/>
+								                            	</c:if>
+								                            	<td>
+								                            		<input type="checkbox" id="secondWeek" name="secondWeek" ${checked} >
+								                            	</td>
+					                            			</c:when>
+					                            			<c:when test="${i.index == 2}">
+					                            				<c:if test="${att.thirdWeek == 'Y' }" >
+								                            		<c:set var="checked" value="checked"/>
+								                            	</c:if>
+								                            	<td>
+								                            		<input type="checkbox" id="thirdWeek" name="thirdWeek" ${checked} >
+								                            	</td>
+					                            			</c:when>
+					                            			<c:when test="${i.index == 3}">
+					                            				<c:if test="${att.fourthWeek == 'Y' }" >
+								                            		<c:set var="checked" value="checked"/>
+								                            	</c:if>
+								                            	<td>
+								                            		<input type="checkbox" id="fourthWeek" name="fourthWeek" ${checked} >
+								                            	</td>
+					                            			</c:when>
+					                            			<c:otherwise>
+					                            				<c:if test="${att.fifthWeek == 'Y' }" >
+								                            		<c:set var="checked" value="checked"/>
+								                            	</c:if>
+								                            	<td>
+								                            		<input type="checkbox" id="fifthWeek" name="fifthWeek" ${checked} >
+								                            	</td>
+					                            			</c:otherwise>
+					                            		</c:choose>
+						                            </c:forEach>
+						                        </tr>
+											</c:forEach>
+											
+											
+											
+										</c:otherwise>			                    	
+			                    	</c:choose>
+			                    
+			                    
+			                    	
+									
+									
+									
+									
                                     
 			                    </tbody>
 			                    <tfoot>

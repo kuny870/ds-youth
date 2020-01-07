@@ -21,7 +21,7 @@ public interface AdminService {
 	boolean modifyTeam(Team team) throws TeamDuplicatedException;
 	boolean removeTeam(Team team);
 	Team getTeam(Team team);
-	Team getTeamById(int teamId);
+	Team getTeamById(String teamId);
 	List<Team> getTeamList();
 	List<Team> getTeamByDepart(String departId);	// 팀리스트 불러오기 (by 부서)
 	
@@ -36,8 +36,9 @@ public interface AdminService {
 	boolean registGroup(Group group);
 	boolean modifyGroup(Group group);
 	boolean removeGroup(Group group);
-	List<Group> getGroupList();
-	List<Group> getGroupListByTeam(String teamId);
+	Group getGroup(int id);
+	List<Group> getGroupList(Group group);
+	List<Group> getGroupListByTeam(Group group);
 	
 	// 동기명
 	boolean registSamePeriod(SamePeriod samePeriod) throws BirthYearDuplicatedException;

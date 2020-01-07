@@ -1,17 +1,45 @@
 package org.ds.dsyouth.model;
 
+import org.ds.dsyouth.utils.DateHelper;
+
 public class Group {
 
 	private Integer id;
-	private Integer departId;
-	private Integer teamId;
+	private String year;
+	private String season;
+	private String departId;
+	private String teamId;
 	private String gName;
 	private Integer cnt;
 	private Integer regUser;
 	private String delYn;
+	
 	private Depart depart;
 	private Team team;
 	
+	public Group() {
+		this.year = DateHelper.getYear();
+		if(Integer.parseInt(DateHelper.getMonth()) < 7) {
+			this.season = "상반기";
+		}else {
+			this.season = "하반기";
+		}
+	}
+	
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+	public void setSeason(String season) {
+		this.season = season;
+	}
 	public Depart getDepart() {
 		return depart;
 	}
@@ -24,18 +52,22 @@ public class Group {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	public Integer getDepartId() {
+	public String getDepartId() {
 		return departId;
 	}
-	public void setDepartId(Integer departId) {
+
+	public void setDepartId(String departId) {
 		this.departId = departId;
 	}
-	public Integer getTeamId() {
+
+	public String getTeamId() {
 		return teamId;
 	}
-	public void setTeamId(Integer teamId) {
+
+	public void setTeamId(String teamId) {
 		this.teamId = teamId;
 	}
+
 	public Integer getId() {
 		return id;
 	}

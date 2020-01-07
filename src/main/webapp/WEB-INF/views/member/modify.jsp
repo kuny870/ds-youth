@@ -24,9 +24,8 @@
 			<span class="shop-link-login" onclick="memberList()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="shop_name text-center">
-                 	팀원 정보
-            </p>
+			<p class="head_title text-center">팀원 정보</p>
+			
             <div class="form">
                 <form enctype="application/x-www-form-urlencoded" id="memberModifyForm">
                     <div class="form-middle">
@@ -36,15 +35,6 @@
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	<input type="hidden" id="id" name="id" value="${member.id }" />
                     	
-                    	<%-- <label>
-                    		<c:set var="checked" value=""/>
-                    		<c:if test="${member.longAbsent == 'Y' }">
-                    			<c:set var="checked" value="checked"/>
-                    		</c:if>
-                    		<input type="hidden" id="longAbsent" name="longAbsent" value="${member.longAbsent }" />
-                        	<input type="checkbox" id="longAbsentChk" name="longAbsentChk" ${checked}>
-	                      		장기결석 여부
-	            		</label> --%>
 	            		
 	            		<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
                     	<div class="customer-select selectbox">

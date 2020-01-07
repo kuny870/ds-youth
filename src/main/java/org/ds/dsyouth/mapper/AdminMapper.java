@@ -27,7 +27,7 @@ public interface AdminMapper {
 	boolean deleteTeam(Team team);
 	boolean deleteTeamId(Team team);	// 해당 팀의 멤버가 모두 삭제 됨
 	Team selectTeam(Team team);
-	Team selectTeamById(int teamId);
+	Team selectTeamById(String teamId);
 	List<Team> selectTeamList();
 	List<Team> selectTeamByDepart(String departId);	// 팀리스트 불러오기 (by 부서)
 	Team selectTeamByShortTeam(Team team);	// 같은 팀이 있는지 체크
@@ -36,9 +36,9 @@ public interface AdminMapper {
 	boolean insertGroup(Group group);
 	boolean updateGroup(Group group);
 	boolean deleteGroup(Group group);
-	Group selectGroup(Group group);
-	List<Group> selectGroupList();
-	List<Group> selectGroupListByTeam(String teamId); // 순 리스트 불러오기 (by 팀)
+	Group selectGroup(int id);
+	List<Group> selectGroupList(Group group);
+	List<Group> selectGroupListByTeam(Group group); // 순 리스트 불러오기 (by 팀)
 	boolean deleteGroupId(Group group);	// 순명 삭제에 따른 멤버 상태 초기화
 	
 	// 동기명

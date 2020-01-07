@@ -1,4 +1,59 @@
+/* 팝업창 시작 */
+.noticeClose {
+       background-color: #333333;
+      color: #ffffff ;
+      text-align:right;
+      font-size: 12px ;
+      padding: 5px ;
+}
+.closeText {
+       font-size: 10px;
+}
+.closeNoticeDate {
+       margin-left: 1px;
+}
+.closeButton {
+       color: #000000;
+      padding: 1px ;
+      line-height: 6px ;
+      margin-left: 5px ;
+      margin-right: 2px ;
+}
+.scroll-visible {
+       overflow-y: visible;
+}
+.scroll-hidden {
+       overflow-y: hidden;
+}
+/* 팝업창 끝 */
+
 /*login.html*/
+.main_title{
+    font-size: 6.2vw;
+    line-height: 8.22222222222vw;
+    background: #f8f9fa;
+    padding: 3.7333333333vw;
+}
+
+.main-title {
+	font-size: 9vw; 
+	vertical-align: super;
+}
+
+.head_title{
+    font-size: 6.2vw;
+    line-height: 8.22222222222vw;
+    background: #f8f9fa;
+    padding: 3.7333333333vw;
+}
+
+.font-size-5vw {font-size: 5vw;}
+.font-size-4p5vw {font-size: 4.5vw;}
+.font-size-4vw {font-size: 4vw;}
+.font-size-3p5vw {font-size: 3.5vw;}
+.font-size-3vw {font-size: 3vw;}
+.font-size-2vw {font-size: 2vw;}
+.font-size-1vw {font-size: 1vw;}
 
 .fs-10 {font-size: 10px !important;}
 .fs-11 {font-size: 11px !important;}
@@ -12,8 +67,17 @@
 .fs-19 {font-size: 19px !important;}
 .fs-20 {font-size: 20px !important;}
 
-.main-title {font-size: 9vw; vertical-align: super;}
+
+
 .main-img {width: 12%;}
+.attendance-img {
+	width: 6vw;
+	vertical-align: middle;
+	margin-bottom: 2.5px;
+	float: right;
+	margin-top: 4.5px;
+}
+
 .css-leader-list-a > a {text-decoration: none; color: #284AF3; font-size: 3.5vw; line-height: 8.8vw;}
 .css-group-name-a > a {text-decoration: none; color: #284AF3; font-size: 3vw;}
 .css-team-list-a > a {text-decoration: none; color: #284AF3; font-size: 3vw;}
@@ -44,8 +108,13 @@
 	background: #d3d3d3;
 	font-size: 3vw;
 }
+.on-style3 {
+	color: #ff0080;
+	font-size: 3vw;
+}
 .non-style {
     font-size: 3vw;
+    line-height: 8.8vw;
 }
 
 .div-temp1 {
@@ -54,6 +123,12 @@
 
 .div-temp2 {
 	height: 50px;
+}
+
+.no-attendance {
+	line-height: 55vw;
+	height: 55vw;
+	font-size: 5vw;
 }
 
 .basic-select {
@@ -1670,15 +1745,6 @@
     color: #212529;
 }
 
-
-
-/*嶺뚮씭�쐠占쎈턄�뜝�럥�쓡�뜝�럩逾좂춯�쉻�삕*/
-.shop_name{
-    font-size: 6.22222222222vw;
-    line-height: 8.22222222222vw;
-    background: #f8f9fa;
-    padding: 3.7333333333vw;
-}
 
 .mypage-wrap > h3{
     padding: 2.2666666666vw 6.7555555555vw;

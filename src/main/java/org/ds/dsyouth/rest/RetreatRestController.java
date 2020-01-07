@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.ds.dsyouth.exception.CreateRetreatTableException;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Family;
 import org.ds.dsyouth.model.FamilyMember;
@@ -70,8 +71,11 @@ public class RetreatRestController {
 		try {
 			retreatService.registRetreat(retreat);
 			
+		} catch (CreateRetreatTableException e) {
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.RETREATTABLE_DUPLICATED);
+			logger.error("retreat_regist error : " + e.getLocalizedMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
 			response.setSuccess(false);
 			response.setResCode(ResponseCode.UNKOWN);
 			logger.error("retreat_regist error : " + e.getLocalizedMessage());
@@ -114,12 +118,39 @@ public class RetreatRestController {
 	 */
 	@RequestMapping(value = "/familyMember/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse familyMember_regist(
-			@ModelAttribute FamilyMember familyMember) {
+			String fId,
+			String[] chksArr,
+			String[] departIdArr,
+			String[] teamIdArr,
+			String[] groupIdArr,
+			Integer[] fmIdArr,
+			HttpServletRequest request) {
 
 		RestResponse response = new RestResponse();
 		
 		try {
-			retreatService.registFamilyMember(familyMember);
+			
+			Family family = new Family();
+			
+			family = retreatService.getFamily(fId);
+			Retreat retreat = retreatService.getRetreat(family.getRetreatId());
+			
+			FamilyMember fm = null;
+			
+			for (int i = 0; i < chksArr.length; i++) {
+				fm = new FamilyMember();
+				if(fmIdArr[i] != 0) {
+					fm.setId(fmIdArr[i]);
+				}
+				fm.setDepartId(departIdArr[i]);
+				fm.setTeamId(teamIdArr[i]);
+				fm.setGroupId(groupIdArr[i]);
+				fm.setMemberId(chksArr[i]);
+				fm.setFamilyId(fId);
+				fm.setRetreatId(family.getRetreatId());
+				fm.setRetreat(retreat);
+				retreatService.modifyFamilyMember(fm);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,6 +160,35 @@ public class RetreatRestController {
 		
 		return response;
 	}
+	
+	
+	/**
+	 * 가족원 groupGrade 수정
+	 * @param fm
+	 * @return
+	 */
+	@RequestMapping(value = "/familyMember/edit", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse familyMember_edit(
+			@ModelAttribute FamilyMember fm) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			Retreat retreat = retreatService.getRetreat(fm.getRetreatId());
+			fm.setRetreat(retreat);
+			
+			retreatService.modifyFamilyMember(fm);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+			logger.error("familyMember_edit error : " + e.getLocalizedMessage());
+		}
+		
+		return response;
+	}
+	
 	
 	/**
 	 * 수련회 삭제
@@ -147,6 +207,7 @@ public class RetreatRestController {
 			e.printStackTrace();
 			response.setSuccess(false);
 			response.setResCode(ResponseCode.UNKOWN);
+			logger.error("retreat_remove error : " + e.getLocalizedMessage());
 		}
 		
 		return response;
@@ -165,6 +226,10 @@ public class RetreatRestController {
 		RestResponse response = new RestResponse();
 		
 		try {
+			family = retreatService.getFamily(family.getId().toString());
+			Retreat retreat = retreatService.getRetreat(family.getRetreatId());
+			family.setRetreat(retreat);
+			
 			retreatService.removeFamily(family);
 		} catch (Exception e) {
 			e.printStackTrace();

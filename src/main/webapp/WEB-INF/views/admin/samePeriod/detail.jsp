@@ -22,9 +22,7 @@
    				<span class="shop-link-login" onclick="samePeriod()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	${map.name }          
-		        </p>
+			    <p class="head_title text-center">${map.name }</p>
             
 				<div class="div-container">
 					

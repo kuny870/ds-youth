@@ -1,19 +1,24 @@
 package org.ds.dsyouth.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.ds.dsyouth.common.Constants;
+import org.ds.dsyouth.excel.GenericExcelView;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.search.type.EGroupSeason;
+import org.ds.dsyouth.search.type.EMemState;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +67,7 @@ public class AdminController {
 
 		List<Auth> authList = adminService.getAuthList();
 		
+		// 각 권한에 대한 인원 카운트
 		for(int i = 0; i < authList.size() - 1; i++) {
 			int authCnt = authService.getAuthCnt(authList.get(i).getId());
 			authList.get(i).setCnt(authCnt);
@@ -137,15 +143,34 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/group/name", method = RequestMethod.GET)
-	public ModelAndView admin_group() {
+	public ModelAndView admin_group(Group group) {
 
 		List<Team> teamList = adminService.getTeamList();
-		List<Group> groupList = adminService.getGroupList();
-		List<Member> memberList = memberService.getMemberList();
+		List<Group> groupList = adminService.getGroupList(group);
+		List<Member> memberList = memberService.getMemberListByGroupGrade(group);
 		
+		// 각 순에 대한 인원 카운트
 		for(int i = 0; i < groupList.size(); i++) {
-			int cnt = memberService.getGroupCnt(groupList.get(i).getId());
+			int cnt = memberService.getGroupCnt(groupList.get(i));
 			groupList.get(i).setCnt(cnt);
+		}
+		
+		String thisYear = DateHelper.getYear();
+		String thisMonth = DateHelper.getMonth();
+		int yearInt = StringHelper.parseIntAndArrayRange(thisYear);
+		
+		// 12월에 다음해 순명 등록 가능
+		if("12".equals(thisMonth)) {
+			yearInt++;
+		}
+		
+		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
+		List yearList = new ArrayList();
+		for(int i = 2019; i <= yearInt; i++) {
+			yearList.add(i);
+			if(yearList.size() == 5) {
+				break;
+			}
 		}
 		
 		ModelAndView mav = new ModelAndView("admin/group/name");
@@ -153,6 +178,10 @@ public class AdminController {
 		mav.addObject("teamList", teamList);
 		mav.addObject("groupList", groupList);
 		mav.addObject("memberList", memberList);
+		mav.addObject("season", EGroupSeason.values());
+		mav.addObject("yearList", yearList);
+		mav.addObject("thisYear", thisYear);
+		mav.addObject("group", group);
 		
 		return mav;
 	}
@@ -163,15 +192,19 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/group/detail", method = RequestMethod.GET)
-	public ModelAndView admin_group_detail(
-			@RequestParam Map<String, String> map)	{
-
-		List<Member> memberList = memberService.getMemberList(map.get("team"));
+	public ModelAndView admin_group_detail(Group group)	{
+		
+		group = adminService.getGroup(group.getId());
+		String thisYear = DateHelper.getYear();
+		
+		List<Member> memberList = memberService.getMemberList(group);
 		
 		ModelAndView mav = new ModelAndView("admin/group/detail");
 		
-		mav.addObject("map", map);
+		mav.addObject("group", group);
 		mav.addObject("memberList", memberList);
+		mav.addObject("thisYear", thisYear);
+		mav.addObject("memState", EMemState.values());
 		
 		return mav;
 	}
@@ -186,12 +219,13 @@ public class AdminController {
 
 		List<SamePeriod> samePeriodList = adminService.getSamePeriodList();
 		
+		// 각 동기에 대한 인원 카운트
 		for(int i = 0; i < samePeriodList.size(); i++) {
 			int cnt = memberService.getSamePeriodCnt(samePeriodList.get(i).getId());
 			samePeriodList.get(i).setCnt(cnt);
 		}
 		
-		String year = DateHelper.getDate().substring(0, 4);
+		String year = DateHelper.getYear();
 		
 		ModelAndView mav = new ModelAndView("admin/samePeriod/list");
 		
@@ -210,7 +244,7 @@ public class AdminController {
 	public ModelAndView admin_samePeriod_detail(
 			@RequestParam Map<String, String> map)	{
 
-		List<Member> memberList = memberService.getMemberListBySamePeriod();
+		List<Member> memberList = memberService.getMemberListBySamePeriod(map.get("sId"));
 		
 		ModelAndView mav = new ModelAndView("admin/samePeriod/detail");
 		
@@ -220,5 +254,67 @@ public class AdminController {
 		return mav;
 	}
 	
+	
+	/**
+	 * 팝업 띄우기
+	 * @param content
+	 * @param popSeq
+	 * @param closeUsableYN
+	 * @param closeNoticeDate
+	 * @param scrollbarYN
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/pop/notice", method = RequestMethod.GET)
+	public ModelAndView admin_pop(
+			String content, String popSeq, String closeUsableYN, 
+			String closeNoticeDate, String scrollbarYN)	{
+
+		ModelAndView mav = new ModelAndView("admin/pop/notice");
+		
+		mav.addObject("content", content);
+		mav.addObject("popSeq", popSeq);
+		mav.addObject("closeUsableYN", closeUsableYN);
+		mav.addObject("closeNoticeDate", closeNoticeDate);
+		mav.addObject("scrollbarYN", scrollbarYN);
+		
+		return mav;
+	}
+	
+	
+	
+	/*
+     * 엑셀 다운로드
+     */
+    @RequestMapping(value = "/excelDownload", method = RequestMethod.GET)
+    public GenericExcelView excelDownload(@RequestParam Map<String, String> params,
+                    Map<String, Object> model) throws Exception {
+         
+          List<String> colName = new ArrayList<String>();
+               colName.add("1번");
+               colName.add("2번");
+               colName.add("3번");
+               colName.add("4번");
+               colName.add("5번");
+
+              List<String[]> colValue = new ArrayList<String[]>();
+
+              String[] arr1 = { "11111", "22222", "33333", "44444", "55555" };
+              String[] arr2 = { "aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee" };
+              String[] arr3 = { "가가가", "나나나" , "다다다" , "라라라" , "마마마" };
+
+               colValue.add(arr1);
+               colValue.add(arr2);
+               colValue.add(arr3);
+               
+               model.put("year", params.get("year"));
+               model.put("season", params.get("season"));
+               
+               model.put("excelName", "test");
+               model.put("colName", colName);
+               model.put("colValue", colValue);
+         
+          return new GenericExcelView();
+       
+    }
 	
 }

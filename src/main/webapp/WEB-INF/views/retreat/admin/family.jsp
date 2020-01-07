@@ -19,12 +19,10 @@
     <div class="container">
     
             <div class="header-product">
-   				<span class="shop-link-login" onclick="mypage()">
+   				<span class="shop-link-login" onclick="retreat()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	가족               
-		        </p>
+			    <p class="head_title text-center">${retreat.year } ${retreat.season } ${retreat.retreatName }</p>
             
 				<div class="div-container">
 					
@@ -42,8 +40,8 @@
 			                    	<c:forEach var="family" items="${familyList}" varStatus="i">
 			                    		<c:if test="${family.id != null }">
 				                    		<tr>
-					                            <td class="css-a">
-					                            	<a href="${contextPath }/admin/retreat/family/member/list/${family.id}/${family.famName}">${family.famName} (${family.cnt})</a>
+					                            <td class="css-a3">
+					                            	<a href="${contextPath }/admin/retreat/family/member/list?retreatId=${family.retreatId}&familyId=${family.id}">${family.famName} (${family.cnt})</a>
 					                            	<input type="hidden" id="${family.id}-input-hidden" value="${family.famName}" />
 					                            </td>
 				                            	<td>

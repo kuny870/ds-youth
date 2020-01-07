@@ -1,3 +1,27 @@
+$(document).ready(function(){
+	
+	// 공지 팝업창
+	var popSeq = '1';
+    var closeUsableYN = 'Y';
+    var scrollbarYN = 'Y';
+    var closeNoticeDate = '다시 열지 않음';
+    var title = '공지';
+    var content = '앱으로 이용이 불가하여 웹 링크로 사용 부탁드립니다.\n http://dsyouth-env.jzz59thtne.ap-northeast-2.elasticbeanstalk.com/login';
+    var widthSize = '300';
+    var heightSize = '150';
+    var widthLocation = '50';
+    var heightLocation = '50';
+    var url = contextPath + '/admin/pop/notice?content='+content+'&popSeq=' +popSeq+'&closeUsableYN=' +closeUsableYN+'&closeNoticeDate=' +closeNoticeDate+'&scrollbarYN=' +scrollbarYN;
+    var winOption = "width=" + widthSize + ", height=" + heightSize + ",top=" + heightLocation + ",left=" + widthLocation;
+    
+    if(getCookie("Notice"+popSeq) == "done"){
+    }else{
+//    	window.open(url, title, winOption);
+    }
+    
+});
+
+
 // 로그아웃
 function logout(val) {
 	

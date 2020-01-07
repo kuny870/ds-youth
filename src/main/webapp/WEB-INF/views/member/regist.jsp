@@ -24,9 +24,8 @@
 			<span class="shop-link-login" onclick="memberList()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="shop_name text-center">
-                 	팀원 추가               
-            </p>
+			<p class="head_title text-center">팀원 추가</p>
+			
             <div class="form">
                 <form id="memberRegistForm">
                     <div class="form-middle">

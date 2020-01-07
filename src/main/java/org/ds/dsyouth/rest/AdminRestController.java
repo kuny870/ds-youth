@@ -10,6 +10,7 @@ import org.ds.dsyouth.exception.BirthYearDuplicatedException;
 import org.ds.dsyouth.exception.DepartDuplicatedException;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.exception.TeamDuplicatedException;
+import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
@@ -18,6 +19,7 @@ import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.rest.common.ResponseCode;
 import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.AdminService;
+import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.StringHelper;
 import org.ds.dsyouth.validator.TeamValidator;
@@ -210,38 +212,6 @@ public class AdminRestController {
 		return response;
 	}
 	
-	
-	/**
-	 * 순명 적용
-	 * @param groupStudy
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/groupDetail/regist", method = RequestMethod.POST, produces = "application/json")
-	public RestResponse groupDetail_regist(
-			Integer gId,
-			String[] arr,
-			HttpServletRequest request) {
-
-		RestResponse response = new RestResponse();
-		
-		try {
-			
-			for (int i = 0; i < arr.length; i++) {
-				Member mem = new Member();
-				mem.setId(StringHelper.parseInt(arr[i]));
-				mem.setGroupId(gId);
-				memberService.modifyMember(mem);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.setSuccess(false);
-			response.setResCode(ResponseCode.UNKOWN);
-		}
-		
-		return response;
-	}
 	
 	
 	/**

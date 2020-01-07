@@ -53,8 +53,6 @@ create table member (
     name varchar(50) not null,	-- 이름
     depart_id int(10) null,	-- 1,2청년부
     team_id int(10) null,	-- 팀
-    group_id int(10) null,  -- 순공부명
-    group_grade varchar(50) not null default '순원',	-- 순등급 / 순장 or 순원
     date_of_birth varchar(50) null,		-- 생년월일
     htel varchar(50) null,	-- 핸드폰번호
     gender varchar(10) null,	-- 성별 / male or female
@@ -63,10 +61,10 @@ create table member (
     reg_user int(10) not null,	-- 등록한 사용자
 	reg_date datetime DEFAULT CURRENT_TIMESTAMP,	-- 가입 시간
     mod_date datetime null,		-- 수정 시간
-    long_absent varchar(10) not null default 'N',	-- 장기결석 여부
+    mem_state varchar(10) not null default '1',	-- 회원상태값  1:회원, 2:군인, 3:해외, 4:장기결석, 5:새가족수료, 6:졸업, 7:기타
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
-    
-    constraint pk_member primary key (id)
+
+	constraint pk_member primary key (id)
 );
 
 -- 부서
@@ -82,7 +80,7 @@ create table depart (
 -- 팀
 create table team (
     id int(50) not null AUTO_INCREMENT,	-- 고유번호
-    depart_id int(10) null,	-- 팀 소속 청년부
+    depart_id varchar(10) null,	-- 팀 소속 청년부
     t_short_name varchar(50) not null,	-- 팀 짧은 이름
     t_full_name varchar(50) null,	-- 팀 전체 이름
     t_theme varchar(50) null,	-- 팀 주제 말씀
@@ -95,8 +93,10 @@ create table team (
 -- 순명
 create table `group` (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
-    depart_id int(10) not null,	-- 부서
-	team_id int(10) not null,	-- 팀
+	`year` varchar(10) not null,			-- 년
+	season varchar(10) not null,		-- 상반기 / 하반기
+    depart_id varchar(10) not null,	-- 부서
+	team_id varchar(10) not null,	-- 팀
     g_name varchar(50) not null,	-- 순명 
     reg_user int(10) not null,	-- 등록자
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
@@ -105,20 +105,37 @@ create table `group` (
 );
 
 -- 팀별 출석부
-create table attendance (
+create table attendance_${nextYear} (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
-    member_id int(50) not null,	-- member 고유 id
+    member_id varchar(10) not null,	-- member 고유 id
+    group_id varchar(10) null,	-- 순
+    group_grade varchar(10) not null default '순원',	-- 순장여부
+    mem_state varchar(10) not null,		-- 회원상태 값
     att_yn varchar(10) not null default 'Y',	-- 출석 카운트
-    `year` int(20) not null,	-- 년
-    `month` int(20) not null,	-- 월
+    `year` varchar(10) not null,	-- 년
+    `month` varchar(10) not null,	-- 월
     first_week varchar(10) not null default 'N',	-- 1주
     second_week varchar(10) not null default 'N',	-- 2주
     third_week varchar(10) not null default 'N',	-- 3주
     fourth_week varchar(10) not null default 'N',	-- 4주
     fifth_week varchar(10) not null default 'N',	-- 5주
     
-    constraint pk_attendance primary key (id)
+    constraint pk_attendance_${nextYear} primary key (id)
 );
+
+-- 출석부 테이블 데이터 복사
+INSERT INTO attendance_${nextYear} SELECT * FROM attendance_${thisYear}
+
+-- 출석부 테이블 데이터 초기화
+update attendance_${nextYear} set 
+group_id = null, 
+group_grade = '순원', 
+year = #{nextYear},
+first_week = 'N',
+second_week = 'N',
+third_week = 'N',
+fourth_week = 'N',
+fifth_week = 'N';
 
 
 -- 동기
@@ -149,7 +166,7 @@ create table retreat (
 -- 가족명
 create table family (
 	id int(50) not null AUTO_INCREMENT, -- 고유번호
-	retreat_id int(10) not null,		-- 수련회 id
+	retreat_id varchar(10) not null,		-- 수련회 id
 	fam_name varchar(50) not null,		-- 가족명
 	del_yn varchar(10) not null default 'N',		-- 삭제 여부
 	
@@ -160,12 +177,15 @@ create table family (
 -- 가족원
 create table family_member (
 	id int(50) not null AUTO_INCREMENT, -- 고유번호
-	retreat_id int(10) not null,		-- 수련회 id
-	family_id int(10) not null,			-- 가족명 id
-	member_id int(10) not null,			-- 가족원 id
-	group_grade int(10) not null,		-- 가족 레벨 / 0:가족원, 1:리더, 9:가족장
+	team_id varchar(10) not null,		-- 팀
+	member_id varchar(10) not null,			-- 가족원 id
+	group_id varchar(10) null,			-- 순
+	retreat_id varchar(10) not null,		-- 수련회 id
+	family_id varchar(10) not null,			-- 가족명 id
+	group_grade varchar(10) not null default '0',		-- 가족 레벨 / 0:가족원, 1:리더, 9:가족장
+	attend_state varchar(20) null,			-- 참석 / 부분 / 불참 / 미정
 	
-	constraint pk_family primary key (id)
+	constraint pk_family_member primary key (id)
 );
 
 

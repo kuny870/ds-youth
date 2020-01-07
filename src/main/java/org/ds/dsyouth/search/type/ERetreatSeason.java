@@ -3,7 +3,7 @@ package org.ds.dsyouth.search.type;
 /**
  * 응답 코드
  */
-public enum ESeason {
+public enum ERetreatSeason {
 	여름("summer", "여름"),
 	겨울("winter", "겨울")
 	;
@@ -24,7 +24,7 @@ public enum ESeason {
 	 * @param code - 응답 코드
 	 * @param value - 응답 값
 	 */
-	ESeason(String code, String value) {
+	ERetreatSeason(String code, String value) {
 		this.code = code;
 		this.value = value;
 	}
@@ -47,10 +47,10 @@ public enum ESeason {
 		return value;
 	}
 
-	public static ESeason getESeasonByCode(String code) {
-		ESeason[] values = ESeason.values();
+	public static ERetreatSeason getERetreatSeasonByCode(String code) {
+		ERetreatSeason[] values = ERetreatSeason.values();
 		
-		for (ESeason responseCode : values) {
+		for (ERetreatSeason responseCode : values) {
 			if(responseCode.getCode().equals(code)) {
 				return responseCode;
 			}

@@ -1,17 +1,20 @@
 package org.ds.dsyouth.search;
 
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 
 public class AttendanceSearch {
 	
 	private String team;
 	private String year;
-	private String month;
+	private String lastYear;
+	private int month;
 
 	public AttendanceSearch() {
-		this.team = "기쁨";
+		this.team = "동산";
 		this.year = DateHelper.getYear();
-		this.month = DateHelper.getMonth();
+		this.lastYear = DateHelper.getLastYear();
+		this.month = StringHelper.parseInt(DateHelper.getMonth());
 	}
 
 	public String getYear() {
@@ -22,17 +25,17 @@ public class AttendanceSearch {
 		this.year = year;
 	}
 
-	public String getMonth() {
+	public int getMonth() {
 		return month;
 	}
 
-	public void setMonth(String month) {
+	public void setMonth(int month) {
 		this.month = month;
 	}
 
 	public String getTeam() {
 		if("".equals(this.team) || "기타".equals(this.team)) {
-			this.team = "기쁨";
+			this.team = "동산";
 		}
 		return team;
 	}

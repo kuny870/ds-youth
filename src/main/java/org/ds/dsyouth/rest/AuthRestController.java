@@ -151,8 +151,7 @@ public class AuthRestController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse join(
 			@ModelAttribute("userJoin") @Valid User user,
-			BindingResult userBindingResult,
-			HttpServletRequest request
+			BindingResult userBindingResult
 			) throws UnsupportedEncodingException, NoSuchAlgorithmException, IdDuplicatedException {
 
 		RestResponse response = userJoinValidator.bindingError(userBindingResult);
@@ -288,8 +287,7 @@ public class AuthRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/pw/reset", method = RequestMethod.POST, produces = "application/json")
-	public RestResponse user_pw_reset(
-			User user) {
+	public RestResponse user_pw_reset(User user) {
 
 		RestResponse response = new RestResponse();
 		
@@ -326,8 +324,7 @@ public class AuthRestController {
 	@RequestMapping(value = "/authDetail/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse authDetail_regist(
 			Integer auth_id,
-			String[] arr,
-			HttpServletRequest request) {
+			String[] arr) {
 
 		RestResponse response = new RestResponse();
 		
@@ -360,8 +357,7 @@ public class AuthRestController {
 	@RequestMapping(value = "/authExecDetail/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse authExecDetail_regist(
 			Integer auth_exec,
-			String[] arr,
-			HttpServletRequest request) {
+			String[] arr) {
 
 		RestResponse response = new RestResponse();
 		
@@ -441,9 +437,7 @@ public class AuthRestController {
 	 */
 	@RequestMapping(value = "/select/depart", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse select_depart(
-			@ModelAttribute("departId") String departId,
-			HttpServletRequest request,
-			HttpServletResponse httpResponse) {
+			@ModelAttribute("departId") String departId) {
 		
 		RestResponse response = new RestResponse();
 		
@@ -472,16 +466,13 @@ public class AuthRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/select/group", method = RequestMethod.POST, produces = "application/json")
-	public RestResponse select_group(
-			@ModelAttribute("teamId") String teamId,
-			HttpServletRequest request,
-			HttpServletResponse httpResponse) {
+	public RestResponse select_group(Group group) {
 		
 		RestResponse response = new RestResponse();
 		
 		try {
 			
-			List<Group> groupList = adminService.getGroupListByTeam(teamId);
+			List<Group> groupList = adminService.getGroupListByTeam(group);
 			
 			response.setData(groupList);
 			
@@ -503,9 +494,7 @@ public class AuthRestController {
 	@RequestMapping(value = "/mypage/address/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse address_regist(
 			@ModelAttribute("address") @Valid Address address,
-			BindingResult addressBindingResult,
-			HttpServletRequest request,
-			HttpServletResponse httpResponse) {
+			BindingResult addressBindingResult) {
 		
 		RestResponse response = addressValidator.bindingError(addressBindingResult);
 		
@@ -537,7 +526,6 @@ public class AuthRestController {
 	@RequestMapping(value = "/mypage/address/edit", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse address_edit(
 			@ModelAttribute Address address,
-			HttpServletRequest request,
 			BindingResult userBindingResult) {
 
 		RestResponse response = userJoinValidator.bindingError(userBindingResult);

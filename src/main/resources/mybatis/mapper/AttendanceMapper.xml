@@ -6,15 +6,19 @@
 	<!-- 팀별 출석부 명단 -->
 	<resultMap id="AttendanceMap" type="Attendance">
 	    <id column="id" jdbcType="INTEGER" property="id" />
-	    <result column="member_id" jdbcType="INTEGER" property="memberId" />
+	    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+	    <result column="group_grade" jdbcType="VARCHAR" property="groupGrade" />
+	    <result column="mem_state" jdbcType="VARCHAR" property="memState" />
+	    <result column="member_id" jdbcType="VARCHAR" property="memberId" />
 	    <result column="att_yn" jdbcType="VARCHAR" property="attYn" />
-		<result column="year" jdbcType="INTEGER" property="year" />
-		<result column="month" jdbcType="INTEGER" property="month" />
+		<result column="year" jdbcType="VARCHAR" property="year" />
+		<result column="month" jdbcType="VARCHAR" property="month" />
 		<result column="first_week" jdbcType="VARCHAR" property="firstWeek" />
 		<result column="second_week" jdbcType="VARCHAR" property="secondWeek" />
 		<result column="third_week" jdbcType="VARCHAR" property="thirdWeek" />
 		<result column="fourth_week" jdbcType="VARCHAR" property="fourthWeek" />
 		<result column="fifth_week" jdbcType="VARCHAR" property="fifthWeek" />
+		<result column="total_last_year" jdbcType="INTEGER" property="totalLastYear" />
 		
 		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
 		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
@@ -25,8 +29,17 @@
   	
   	<!-- 출석부 등록 -->
 	<insert id="insertAttendance" parameterType="Attendance">
-       insert into attendance
+       INSERT INTO attendance_${year}
           <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="groupId != null">
+                       group_id,
+                 </if>
+                 <if test="groupGrade != null">
+                       group_grade,
+                 </if>
+                 <if test="memState != null">
+                       mem_state,
+                 </if>
                  <if test="memberId != null">
                        member_id,
                  </if>
@@ -56,6 +69,15 @@
                  </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="groupId != null">
+	                 #{groupId},
+	           </if>
+	           <if test="groupGrade != null">
+	                 #{groupGrade},
+	           </if>
+	           <if test="memState != null">
+	                 #{memState},
+	           </if>
 	           <if test="memberId != null">
 	                 #{memberId},
 	           </if>
@@ -89,72 +111,103 @@
   	
 	<!-- 팀별 출석부 명단 불러오기 -->
 	<select id="selectAttendance" parameterType="org.ds.dsyouth.search.AttendanceSearch" resultMap="AttendanceMap">
-		select
-			at.id as id,
-			at.member_id as member_id,
-			at.att_yn as att_yn,
-		    at.year as year,
-		    at.month as month,
-		    at.first_week as first_week,
-		    at.second_week as second_week,
-		    at.third_week as third_week,
-		    at.fourth_week as fourth_week,
-		    at.fifth_week as fifth_week,
-			m.id as m_id,
-			m.name as m_name,
-			m.guider as m_guider,
-		    m.depart_id as m_depart_id,
-		    m.team_id as m_team_id,
-		    m.group_id as m_group_id,
-		    m.group_grade as m_group_grade,
-		    m.date_of_birth as m_date_of_birth,
-		    m.htel as m_htel,
-		    m.gender as m_gender,
-		    m.same_period_id as m_same_period_id,
-		    m.reg_user as m_reg_user,
-		    m.reg_date as m_reg_date,
-		    m.mod_date as m_mod_date,
-		    m.mem_state as m_mem_state,
-		    m.del_yn as m_del_yn,
-		    t.t_short_name as t_t_short_name,
-		    g.g_name as g_g_name,
-		    sp.birth_year as sp_birth_year
-		from attendance_${year} at
+		SELECT
+			at.id as id
+			, at.group_id as group_id
+			, at.group_grade as group_grade
+			, at.mem_state as mem_state
+			, at.member_id as member_id
+			, at.att_yn as att_yn
+		    , at.year as year
+		    , at.month as month
+		    , at.first_week as first_week
+		    , at.second_week as second_week
+		    , at.third_week as third_week
+		    , at.fourth_week as fourth_week
+		    , at.fifth_week as fifth_week
+			, m.id as m_id
+			, if(m.team_id = '4', substring(m.name, 3), m.name) as m_name
+			, m.guider as m_guider
+		    , m.depart_id as m_depart_id
+		    , m.team_id as m_team_id
+		    , m.date_of_birth as m_date_of_birth
+		    , m.htel as m_htel
+		    , m.gender as m_gender
+		    , m.same_period_id as m_same_period_id
+		    , m.mem_state as m_mem_state
+		    , t.t_short_name as t_t_short_name
+		    , substring(g.g_name, 3) as g_g_name
+		    , sp.birth_year as sp_birth_year
+		    
+		    <if test="year > 2019">
+		    	, B.total_last_year AS total_last_year
+		    </if>
+		    
+		FROM attendance_${year} at
 		LEFT OUTER JOIN member m ON m.id = at.member_id
 		LEFT OUTER JOIN team t ON t.id = m.team_id
-		LEFT OUTER JOIN `group` g ON g.id = m.group_id
-		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id  
-		where m.del_yn = 'N'
-			and m.mem_state != '6'
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+		
+		<!-- 작년 출석률을 가져오는 부분이기에 2019년도 테이블부터있기때문에 현재 year 데이터가 2020보다 작으면 안된다. -->
+		<if test="year > 2019">
+			LEFT OUTER JOIN (
+				SELECT
+					m.id AS id
+					, (SUM(IF(a.first_week = 'Y', 1, 0))
+	                  + SUM(IF(a.second_week = 'Y', 1, 0))
+	                  + SUM(IF(a.third_week = 'Y', 1, 0))
+	                  + SUM(IF(a.fourth_week = 'Y', 1, 0))
+	                  + SUM(IF(a.fifth_week = 'Y', 1, 0))) AS total_last_year
+				FROM attendance_${lastYear} a
+				LEFT OUTER JOIN member m ON m.id = a.member_id
+				LEFT OUTER JOIN team t ON t.id = m.team_id
+				WHERE 1=1
+					AND m.del_yn = 'N'
+					AND t.t_short_name = #{team}
+				GROUP BY a.member_id
+	        ) B ON B.id = m.id
+        </if>
+        
+		WHERE 1=1
+			AND m.del_yn = 'N'
 			<if test="team != null and team != ''">
-				and t.t_short_name = #{team}
-			</if>
-			<if test="year != null and year != ''">
-				and at.year = #{year}
+				AND t.t_short_name = #{team}
+				<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
+				<if test="team != '1새가족' and team != '2새가족'">
+					AND at.group_id != ''
+				</if>
 			</if>
 			<if test="month != null and month != ''">
-				and at.month = #{month}
+				AND at.month = #{month}
 			</if>
-		order by g.g_name asc, m.group_grade desc, m.mem_state asc, m.name asc, at.id asc
+			
+		ORDER BY 
+			g.g_name ASC
+			, at.group_grade DESC
+			, m.mem_state ASC
+			
+			<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
+			<if test="team == '언약'">
+				, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
+				, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
+				, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
+			</if>
+			
+			<if test="year > 2019">
+				, B.total_last_year DESC
+			</if>
+			
+			, m.name ASC
+			, at.id ASC
 	</select>
 	
 	
-	<!-- 출석부 정보 수정 -->
-	<update id="updateAttendance" parameterType="Attendance">
-		update attendance_${year}
+	
+	<!-- 출석부 체크 -->
+	<update id="updateAttendanceCheck" parameterType="Attendance">
+		UPDATE attendance_${year}
     	<set>
-			<if test="memberId != null">
-				member_id = #{memberId},
-			</if>
-			<if test="attYn != null">
-				att_yn = #{attYn},
-			</if>
-	      	<if test="year != null">
-	        	year = #{year},
-	      	</if>
-	      	<if test="month != null">
-	        	month = #{month},
-	      	</if>
 	      	<if test="firstWeek != null">
 	        	first_week = #{firstWeek},
 	      	</if>
@@ -171,7 +224,56 @@
 	        	fifth_week = #{fifthWeek},
 	      	</if>
 	    </set>
-		where id = #{id}
+		WHERE 1=1
+			AND id = #{id}
+	</update>
+	
+	
+	<!-- 출석부 순 정보 입력 -->
+	<update id="updateAttendanceGroup" parameterType="Attendance">
+		UPDATE attendance_${year}
+    	<set>
+    		<if test="groupId != null">
+				group_id = #{groupId},
+			</if>
+			<if test="groupGrade != null">
+				group_grade = #{groupGrade},
+			</if>
+			<if test="memState != null">
+				mem_state = #{memState},
+			</if>
+			<if test="attYn != null">
+				att_yn = #{attYn},
+			</if>
+	      	<if test="firstWeek != null">
+	        	first_week = #{firstWeek},
+	      	</if>
+	      	<if test="secondWeek != null">
+	        	second_week = #{secondWeek},
+	      	</if>
+	      	<if test="thirdWeek != null">
+	        	third_week = #{thirdWeek},
+	      	</if>
+	      	<if test="fourthWeek != null">
+	        	fourth_week = #{fourthWeek},
+	      	</if>
+	      	<if test="fifthWeek != null">
+	        	fifth_week = #{fifthWeek},
+	      	</if>
+	    </set>
+		WHERE 1=1
+			AND member_id = #{memberId}
+			AND month = #{month}
+	</update>
+	
+	
+	<!-- 출석부 순장/순원 입력 -->
+	<update id="updateAttendanceGroupGrade" parameterType="Attendance">
+		UPDATE attendance_${year}
+		SET group_grade = #{groupGrade}
+		WHERE 1=1
+			AND member_id = #{memberId}
+			AND month = #{month}
 	</update>
 	
 </mapper>

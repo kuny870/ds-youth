@@ -18,8 +18,9 @@
   	<!-- 가족명 -->
   	<resultMap id="FamilyMap" type="Family">
 	    <id column="id" jdbcType="INTEGER" property="id" />
-		<result column="retreat_id" jdbcType="INTEGER" property="retreatId" />
+		<result column="retreat_id" jdbcType="VARCHAR" property="retreatId" />
 		<result column="fam_name" jdbcType="VARCHAR" property="famName" />
+		<result column="cnt" jdbcType="INTEGER" property="cnt" />
 		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
 		
 		<association property="retreat" resultMap="org.ds.dsyouth.mapper.RetreatMapper.RetreatMap" columnPrefix="r_" />
@@ -28,14 +29,22 @@
   	<!-- 가족원 -->
   	<resultMap id="FamilyMemberMap" type="FamilyMember">
 	    <id column="id" jdbcType="INTEGER" property="id" />
-		<result column="member_id" jdbcType="INTEGER" property="memberId" />
-		<result column="family_id" jdbcType="INTEGER" property="familyId" />
-		<result column="retreat_id" jdbcType="INTEGER" property="retreatId" />
-		<result column="group_grade" jdbcType="INTEGER" property="groupGrade" />
+	    <result column="depart_id" jdbcType="VARCHAR" property="departId" />
+	    <result column="team_id" jdbcType="VARCHAR" property="teamId" />
+	    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+		<result column="member_id" jdbcType="VARCHAR" property="memberId" />
+		<result column="family_id" jdbcType="VARCHAR" property="familyId" />
+		<result column="retreat_id" jdbcType="VARCHAR" property="retreatId" />
+		<result column="group_grade" jdbcType="VARCHAR" property="groupGrade" />
+		<result column="attend_state" jdbcType="VARCHAR" property="attendState" />
 		
 		<association property="retreat" resultMap="org.ds.dsyouth.mapper.RetreatMapper.RetreatMap" columnPrefix="r_" />
 		<association property="family" resultMap="org.ds.dsyouth.mapper.RetreatMapper.FamilyMap" columnPrefix="f_" />
 		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
+		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
+		<association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
+		<association property="group" resultMap="org.ds.dsyouth.mapper.AdminMapper.GroupMap" columnPrefix="g_" />
+	    <association property="samePeriod" resultMap="org.ds.dsyouth.mapper.AdminMapper.SamePeriodMap" columnPrefix="sp_" />
   	</resultMap>
   	
   	
@@ -85,6 +94,22 @@
        </trim>
    </insert>
    
+   <insert id="createFamilyMemberTable" parameterType="Retreat">
+   		create table family_member_${year}_${season}_${retreatName} (
+			id int(50) not null AUTO_INCREMENT,
+			depart_id varchar(10) not null,
+			team_id varchar(10) not null,
+			group_id varchar(10) null,
+			member_id varchar(10) not null,
+			retreat_id varchar(10) not null,
+			family_id varchar(10) not null,
+			group_grade varchar(10) not null default '0',
+			attend_state varchar(20) null default '미정',
+			
+			constraint pk_family_member_${year}_${season}_${retreatName} primary key (id)
+		);
+   </insert>
+   
    
    <!-- 가족 등록 -->
 	<insert id="insertFamily" parameterType="Family" useGeneratedKeys="true" keyProperty="id">
@@ -122,52 +147,199 @@
 		from retreat
 		where del_yn = 'N'
 	</select>
+	
+	
+	<!-- id 값으로 수련회 불러오기 -->
+	<select id="selectRetreat" parameterType="String" resultMap="RetreatMap">
+		select
+			*
+		from retreat
+		where id = #{id}
+	</select>
+	
+	<!-- id 값으로 가족 불러오기 -->
+	<select id="selectFamily" parameterType="String" resultMap="FamilyMap">
+		SELECT
+			*
+		FROM family
+		WHERE id = #{id}
+	</select>
 
 
 	<!-- 가족장 목록 불러오기 -->
-	<select id="selectFamilyList" resultMap="FamilyMap">
-		select
-			f.id,
-			f.retreat_id,
-			f.fam_name,
-			f.del_yn,
-			(
-				select count(*) from ( 
-					select
-						fm.id
-					from family_member fm
-					LEFT OUTER JOIN family f ON f.id = fm.family_id
-					where f.del_yn = 'N'
-				) a
-			) as cnt
-		from family f
+	<select id="selectFamilyList" parameterType="Retreat" resultMap="FamilyMap">
+		SELECT
+			f.id
+			, f.retreat_id
+			, f.fam_name
+			, f.del_yn
+			, r.id as r_id
+			, a.cnt as cnt
+		FROM family f
         LEFT OUTER JOIN retreat r ON r.id = f.retreat_id
-        LEFT OUTER JOIN family_member fm ON fm.family_id = f.id 
-		where f.del_yn = 'N'
-		order by f.fam_name asc;
+        LEFT OUTER JOIN family_member_${year}_${season}_${retreatName} fm ON fm.family_id = f.id
+        LEFT OUTER JOIN 
+        (
+			SELECT
+				fm.id
+                , fm.family_id
+                , f.id as f_id
+				, count(*) as cnt
+			FROM family_member_${year}_${season}_${retreatName} fm
+            LEFT OUTER JOIN family f ON f.id = fm.family_id
+			WHERE f.del_yn = 'N'
+			GROUP BY f.id
+		) a ON a.f_id = f.id
+		WHERE 1=1
+			AND r.id = #{id}
+			AND f.del_yn = 'N'
+		ORDER BY 
+			f.fam_name asc
 	</select>
 
 	
-	<!-- keon -->
 	<!-- 가족원 불러오기 by 검색 -->
 	<select id="selectFamilyMemberList" parameterType="org.ds.dsyouth.search.RetreatSearch" resultMap="FamilyMemberMap">
-		select
+		SELECT
+			m.id as m_id,
 			fm.id,
-		    fm.member_id,
-		    fm.family_id,
-		    fm.depart_id,
-		    fm.retreat_id,
-		    fm.group_grade
-		from family_member fm
-		LEFT OUTER JOIN family f ON f.id = fm.family_id
-		LEFT OUTER JOIN retreat r ON r.id = fm.retreat_id
-		LEFT OUTER JOIN member m ON m.id = fm.member_id
-		where 1=1
-			and m.del_yn = 'N'
-			<if test="familyId != null and familyId != ''">
-				and t.id = #{teamId}
-			</if>
+			fm.family_id,
+			f.fam_name as f_fam_name,
+            fm.group_grade,
+            t.t_short_name as t_t_short_name,
+            t.id as t_id,
+            d.id as d_id,
+            g.id as g_id,
+			d.d_name as d_d_name,
+			g.g_name as g_g_name,
+		    sp.birth_year as sp_birth_year,
+		    m.name as m_name,
+		    m.guider as m_guider,
+		    m.depart_id as m_depart_id,
+		    m.team_id as m_team_id,
+		    m.date_of_birth as m_date_of_birth,
+		    m.htel as m_htel,
+		    m.gender as m_gender,
+		    m.same_period_id as m_same_period_id,
+		    m.profile_img as m_profile_img,
+		    m.mem_state as m_mem_state,
+		    m.del_yn as m_del_yn
+		FROM member m
+		LEFT OUTER JOIN team t ON t.id = m.team_id
+		LEFT OUTER JOIN depart d ON d.id = m.depart_id
+		LEFT OUTER JOIN attendance_${thisYear} at ON at.member_id = m.id AND at.month = #{thisMonth}
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+        LEFT OUTER JOIN family_member_${year}_${season}_${retreatName} fm ON fm.member_id = m.id
+		LEFT OUTER JOIN family f ON f.id = fm.family_id AND f.del_yn != 'Y'
+		LEFT OUTER JOIN retreat r ON r.id = fm.retreat_id AND r.id = #{retreatId}
+		WHERE 1=1
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5','6')
+		GROUP BY
+			m.id
+		ORDER BY 
+			FIELD(fm.family_id, #{familyId}) DESC
+			, f.fam_name DESC
+			, fm.group_grade DESC
+			, d.d_name ASC
+			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			, FIELD(t.t_short_name, '기쁨') ASC
+            , t.t_short_name ASC
+            , at.group_id ASC
+            , at.group_grade DESC
+            , m.name ASC
 	</select>
+	
+		
+	<!-- 가족원 추가 -->
+	<insert id="insertFamilyMember" parameterType="FamilyMember">
+		 insert into family_member_${retreat.year}_${retreat.season}_${retreat.retreatName}
+          <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="departId != null">
+                       depart_id,
+                 </if>
+                 <if test="teamId != null">
+                       team_id,
+                 </if>
+                 <if test="groupId!= null">
+                       group_id,
+                 </if>
+                 <if test="memberId != null">
+                       member_id,
+                 </if>
+                 <if test="familyId != null">
+                       family_id,
+                 </if>
+                 <if test="retreatId != null">
+                       retreat_id,
+                 </if>
+                 <if test="groupGrade != null">
+                       group_grade,
+                 </if>
+                 <if test="attendState != null">
+                       attend_state,
+                 </if>
+          </trim>
+          <trim prefix="values (" suffix=")" suffixOverrides=",">
+	           <if test="departId != null">
+	                 #{departId},
+	           </if>
+	           <if test="teamId != null">
+	                 #{teamId},
+	           </if>
+	           <if test="groupId != null">
+	                 #{groupId},
+	           </if>
+	           <if test="memberId != null">
+	                 #{memberId},
+	           </if>
+	           <if test="familyId != null">
+	                 #{familyId},
+	           </if>
+	           <if test="retreatId != null">
+	                 #{retreatId},
+	           </if>
+	           <if test="groupGrade != null">
+	                 #{groupGrade},
+	           </if>
+	           <if test="attendState != null">
+	                 #{attendState},
+	           </if>
+       </trim>
+	</insert>
+	
+	<!-- 가족원 수정 -->
+	<update id="updateFamilyMember" parameterType="FamilyMember">
+		update family_member_${retreat.year}_${retreat.season}_${retreat.retreatName}
+	    <set>
+	    	<if test="departId != null">
+	        	depart_id = #{departId},
+	      	</if>
+	    	<if test="teamId != null">
+	        	team_id = #{teamId},
+	      	</if>
+	      	<if test="groupId != null">
+	        	group_id = #{groupId},
+	      	</if>
+	      	<if test="memberId != null">
+	        	member_id = #{memberId},
+	      	</if>
+	    	<if test="familyId != null">
+	    		family_id = #{familyId},
+	    	</if>
+			<if test="retreatId != null">
+				retreat_id = #{retreatId},
+			</if>
+			<if test="groupGrade != null">
+				group_grade = #{groupGrade}
+			</if>
+			<if test="attendState != null">
+				attend_state = #{attendState}
+			</if>
+	    </set>
+		where id = #{id}
+	</update>
 	
 	
 	<!-- 수련회 삭제 -->
@@ -179,5 +351,10 @@
 	<update id="deleteFamily" parameterType="Family">
 		update family set del_yn = 'Y' where id = #{id}
 	</update>
+	
+	<!-- 가족명 삭제 시 가족원 히스토리 삭제 -->
+	<!-- <delete id="deleteFamilyMemberByFamily" parameterType="Family">
+		DELETE FROM family_member_${retreat.year}_${retreat.season}_${retreat.retreatName} WHERE family_id = #{id}
+	</delete> -->
 	
 </mapper>

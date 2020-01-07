@@ -7,6 +7,7 @@ public class SamePeriod {
 	private Integer cnt;
 	private Integer regUser;
 	private String delYn;
+	
 	public Integer getId() {
 		return id;
 	}

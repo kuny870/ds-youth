@@ -22,9 +22,7 @@
    				<span class="shop-link-login" onclick="auth()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="shop_name text-center">
-		            	${auth.name }          
-		        </p>
+			    <p class="head_title text-center">${auth.name }</p>
             
 				<div class="div-container">
 					

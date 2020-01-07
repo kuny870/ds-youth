@@ -5,11 +5,13 @@ import java.util.List;
 import org.ds.dsyouth.mapper.AttendanceMapper;
 import org.ds.dsyouth.mapper.MemberMapper;
 import org.ds.dsyouth.model.Attendance;
+import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.page.Paging;
 import org.ds.dsyouth.search.MemberSearch;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +38,14 @@ public class MemberServiceImpl implements MemberService {
 		result = memberMapper.insertMember(member);
 		
 		if(member.getId() != 0) {
-			String year = DateHelper.getDate().substring(0, 4);
+			String year = DateHelper.getYear();
+			String month = DateHelper.getMonth();
 			Attendance att = new Attendance();
 			
-			for(int i = 1; i < 13; i++) {
-				att.setMemberId(member.getId());
-				att.setYear(Integer.parseInt(year));
-				att.setMonth(i);
+			for(Integer i = 1; i < 13; i++) {
+				att.setMemberId(member.getId().toString());
+				att.setYear(year);
+				att.setMonth(i.toString());
 				att.setAttYn("Y");
 				if(member.getTeamId() == 4 || member.getTeamId() == 8) {
 					attendanceMapper.insertAttendance(att);
@@ -50,6 +53,24 @@ public class MemberServiceImpl implements MemberService {
 					attendanceMapper.insertAttendance(att);
 				}else {
 					attendanceMapper.insertAttendance(att);
+				}
+			}
+			
+			// 만약 12월에 멤버를 등록하면 다음년도 출석부에도 추가해 준다.
+			if("12".equals(month)) {
+				Integer newYear = StringHelper.parseInt(year)+1;
+				for(Integer i = 1; i < 13; i++) {
+					att.setMemberId(member.getId().toString());
+					att.setYear(newYear.toString());
+					att.setMonth(i.toString());
+					att.setAttYn("Y");
+					if(member.getTeamId() == 4 || member.getTeamId() == 8) {
+						attendanceMapper.insertAttendance(att);
+						att.setAttYn("N");
+						attendanceMapper.insertAttendance(att);
+					}else {
+						attendanceMapper.insertAttendance(att);
+					}
 				}
 			}
 		}
@@ -103,33 +124,33 @@ public class MemberServiceImpl implements MemberService {
 	 * 해당 팀 멤버 리스트 불러오기
 	 */
 	@Override
-	public List<Member> getMemberList(String team) {
-		return memberMapper.selectMemberListByTeam(team);
+	public List<Member> getMemberList(Group group) {
+		return memberMapper.selectMemberListByGroup(group);
 	}
 
 	/**
 	 * 그룹의 cnt 구하기
 	 */
 	@Override
-	public int getGroupCnt(int id) {
-		return memberMapper.selectGroupCnt(id);
+	public int getGroupCnt(Group group) {
+		return memberMapper.selectGroupCnt(group);
 	}
 
 
 	/**
-	 * 전체 멤버 불러오기
+	 * 순장 data를 가지고 있는 memberList 값 가져오기
 	 */
 	@Override
-	public List<Member> getMemberList() {
-		return memberMapper.selectMemberList();
+	public List<Member> getMemberListByGroupGrade(Group group) {
+		return memberMapper.selectMemberListByGroupGrade(group);
 	}
 	
 	/**
 	 * 전체 멤버 불러오기 by 동기
 	 */
 	@Override
-	public List<Member> getMemberListBySamePeriod() {
-		return memberMapper.selectMemberListBySamePeriod();
+	public List<Member> getMemberListBySamePeriod(String sId) {
+		return memberMapper.selectMemberListBySamePeriod(sId);
 	}
 
 	/**

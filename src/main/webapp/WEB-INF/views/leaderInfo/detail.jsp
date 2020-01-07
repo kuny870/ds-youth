@@ -21,9 +21,7 @@
 			    <span class="shop-link-login" onclick="leaderInfoList()">
 			    	<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			    </span>
-                <p class="shop_name text-center">
-		            	${leaderInfo.title }               
-		        </p>
+                <p class="head_title text-center">${leaderInfo.title }</p>
             </div>
             
 			<div class="div-container">
