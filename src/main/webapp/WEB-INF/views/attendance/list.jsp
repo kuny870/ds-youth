@@ -120,17 +120,27 @@
 					                    		<input type="hidden" id="${att.id}" name="aId"/>
 					                    		<tr>
 						                            <td>${i.index + 1}</td>
-						                            <td>
-						                            	<%-- <c:choose>
-						                            		<c:when test="${i.index == 0">
+						                            
+						                            <c:set var="bold" value=""/>
+						                            <c:if test="${attendanceSearch.getTeam() != '1새가족' && attendanceSearch.getTeam() != '2새가족'}">
+						                            	<c:set var="bold" value="700"/>
+						                            	<c:choose>
+						                            		<c:when test="${i.index == 0}">
 						                            			<c:set var="groupName" value="${att.group.gName }"/>
 						                            			<c:set var="groupNameTmp" value="${att.group.gName }"/>
 						                            		</c:when>
 						                            		<c:when test="${i.index > 0 && att.group.gName != groupNameTmp}">
+						                            			<c:set var="groupName" value="${att.group.gName }"/>
+						                            			<c:set var="groupNameTmp" value="${att.group.gName }"/>
+						                            		</c:when>
+						                            		<c:when test="${i.index > 0 && att.group.gName == groupNameTmp}">
 						                            			<c:set var="groupName" value=""/>
 						                            			<c:set var="groupNameTmp" value="${att.group.gName }"/>
 						                            		</c:when>
-						                            	</c:choose> --%>
+						                            	</c:choose>
+					                            	</c:if>
+						                            	
+						                            <td style="font-weight: ${bold}">
 						                            	
 							                            	<c:choose>
 						                            			<c:when test="${att.attYn == 'Y'}">
@@ -139,7 +149,7 @@
 													                		${att.member.guider}
 													                	</c:when>
 													                	<c:otherwise>
-													                		${att.group.gName} <%-- ${groupName} --%>
+													                		${groupName}
 													                	</c:otherwise>
 													                </c:choose>
 						                            			</c:when>
