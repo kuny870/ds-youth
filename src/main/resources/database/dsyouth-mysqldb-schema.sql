@@ -61,7 +61,7 @@ create table member (
     reg_user int(10) not null,	-- 등록한 사용자
 	reg_date datetime DEFAULT CURRENT_TIMESTAMP,	-- 가입 시간
     mod_date datetime null,		-- 수정 시간
-    mem_state varchar(10) not null default '1',	-- 회원상태값  1:회원, 2:군인, 3:해외, 4:장기결석, 5:새가족수료, 6:졸업, 7:기타
+    mem_state varchar(10) not null default '1',	-- 회원상태값  1:회원, 2:기타, 3:군인, 4:해외, 5:장기결석, 6:새가족수료, 7:졸업
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
 
 	constraint pk_member primary key (id)
@@ -136,6 +136,16 @@ second_week = 'N',
 third_week = 'N',
 fourth_week = 'N',
 fifth_week = 'N';
+
+-- 회원 상태 값
+create table member_state (
+	id int(50) not null AUTO_INCREMENT,	-- 고유번호
+	m_state varchar(20) not null,		-- 회원 상태
+	ord varchar(10) null,				-- 순서
+	del_yn varchar(10) not null default 'N',	-- 삭제 여부
+	
+	constraint pk_member_state primary key (id)
+)
 
 
 -- 동기

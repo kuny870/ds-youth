@@ -48,6 +48,14 @@
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
 		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
   	</resultMap>
+  	
+  	<!-- 회원 상태 -->
+  	<resultMap id="MemberStateMap" type="MemberState">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="m_state" jdbcType="VARCHAR" property="mState" />
+		<result column="ord" jdbcType="VARCHAR" property="ord" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
 	
   	
   	
@@ -471,5 +479,10 @@
 	<update id="deleteSamePeriodId" parameterType="SamePeriod">
 		update member set same_period_id = null where same_period_id = #{id}
 	</update>
+	
+	<!-- 회원 상태 값 불러오기 -->
+	<select id="selectMemberStateList" resultMap="MemberStateMap">
+		select * from member_state where del_yn = 'N'
+	</select>
 	
 </mapper>

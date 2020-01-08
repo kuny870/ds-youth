@@ -44,8 +44,8 @@
                     	<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
                     	<div class="customer-select selectbox">
                             <select class="select-fix" id="memState" name="memState">
-                            	<c:forEach var="ms" items="${memState}">
-									<option value="${ms.getCode()}">${ms.getValue()}</option>
+                            	<c:forEach var="memberState" items="${memberStateList}">
+									<option value="${memberState.id}">${memberState.mState}</option>
 								</c:forEach>
                             </select>                        
 	                    </div>

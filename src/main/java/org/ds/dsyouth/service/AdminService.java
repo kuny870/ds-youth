@@ -8,6 +8,7 @@ import org.ds.dsyouth.exception.TeamDuplicatedException;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
+import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 
@@ -44,4 +45,6 @@ public interface AdminService {
 	boolean registSamePeriod(SamePeriod samePeriod) throws BirthYearDuplicatedException;
 	List<SamePeriod> getSamePeriodList();
 	boolean removeSamePeriod(SamePeriod samePeriod);
+	
+	List<MemberState> getMemberStateList();
 }

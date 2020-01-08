@@ -10,10 +10,10 @@ import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
+import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.search.type.EGroupSeason;
-import org.ds.dsyouth.search.type.EMemState;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
 import org.ds.dsyouth.service.MemberService;
@@ -198,13 +198,14 @@ public class AdminController {
 		String thisYear = DateHelper.getYear();
 		
 		List<Member> memberList = memberService.getMemberList(group);
+		List<MemberState> memberStateList = adminService.getMemberStateList();
 		
 		ModelAndView mav = new ModelAndView("admin/group/detail");
 		
 		mav.addObject("group", group);
 		mav.addObject("memberList", memberList);
 		mav.addObject("thisYear", thisYear);
-		mav.addObject("memState", EMemState.values());
+		mav.addObject("memberStateList", memberStateList);
 		
 		return mav;
 	}

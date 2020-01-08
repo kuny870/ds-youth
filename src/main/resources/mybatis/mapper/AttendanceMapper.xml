@@ -145,6 +145,7 @@
 		    
 		FROM attendance_${year} at
 		LEFT OUTER JOIN member m ON m.id = at.member_id
+		LEFT OUTER JOIN member_state ms ON ms.id = at.mem_state
 		LEFT OUTER JOIN team t ON t.id = m.team_id
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
@@ -185,7 +186,7 @@
 		ORDER BY 
 			g.g_name ASC
 			, at.group_grade DESC
-			, m.mem_state ASC
+			, ms.ord ASC
 			
 			<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
 			<choose>

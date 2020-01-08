@@ -168,5 +168,6 @@ public class MemberServiceImpl implements MemberService {
 	public List<Member> getMemberListBySamePeriodPer(String sId) {
 		return memberMapper.selectMemberListBySamePeriodPer(sId);
 	}
+	
 
 }

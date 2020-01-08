@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
+import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.springframework.stereotype.Repository;
@@ -48,4 +49,5 @@ public interface AdminMapper {
 	boolean deleteSamePeriodId(SamePeriod samePeriod); // 동기 삭제에 따른 멤버 상태 초기화
 	SamePeriod selectSamePeriodByBirthYear(SamePeriod samePeriod);	// 동일한 동기 있는지 체크
 	
+	List<MemberState> selectMemberStateList();
 }

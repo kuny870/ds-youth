@@ -118,9 +118,9 @@
 								                        
 								                    </td>
 								                    <td>
-								                    	<c:forEach var="ms" items="${memState}">
-								                    		<c:if test="${member.memState == ms.getCode() }">
-								                    			${ms.getValue() }								                    		
+								                    	<c:forEach var="memberState" items="${memberStateList}">
+								                    		<c:if test="${member.memState == memberState.id }">
+								                    			${memberState.mState }								                    		
 								                    		</c:if>	
 								                    	</c:forEach>
 								                    </td>

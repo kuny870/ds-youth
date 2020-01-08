@@ -10,6 +10,7 @@ import org.ds.dsyouth.mapper.AuthMapper;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
+import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.service.AdminService;
@@ -240,6 +241,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Group> getGroupListByTeam(Group group) {
 		return adminMapper.selectGroupListByTeam(group);
+	}
+	
+	
+	@Override
+	public List<MemberState> getMemberStateList() {
+		return adminMapper.selectMemberStateList();
 	}
 
 

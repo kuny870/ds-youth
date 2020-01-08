@@ -242,7 +242,7 @@
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id
 		WHERE 1=1
 			AND m.del_yn = 'N'
-			AND m.mem_state NOT IN ('5', '6')
+			AND m.mem_state NOT IN ('5')
             AND at.group_grade = '순장'
             AND g.season = #{season}
 		GROUP BY

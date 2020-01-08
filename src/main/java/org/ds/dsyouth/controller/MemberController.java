@@ -10,12 +10,12 @@ import org.ds.dsyouth.common.Constants;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
+import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.page.Paging;
 import org.ds.dsyouth.search.MemberSearch;
-import org.ds.dsyouth.search.type.EMemState;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
@@ -47,6 +47,7 @@ public class MemberController {
 		User user = (User)user_tmp;
 		
 		List<Depart> departList = adminService.getDepartList();
+		List<MemberState> memberStateList = adminService.getMemberStateList();
 		List<Team> teamList = null;
 		
 		// departId 값이 '0' 은 admin 관리자 '3' 은 기타 부서 소속 
@@ -58,7 +59,7 @@ public class MemberController {
 			
 		ModelAndView mav = new ModelAndView("member/regist");
 		
-		mav.addObject("memState", EMemState.values());
+		mav.addObject("memberStateList", memberStateList);
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
 		mav.addObject("memberSearch", memberSearch);
@@ -73,10 +74,11 @@ public class MemberController {
 		member = memberService.getMember(member);
 		List<Depart> departList = adminService.getDepartList();
 		List<Team> teamList = adminService.getTeamByDepart(member.getDepartId().toString());
+		List<MemberState> memberStateList = adminService.getMemberStateList();
 		
 		ModelAndView mav = new ModelAndView("member/modify");
 		
-		mav.addObject("memState", EMemState.values());
+		mav.addObject("memberStateList", memberStateList);
 		mav.addObject("member", member);
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
