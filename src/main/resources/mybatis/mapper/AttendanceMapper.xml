@@ -188,11 +188,18 @@
 			, m.mem_state ASC
 			
 			<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
-			<if test="team == '언약'">
-				, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
-				, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
-				, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
-			</if>
+			<choose>
+				<when test="team == '언약'">
+					, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
+					, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
+					, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
+				</when>
+				<when test="team == '기쁨'">
+					, FIELD(m.name, '홍영재','이승민') DESC
+					, FIELD(m.name, '김범수','이정연','이신재') DESC
+					, FIELD(m.name, '김도형','황성국','한희진','한혜린','김지수','김수영') DESC
+				</when>
+			</choose>
 			
 			<if test="year > 2019">
 				, B.total_last_year DESC
