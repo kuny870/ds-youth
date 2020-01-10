@@ -67,12 +67,12 @@
 			                    <thead>
 			                        <tr>
 			                            <th class="th-7p6">No</th>
-			                            <th class="th-20p0">이름</th>
+			                            <th class="th-20p0">이름 (동기)</th>
 			                            <th class="th-9p0">팀</th>
 			                            <th>
 				                            <c:choose>
 							                	<c:when test="${memberSearch.teamId == 4 || memberSearch.teamId == 8}">
-							                		인도자
+							                		인도자 (수료)
 							                	</c:when>
 							                	<c:otherwise>
 							                		순
@@ -80,7 +80,7 @@
 							                </c:choose>
 						                </th>
 			                            <th class="th-7p6">성별</th>
-			                            <th class="th-17p0">연락하기</th>
+			                            <th class="th-14p3">연락처</th>
 			                        </tr>
 			                    </thead>
 			                    <tbody>
@@ -145,6 +145,7 @@
 				                            	<c:choose>
 								                	<c:when test="${memberSearch.teamId == 4 || memberSearch.teamId == 8}">
 								                		${mem.guider}
+								                			<c:if test="${mem.memberGradDate != null }">(${mem.memberGradDate} 수료)</c:if>
 								                	</c:when>
 								                	<c:otherwise>
 								                		${mem.group.gName}

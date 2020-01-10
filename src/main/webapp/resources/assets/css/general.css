@@ -415,7 +415,24 @@
 }
 
 
-
+.customer-calendar {
+	width: 83%;
+	cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding: 0 15px;
+    height: 35px;
+    line-height: 38px;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    color: #353535;
+    overflow: hidden;
+    vertical-align: top;
+    border-radius: 5px;
+    margin-top: 3vw;
+}
 
 
 .container .header, 

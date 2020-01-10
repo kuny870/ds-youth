@@ -133,6 +133,8 @@
 		    , m.date_of_birth as m_date_of_birth
 		    , m.htel as m_htel
 		    , m.gender as m_gender
+		    , m.member_reg_date as member_reg_date
+		    , m.member_grad_date as member_grad_date
 		    , m.same_period_id as m_same_period_id
 		    , m.mem_state as m_mem_state
 		    , t.t_short_name as t_t_short_name

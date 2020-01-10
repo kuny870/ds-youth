@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	var team = document.getElementById('teamId');
 	if(team.value == 4 || team.value == 8) {
-		var guider = document.getElementById('guider');
-		guider.style.display = 'block';
+		var newMember = document.getElementById('new-member');
+		newMember.style.display = 'block';
 	}
 });
 

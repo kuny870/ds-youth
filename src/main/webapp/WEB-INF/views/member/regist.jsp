@@ -99,9 +99,15 @@
 	                   </div>
 	                   
 	                   <!-- 새가족일 경우 인도자 -->
-	                   <div>
+	                   <div id="new-member" style="display: none;">
 		                   <label>
-	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="" autocomplete="off" style="margin-top: 6vw; display: none;">                        
+	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="" autocomplete="off" style="margin-top: 6vw;">                        
+	                       </label>
+	                       <label>
+	                            <span>등록일</span><input type="date" class="customer-calendar" id="memberRegDate" name="memberRegDate" value="${member.memberRegDate}">                        
+	                       </label>
+	                       <label>
+	                            <span>수료일</span><input type="date" class="customer-calendar" id="memberGradDate" name="memberGradDate" value="${member.memberGradDate}">                        
 	                       </label>
 	                   </div>
 	                   

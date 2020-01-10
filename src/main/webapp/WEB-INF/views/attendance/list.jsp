@@ -87,7 +87,7 @@
 			                    <thead>
 			                        <tr>
 			                            <th class="th-5p6">No</th>
-			                            <th class="th-20p0">
+			                            <th class="th-22p0">
 			                            	 <c:choose>
 							                	<c:when test="${attendanceSearch.getTeam() == '1새가족' || attendanceSearch.getTeam() == '2새가족'}">
 							                		인도자
@@ -97,7 +97,7 @@
 							                	</c:otherwise>
 							                </c:choose>
 			                            </th>
-			                            <th class="th-20p0">이름(동기)</th>
+			                            <th class="th-18p0">이름 (동기)</th>
 			                            <c:forEach var="s" items="${sunday}" varStatus="i">
 			                            	<th class="th-7p6">${s}</th>
 			                            </c:forEach>
@@ -139,7 +139,7 @@
 						                            		</c:when>
 						                            	</c:choose>
 					                            	</c:if>
-						                            	
+						                            
 						                            <td style="font-weight: ${bold}">
 						                            	
 							                            	<c:choose>

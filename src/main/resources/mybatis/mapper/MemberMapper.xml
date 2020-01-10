@@ -13,6 +13,8 @@
 		<result column="date_of_birth" jdbcType="VARCHAR" property="dateOfBirth" />
 		<result column="htel" jdbcType="VARCHAR" property="htel" />
 		<result column="gender" jdbcType="VARCHAR" property="gender" />
+		<result column="member_reg_date" jdbcType="VARCHAR" property="memberRegDate" />
+		<result column="member_grad_date" jdbcType="VARCHAR" property="memberGradDate" />
 		<result column="profile_img" jdbcType="VARCHAR" property="profileImg" />
 		<result column="same_period_id" jdbcType="INTEGER" property="samePeriodId" />
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
@@ -66,6 +68,12 @@
 				 <if test="memState != null">
 					 mem_state,
 				 </if>
+				 <if test="memberRegDate != null">
+					 member_reg_date,
+				 </if>
+				 <if test="memberGradDate != null">
+					 member_grad_date,
+				 </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
 	           <if test="name != null">
@@ -101,6 +109,12 @@
 		       <if test="memState != null">
 		        	 #{memState},
 		       </if>
+		       <if test="memberRegDate != null">
+		        	 #{memberRegDate},
+		       </if>
+		       <if test="memberGradDate != null">
+		        	 #{memberGradDate},
+		       </if>
        </trim>
    </insert>
 
@@ -111,8 +125,11 @@
 			SELECT
 				m.id
 			FROM member m
+			LEFT OUTER JOIN depart d ON d.id = m.depart_id
 			LEFT OUTER JOIN team t ON t.id = m.team_id
 			LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id AND at.month = #{month}
+			LEFT OUTER JOIN `group` g ON g.id = at.group_id
+			LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 			WHERE 1=1
 				AND m.del_yn = 'N'
 				AND m.mem_state NOT IN ('6')
@@ -123,9 +140,11 @@
 					AND at.group_id = #{groupId}
 				</if>
 				<if test="nameKW != null and nameKW != ''">
-					AND m.name = #{nameKW}
+					AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
 					AND m.mem_state NOT IN ('5')
 				</if>
+			GROUP BY
+				m.id
 		) a
 	</select>
 
@@ -140,6 +159,8 @@
 		    , m.date_of_birth
 		    , m.htel
 		    , m.gender
+		    , m.member_reg_date
+		    , m.member_grad_date
 		    , m.same_period_id
 		    , m.profile_img
 		    , m.reg_user
@@ -176,6 +197,9 @@
 		GROUP BY
 			m.id
 		ORDER BY 
+			<if test="teamId == 4 or teamId == 8">
+				m.member_grad_date ASC ,
+			</if>
 			m.name ASC
 		LIMIT 
 			#{startRow}, #{boardSize}
@@ -196,6 +220,8 @@
 		    , m.date_of_birth
 		    , m.htel
 		    , m.gender
+		    , m.member_reg_date
+		    , m.member_grad_date
 		    , m.same_period_id
 		    , m.profile_img
 		    , m.reg_user
@@ -263,6 +289,8 @@
 		    , m.date_of_birth
 		    , m.htel
 		    , m.gender
+		    , m.member_reg_date
+		    , m.member_grad_date
 		    , m.same_period_id
 		    , m.profile_img
 		    , m.reg_user
@@ -301,6 +329,8 @@
 		    , m.date_of_birth
 		    , m.htel
 		    , m.gender
+		    , m.member_reg_date
+		    , m.member_grad_date
 		    , m.same_period_id
 		    , m.profile_img
 		    , m.reg_user
@@ -342,6 +372,8 @@
 		    , m.gender
 		    , m.same_period_id
 		    , m.mem_state
+		    , m.member_reg_date
+		    , m.member_grad_date
 		FROM member m
 		WHERE 1=1
 			AND m.id = #{id}
@@ -380,7 +412,13 @@
 	        	profile_img = #{profileImg},
 	      	</if>
 	      	<if test="memState != null">
-	        	mem_state = #{memState}
+	        	mem_state = #{memState},
+	      	</if>
+	      	<if test="memberRegDate != null">
+	        	member_reg_date = #{memberRegDate},
+	      	</if>
+	      	<if test="memberGradDate != null">
+	        	member_grad_date = #{memberGradDate}
 	      	</if>
 	    </set>
 		WHERE id = #{id}

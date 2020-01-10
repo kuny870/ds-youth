@@ -14,6 +14,8 @@ public class Member {
 	private Integer teamId;
 	private String htel;
 	private String gender;
+	private String memberRegDate;
+	private String memberGradDate;
 	private Integer samePeriodId;
 	private String profileImg;
 	private Integer regUser;
@@ -40,6 +42,18 @@ public class Member {
 	}
 	public void setGuider(String guider) {
 		this.guider = guider;
+	}
+	public String getMemberRegDate() {
+		return memberRegDate;
+	}
+	public void setMemberRegDate(String memberRegDate) {
+		this.memberRegDate = memberRegDate;
+	}
+	public String getMemberGradDate() {
+		return memberGradDate;
+	}
+	public void setMemberGradDate(String memberGradDate) {
+		this.memberGradDate = memberGradDate;
 	}
 	public Depart getDepart() {
 		return depart;
