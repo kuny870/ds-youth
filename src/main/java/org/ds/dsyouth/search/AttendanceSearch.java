@@ -5,16 +5,38 @@ import org.ds.dsyouth.utils.StringHelper;
 
 public class AttendanceSearch {
 	
-	private String team;
+	private String teamId;
 	private String year;
 	private String lastYear;
 	private int month;
+	private String season;
 
 	public AttendanceSearch() {
-		this.team = "동산";
+		this.teamId = "9";
 		this.year = DateHelper.getYear();
 		this.lastYear = DateHelper.getLastYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
+	}
+	
+	public String getSeason() {
+		if(month < 7) {
+			this.season = "상반기";
+		}else {
+			this.season = "하반기";
+		}
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public String getLastYear() {
+		return lastYear;
+	}
+
+	public void setLastYear(String lastYear) {
+		this.lastYear = lastYear;
 	}
 
 	public String getYear() {
@@ -33,15 +55,15 @@ public class AttendanceSearch {
 		this.month = month;
 	}
 
-	public String getTeam() {
-		if("".equals(this.team) || "기타".equals(this.team)) {
-			this.team = "동산";
+	public String getTeamId() {
+		if("".equals(this.teamId) || "0".equals(this.teamId) || "10".equals(this.teamId)) {
+			this.teamId = "9";
 		}
-		return team;
+		return teamId;
 	}
 
-	public void setTeam(String team) {
-		this.team = team;
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 	
 }

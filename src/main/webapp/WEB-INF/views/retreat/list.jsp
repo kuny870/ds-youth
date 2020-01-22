@@ -27,7 +27,7 @@
             
 				<div class="div-container">
                     
-                    <div class="customer-select2 selectbox" style="width: 22%; margin-left: 5%; float: left;">
+                    <div class="customer-select-search" style="width: 22%; margin-left: 5%; float: left;">
 						<!-- 년 선택 -->
                    		<select class="select-fix" id="year" name="year" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="year" items="${yearList }">
@@ -40,7 +40,7 @@
 	                    </select>
                     </div>
                     
-                    <div class="customer-select2 selectbox" style="width: 22%; margin-left: 5%; float: left;">
+                    <div class="customer-select-search" style="width: 22%; margin-left: 5%; float: left;">
 						<!-- 시즌 선택 -->
                    		<select class="select-fix" id="season" name="season" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="ss" items="${season }">
@@ -49,7 +49,7 @@
 	                    </select>
                     </div>
                     
-					<div class="customer-select2 selectbox" style="width: 37.3%; margin-left:5%; float: left;">
+					<div class="customer-select-search" style="width: 37.3%; margin-left:5%; float: left;">
 						 <select class="select-fix" id="team" name="team" style="width:70%; height:27px; font-size: 11px;">
 	                       	<c:forEach var="team" items="${teamList }">
 	                       		<c:set var="selected" value="" />
@@ -70,7 +70,7 @@
 	                    </select> 
                     </div>
                     
-                    <div class="customer-select2 selectbox" style="width: 20%; margin-left: 3%; float: left;">
+                    <div class="customer-select-search" style="width: 20%; margin-left: 3%; float: left;">
 						<!-- 월 선택 -->
                    		<select class="select-fix" id="month" name="month" style="height:27px; font-size: 11px;">
 	                       	<c:forEach var="month" items="${SMonthSearchType }">

@@ -90,13 +90,3 @@ function attendanceRegist() {
 }
 
 
-// 출석 조회
-function attendanceSearch() {
-	
-	var team = $('#team').val();
-	var year = $('#year').val();
-	var month = $('#month').val();
-	
-	location.href = contextPath + "/attendance/list?team=" + team + "&year=" + year + "&month=" + month;
-	
-}

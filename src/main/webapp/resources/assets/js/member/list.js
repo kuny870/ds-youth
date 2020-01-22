@@ -33,28 +33,6 @@ function fnGetCtgSub(sParam){
     
 }
 
-// 팀원 등록 페이지 이동
-function memberRegist() {
-	var sTeamId = $('#sTeamId').val();
-	var sGroupId = $('#sGroupId').val();
-	var sNameKW = $('#sNameKW').val();
-	var pageNo = $('#pageNo').val();
-	
-	location.href = contextPath + "/member/regist?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW + "&pageNo=" + pageNo;
-}
-
-
-function memberSearch() {
-	
-	var teamId = $('#teamId').val();
-	var groupId = $('#groupId').val();
-	var nameKW = $('#nameKW').val();
-	
-	 var param = {pageNo : 1, teamId : teamId, groupId : groupId, nameKW : nameKW};
-     pageModule.searchPage(param);
-	
-}
-
 
 //페이지 버튼 클릭 시
 var pageModule = (function () {

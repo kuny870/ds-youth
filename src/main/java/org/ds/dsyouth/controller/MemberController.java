@@ -39,6 +39,44 @@ public class MemberController {
 	private AdminService adminService;
 
 	
+	/**
+	 * 팀원 list
+	 * @param memberSearch
+	 * @return
+	 */
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	public ModelAndView member_list(MemberSearch memberSearch) {
+
+		Paging<Member> paging = memberService.getMemberList(memberSearch);
+		
+		List<Depart> departList = adminService.getDepartList();
+		List<Team> teamList = adminService.getTeamList();
+		Group group = new Group();
+		group.setTeamId(memberSearch.getTeamId());
+		List<Group> groupList = adminService.getGroupListByTeam(group);
+
+		String year = DateHelper.getYear();
+		
+		ModelAndView mav = new ModelAndView("member/list");
+		
+		mav.addObject("paging", paging);
+		
+		mav.addObject("departList", departList);
+		mav.addObject("teamList", teamList);
+		mav.addObject("groupList", groupList);
+		mav.addObject("memberSearch", memberSearch);
+		mav.addObject("year", year);
+		
+		return mav;
+	}
+	
+	
+	/**
+	 * 팀원 등록
+	 * @param request
+	 * @param memberSearch
+	 * @return
+	 */
 	@RequestMapping(value = "/member/regist", method = RequestMethod.GET)
 	public ModelAndView member_regist(HttpServletRequest request, MemberSearch memberSearch) {
 
@@ -68,6 +106,12 @@ public class MemberController {
 	}
 	
 	
+	/**
+	 * 팀원 수정
+	 * @param member
+	 * @param memberSearch
+	 * @return
+	 */
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
 	public ModelAndView member_modify(Member member, MemberSearch memberSearch) {
 
@@ -87,32 +131,6 @@ public class MemberController {
 		return mav;
 	}
 	
-	
-	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
-	public ModelAndView member_list(MemberSearch memberSearch) {
-
-		Paging<Member> paging = memberService.getMemberList(memberSearch);
-		
-		List<Depart> departList = adminService.getDepartList();
-		List<Team> teamList = adminService.getTeamList();
-		Group group = new Group();
-		group.setTeamId(memberSearch.getTeamId());
-		List<Group> groupList = adminService.getGroupListByTeam(group);
-
-		String year = DateHelper.getYear();
-		
-		ModelAndView mav = new ModelAndView("member/list");
-		
-		mav.addObject("paging", paging);
-		
-		mav.addObject("departList", departList);
-		mav.addObject("teamList", teamList);
-		mav.addObject("groupList", groupList);
-		mav.addObject("memberSearch", memberSearch);
-		mav.addObject("year", year);
-		
-		return mav;
-	}
 	
 	
 	/**

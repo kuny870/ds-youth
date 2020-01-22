@@ -21,8 +21,8 @@
 		    <nav>
 		        <ul>
 		            <li>
-		                <span class="shop-link" id="linkCopy" style="display:none; margin-right: 15px;">링크복사</span>
-		            	<a class="shop-link" id="clipURL" href="http://dsyouth-env.jzz59thtne.ap-northeast-2.elasticbeanstalk.com/login" style="display:none; margin-right: 15px;">링크복사</a>
+		                <span class="dsyouth-link" id="linkCopy">링크복사</span>
+		            	<a class="dsyouth-link" id="clipURL" href="http://dsyouth-env.jzz59thtne.ap-northeast-2.elasticbeanstalk.com/login">링크복사</a>
 		            </li>
 		        </ul>
 		    </nav>
@@ -47,7 +47,7 @@
 	            <label class="radio-inline">
 	            <input type="checkbox" id="useCookieCheckBox" name="useCookieCheckBox">
 	            <input type="hidden" id="useCookie" name="useCookie" value="">
-	                      로그인 상태 유지
+                	<span>로그인 상태 유지</span>
 	            </label>
 	          </div>
 	        

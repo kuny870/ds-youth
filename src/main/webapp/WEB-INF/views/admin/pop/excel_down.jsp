@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-<title>NOTICE POPUP</title>
+<title>EXCEL DOWNLAOD POPUP</title>
 <style> 
 /* 마스크 뛰우기 */
 #mask {  
@@ -16,9 +16,9 @@
 /* 팝업으로 뜨는 윈도우 css  */ 
 .window{
     position: fixed;
-    width: 60%;
+    width: 70%;
     left: 50%;
-    margin-left: -30%; /* half of width */
+    margin-left: -35%; /* half of width */
     /* height: 300px; */
     top: 50%;
     margin-top: -150px; /* half of height */
@@ -59,12 +59,6 @@
     }
  
     $(document).ready(function(){
-        //검은 막 띄우기
-        /* $(".openMask").click(function(e){
-            e.preventDefault();
-            wrapWindowByMask();
-        }); */
-        wrapWindowByMask();
  
         //닫기 버튼을 눌렀을 때
         $(".window .close").click(function (e) {  
@@ -80,58 +74,64 @@
  
         });
         
-        
-        cookiedata = document.cookie; 
-        if ( cookiedata.indexOf("notice=done") < 0 ) {
-        	$("#mask, .window").show();
-        }else {
-        	$("#mask, .window").hide(); 
-        }
- 
     });
+    
  
 //]]>
 </script>
 </head>
 <body>
-    <div id ="wrap"> 
-        <div id = "container">  
+    <div id="wrap"> 
+        <div id="container">  
             <div id="mask"></div>
            	<div class="window">
                 <div style="width:100%; height:100%; text-align:center; vertical-align:middle;">
-                	<div style="font-size: 15px; font-weight: 700">[ 공 지 ]</div><br/>
-                	<div>1. 새가족 팀원</div>
-                	<div>등록일/수료일 입력 기능</div>
-                	<div>추가되었습니다.</div>
+                	<div style="font-size: 15px; font-weight: 700">[ 엑셀 다운로드 ]</div>
+                	
                 	<br/>
-                	<div>2. 가족 편성표</div>
-                	<div>준비 중입니다.</div>
+                	
+						<div class="customer-select-search" style="width: 40%; margin-left: 7%; float: left;">
+							<!-- 년 선택 -->
+	                   		<select class="select-admin-pop-excel-year" id="yearExcel" name="yearExcel">
+		                       	<c:forEach var="year" items="${yearList }">
+		                       		<c:set var="selected" value="" />
+									<c:if test="${year eq attendanceSearch.year }">
+										<c:set var="selected" value="selected" />
+									</c:if>
+									<option value="${year}" ${selected} >${year}년</option>
+								</c:forEach>
+		                    </select>
+	                    </div>    
+                    
+	                    <div class="customer-select-search" style="width: 40%; margin-left: 7%; float: left;">
+							<!-- 상반기 / 하반기 선택 -->
+	                   		<select class="select-admin-pop-excel-season" id="seasonExcel" name="seasonExcel">
+		                       	<c:forEach var="ss" items="${season }">
+		                       		<c:set var="selected" value="" />
+									<c:if test="${ss eq attendanceSearch.season }">
+										<c:set var="selected" value="selected" />
+									</c:if>
+									<option value="${ss}" ${selected} >${ss}</option>
+								</c:forEach>
+		                    </select>
+	                    </div>
+	                    <br/>
+	                    
                 </div>
+                
+                <br/><br/>
+				
+				<div style="text-align: center;">
+					<button class="excel-down-btn" onclick="excelDown()" style="font-size: 3.3vw;">다운로드</button>
+				</div>
+				
 				<p style="text-align:center; background:#ffffff; padding:5px; margin-top:20px;">
-					<button class="notice-close-btn" onclick="todayClose('notice',1)" style="margin-right: 3px;">오늘 열지 않음</button>
-					<button class="notice-close-btn close" style="margin-left: 3px;">닫기</button>
+					<button class="excel-close-btn close">닫기</button>
 				</p>
             </div>
         </div>
     </div>
 </body>
-
-
-<script> 
-
-function todayClose(name, value) { 
-	setCookieAt00(name, 'done', value);
-	$("#mask, .window").hide();
-}
-
-//00시 기준 으로 쿠키 값을 셋팅
-function setCookieAt00( name, value, expiredays ) {  
-	var todayDate = new Date(); 
-	todayDate.setDate( todayDate.getDate() + expiredays ); 
-	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toUTCString() + ";";
-}
-	
-</script> 
 
 </html>
 

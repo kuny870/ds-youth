@@ -24,7 +24,7 @@
 			<span class="shop-link-login" onclick="mypage()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="head_title text-center">비밀번호 관리</p>
+			<p class="head_title text-center">비밀번호 변경</p>
 			
             <div class="form">
                 <form enctype="application/x-www-form-urlencoded" id="pwEditForm">

@@ -39,14 +39,11 @@ $("#profileForm").submit(function(e) {
 	var htelRegex=/^[0-9]{10,11}$/;
 	
 	var $loginId = $('#loginId');
-	var $loginPw = $('#loginPw');
-	var $loginPwConfirm = $('#loginPwConfirm');
 	var $name = $('#name');
 	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
 	var $depart = $('#depart');
 	var $team = $('#team');
-	var $group = $('#group');
 	var $gender = $('input[name="gender"]:checked');
 
 	var validateMessage = null;
@@ -56,28 +53,13 @@ $("#profileForm").submit(function(e) {
 	if ($loginId.val() == "") {
 		validateMessage = '아이디를 입력해 주세요.';
 		validateFocus = $loginId;
-	} else if ($loginPw.val() == "") {
-		validateMessage = '비밀번호를 입력해 주세요.';
-		validateFocus = $loginPw;
-	}/* else if ($loginPw.val().length < 6) {
-		validateMessage = '비밀번호를 6자리 이상 입력해 주세요.';
-		validateFocus = $loginPw;
-	} */else if ($loginPw.val() != $loginPwConfirm.val()) {
-		validateMessage = '비밀번호가 일치하지 않습니다.';
-		validateFocus = $loginPwConfirm;
 	} else if ($name.val() == "") {
 		validateMessage = '이름을 입력해 주세요.';
 		validateFocus = $name;
-	}/* else if ($dateOfBirth.val() == "") {
-		validateMessage = '주민번호 앞 6자리를 입력해 주세요.';
-		validateFocus = $dateOfBirth;
-	} */else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
 		validateMessage = '생년월일을 다시 확인해 주세요.';
 		validateFocus = $dateOfBirth;
-	}/* else if ($htel.val() == "") {
-		validateMessage = '휴대폰 번호를 입력해 주세요.';
-		validateFocus = $htel;
-	} */else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
 		validateMessage = '휴대폰 번호를 다시 확인해 주세요.';
 		validateFocus = $htel;
 	} else if ($depart.val() == "선택") {

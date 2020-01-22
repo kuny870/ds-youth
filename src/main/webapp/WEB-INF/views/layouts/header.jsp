@@ -30,4 +30,8 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/common/common.js?${nowTime}"></script>
 
-<html><head><title>DSYouth</title></head></html>
+<html>
+	<head>
+		<title>DSYouth</title>
+	</head>
+</html>

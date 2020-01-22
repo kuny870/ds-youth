@@ -2,12 +2,15 @@ package org.ds.dsyouth.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.ds.dsyouth.common.Constants;
+import org.ds.dsyouth.excel.GenericExcelView;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.search.AttendanceSearch;
+import org.ds.dsyouth.search.type.EGroupSeason;
 import org.ds.dsyouth.search.type.SMonthSearchType;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AttendanceService;
@@ -64,10 +67,10 @@ public class AttendanceController {
 		ModelAndView mav = new ModelAndView("attendance/list");
 		
 		mav.addObject("attendanceList", attendanceList);
-		
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
 		mav.addObject("SMonthSearchType", SMonthSearchType.values());
+		mav.addObject("season", EGroupSeason.values());
 		mav.addObject("attendanceSearch", attendanceSearch);
 		mav.addObject("yearList", yearList);
 		mav.addObject("year", year);
@@ -76,6 +79,35 @@ public class AttendanceController {
 		
 		return mav;
 	}
+	
+	
+	/*
+     * 출석부 엑셀 다운로드
+     */
+    @RequestMapping(value = "/attendance/excelDownload", method = RequestMethod.GET)
+    public GenericExcelView attendance_excel_download(
+    		AttendanceSearch attendanceSearch,
+    		Map<String, Object> model) throws Exception {
+        
+    	List<Depart> departList = adminService.getDepartList();
+    	List<Team> teamList = adminService.getTeamList();
+		
+    	List<List<Attendance>> attendanceExcel = new ArrayList<List<Attendance>>();
+    	
+    	for(int i=0; i<teamList.size(); i++) {
+    		attendanceSearch.setTeamId(teamList.get(i).getId().toString());
+    		List<Attendance> attendanceList = attendanceService.getMemberListByAtt(attendanceSearch);
+    		attendanceExcel.add(attendanceList);
+    	}
+		
+        model.put("attendanceExcel", attendanceExcel);
+        model.put("departList", departList);
+        model.put("teamList", teamList);
+        model.put("attendanceSearch", attendanceSearch);
+        
+        return new GenericExcelView();
+
+    }
 	
 	
 }

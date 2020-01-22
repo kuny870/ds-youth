@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ds.dsyouth.common.Constants;
-import org.ds.dsyouth.excel.GenericExcelView;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
@@ -39,6 +38,7 @@ public class AdminController {
 	
 	@Autowired
 	private MemberService memberService;
+	
 	
 	/**
 	 * 청년부 관리
@@ -281,41 +281,5 @@ public class AdminController {
 		return mav;
 	}
 	
-	
-	
-	/*
-     * 엑셀 다운로드
-     */
-    @RequestMapping(value = "/excelDownload", method = RequestMethod.GET)
-    public GenericExcelView excelDownload(@RequestParam Map<String, String> params,
-                    Map<String, Object> model) throws Exception {
-         
-          List<String> colName = new ArrayList<String>();
-               colName.add("1번");
-               colName.add("2번");
-               colName.add("3번");
-               colName.add("4번");
-               colName.add("5번");
-
-              List<String[]> colValue = new ArrayList<String[]>();
-
-              String[] arr1 = { "11111", "22222", "33333", "44444", "55555" };
-              String[] arr2 = { "aaaaa", "bbbbb", "ccccc", "ddddd", "eeeee" };
-              String[] arr3 = { "가가가", "나나나" , "다다다" , "라라라" , "마마마" };
-
-               colValue.add(arr1);
-               colValue.add(arr2);
-               colValue.add(arr3);
-               
-               model.put("year", params.get("year"));
-               model.put("season", params.get("season"));
-               
-               model.put("excelName", "test");
-               model.put("colName", colName);
-               model.put("colValue", colValue);
-         
-          return new GenericExcelView();
-       
-    }
 	
 }

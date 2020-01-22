@@ -31,8 +31,8 @@
                     <div class="form-middle">
                     	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
                     	
-                    	<div class="customer-select selectbox">
-                            <select class="select-fix" id="year" name="year">
+                    	<div class="customer-select">
+                            <select id="year" name="year">
                             	<c:forEach var="year" items="${yearList}">
                             		<c:set var="selected" value="" />
 									<c:if test="${year eq thisYear}">
@@ -43,8 +43,8 @@
                             </select>                        
 	                    </div>
 	                    
-	                    <div class="customer-select selectbox">
-                            <select class="select-fix" id="season" name="season">
+	                    <div class="customer-select">
+                            <select id="season" name="season">
                             	<c:forEach var="ss" items="${season}">
 									<option value="${ss}">${ss}</option>
 								</c:forEach>

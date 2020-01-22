@@ -282,23 +282,6 @@ $("#registLeaderInfoForm").submit(function(e) {
 //    };
 
     
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/////////////////////
 //	
 //	

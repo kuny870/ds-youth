@@ -4,6 +4,7 @@ $(document).ready(function(){
 		var newMember = document.getElementById('new-member');
 		newMember.style.display = 'block';
 	}
+	
 });
 
 
@@ -47,14 +48,14 @@ function getTeam(sParam){
 }
 
 
-function getGuider(val){
-	var guider = document.getElementById('guider');
+function getNewMemberDetail(val){
+	var newMember = document.getElementById('new-member');
 	
 	 if(val == 4 || val == 8) {
-     	guider.style.display = 'block';
+		 newMember.style.display = 'block';
      }else {
-     	guider.style.display = 'none';
-     	guider.value = '';
+    	 newMember.style.display = 'none';
+    	 newMember.value = '';
      }
 }
 

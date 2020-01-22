@@ -44,16 +44,16 @@
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength11(this);" autocomplete="off">
                         </label>
                         
-                        <div class="customer-select selectbox">
-                            <select class="select-fix" id="departId" name="departId" onchange="fnGetCtgSub(this.value);">
+                        <div class="customer-select">
+                            <select id="departId" name="departId" onchange="fnGetCtgSub(this.value);">
                             	<option value="" >부서선택 (필수)</option>
                             	<c:forEach var="depart" items="${departList}">
 									<option value="${depart.id}" >${depart.dName}</option>
 								</c:forEach>
                             </select>                        
 	                    </div>
-	                    <div class="customer-select selectbox">
-                            <select class="select-fix" id="teamId" name="teamId">
+	                    <div class="customer-select">
+                            <select id="teamId" name="teamId">
                             	<option value="">팀선택 (필수)</option>
                             </select>                        
 	                    </div>

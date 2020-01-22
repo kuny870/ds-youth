@@ -28,8 +28,8 @@
 			    <p class="head_title text-center">팀원 관리</p>
             
 				<div class="div-container">
-					<div class="customer-select2 selectbox" style="width: 37.3%; float: left;">
-						 <select class="select-fix" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value);" style="width:66%; margin-bottom: 10%; margin-left: 12%; height:27px; font-size: 10px;">
+					<div class="customer-select-search" style="width: 37.3%; float: left;">
+						 <select class="select-member-list-team" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value);">
 						 	<option value="" >팀 전체</option>
 	                       	<c:forEach var="team" items="${teamList }">
 	                       		<c:set var="selected" value="" />
@@ -41,8 +41,8 @@
 	                    </select>   
                     </div>
                     
-                    <div class="customer-select2 selectbox" style="width: 37.3%; margin-left:-15px; float: left;">
-						 <select class="select-fix" id="groupId" name="groupId" style="width:66%; margin-bottom: 10%; height:27px; font-size: 10px;">
+                    <div class="customer-select-search" style="width: 37.3%; margin-left:-15px; float: left;">
+						 <select class="select-member-list-group" id="groupId" name="groupId">
 						 	<option value="" >순 전체</option>
 	                       	<c:forEach var="group" items="${groupList }">
 	                       		<c:set var="selected" value="" />
@@ -54,8 +54,8 @@
 	                    </select>
                     </div>        
                     
-                    <div class="customer-select2 selectbox" style="width: 22%; margin-left:-30px; margin-right:-3px; float: left;">
-                         <input type="text" class="md-input2" id="nameKW" name="nameKW" placeholder="이름" value="" style="border: 1px solid #ccc;">
+                    <div class="customer-select-search" style="width: 22%; margin-left:-30px; margin-right:-3px; float: left;">
+                         <input type="text" class="md-input2" id="nameKW" name="nameKW" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
 		            </div>
 		            <div>
 		            	<button class="basic-btn member-list-btn" onclick="memberSearch()">검색</button>
@@ -92,32 +92,30 @@
 				                            		<a href="${contextPath}/member/modify?id=${mem.id}&pageNo=${memberSearch.pageNo}&teamId=${memberSearch.teamId}&groupId=${memberSearch.groupId}&nameKW=${memberSearch.nameKW}">
 				                            			${mem.name}
 				                            			<c:if test="${mem.samePeriodId != null }">
+				                            				<c:set var="yearTmp" value="${year - mem.samePeriod.birthYear}"/>
 				                            				<c:choose>
-						                            			<c:when test="${year - mem.samePeriod.birthYear < 19}">
-						                            				(${fn:substring(mem.samePeriod.birthYear,2,4)})
-						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 19}">
+						                            			<c:when test="${yearTmp == 19}">
 						                            				(1)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 20}">
+						                            			<c:when test="${yearTmp == 20}">
 						                            				(2)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 21}">
+						                            			<c:when test="${yearTmp == 21}">
 						                            				(3)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 22}">
+						                            			<c:when test="${yearTmp == 22}">
 						                            				(4)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 23}">
+						                            			<c:when test="${yearTmp == 23}">
 						                            				(5)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 24}">
+						                            			<c:when test="${yearTmp == 24}">
 						                            				(6)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 25}">
+						                            			<c:when test="${yearTmp == 25}">
 						                            				(7)
 						                            			</c:when>
-						                            			<c:when test="${year - mem.samePeriod.birthYear == 26}">
+						                            			<c:when test="${yearTmp == 26}">
 						                            				(8)
 						                            			</c:when>
 						                            			<c:otherwise>

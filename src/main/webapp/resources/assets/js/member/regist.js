@@ -46,14 +46,14 @@ function getTeam(val){
 }
 
 
-function getGuider(val){
-	var guider = document.getElementById('guider');
+function getNewMemberDetail(val){
+	var newMember = document.getElementById('new-member');
 	
 	 if(val == 4 || val == 8) {
-     	guider.style.display = 'block';
+		 newMember.style.display = 'block';
      }else {
-     	guider.style.display = 'none';
-     	guider.value = '';
+    	 newMember.style.display = 'none';
+    	 newMember.value = '';
      }
 }
 
@@ -68,13 +68,6 @@ $("#memberRegistForm").submit(function(e) {
 	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
 
-	/* var absentChk = $(longAbsentChk).prop("checked");
-	if(absentChk){
-		$('#longAbsent').val("Y");
-	}else {
-		$('#longAbsent').val("N");
-	}*/
-	
 	var validateMessage = null;
 	var validateFocus = null;
 

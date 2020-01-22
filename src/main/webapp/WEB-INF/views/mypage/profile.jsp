@@ -24,7 +24,7 @@
 			<span class="shop-link-login" onclick="mypage()">
 				<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
 			</span>
-			<p class="head_title text-center">기본정보 관리</p>
+			<p class="head_title text-center">기본정보 변경</p>
 			
             <div class="form">
                 <form enctype="application/x-www-form-urlencoded" id="profileForm">
@@ -43,8 +43,8 @@
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" value="${login.htel }" placeholder='휴대폰 번호 "-" 빼고 입력' maxlength="11" oninput="numberMaxLength11(this);" autocomplete="off">                        
                         </label>
                         
-                        <div class="customer-select selectbox" style="width: 78%; margin-top: 7%;">
-	                            <select class="select-fix" id="departId" name="departId" onchange="fnGetCtgSub(this.value);">
+                        <div class="customer-select">
+	                            <select id="departId" name="departId" onchange="fnGetCtgSub(this.value);">
 	                            	<c:forEach var="depart" items="${departList }">
 										<c:set var="selected" value="" />
 										<c:if test="${depart.id eq login.departId}">
@@ -54,19 +54,17 @@
 									</c:forEach>
 	                            </select>                        
 	                    </div>
-	                    <div style="margin-top: 7%;">
-		                    <div class="customer-select selectbox" style="width: 78%;">
-		                            <select class="select-fix" id="teamId" name="teamId">
-		                            	<c:forEach var="team" items="${teamList }">
-											<c:set var="selected" value="" />
-											<c:if test="${team.id eq login.teamId}">
-												<c:set var="selected" value="selected" />
-											</c:if>
-											<option value="${team.id}" ${selected} >${team.tShortName}</option>
-										</c:forEach>
-		                            </select>                        
-		                   </div>
-	                   </div>  
+	                    <div class="customer-select">
+	                            <select id="teamId" name="teamId">
+	                            	<c:forEach var="team" items="${teamList }">
+										<c:set var="selected" value="" />
+										<c:if test="${team.id eq login.teamId}">
+											<c:set var="selected" value="selected" />
+										</c:if>
+										<option value="${team.id}" ${selected} >${team.tShortName}</option>
+									</c:forEach>
+	                            </select>                        
+	                   </div>
                         
                     </div>
                     

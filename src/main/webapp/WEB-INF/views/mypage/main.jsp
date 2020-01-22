@@ -4,6 +4,9 @@
   <head>
 
     <jsp:include page="/WEB-INF/views/layouts/header.jsp" flush="false" />
+    
+    <!-- TODO : 공지 레이어 팝업 -->
+    <jsp:include page="/WEB-INF/views/admin/pop/notice.jsp" flush="false" />
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<c:set var="resourcesPath" value="${contextPath}/resources" />
@@ -14,6 +17,7 @@
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
+	<link href="${resourcesPath}/assets/css/modalLayer.css" />
   </head>
   <body>
     <div class="container">
@@ -40,7 +44,7 @@
                        				<a href="#" onclick="alert('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/attendance/list?team=${login.team.tShortName}">출석부</a>
+                       				<a href="${contextPath }/attendance/list?teamId=${login.teamId}">출석부</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>

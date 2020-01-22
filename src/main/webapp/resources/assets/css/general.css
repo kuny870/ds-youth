@@ -25,6 +25,15 @@
 .scroll-hidden {
        overflow-y: hidden;
 }
+
+#mask { 
+	position:absolute; 
+	z-index:9000; 
+	background-color:#000; 
+	display:none; 
+	left:0; 
+	top:0; 
+}
 /* 팝업창 끝 */
 
 /*login.html*/
@@ -67,15 +76,16 @@
 .fs-19 {font-size: 19px !important;}
 .fs-20 {font-size: 20px !important;}
 
-
+.display-block {display: block;}
+.display-none {display: none;}
 
 .main-img {width: 12%;}
 .attendance-img {
-	width: 6vw;
+	position: absolute;
+	margin-left: 27vw;
+	width: 11vw;
 	vertical-align: middle;
-	margin-bottom: 2.5px;
 	float: right;
-	margin-top: 4.5px;
 }
 
 .css-leader-list-a > a {text-decoration: none; color: #284AF3; font-size: 3.5vw; line-height: 8.8vw;}
@@ -151,7 +161,7 @@
 .admin-team-select {
 	float:left;
 	margin-top: 10px;
-	margin-left: 13px;
+	margin-left: 3.7vw;
 	height: 35%;
 	width: 35%;
 }
@@ -163,25 +173,41 @@
 }
 
 .admin-team-input {
-	font-size: 16px;
-
-    margin-top:10px; 
-    width:54%; 
-    height:35%;
+	font-size: 13px;
+    margin-top: 10px; 
+    width: 54%; 
+    height: 35%;
 }
 
 .admin-group-input {
-	font-size: 3.5vw;
-
-    width:90%; 
-    height:25%;
+	font-size: 3vw;
+    width: 90%; 
+    height: 25%;
     margin-left: 4%;
+    border-radius: 3px;
 }
 
 .basic-btn {
 	border-radius: 5px; 
 	background-color: #284AF3; 
 	color:#fff;
+}
+
+.excel-down-btn {
+	border-radius: 3px; 
+	background-color: #284AF3; 
+	color:#fff;
+	height: 27px;
+}
+
+.excel-close-btn {
+	height: 27px;
+	border-radius: 3px;
+}
+
+.notice-close-btn {
+	height: 27px;
+	border-radius: 3px;
 }
 
 .member-list-btn {
@@ -372,17 +398,31 @@
 	height:65%;
 }
 
-.customer-select {
-	width: 80%;
-	margin-top: 7%;
+
+.customer-select-search select {
+	cursor: pointer;
+    position: relative;
+    z-index: 1;
+    /* width: 100%; */
+    padding: 0 7px;
+    /* height: 35px; */
+    line-height: 38px;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    /* font-size: 13px; */
+    color: #353535;
+    overflow: hidden;
+    vertical-align: top;
+    border-radius: 5px;
 }
+
 
 .customer-select select {
 	cursor: pointer;
     position: relative;
     z-index: 1;
-    width: 100%;
-    padding: 0 15px;
+    padding: 0 30px;
     height: 35px;
     line-height: 38px;
     display: block;
@@ -393,40 +433,77 @@
     overflow: hidden;
     vertical-align: top;
     border-radius: 5px;
+    width: 80%;
+	margin-top: 7%;
 }
 
+.select-member-list-team {
+	width:66%; 
+	margin-bottom: 10%;
+	margin-left: 12%; 
+	height:27px; 
+	font-size: 12px;
+}
 
-.customer-select2 select {
-	cursor: pointer;
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    padding: 0 7px;
-    height: 35px;
-    line-height: 38px;
-    display: block;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    font-size: 13px;
-    color: #353535;
-    overflow: hidden;
-    vertical-align: top;
-    border-radius: 5px;
+.select-member-list-group {
+	width:66%; 
+	margin-bottom: 10%; 
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-attendance-list-team {
+	width:70%; 
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-attendance-list-year {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-attendance-list-month {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-admin-group-name-year {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-admin-group-name-season {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
+}
+
+.select-admin-pop-excel-year {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
+} 
+
+.select-admin-pop-excel-season {
+	width: 100%;
+	height:27px; 
+	font-size: 12px;
 }
 
 
 .customer-calendar {
-	width: 83%;
+	width: 95%;
 	cursor: pointer;
     position: relative;
-    z-index: 1;
-    padding: 0 15px;
+    padding: 0 7px;
     height: 35px;
-    line-height: 38px;
-    display: block;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    font-size: 13px;
+    font-size: 12px;
     color: #353535;
     overflow: hidden;
     vertical-align: top;
@@ -760,6 +837,12 @@
     font-size: 16px;
     height:80%;
     width:15%;
+}
+
+.dsyouth-link {
+	display:none; 
+	margin-right: 15px; 
+	font-size: 3.3vw;
 }
 
 .back-img {
@@ -2365,7 +2448,7 @@
 .sales-table > .table-wrap > table td{
     border: 1px solid #e8edf4;
     line-height: 8.8888888888vw;
-    font-size: 2.8444444444vw;
+    font-size: 3vw;
     overflow:hidden;
     white-space : nowrap;
     text-overflow: ellipsis;
@@ -2389,7 +2472,7 @@
 
 .sales-table > .table-wrap > .paging li > a{
     display: block;
-    /* font-size: 3.2vw; */
+    font-size: 3.2vw;
     font-weight: 500;
     color: #343a40;
     text-decoration: none;

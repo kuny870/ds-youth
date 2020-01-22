@@ -68,10 +68,10 @@
 				 <if test="memState != null">
 					 mem_state,
 				 </if>
-				 <if test="memberRegDate != null">
+				 <if test="memberRegDate != null and memberRegDate != ''">
 					 member_reg_date,
 				 </if>
-				 <if test="memberGradDate != null">
+				 <if test="memberGradDate != null and memberGradDate != ''">
 					 member_grad_date,
 				 </if>
           </trim>
@@ -109,14 +109,65 @@
 		       <if test="memState != null">
 		        	 #{memState},
 		       </if>
-		       <if test="memberRegDate != null">
+		       <if test="memberRegDate != null and memberRegDate != ''">
 		        	 #{memberRegDate},
 		       </if>
-		       <if test="memberGradDate != null">
+		       <if test="memberGradDate != null and memberGradDate != ''">
 		        	 #{memberGradDate},
 		       </if>
        </trim>
    </insert>
+   
+   
+   	<!-- 멤버 정보 수정 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE member
+    	<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="guider != null">
+				guider = #{guider},
+			</if>
+			<if test="dateOfBirth != null">
+				date_of_birth = #{dateOfBirth},
+			</if>
+	      	<if test="htel != null">
+	        	htel = #{htel},
+	      	</if>
+	      	<if test="departId != null">
+	        	depart_id = #{departId},
+	      	</if>
+	      	<if test="teamId != null">
+	        	team_id = #{teamId},
+	      	</if>
+	      	<if test="gender != null">
+	        	gender = #{gender},
+	      	</if>
+	      	<if test="samePeriodId != null">
+	        	same_period_id = #{samePeriodId},
+	      	</if>
+	      	<if test="profileImg != null">
+	        	profile_img = #{profileImg},
+	      	</if>
+	      	<if test="memState != null">
+	        	mem_state = #{memState},
+	      	</if>
+	      	<if test="memberRegDate != null and memberRegDate != ''">
+	        	member_reg_date = #{memberRegDate},
+	      	</if>
+	      	<if test="memberGradDate != null and memberGradDate != ''">
+	        	member_grad_date = #{memberGradDate}
+	      	</if>
+	    </set>
+		WHERE id = #{id}
+	</update>
+
+
+	<!-- 멤버 삭제 -->
+	<update id="deleteMember" parameterType="Member">
+		UPDATE member SET del_yn = 'Y' WHERE id = #{id}
+	</update>
 
 
 	<!-- 검색어에 해당하는 멤버 인원수 구하기 -->
@@ -380,56 +431,6 @@
 			AND m.del_yn = 'N'
 	</select>
 
-	<!-- 멤버 정보 수정 -->
-	<update id="updateMember" parameterType="Member">
-		UPDATE member
-    	<set>
-			<if test="name != null">
-				name = #{name},
-			</if>
-			<if test="guider != null">
-				guider = #{guider},
-			</if>
-			<if test="dateOfBirth != null">
-				date_of_birth = #{dateOfBirth},
-			</if>
-	      	<if test="htel != null">
-	        	htel = #{htel},
-	      	</if>
-	      	<if test="departId != null">
-	        	depart_id = #{departId},
-	      	</if>
-	      	<if test="teamId != null">
-	        	team_id = #{teamId},
-	      	</if>
-	      	<if test="gender != null">
-	        	gender = #{gender},
-	      	</if>
-	      	<if test="samePeriodId != null">
-	        	same_period_id = #{samePeriodId},
-	      	</if>
-	      	<if test="profileImg != null">
-	        	profile_img = #{profileImg},
-	      	</if>
-	      	<if test="memState != null">
-	        	mem_state = #{memState},
-	      	</if>
-	      	<if test="memberRegDate != null">
-	        	member_reg_date = #{memberRegDate},
-	      	</if>
-	      	<if test="memberGradDate != null">
-	        	member_grad_date = #{memberGradDate}
-	      	</if>
-	    </set>
-		WHERE id = #{id}
-	</update>
-	
-	
-	<!-- 멤버 삭제 -->
-	<update id="deleteMember" parameterType="Member">
-		UPDATE member SET del_yn = 'Y' WHERE id = #{id}
-	</update>
-	
 	
 	<!-- 그룹의 cnt 구하기 -->
 	<select id="selectGroupCnt" parameterType="Group" resultType="int">

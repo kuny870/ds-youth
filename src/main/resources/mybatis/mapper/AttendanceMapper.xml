@@ -112,34 +112,37 @@
 	<!-- 팀별 출석부 명단 불러오기 -->
 	<select id="selectAttendance" parameterType="org.ds.dsyouth.search.AttendanceSearch" resultMap="AttendanceMap">
 		SELECT
-			at.id as id
-			, at.group_id as group_id
-			, at.group_grade as group_grade
-			, at.mem_state as mem_state
-			, at.member_id as member_id
-			, at.att_yn as att_yn
-		    , at.year as year
-		    , at.month as month
-		    , at.first_week as first_week
-		    , at.second_week as second_week
-		    , at.third_week as third_week
-		    , at.fourth_week as fourth_week
-		    , at.fifth_week as fifth_week
-			, m.id as m_id
-			, if(m.team_id = '4', substring(m.name, 3), m.name) as m_name
-			, m.guider as m_guider
-		    , m.depart_id as m_depart_id
-		    , m.team_id as m_team_id
-		    , m.date_of_birth as m_date_of_birth
-		    , m.htel as m_htel
-		    , m.gender as m_gender
-		    , m.member_reg_date as member_reg_date
-		    , m.member_grad_date as member_grad_date
-		    , m.same_period_id as m_same_period_id
-		    , m.mem_state as m_mem_state
-		    , t.t_short_name as t_t_short_name
-		    , substring(g.g_name, 3) as g_g_name
-		    , sp.birth_year as sp_birth_year
+			at.id AS id
+			, at.group_id AS group_id
+			, at.group_grade AS group_grade
+			, at.mem_state AS mem_state
+			, at.member_id AS member_id
+			, at.att_yn AS att_yn
+		    , at.year AS year
+		    , at.month AS month
+		    , at.first_week AS first_week
+		    , at.second_week AS second_week
+		    , at.third_week AS third_week
+		    , at.fourth_week AS fourth_week
+		    , at.fifth_week AS fifth_week
+			, m.id AS m_id
+			, if(m.team_id = '4', substring(m.name, 3), m.name) AS m_name
+			, m.guider AS m_guider
+		    , m.depart_id AS m_depart_id
+		    , m.team_id AS m_team_id
+		    , m.date_of_birth AS m_date_of_birth
+		    , m.htel AS m_htel
+		    , m.gender AS m_gender
+		    , m.member_reg_date AS member_reg_date
+		    , m.member_grad_date AS member_grad_date
+		    , m.same_period_id AS m_same_period_id
+		    , m.mem_state AS m_mem_state
+		    , t.id AS t_id
+		    , t.t_short_name AS t_t_short_name
+		    , t.t_full_name AS t_t_full_name
+		    , t.t_theme AS t_t_theme
+		    , substring(g.g_name, 3) AS g_g_name
+		    , sp.birth_year AS sp_birth_year
 		    
 		    <if test="year > 2019">
 		    	, B.total_last_year AS total_last_year
@@ -167,37 +170,44 @@
 				LEFT OUTER JOIN team t ON t.id = m.team_id
 				WHERE 1=1
 					AND m.del_yn = 'N'
-					AND t.t_short_name = #{team}
+					AND t.id = #{teamId}
 				GROUP BY a.member_id
 	        ) B ON B.id = m.id
         </if>
         
 		WHERE 1=1
 			AND m.del_yn = 'N'
-			<if test="team != null and team != ''">
-				AND t.t_short_name = #{team}
+			<if test="teamId != null and teamId != '' and teamId != 0">
+				AND t.id = #{teamId}
 				<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
-				<if test="team != '1새가족' and team != '2새가족'">
+				<if test="teamId != 4 and teamId != 8">
 					AND at.group_id != ''
 				</if>
 			</if>
-			<if test="month != null and month != ''">
+			<if test="month != null and month != '' and month != 0">
 				AND at.month = #{month}
 			</if>
 			
 		ORDER BY 
-			g.g_name ASC
+			<choose>
+				<when test="teamId == 4 or teamId == 8">
+					g.g_name DESC
+				</when>
+				<otherwise>
+					g.g_name ASC
+				</otherwise>
+			</choose>
 			, at.group_grade DESC
 			, ms.ord ASC
 			
 			<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
 			<choose>
-				<when test="team == '언약'">
+				<when test="teamId == 2">
 					, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
 					, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
 					, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
 				</when>
-				<when test="team == '기쁨'">
+				<when test="teamId == 1">
 					, FIELD(m.name, '홍영재','이승민') DESC
 					, FIELD(m.name, '김범수','이정연','이신재') DESC
 					, FIELD(m.name, '김도형','황성국','한희진','한혜린','김지수','김수영') DESC

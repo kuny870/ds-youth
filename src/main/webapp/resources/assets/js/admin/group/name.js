@@ -154,12 +154,3 @@ function remove(id) {
 }
 
 
-// 순 리스트 조회
-function groupSearch() {
-	
-	var year = $('#year').val();
-	var season = $('#season').val();
-	
-	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
-	
-}

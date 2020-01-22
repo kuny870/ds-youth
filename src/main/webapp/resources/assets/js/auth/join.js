@@ -73,16 +73,10 @@ $("#joinForm").submit(function(e) {
 	} else if ($name.val() == "") {
 		validateMessage = '이름을 입력해 주세요.';
 		validateFocus = $name;
-	}/* else if ($dateOfBirth.val() == "") {
-		validateMessage = '생년월일을 입력해 주세요.';
-		validateFocus = $dateOfBirth;
-	} */else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
 		validateMessage = '생년월일을 다시 확인해 주세요.';
 		validateFocus = $dateOfBirth;
-	}/* else if ($htel.val() == "") {
-		validateMessage = '휴대폰 번호를 입력해 주세요.';
-		validateFocus = $htel;
-	} */else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
 		validateMessage = '휴대폰 번호를 다시 확인해 주세요.';
 		validateFocus = $htel;
 	} else if ($departId.val() == null || $departId.val() == "") {

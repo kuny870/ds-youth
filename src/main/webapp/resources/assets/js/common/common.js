@@ -25,27 +25,6 @@ $(document).ready(function(){
 	
 });
 
-// 팝업창 다시 열지 않음 설정
-function getCookie( name )
-{
-    var nameOfCookie = name + "=";
-    var x = 0;
-    while ( x <= document.cookie.length )
-    {
-        var y = (x+nameOfCookie.length);
-        if ( document.cookie.substring( x, y ) == nameOfCookie )
-        {
-            if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
-                endOfCookie = document.cookie.length;
-            return unescape( document.cookie.substring( y, endOfCookie ) );
-        }
-        x = document.cookie.indexOf( " ", x ) + 1;
-        if ( x == 0 )
-            break;
-    }
-    return "";
-}
-
 
 function excelDown(year, month) {
 
@@ -75,25 +54,22 @@ function depart() {location.href = contextPath + "/admin/depart";}			// 부서 �
 function team() {location.href = contextPath + "/admin/team";}				// 팀 관리
 function group() {location.href = contextPath + "/admin/group/name";}		// 순 관리
 
-function groupList() {						// 순 list
+//순 list
+function groupList() {
 	var year = $('#year').val();
 	var season = $('#season').val();
 	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
-}	
+}
+//순 list 조회
+function groupSearch() {
+	var year = $('#year').val();
+	var season = $('#season').val();
+	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
+}
 
 function samePeriod() {location.href = contextPath + "/admin/samePeriod";}	// 동기 관리
-
-function memberList() {		// 멤버 list (검색 정보 포함)
-	var sTeamId = $('#sTeamId').val();
-	var sGroupId = $('#sGroupId').val();
-	var sNameKW = $('#sNameKW').val();
-	var pageNo = $('#pageNo').val();
-	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW;
-}
 function samePeriodList() {location.href = contextPath + "/samePeriod/list";}	// 동기 list 
-
 function leaderInfoList() {location.href = contextPath + "/leaderInfo/list";}	// 리더배포자료 list 
-
 function voteCompleted() {location.href = contextPath + "/mypage/vote";}	// 완료된 투표
 function addressList() {location.href = contextPath + "/mypage/address/list/" + loginId;}	// 주소 list
 function addressRegist() {location.href = contextPath + "/mypage/address/regist";}	//	주소 등록
@@ -103,4 +79,53 @@ function retreatRegist() {location.href = contextPath + "/admin/retreat/regist";
 function family() {			// 수련회 가족 list (검색 정보 포함)
 	var fId = $('#fId').val();
 	location.href = contextPath + "/admin/retreat/family/list/" + fId;
+}
+
+//출석 조회
+function attendanceSearch() {
+	var teamId = $('#teamId').val();
+	var year = $('#year').val();
+	var month = $('#month').val();
+	location.href = contextPath + "/attendance/list?teamId=" + teamId + "&year=" + year + "&month=" + month;
+}
+
+//팀원 list (검색 정보 포함)
+function memberList() {		
+	var sTeamId = $('#sTeamId').val();
+	var sGroupId = $('#sGroupId').val();
+	var sNameKW = $('#sNameKW').val();
+	var pageNo = $('#pageNo').val();
+	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW;
+}
+
+//팀원 등록 페이지 이동
+function memberRegist() {
+	var sTeamId = $('#sTeamId').val();
+	var sGroupId = $('#sGroupId').val();
+	var sNameKW = $('#sNameKW').val();
+	var pageNo = $('#pageNo').val();
+	location.href = contextPath + "/member/regist?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW + "&pageNo=" + pageNo;
+}
+
+// 팀원 검색
+function memberSearch() {
+	var teamId = $('#teamId').val();
+	var groupId = $('#groupId').val();
+	var nameKW = $('#nameKW').val();
+	var param = {pageNo : 1, teamId : teamId, groupId : groupId, nameKW : nameKW};
+	pageModule.searchPage(param);
+}
+
+// 출석부 엑셀 다운로드 팝업
+function excelDownPopup(){
+    wrapWindowByMask();
+}
+
+// 출석부 엑셀 다운 실제 구현부
+function excelDown() {
+	var year = $('#yearExcel').val();
+	var season = $('#seasonExcel').val();
+	location.href = contextPath + "/attendance/excelDownload?year=" + year + "&season=" + season;
+	
+	$("#mask, .window").hide();
 }

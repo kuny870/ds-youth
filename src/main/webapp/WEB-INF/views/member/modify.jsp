@@ -37,8 +37,8 @@
                     	
 	            		
 	            		<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
-                    	<div class="customer-select selectbox">
-                            <select class="select-fix" id="memState" name="memState">
+                    	<div class="customer-select">
+                            <select id="memState" name="memState">
                             	<c:forEach var="memberState" items="${memberStateList }">
                             		<c:set var="selected" value="" />
 									<c:if test="${memberState.id eq member.memState}">
@@ -73,8 +73,8 @@
                         </c:if>
                         
                         <!-- 부서 -->
-                        <div class="customer-select selectbox">
-	                            <select class="select-fix" id="departId" name="departId" onchange="getTeam(this.value);" ${disabled}>
+                        <div class="customer-select">
+	                            <select id="departId" name="departId" onchange="getTeam(this.value);" ${disabled}>
 	                            	<c:forEach var="depart" items="${departList }">
 										<c:set var="selected" value="" />
 										<c:if test="${depart.id eq member.departId}">
@@ -86,8 +86,8 @@
 	                    </div>
 	                    
 	                    <!-- 팀 -->
-	                    <div class="customer-select selectbox">
-                            <select class="select-fix" id="teamId" name="teamId" onchange="getGuider(this.value);" ${disabled}>
+	                    <div class="customer-select">
+                            <select id="teamId" name="teamId" onchange="getNewMemberDetail(this.value);" ${disabled}>
                             	<c:forEach var="team" items="${teamList }">
 									<c:set var="selected" value="" />
 									<c:if test="${team.id eq member.teamId}">
@@ -103,12 +103,20 @@
 		                   <label>
 	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="${member.guider}" autocomplete="off" style="margin-top: 6vw;">                        
 	                       </label>
-	                       <label>
-	                            <span>등록일</span><input type="date" class="customer-calendar" id="memberRegDate" name="memberRegDate" value="${member.memberRegDate}">                        
-	                       </label>
-	                       <label>
-	                            <span>수료일</span><input type="date" class="customer-calendar" id="memberGradDate" name="memberGradDate" value="${member.memberGradDate}">                        
-	                       </label>
+	                       <div style="width: 80%; margin-top: 15px;">
+		                       <table style="width: 100%; table-layout: fixed;">
+			                       	<tr>
+				                       	<td>
+				                            <span style="margin-left: 10px;">등록일</span>
+				                            <input style="margin-right: 5px;" type="date" class="customer-calendar" id="memberRegDate" name="memberRegDate" value="">
+				                        </td>
+				                        <td>
+				                            <span style="margin-left: 15px;">수료일</span>
+				                            <input style="margin-left: 5px;" type="date" class="customer-calendar" id="memberGradDate" name="memberGradDate" value="">                        
+				                       </td>
+			                       </tr>
+		                       </table>
+	                       </div>
 	                   </div>
                         
                         
@@ -160,5 +168,11 @@
 </body>
 
 <script src="${resourcesPath}/assets/js/member/modify.js?${nowTime}"></script>
+<script>
+	$(document).ready(function(){
+		$('#memberRegDate').val('${member.memberRegDate}');
+		$('#memberGradDate').val('${member.memberGradDate}');
+	});
+</script>
 	
 </html>

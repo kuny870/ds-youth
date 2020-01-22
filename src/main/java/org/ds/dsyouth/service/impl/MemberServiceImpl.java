@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
 				att.setMemberId(member.getId().toString());
 				att.setYear(year);
 				att.setMonth(i.toString());
+				att.setMemState(member.getMemState());
 				att.setAttYn("Y");
 				if(member.getTeamId() == 4 || member.getTeamId() == 8) {
 					attendanceMapper.insertAttendance(att);

@@ -26,9 +26,9 @@
             
 				<div class="div-container">
 					
-					<div class="customer-select2 selectbox" style="width: 25%; margin-left: 10%; float: left;">
+					<div class="customer-select-search" style="width: 25%; margin-left: 10%; float: left;">
 						<!-- 년 선택 -->
-                   		<select class="select-fix" id="year" name="year" style="height:27px; font-size: 13px;">
+                   		<select class="select-admin-group-name-year" id="year" name="year">
 	                       	<c:forEach var="year" items="${yearList }">
 	                       		<c:set var="selected" value="" />
 								<c:if test="${year eq group.year }">
@@ -39,9 +39,9 @@
 	                    </select>
                     </div>    
                     
-                    <div class="customer-select2 selectbox" style="width: 23%; margin-left: 7%; float: left;">
+                    <div class="customer-select-search" style="width: 23%; margin-left: 7%; float: left;">
 						<!-- 상반기 / 하반기 선택 -->
-                   		<select class="select-fix" id="season" name="season" style="height:27px; font-size: 11px;">
+                   		<select class="select-admin-group-name-season" id="season" name="season">
 	                       	<c:forEach var="ss" items="${season }">
 	                       		<c:set var="selected" value="" />
 								<c:if test="${ss eq group.getSeason() }">
@@ -138,7 +138,7 @@
 											<option value="${team.id}" ${selected} >${team.tShortName}</option>
 										</c:forEach>
 					        		</select>
-					 	        	<input class="basic-input admin-team-input fs-13" id="gName" name="gName" placeholder="ex) 기본진리"></input>
+					 	        	<input class="basic-input admin-team-input" id="gName" name="gName" placeholder="ex) 기본진리"></input>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">추가</button>

@@ -50,7 +50,7 @@
 									    	<td>${user.team.tShortName}</td>
 									    	<td>${user.name}</td>
 									    	<td class="on-style">
-									    		<span onclick="pwReset(${user.id});">${user.loginId}</span>
+									    		<span class="font-size-3vw" onclick="pwReset(${user.id});">${user.loginId}</span>
 									    	</td>
 				                            <td>
 				                            	<input type="hidden" id="${user.id}-input-hidden" value="${user.loginId}" />

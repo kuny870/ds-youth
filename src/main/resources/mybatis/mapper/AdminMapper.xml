@@ -193,16 +193,18 @@
 	
 	<!-- 같은 팀이 있는지 체크 -->
 	<select id="selectTeamByShortTeam" parameterType="Team" resultMap="TeamMap">
-		select
-			id,
-		 	depart_id,
- 			t_short_name,
- 			t_full_name,
- 			t_theme,
- 			del_yn
-		from team
-		where del_yn = 'N'
-			and t_short_name = #{tShortName}
+		SELECT
+			id
+		 	, depart_id
+ 			, t_short_name
+ 			, t_full_name
+ 			, t_theme
+ 			, del_yn
+		FROM team t
+		WHERE 1=1
+			AND t.del_yn = 'N'
+			AND t.t_short_name = #{tShortName}
+			AND t.id != #{id}
 	</select>
 
 
