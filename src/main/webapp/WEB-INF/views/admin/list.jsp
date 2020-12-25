@@ -55,7 +55,7 @@
 			                	<label class="admin-list-label">팀</label>
 			                	<c:choose>
 	                       			<c:when test="${departList.size() == 0}">
-	                       				<button class="basic-btn admin-list-btn" onclick="alert('먼저 부서를 셋팅해주세요!')">관리</button>
+	                       				<button class="basic-btn admin-list-btn" onclick="openPopup('먼저 부서를 셋팅해주세요!')">관리</button>
 	                       			</c:when>
 	                       			<c:otherwise>
 	                       				<button class="basic-btn admin-list-btn" onclick="team()">관리</button>
@@ -68,7 +68,7 @@
 		                	<label class="admin-list-label">순</label>
 		                	<c:choose>
                        			<c:when test="${teamList.size() == 0}">
-                       				<button class="basic-btn admin-list-btn" onclick="alert('먼저 팀을 셋팅해주세요!')">관리</button>
+                       				<button class="basic-btn admin-list-btn" onclick="openPopup('먼저 팀을 셋팅해주세요!')">관리</button>
                        			</c:when>
                        			<c:otherwise>
                        				<button class="basic-btn admin-list-btn" onclick="group()">관리</button>
@@ -79,7 +79,7 @@
 	                		<label class="admin-list-label">동기</label>
 	                		<c:choose>
                        			<c:when test="${departList.size() == 0}">
-                       				<button class="basic-btn admin-list-btn" onclick="alert('먼저 부서를 셋팅해주세요!')">관리</button>
+                       				<button class="basic-btn admin-list-btn" onclick="openPopup('먼저 부서를 셋팅해주세요!')">관리</button>
                        			</c:when>
                        			<c:otherwise>
                        				<button class="basic-btn admin-list-btn" onclick="samePeriod()">관리</button>

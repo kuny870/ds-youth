@@ -21,9 +21,9 @@ public class UserLoginValidator implements Validator {
 		User user = (User) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 
 		if(user.getLoginId().length() == 0) {
-			errors.rejectValue("loginId", "emptyLoginId", "아이디를 입력해 주세요.");
+			errors.rejectValue("loginId", "emptyLoginId", "아이디를 입력해 주세요");
 		} else if(user.getLoginPw().length() == 0) {
-			errors.rejectValue("loginPw", "emptyLoginPw", "비밀번호를 입력해 주세요.");
+			errors.rejectValue("loginPw", "emptyLoginPw", "비밀번호를 입력해 주세요");
 		}
 
 	}

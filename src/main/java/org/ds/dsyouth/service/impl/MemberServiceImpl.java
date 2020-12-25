@@ -85,7 +85,35 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public boolean modifyMember(Member member) {
-		return memberMapper.updateMember(member);
+		
+		boolean result = false;
+		
+		// 기본정보(상태값) 변경 전
+		Member m_before = memberMapper.selectMember(member);
+		
+		// 기본정보 변경
+		result = memberMapper.updateMember(member);
+		
+		// 기본정보(상태값) 변경 후
+		Member m_after = memberMapper.selectMember(member);
+		
+		// 멤버 상태값 변경 전, 후 값이 다를 경우 출석부에도 변경
+		if(! m_before.getMemState().equals(m_after.getMemState())) {
+			
+			Attendance att = new Attendance();
+			att.setMemberId(m_after.getId().toString());
+			att.setMemState(m_after.getMemState());
+			att.setYear(DateHelper.getYear());
+			
+			Integer currnetMonth = Integer.parseInt(DateHelper.getMonth());
+			
+			for(Integer i = currnetMonth; i < 13; i++) {
+				att.setMonth(i.toString());
+				attendanceMapper.updateAttendanceMemState(att);
+			}
+		}
+		
+		return result;
 	}
 
 

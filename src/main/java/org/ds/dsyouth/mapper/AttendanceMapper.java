@@ -15,4 +15,6 @@ public interface AttendanceMapper {
 	boolean updateAttendanceGroupGrade(Attendance attendance);				// 출석부 group_grade 수정
 	boolean insertAttendance(Attendance attendance);
 	
+	boolean updateAttendanceMemState(Attendance attendance);				// 출석부의 회원 상태값 변경
+	
 }

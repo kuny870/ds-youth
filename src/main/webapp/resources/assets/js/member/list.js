@@ -24,7 +24,11 @@ function fnGetCtgSub(sParam){
 	            }
 	        }, error:function(xhr){
 	            console.log(xhr.responseText);
-	            alert("순 정보를 불러오는데 실패 했습니다.");
+	            Swal.fire({
+	                text: "순 정보를 불러오는데 실패 했습니다",
+	                confirmButtonText: '확인',
+	                allowOutsideClick: true
+	            });
 	            return;
 	        }
 	    });

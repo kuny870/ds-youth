@@ -6,7 +6,7 @@
     <jsp:include page="/WEB-INF/views/layouts/header.jsp" flush="false" />
     
     <!-- TODO : 공지 레이어 팝업 -->
-    <jsp:include page="/WEB-INF/views/admin/pop/notice.jsp" flush="false" />
+    <%-- <jsp:include page="/WEB-INF/views/admin/pop/notice.jsp" flush="false" /> --%>
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<c:set var="resourcesPath" value="${contextPath}/resources" />
@@ -41,7 +41,7 @@
 	                    <div class="mypage-row">
 	                    	<c:choose>
                        			<c:when test="${departList.size() == 0 || teamList.size() == 0}">
-                       				<a href="#" onclick="alert('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
+                       				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
                        			</c:when>
                        			<c:otherwise>
                        				<a href="${contextPath }/attendance/list?teamId=${login.teamId}">출석부</a>
@@ -51,7 +51,7 @@
 	                    <div class="mypage-row">
 	                    	<c:choose>
                        			<c:when test="${departList.size() == 0 || teamList.size() == 0}">
-                       				<a href="#" onclick="alert('부서와 팀을 먼저 셋팅해주세요!')">팀원 관리</a>
+                       				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">팀원 관리</a>
                        			</c:when>
                        			<c:otherwise>
                        				<a href="${contextPath }/member/list?teamId=${login.teamId}">팀원 관리</a>
@@ -60,12 +60,20 @@
 	                    </div>
 	                </div>
 	                
+	                <!-- 동기 -->
+	                <h3>동기</h3>
+					<div class="mypage-rows">
+	                    <div class="mypage-row">
+	                        <a href="${contextPath }/samePeriod/list">동기 모임</a>
+	                    </div>
+	                </div>
+	                
 	                <!-- 수련회 -->
-	                <h3>수련회</h3>
+	                <%-- <h3>수련회</h3>
 	                <div class="mypage-rows">
 	                	<div class="mypage-row">
-               				<%-- <a href="${contextPath }/retreat/list">가족 편성표</a> --%>
-               				<a href="#" onclick="alert('준비중 입니다.')">가족 편성표</a>
+               				<a href="${contextPath }/retreat/list">가족 편성표</a>
+               				<a href="#" onclick="openPopup('준비중 입니다.')">가족 편성표</a>
 	                    </div>
 	                	<c:if test="${login.loginId == 'admin' 
 	                					|| login.name == '문시은'
@@ -79,21 +87,14 @@
 	                      		<a href="${contextPath }/admin/retreat/list">수련회 관리</a>
 		                    </div>
 	                    </c:if>
-	                </div>
+	                </div> --%>
 				
-					<h3>동기</h3>
-					<div class="mypage-rows">
-	                    <div class="mypage-row">
-	                        <a href="${contextPath }/samePeriod/list">동기 모임</a>
-	                    </div>
-	                </div>
-				
-					<h3>리더 자료</h3>
+					<%-- <h3>리더 자료</h3>
 	                <div class="mypage-rows">
 	                    <div class="mypage-row">
 	                        <a href="${contextPath }/leaderInfo/list">리더배포자료</a>
 	                    </div>
-	                </div>
+	                </div> --%>
               	</c:if>
 	            
 	            <%-- <h3>말씀</h3>

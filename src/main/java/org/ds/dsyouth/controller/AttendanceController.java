@@ -1,16 +1,21 @@
 package org.ds.dsyouth.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.ds.dsyouth.common.Constants;
 import org.ds.dsyouth.excel.GenericExcelView;
+import org.ds.dsyouth.exception.ExcelDownFail;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.YearSeason;
 import org.ds.dsyouth.search.AttendanceSearch;
-import org.ds.dsyouth.search.type.EGroupSeason;
 import org.ds.dsyouth.search.type.SMonthSearchType;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AttendanceService;
@@ -44,16 +49,17 @@ public class AttendanceController {
 	public ModelAndView attendance_list(
 			@ModelAttribute AttendanceSearch attendanceSearch) {
 
+		// 이번년도 구하기
+		String year = DateHelper.getYear();
+				
 		List<Attendance> attendanceList = attendanceService.getMemberListByAtt(attendanceSearch);
-		
 		List<Team> teamList = adminService.getTeamList();
 		List<Depart> departList = adminService.getDepartList();
+		List<YearSeason> seasonList = adminService.getYearSeasonList(year);
 		
 		// 선택한 달의 일요일 날짜 구하기
 		List sunday = DateHelper.getDayOfWeekByMonth(attendanceSearch.getYear() + String.format("%02d", attendanceSearch.getMonth()));
-		// 이번년도 구하기
-		String year = DateHelper.getYear();
-		
+				
 		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
 		List yearList = new ArrayList();
 		int yearInt = StringHelper.parseIntAndArrayRange(year);
@@ -70,7 +76,7 @@ public class AttendanceController {
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
 		mav.addObject("SMonthSearchType", SMonthSearchType.values());
-		mav.addObject("season", EGroupSeason.values());
+		mav.addObject("seasonList", seasonList);
 		mav.addObject("attendanceSearch", attendanceSearch);
 		mav.addObject("yearList", yearList);
 		mav.addObject("year", year);
@@ -87,7 +93,8 @@ public class AttendanceController {
     @RequestMapping(value = "/attendance/excelDownload", method = RequestMethod.GET)
     public GenericExcelView attendance_excel_download(
     		AttendanceSearch attendanceSearch,
-    		Map<String, Object> model) throws Exception {
+    		Map<String, Object> model,
+    		HttpServletResponse response) throws IOException {
         
     	List<Depart> departList = adminService.getDepartList();
     	List<Team> teamList = adminService.getTeamList();
@@ -97,6 +104,13 @@ public class AttendanceController {
     	for(int i=0; i<teamList.size(); i++) {
     		attendanceSearch.setTeamId(teamList.get(i).getId().toString());
     		List<Attendance> attendanceList = attendanceService.getMemberListByAtt(attendanceSearch);
+    		// 순편성 전일 경우 엑셀 다운로드 막기 ( TODO 향후 기능개선 필요 )
+    		if(attendanceList.size() == 0) {
+    			PrintWriter out = response.getWriter(); 
+    			out.println("<script>alert('Excel DownLoad Fail'); history.back();</script>"); 
+    			out.flush(); 
+    			out.close();
+    		}
     		attendanceExcel.add(attendanceList);
     	}
 		
@@ -104,7 +118,7 @@ public class AttendanceController {
         model.put("departList", departList);
         model.put("teamList", teamList);
         model.put("attendanceSearch", attendanceSearch);
-        
+
         return new GenericExcelView();
 
     }

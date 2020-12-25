@@ -22,7 +22,7 @@ public class BoardOpinionValidator implements Validator {
 		BoardOpinion boardOpinion = (BoardOpinion) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 
 		if(boardOpinion.getContent().length() == 0) {
-			errors.rejectValue("content", "emptyContent", "내용을 입력해 주세요.");
+			errors.rejectValue("content", "emptyContent", "내용을 입력해 주세요");
 		}
 
 	}

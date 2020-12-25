@@ -74,8 +74,8 @@
 					        	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
 					        
 					        	<div style="text-align: center;">
-					        		<input type="number" pattern="\d*" class="md-input3" id="month" name="month" placeholder="월" maxlength="2" oninput="numberMaxLength2(this);" autocomplete="off"/>
-					        		<input type="number" pattern="\d*" class="md-input3" id="day" name="day" placeholder="일" maxlength="2" oninput="numberMaxLength2(this);" autocomplete="off"/>
+					        		<input type="number" pattern="\d*" class="md-input3" id="month" name="month" placeholder="월" maxlength="2" oninput="numberMaxLength(this);" autocomplete="off"/>
+					        		<input type="number" pattern="\d*" class="md-input3" id="day" name="day" placeholder="일" maxlength="2" oninput="numberMaxLength(this);" autocomplete="off"/>
 			        				<input type="file" id="originImg" name="originImg" style="width: 57%; margin-left: 10px;"/>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">

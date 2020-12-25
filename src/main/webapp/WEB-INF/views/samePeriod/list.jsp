@@ -57,34 +57,34 @@
 				                            <td class="css-a">
 				                            	<c:choose>
 				                            		<c:when test="${year - samePeriod.birthYear < 19}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}년생">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=0">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
 						                            </c:when>
 												    <c:when test="${year - samePeriod.birthYear == 19}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=1학년">1학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=1&gubun=1">1학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 20}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=2학년">2학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=2&gubun=2">2학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 21}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=3학년">3학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=3&gubun=3">3학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 22}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=4학년">4학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=4&gubun=4">4학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 23}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=5학년">5학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=5&gubun=5">5학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 24}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=6학년">6학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=6&gubun=6">6학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 25}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=7학년">7학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=7&gubun=7">7학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:when test="${year - samePeriod.birthYear == 26}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=8학년">8학년 (${samePeriod.cnt})</a>
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=8&gubun=8">8학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 						                            <c:otherwise>
-						                            	<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}년생">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
+						                            	<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=9">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
 						                            </c:otherwise>
 						                        </c:choose>
 				                            </td>

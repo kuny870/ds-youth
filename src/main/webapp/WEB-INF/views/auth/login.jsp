@@ -22,7 +22,7 @@
 		        <ul>
 		            <li>
 		                <span class="dsyouth-link" id="linkCopy">링크복사</span>
-		            	<a class="dsyouth-link" id="clipURL" href="http://dsyouth-env.jzz59thtne.ap-northeast-2.elasticbeanstalk.com/login">링크복사</a>
+		            	<a class="dsyouth-link" id="clipURL" href="http://keonhee.synology.me/dsyouth">링크복사</a>
 		            </li>
 		        </ul>
 		    </nav>

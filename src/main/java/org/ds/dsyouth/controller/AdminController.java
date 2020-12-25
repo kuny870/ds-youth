@@ -12,7 +12,7 @@ import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
-import org.ds.dsyouth.search.type.EGroupSeason;
+import org.ds.dsyouth.model.YearSeason;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
 import org.ds.dsyouth.service.MemberService;
@@ -145,9 +145,13 @@ public class AdminController {
 	@RequestMapping(value = "/admin/group/name", method = RequestMethod.GET)
 	public ModelAndView admin_group(Group group) {
 
+		String thisYear = DateHelper.getYear();
+		String thisMonth = DateHelper.getMonth();
+		
 		List<Team> teamList = adminService.getTeamList();
 		List<Group> groupList = adminService.getGroupList(group);
 		List<Member> memberList = memberService.getMemberListByGroupGrade(group);
+		List<YearSeason> seasonList = adminService.getYearSeasonList(thisYear);
 		
 		// 각 순에 대한 인원 카운트
 		for(int i = 0; i < groupList.size(); i++) {
@@ -155,8 +159,6 @@ public class AdminController {
 			groupList.get(i).setCnt(cnt);
 		}
 		
-		String thisYear = DateHelper.getYear();
-		String thisMonth = DateHelper.getMonth();
 		int yearInt = StringHelper.parseIntAndArrayRange(thisYear);
 		
 		// 12월에 다음해 순명 등록 가능
@@ -178,7 +180,7 @@ public class AdminController {
 		mav.addObject("teamList", teamList);
 		mav.addObject("groupList", groupList);
 		mav.addObject("memberList", memberList);
-		mav.addObject("season", EGroupSeason.values());
+		mav.addObject("seasonList", seasonList);
 		mav.addObject("yearList", yearList);
 		mav.addObject("thisYear", thisYear);
 		mav.addObject("group", group);

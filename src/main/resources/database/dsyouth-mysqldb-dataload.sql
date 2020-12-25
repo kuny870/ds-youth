@@ -73,6 +73,34 @@ INSERT INTO `group` (depart_id, team_id, g_name, reg_user) VALUES (2, 7, 'E100-1
 INSERT INTO `group` (depart_id, team_id, g_name, reg_user) VALUES (2, 7, 'E100-2', 1);
 
 
+-- year_season dump data
+INSERT INTO year_season (year, season) VALUES ('2019', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2019', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2020', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2020', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2020', '코로나순');
+INSERT INTO year_season (year, season) VALUES ('2021', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2021', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2022', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2022', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2023', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2023', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2024', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2024', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2025', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2025', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2026', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2026', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2027', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2027', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2028', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2028', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2029', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2029', '하반기');
+INSERT INTO year_season (year, season) VALUES ('2030', '상반기');
+INSERT INTO year_season (year, season) VALUES ('2030', '하반기');
+
+
 -- same_period dump data
 INSERT INTO same_period (birth_year, reg_user) VALUES (1979,1);
 INSERT INTO same_period (birth_year, reg_user) VALUES (1980,1);
@@ -134,3 +162,17 @@ INSERT INTO board_free (content, reg_user) VALUES ('이렇게 해줬으면 좋�
 INSERT INTO board_free (content, reg_user) VALUES ('이렇게 해줬으면 좋겠어요3',1);
 INSERT INTO board_free (content, reg_user) VALUES ('이렇게 해줬으면 좋겠어요4',1);
 INSERT INTO board_free (content, reg_user) VALUES ('이렇게 해줬으면 좋겠어요5',1);
+
+
+-- 코로나순 줌순모임 출석체크 할 수 있도록 셋팅하기위한 쿼리
+---------------------------------------------------------------------------
+DELETE FROM attendance_2020
+WHERE (month=10 or month=11 or month=12)
+and att_yn = 'N';
+
+INSERT INTO attendance_2020
+( member_id, group_id, group_grade, mem_state, att_yn, year, month )
+SELECT member_id, group_id, group_grade, mem_state, 'N', year, month
+FROM attendance_2020
+WHERE (month=10 or month=11 or month=12);
+---------------------------------------------------------------------------

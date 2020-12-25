@@ -13,6 +13,7 @@ import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.YearSeason;
 import org.ds.dsyouth.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,15 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Depart> getDepartListByJoin() {
 		return adminMapper.selectDepartListByJoin();
+	}
+	
+	
+	/**
+	 * 이번년까지 순 시즌 불러오기
+	 */
+	@Override
+	public List<YearSeason> getYearSeasonList(String thisYear) {
+		return adminMapper.selectYearSeasonList(thisYear);
 	}
 	
 	

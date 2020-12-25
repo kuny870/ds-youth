@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500,700|Noto+Sans+KR:300,400,500,700,900');
 /**************************
 font
@@ -147,4 +146,13 @@ button
 **************************/
 button{
     border: none;
+}
+
+@media (min-width: 576px) {
+  /* .main_title{
+    font-size: 6.2vw;
+    line-height: 8.22222222222vw;
+    background: #f8f9fa;
+    padding: 3.7333333333vw;
+  } */
 }

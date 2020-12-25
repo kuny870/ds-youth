@@ -12,7 +12,11 @@ function authRegist(id) {
     }
 
     if(arr == "") {
-    	alert("적용할 대상을 선택해 주세요.");
+    	Swal.fire({
+            text: '적용할 대상을 선택해 주세요',
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
     	return false;
     }
 
@@ -28,14 +32,29 @@ function authRegist(id) {
         success: function(result)
         {
             if(result.success) { // show response from the php script.
-            	alert("적용 되었습니다.")
-          	  	location.reload();
+            	Swal.fire({
+                    text: '적용 되었습니다',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                }).then(function() {
+                	location.reload();
+                });
             }else {
-          	  	alert(result.message);
+            	Swal.fire({
+                    text: result.message,
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
             }
         },
  		  fail: function(result) {
- 			  alert("권한 적용에 실패 했습니다.");
+ 			 Swal.fire({
+                 text: '권한 적용에 실패 했습니다',
+                 confirmButtonText: '확인',
+                 allowOutsideClick: true
+             }).then(function() {
+             	location.reload();
+             });
  		  }
      });
 }
@@ -52,7 +71,11 @@ function authExecRegist() {
     }
 
     if(arr == "") {
-    	alert("적용할 대상을 선택해 주세요.");
+    	Swal.fire({
+            text: '적용할 대상을 선택해 주세요',
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
     	return false;
     }
 
@@ -68,14 +91,27 @@ function authExecRegist() {
         success: function(result)
         {
             if(result.success) { // show response from the php script.
-            	alert("적용 되었습니다.")
-          	  	location.reload();
+            	Swal.fire({
+                    text: '적용 되었습니다',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                }).then(function() {
+                	location.reload();
+                });
             }else {
-          	  	alert(result.message);
+            	Swal.fire({
+                    text: result.message,
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
             }
         },
  		  fail: function(result) {
- 			  alert("권한 적용에 실패 했습니다.");
+ 			 Swal.fire({
+                 text: '권한 적용에 실패 했습니다',
+                 confirmButtonText: '확인',
+                 allowOutsideClick: true
+             });
  		  }
      });
 }

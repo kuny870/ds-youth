@@ -21,7 +21,7 @@ public class MemberValidator implements Validator {
 		Member member = (Member) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 		
 		if(member.getName().length() == 0) {
-			errors.rejectValue("name", "emptyName", "이름을 입력해 주세요.");
+			errors.rejectValue("name", "emptyName", "이름을 입력해 주세요");
 		}
 		
 	}

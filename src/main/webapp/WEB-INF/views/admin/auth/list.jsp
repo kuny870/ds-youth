@@ -27,12 +27,13 @@
 				<div class="div-container">
 					
 					<div class="sales-table">
-			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">
+			            <div class="table-wrap2" style="padding: 0.466667vw 0 0 0;">
 
 			                <table>
 			                    <thead>
 			                        <tr>
-			                            <th>권한명</th>
+			                            <th class="th-26p3">권한명</th>
+			                            <th>권한내용</th>
 			                            <th class="th-18p0"></th>
 			                        </tr>
 			                    </thead>
@@ -46,6 +47,9 @@
 						                            	<input type="hidden" id="${auth.id}-input-hidden" value="${auth.name}" />
 						                            </td>
 						                            <td>
+						                            	${auth.description}
+						                            </td>
+						                            <td>
 						                            	<button class="basic-btn admin-reset-btn" onclick="remove('${auth.id}','${auth.name}')">초기화</button>
 						                            </td>
 						                        </tr>
@@ -56,6 +60,9 @@
 							                            <td class="css-a3">
 							                            	<a href="${contextPath }/admin/auth/detail/${auth.id}/${auth.name}">${auth.name} (${auth.cnt})</a>
 							                            	<input type="hidden" id="${auth.id}-input-hidden" value="${auth.name}" />
+							                            </td>
+							                            <td>
+							                            	${auth.description}
 							                            </td>
 							                            <td>
 							                            	<button class="basic-btn admin-reset-btn" onclick="remove('${auth.id}','${auth.name}')">초기화</button>

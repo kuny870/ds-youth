@@ -11,6 +11,7 @@ import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.YearSeason;
 
 public interface AdminService {
 
@@ -47,4 +48,7 @@ public interface AdminService {
 	boolean removeSamePeriod(SamePeriod samePeriod);
 	
 	List<MemberState> getMemberStateList();
+	
+	List<YearSeason> getYearSeasonList(String thisYear);
+
 }

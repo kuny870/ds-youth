@@ -165,7 +165,7 @@ $(document).ready(function(){
 	
 	
 	// 웹페이지가 처음 로딩되었을 때
-    router('/');
+//    router('/');
     
      // history entry가 변경되면 발생하는 이벤트
 	  // PJAX 방식은 hash를 사용하지 않으므로 hashchange 이벤트를 사용할 수 없다.
@@ -180,9 +180,9 @@ $(document).ready(function(){
 	  
 });
 
-function router(path) {
-    (routes[path] || routes.otherwise)(path);
-  }
+//function router(path) {
+//    (routes[path] || routes.otherwise)(path);
+//  }
 
 
 function get(url) {
@@ -219,17 +219,21 @@ $("#loginForm").submit(function(e) {
     
     // input 데이터 체크 및 팝업text 입력, 포커스 입력
     if ($loginId.val() == "") {
-    	validateMessage = '아이디를 입력해 주세요.';
+    	validateMessage = '아이디를 입력해 주세요';
         validateFocus = $loginId;
     }else if($loginPw.val() == "") {
-    	validateMessage = '비밀번호를 입력해 주세요.';
+    	validateMessage = '비밀번호를 입력해 주세요';
         validateFocus = $loginPw;
     }
     
     // input 데이터 체크 및 팝업창 띄워주고 포커스
     if(validateMessage != null) {
          validateFocus.focus();
-         alert(validateMessage);
+         Swal.fire({
+             text: validateMessage,
+             confirmButtonText: '확인',
+             allowOutsideClick: true
+         });
          return false;
     }
     
@@ -252,75 +256,84 @@ $("#loginForm").submit(function(e) {
             	  
             	  
             	  // SPA - PJAX 방식
-            	  (function () {
-            		  const root = document.querySelector('.root');
-
-            		  function render(data) {
-            		    const json = JSON.parse(data);
-            		    root.innerHTML = `<h1>${json.title}</h1><p>${json.content}</p>`;
-            		  }
-
-            		  function renderHtml(html) {
-            		    root.innerHTML = html;
-            		  }
-
-            		  function get(url) {
-            		    return new Promise((resolve, reject) => {
-            		      const req = new XMLHttpRequest();
-            		      req.open('GET', url);
-            		      req.send();
-
-            		      req.onreadystatechange = function () {
-            		        if (req.readyState === XMLHttpRequest.DONE) {
-            		          if (req.status === 200) resolve(req.response);
-            		          else reject(req.statusText);
-            		        }
-            		      };
-            		    });
-            		  }
-            		  
-            		  get(contextPath + '/mypage').then(res => renderHtml(res));
-            		  
-            		  history.pushState(null, null, contextPath + '/mypage');
-
-            		}());
+//            	  (function () {
+//            		  const root = document.querySelector('.root');
+//
+//            		  function render(data) {
+//            		    const json = JSON.parse(data);
+//            		    root.innerHTML = `<h1>${json.title}</h1><p>${json.content}</p>`;
+//            		  }
+//
+//            		  function renderHtml(html) {
+//            		    root.innerHTML = html;
+//            		  }
+//
+//            		  function get(url) {
+//            		    return new Promise((resolve, reject) => {
+//            		      const req = new XMLHttpRequest();
+//            		      req.open('GET', url);
+//            		      req.send();
+//
+//            		      req.onreadystatechange = function () {
+//            		        if (req.readyState === XMLHttpRequest.DONE) {
+//            		          if (req.status === 200) resolve(req.response);
+//            		          else reject(req.statusText);
+//            		        }
+//            		      };
+//            		    });
+//            		  }
+//            		  
+//            		  get(contextPath + '/mypage').then(res => renderHtml(res));
+//            		  
+//            		  history.pushState(null, null, contextPath + '/mypage');
+//
+//            		}());
 
 
 
             	  //Server
-            	  const express = require('express');
-               	  const app = express();
-               	  const fs = require('fs');
-
-               	  app.get(contextPath + '/mypage', (req, res) => {
-               	    res.format({
-               	      // 새로고침에 의한 브라우저 요청
-               	      'text/html': function(){
-               	        res.sendFile(path.join(__dirname + contextPath + '/mypage'));
-               	      },
-               	      // AJAX 요청
-               	      'application/json': function(){
-               	        res.send(JSON.parse(fs.readFileSync(contextPath + '/mypage', 'utf8')));
-               	      },
-               	      'default': function() {
-               	        // log the request and respond with 406
-               	        res.status(406).send('Not Acceptable');
-               	      }
-               	    });
-               	  });
-
-               	  app.listen(3000, function () {
-               	    console.log('listening on http//localhost:3000');
-               	  });
+//            	  const express = require('express');
+//               	  const app = express();
+//               	  const fs = require('fs');
+//
+//               	  app.get(contextPath + '/mypage', (req, res) => {
+//               	    res.format({
+//               	      // 새로고침에 의한 브라우저 요청
+//               	      'text/html': function(){
+//               	        res.sendFile(path.join(__dirname + contextPath + '/mypage'));
+//               	      },
+//               	      // AJAX 요청
+//               	      'application/json': function(){
+//               	        res.send(JSON.parse(fs.readFileSync(contextPath + '/mypage', 'utf8')));
+//               	      },
+//               	      'default': function() {
+//               	        // log the request and respond with 406
+//               	        res.status(406).send('Not Acceptable');
+//               	      }
+//               	    });
+//               	  });
+//
+//               	  app.listen(3000, function () {
+//               	    console.log('listening on http//localhost:3000');
+//               	  });
             	  
             	  
             	  
               }else {
-                  alert(result.message);
+            	  Swal.fire({
+	                    text: result.message,
+	                    confirmButtonText: '확인',
+	                    allowOutsideClick: true
+	                });
+
               }
           },
           fail: function(result) {
-              alert("로그인에 실패 했습니다.");
+        	  Swal.fire({
+                  text: "로그인에 실패 했습니다",
+                  confirmButtonText: '확인',
+                  allowOutsideClick: true
+              });
           }
     });
     e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -346,11 +359,20 @@ function logout(val) {
           if(result.success) { // show response from the php script.
         	  location.href = contextPath + "/login";
           }else {
-        	  alert(result.message);
+        	  Swal.fire({
+                  text: result.message,
+                  confirmButtonText: '확인',
+                  allowOutsideClick: true
+              });
+
           }
       },
 	  fail: function(result) {
-		  alert("로그아웃에 실패 했습니다.");
+		  Swal.fire({
+              text: "로그아웃에 실패 했습니다",
+              confirmButtonText: '확인',
+              allowOutsideClick: true
+          });
 	  }
 	});
 }
@@ -359,31 +381,51 @@ function logout(val) {
 // 회원 탈퇴
 function withdraw(val) {
 	
-	var conf = confirm('정말 탈퇴 하시겠습니까?');
+	Swal.fire({
+        title: '회원 탈퇴',
+        html: '정말 탈퇴 하시겠습니까?',
+        showCancelButton: true,
+        cancelButtonText: '취소',
+        confirmButtonText: '확인',
+        allowOutsideClick: true,
+        reverseButtons: true
+    }).then(function (result) {
+    	
+    	if(result.value){
+    		
+    		var url = contextPath + "/rest/withdraw"
+    		
+    		$.ajax({
+    	          type: "POST",
+    	          url: url,
+    	          data: {
+    	        	  id : val
+    	          }, // serializes the form’s elements.
+    	          success: function(result)
+    	          {
+    	              if(result.success) { // show response from the php script.
+    	            	  location.href = contextPath + "/login";
+    	              }else {
+    	            	  Swal.fire({
+    		                    text: result.message,
+    		                    confirmButtonText: '확인',
+    		                    allowOutsideClick: true
+    		                });
 
-	if(conf){
-
-		var url = contextPath + "/rest/withdraw"
-		
-		$.ajax({
-	          type: "POST",
-	          url: url,
-	          data: {
-	        	  id : val
-	          }, // serializes the form’s elements.
-	          success: function(result)
-	          {
-	              if(result.success) { // show response from the php script.
-	            	  location.href = contextPath + "/login";
-	              }else {
-	            	  alert(result.message);
-	              }
-	          },
-	   		  fail: function(result) {
-	   			  alert("회원탈퇴에 실패 했습니다.");
-	   		  }
-	    });
-	}
+    	              }
+    	          },
+    	   		  fail: function(result) {
+    	   			Swal.fire({
+                        text: "회원탈퇴에 실패 했습니다",
+                        confirmButtonText: '확인',
+                        allowOutsideClick: true
+                    });
+    	   		  }
+    	    });
+    		
+    	}
+    	
+    });
 
 }
 
@@ -392,7 +434,11 @@ function withdraw(val) {
 $("#linkCopy").click(function(e) {
 	
 	copyToClipboard(document.location.origin + contextPath + "/login");
-	alert("링크가 복사 되었습니다.");
+	Swal.fire({
+        text: "링크가 복사 되었습니다",
+        confirmButtonText: '확인',
+        allowOutsideClick: true
+    });
 	
 	e.preventDefault(); // avoid to execute the actual submit of the form.
    

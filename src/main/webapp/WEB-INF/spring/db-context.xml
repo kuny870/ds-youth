@@ -11,9 +11,10 @@
 		
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://dsyouth.c4s9vkff6a0g.ap-northeast-2.rds.amazonaws.com:3306/dsyouth?autoReconnect=true"/>
+        <!-- <property name="url" value="jdbc:mysql://192.168.50.31:3307/dsyouth?autoReconnect=true"/> -->
+        <property name="url" value="jdbc:mysql://localhost:3307/dsyouth?autoReconnect=true"/>
         <property name="username" value="kuny87"/>
-        <property name="password" value="chlznsl009!"/>
+        <property name="password" value="Chlznsl009!"/>
         
         <!-- dbcp.BasicDataSource option 설정 -->
 		<property name="maxWait" value="-1"/> <!-- 커넥션 풀 대기시간, -1일 경우 무한대기 -->

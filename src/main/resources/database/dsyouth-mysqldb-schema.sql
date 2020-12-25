@@ -1,3 +1,6 @@
+-- safe 모드 해제
+SET SQL_SAFE_UPDATES = 0;
+
 drop table auth;
 drop table depart;
 drop table team;
@@ -8,6 +11,7 @@ drop table member;
 drop table attendance;
 drop table leader_info;
 drop table qt;
+drop table year_season;
 
 drop table board_opinion;
 drop table board_free;
@@ -89,6 +93,18 @@ create table team (
     
     constraint pk_team primary key (id)
 );
+
+
+-- 순관리
+create table year_season (
+	id int(50) not null AUTO_INCREMENT,	-- 고유번호
+    `year` varchar(10) not null,	-- 년도
+    season varchar(10) not null,	-- 시즌
+    del_yn varchar(10) not null default 'N',	-- 삭제 여부
+    
+	constraint pk_year_season primary key (id)
+);
+
 
 -- 순명
 create table `group` (

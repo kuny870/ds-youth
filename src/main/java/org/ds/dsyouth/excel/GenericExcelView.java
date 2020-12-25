@@ -156,7 +156,7 @@ public class GenericExcelView extends AbstractExcelView {
         			cell_six_month.setCellValue(new HSSFRichTextString(s6.get(j).toString()));
         		}
         		
-    		// 하반기 달, 주일 날짜 및 셀 셋팅
+    		// 하반기 or 코로나순(9,10,11,12) 달, 주일 날짜 및 셀 셋팅
         	}else {
         		
         		List s1 = DateHelper.getDayOfWeekByMonth(attendanceSearch.getYear() + "07");

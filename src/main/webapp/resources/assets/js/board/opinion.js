@@ -8,14 +8,18 @@ $("#registBoardOpForm").submit(function(e) {
     
     // input 데이터 체크 및 팝업text 입력, 포커스 입력
     if ($content.val() == "") {
-         validateMessage = '내용을 입력해 주세요.';
+         validateMessage = '내용을 입력해 주세요';
          validateFocus = $content;
     }
     
     // input 데이터 체크 및 팝업창 띄워주고 포커스
     if(validateMessage != null) {
          validateFocus.focus();
-         alert(validateMessage);
+         Swal.fire({
+             text: validateMessage,
+             confirmButtonText: '확인',
+             allowOutsideClick: true
+         });
          return false;
     }
     
@@ -31,11 +35,20 @@ $("#registBoardOpForm").submit(function(e) {
               if(result.success) { // show response from the php script.
             	  location.reload();
               }else {
-                  alert(result.message);
+            	  Swal.fire({
+	                    text: result.message,
+	                    confirmButtonText: '확인',
+	                    allowOutsideClick: true
+	                });
+
               }
           },
           fail: function(result) {
-              alert("내용 입력에 실패 했습니다.");
+        	  Swal.fire({
+                  text: "내용 입력에 실패 했습니다",
+                  confirmButtonText: '확인',
+                  allowOutsideClick: true
+              });
           }
     });
     e.preventDefault(); // avoid to execute the actual submit of the form.

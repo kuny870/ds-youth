@@ -12,7 +12,11 @@ function samePeriodRegist(sId) {
     }
 
     if(arr == "") {
-    	alert("적용할 대상을 선택해 주세요.");
+    	Swal.fire({
+            text: "적용할 대상을 선택해 주세요",
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
     	return false;
     }
 
@@ -28,14 +32,28 @@ function samePeriodRegist(sId) {
         success: function(result)
         {
             if(result.success) { // show response from the php script.
-            	alert("적용 되었습니다.")
-          	  	location.reload();
+            	Swal.fire({
+                    text: "적용 되었습니다",
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                }).then(function() {
+                	location.reload();
+                });
             }else {
-          	  	alert(result.message);
+            	Swal.fire({
+                    text: result.message,
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
+
             }
         },
  		  fail: function(result) {
- 			  alert("동기 적용에 실패 했습니다.");
+ 			 Swal.fire({
+                 text: "동기 적용에 실패 했습니다",
+                 confirmButtonText: '확인',
+                 allowOutsideClick: true
+             });
  		  }
      });
 }

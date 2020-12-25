@@ -29,7 +29,7 @@
             
 				<div class="div-container">
 					
-					<div style="margin-left: 20px; color: blue; margin-bottom: 5px; font-size: 3.5vw;">＊ 리더(또는 가족장)로 임명 시 이름을 클릭해 주세요.</div>
+					<div style="margin-left: 20px; color: blue; margin-bottom: 5px; font-size: 3.5vw;">＊ 리더(또는 가족장)로 임명 시 이름을 클릭해 주세요</div>
 					<div style="margin-left: 20px; margin-bottom: 10px; font-size: 3.5vw;">
 						＊ 가족장 : <span style="background: #ff0080; display: inline-block; width: 50px; height: 17px; border-radius: 4.666667px; margin-right: 20px;">　</span>
 						＊ 리더 : <span style="background: blue; display: inline-block; width: 50px; height: 17px; border-radius: 4.666667px; margin-right: 20px;">　</span> </div>

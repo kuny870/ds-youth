@@ -21,7 +21,7 @@ public class BoardFreeValidator implements Validator {
 		BoardFree boardFree = (BoardFree) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 
 		if(boardFree.getContent().length() == 0) {
-			errors.rejectValue("content", "emptyContent", "내용을 입력해 주세요.");
+			errors.rejectValue("content", "emptyContent", "내용을 입력해 주세요");
 		}
 
 	}

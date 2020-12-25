@@ -8,9 +8,10 @@ public class AttendanceSearch {
 	private String teamId;
 	private String year;
 	private String lastYear;
-	private int month;
+	private Integer month;
 	private String season;
-
+	private String thisSeason;
+	
 	public AttendanceSearch() {
 		this.teamId = "9";
 		this.year = DateHelper.getYear();
@@ -18,12 +19,22 @@ public class AttendanceSearch {
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
 	}
 	
-	public String getSeason() {
-		if(month < 7) {
-			this.season = "상반기";
+	public String setThisSeason() {
+		return thisSeason;
+	}
+	
+	public String getThisSeason() {
+		if(StringHelper.parseInt(DateHelper.getYear()) == 2020  && month > 8) {
+			this.thisSeason = "코로나순";
+		}else if(month < 7) {
+			this.thisSeason = "상반기";
 		}else {
-			this.season = "하반기";
+			this.thisSeason = "하반기";
 		}
+		return thisSeason;
+	}
+	
+	public String getSeason() {
 		return season;
 	}
 
@@ -47,11 +58,11 @@ public class AttendanceSearch {
 		this.year = year;
 	}
 
-	public int getMonth() {
+	public Integer getMonth() {
 		return month;
 	}
 
-	public void setMonth(int month) {
+	public void setMonth(Integer month) {
 		this.month = month;
 	}
 

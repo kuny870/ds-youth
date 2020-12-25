@@ -11,14 +11,28 @@ $("#teamModifyForm").submit(function(e) {
           success: function(result)
           {
               if(result.success) { // show response from the php script.
-            	  alert("팀 정보가 변경 되었습니다.")
-            	  location.href = contextPath + "/admin/team";
+            	  Swal.fire({
+                      text: "팀 정보가 변경 되었습니다",
+                      confirmButtonText: '확인',
+                      allowOutsideClick: true
+                  }).then(function() {
+                	  location.href = contextPath + "/admin/team";
+                  });
               }else {
-            	  alert(result.message);
+            	  Swal.fire({
+	                    text: result.message,
+	                    confirmButtonText: '확인',
+	                    allowOutsideClick: true
+	                });
+
               }
           },
    		  fail: function(result) {
-   			  alert("팀 정보 변경에 실패 했습니다.");
+   			Swal.fire({
+                text: "팀 정보 변경에 실패 했습니다",
+                confirmButtonText: '확인',
+                allowOutsideClick: true
+            });
    		  }
     });
 

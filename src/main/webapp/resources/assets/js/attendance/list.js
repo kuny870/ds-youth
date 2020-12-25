@@ -1,3 +1,37 @@
+function getSeason(sParam){
+    var $target = $("select[name='season']");
+     
+    $target.empty();
+    if(sParam == ""){
+    	$target.append("<option value=''>-</option>");
+        return;
+    } else if (sParam != "") {
+    	
+	    $.ajax({
+	        type: "POST",
+	        url: contextPath + "/rest/select/season",
+	        async: false,
+	        data:{ year : sParam },
+	        dataType: "json",
+	        success: function(result) {
+	            if(result.data.length == 0){
+	                $target.append("<option value=''>-</option>");
+	            }else{
+	                $(result.data).each(function(i){
+	                    $target.append("<option value=" + result.data[i].season + ">"+ result.data[i].season +"</option>");
+	                });
+	            }
+	        }, error:function(xhr){
+	            console.log(xhr.responseText);
+	            alert("시즌 정보를 불러오는데 실패 했습니다.");
+	            return;
+	        }
+	    });
+	    
+    }
+    
+}
+
 // 출석 적용
 function attendanceRegist() {
 	var year = $('#year').val();
@@ -77,14 +111,27 @@ function attendanceRegist() {
         success: function(result)
         {
             if(result.success) { // show response from the php script.
-            	alert("적용 되었습니다.")
-          	  	location.reload();
+            	Swal.fire({
+                    text: '적용 되었습니다',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                }).then(function() {
+                	location.reload();
+                });
             }else {
-          	  	alert(result.message);
+            	Swal.fire({
+                    text: result.message,
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
             }
         },
  		  fail: function(result) {
- 			  alert("출석 적용에 실패 했습니다.");
+ 			 Swal.fire({
+                 text: '출석 적용에 실패 했습니다',
+                 confirmButtonText: '확인',
+                 allowOutsideClick: true
+             });
  		  }
      });
 }

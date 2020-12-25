@@ -11,23 +11,27 @@ $("#addressEditForm").submit(function(e) {
 
 	// input 데이터 체크 및 팝업text 입력, 포커스 입력
 	if ($name.val() == "") {
-		validateMessage = '주소지명을 입력해 주세요.';
+		validateMessage = '주소지명을 입력해 주세요';
 		validateFocus = name;
 	} else if ($addr1.val() == "") {
-		validateMessage = '주소지를 입력해 주세요.';
+		validateMessage = '주소지를 입력해 주세요';
 		validateFocus = addr1;
 	} else if ($addr2.val() == "") {
-		validateMessage = '상세 주소지를 입력해 주세요.';
+		validateMessage = '상세 주소지를 입력해 주세요';
 		validateFocus = addr2;
 	} else if ($zipcode.val() == "") {
-		validateMessage = '우편번호를 입력해 주세요.';
+		validateMessage = '우편번호를 입력해 주세요';
 		validateFocus = zipcode;
 	} 
 	
 	// input 데이터 체크 및 팝업창 띄워주고 포커스
 	if(validateMessage != null) {
 		validateFocus.focus();
-		alert(validateMessage);
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
 		return false;
 	}
 	
@@ -43,11 +47,20 @@ $("#addressEditForm").submit(function(e) {
               if(result.success) { // show response from the php script.
             	  location.href = contextPath + "/mypage/address/list/" + loginId;
               }else {
-            	  alert(result.message);
+            	  Swal.fire({
+	                    text: result.message,
+	                    confirmButtonText: '확인',
+	                    allowOutsideClick: true
+	                });
+
               }
           },
    		  fail: function(result) {
-   			  alert("주소지 수정에 실패했습니다.");
+   			Swal.fire({
+                text: "주소지 수정에 실패했습니다",
+                confirmButtonText: '확인',
+                allowOutsideClick: true
+            });
    		  }
     });
 

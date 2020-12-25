@@ -22,7 +22,7 @@ public class RetreatValidator implements Validator {
 		Retreat retreat = (Retreat) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 		
 		if(retreat.getRetreatName().length() == 0) {
-			errors.rejectValue("retreatName", "emptyRetreatName", "수련회명을 입력해 주세요.");
+			errors.rejectValue("retreatName", "emptyRetreatName", "수련회명을 입력해 주세요");
 		}
 		
 	}

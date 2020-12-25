@@ -39,7 +39,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"> 
 //<![CDATA[
-    function wrapWindowByMask(){
+    function excelDownPopup(){
  
         //화면의 높이와 너비를 구한다.
         var maskHeight = $(document).height();  
@@ -86,13 +86,13 @@
             <div id="mask"></div>
            	<div class="window">
                 <div style="width:100%; height:100%; text-align:center; vertical-align:middle;">
-                	<div style="font-size: 15px; font-weight: 700">[ 엑셀 다운로드 ]</div>
+                	<div style="font-size: 16px; font-weight: 700; margin-top:15px; margin-bottom: 10px;">엑셀 다운로드</div>
                 	
                 	<br/>
                 	
-						<div class="customer-select-search" style="width: 40%; margin-left: 7%; float: left;">
+						<div class="customer-select-search" style="width: 40%; margin-left: 6.5%; float: left;">
 							<!-- 년 선택 -->
-	                   		<select class="select-admin-pop-excel-year" id="yearExcel" name="yearExcel">
+	                   		<select class="select-admin-pop-excel-year" id="yearExcel" name="yearExcel" onchange="getSeason(this.value);">
 		                       	<c:forEach var="year" items="${yearList }">
 		                       		<c:set var="selected" value="" />
 									<c:if test="${year eq attendanceSearch.year }">
@@ -105,13 +105,13 @@
                     
 	                    <div class="customer-select-search" style="width: 40%; margin-left: 7%; float: left;">
 							<!-- 상반기 / 하반기 선택 -->
-	                   		<select class="select-admin-pop-excel-season" id="seasonExcel" name="seasonExcel">
-		                       	<c:forEach var="ss" items="${season }">
+	                   		<select class="select-admin-pop-excel-season" id="seasonExcel" name="season">
+		                       	<c:forEach var="ss" items="${seasonList }">
 		                       		<c:set var="selected" value="" />
-									<c:if test="${ss eq attendanceSearch.season }">
+									<c:if test="${ss.season eq attendanceSearch.thisSeason }">
 										<c:set var="selected" value="selected" />
 									</c:if>
-									<option value="${ss}" ${selected} >${ss}</option>
+									<option value="${ss.season}" ${selected} >${ss.season}</option>
 								</c:forEach>
 		                    </select>
 	                    </div>
@@ -121,13 +121,13 @@
                 
                 <br/><br/>
 				
-				<div style="text-align: center;">
-					<button class="excel-down-btn" onclick="excelDown()" style="font-size: 3.3vw;">다운로드</button>
+				<div style="text-align: center; margin-bottom: 25px;">
+					<button class="excel-down-btn" onclick="excelDown()" style="font-size: 14px; width: 86%;">다운로드</button>
 				</div>
 				
-				<p style="text-align:center; background:#ffffff; padding:5px; margin-top:20px;">
+				<!-- <p style="text-align:center; background:#ffffff; padding:5px; margin-top:20px;">
 					<button class="excel-close-btn close">닫기</button>
-				</p>
+				</p> -->
             </div>
         </div>
     </div>

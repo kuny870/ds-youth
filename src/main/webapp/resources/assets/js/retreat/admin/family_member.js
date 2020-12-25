@@ -27,7 +27,11 @@ function familyRegist(fId) {
 	
 
     if(chksArr == "") {
-    	alert("적용할 대상을 선택해 주세요.");
+    	Swal.fire({
+    	    text: "적용할 대상을 선택해 주세요",
+    	    confirmButtonText: '확인',
+    	    allowOutsideClick: true
+    	});
     	return false;
     }
 
@@ -47,14 +51,28 @@ function familyRegist(fId) {
         success: function(result)
         {
             if(result.success) { // show response from the php script.
-            	alert("적용 되었습니다.")
-          	  	location.reload();
+            	Swal.fire({
+                    text: "적용 되었습니다",
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                }).then(function() {
+                	location.reload();
+                });
             }else {
-          	  	alert(result.message);
+            	Swal.fire({
+            	    text: result.message,
+            	    confirmButtonText: '확인',
+            	    allowOutsideClick: true
+            	});
+
             }
         },
  		  fail: function(result) {
- 			  alert("가족원 적용에 실패 했습니다.");
+ 			 Swal.fire({
+ 			    text: "가족원 적용에 실패 했습니다",
+ 			    confirmButtonText: '확인',
+ 			    allowOutsideClick: true
+ 			});
  		  }
      });
 }
@@ -75,32 +93,60 @@ function fGroupGrade(id, name, grade, retreatId) {
 		grade = "0";
 	}
 	
-	var conf = confirm(name+ " 을(를) " + gradeName + "(으)로 적용 하시겠습니까?");
-	if(conf){
-		var url = contextPath + "/rest/familyMember/edit"
-	    $.ajax({
-	        type: "POST",
-	        url: url,
-	        traditional : true,
-	        data: {
-	        	'id' : id,
-	        	'groupGrade' : grade,
-	        	'retreatId' : retreatId
-	        }, // serializes the form’s elements.
-	        success: function(result)
-	        {
-	            if(result.success) { // show response from the php script.
-	            	alert("적용 되었습니다.")
-	          	  	location.reload();
-	            }else {
-	          	  	alert(result.message);
-	            }
-	        },
-	 		  fail: function(result) {
-	 			  alert(gradeName + " 적용에 실패 했습니다.");
-	 		  }
-	     });
-	}
+	Swal.fire({
+        title: gradeName + ' 적용',
+        html: name+ " 을(를) " + gradeName + "(으)로 적용 하시겠습니까?",
+        showCancelButton: true,
+        cancelButtonText: '취소',
+        confirmButtonText: '확인',
+        allowOutsideClick: true,
+        reverseButtons: true
+    }).then(function (result) {
+    	
+    	if(result.value){
+    		
+    		var url = contextPath + "/rest/familyMember/edit"
+    	    
+        	$.ajax({
+    	        type: "POST",
+    	        url: url,
+    	        traditional : true,
+    	        data: {
+    	        	'id' : id,
+    	        	'groupGrade' : grade,
+    	        	'retreatId' : retreatId
+    	        }, // serializes the form’s elements.
+    	        success: function(result)
+    	        {
+    	            if(result.success) { // show response from the php script.
+    	            	Swal.fire({
+    	                    text: "적용 되었습니다",
+    	                    confirmButtonText: '확인',
+    	                    allowOutsideClick: true
+    	                }).then(function() {
+    	                	location.reload();
+    	                });
+    	            }else {
+    	            	Swal.fire({
+    	            	    text: result.message,
+    	            	    confirmButtonText: '확인',
+    	            	    allowOutsideClick: true
+    	            	});
+
+    	            }
+    	        },
+    	 		  fail: function(result) {
+    	 			 Swal.fire({
+    	 			    text: gradeName + " 적용에 실패 했습니다",
+    	 			    confirmButtonText: '확인',
+    	 			    allowOutsideClick: true
+    	 			});
+    	 		  }
+    	     });
+    		
+    	}
+    	
+    });
 		
 }
 

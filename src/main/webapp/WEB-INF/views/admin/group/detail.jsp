@@ -28,7 +28,7 @@
 				<div class="div-container">
 					
 					<div style="margin-left: 20px; color: blue; margin-bottom: 10px; font-size: 3.5vw;">
-						＊ 순장으로 임명 시 이름을 클릭해 주세요.
+						＊ 순장으로 임명 시 이름을 클릭해 주세요
 					</div>
 
 					<div class="sales-table">

@@ -36,7 +36,11 @@ function getTeam(val){
 	            }
 	        }, error:function(xhr){
 	            console.log(xhr.responseText);
-	            alert("팀 정보를 불러오는데 실패 했습니다.");
+	            Swal.fire({
+	                text: "팀 정보를 불러오는데 실패 했습니다",
+	                confirmButtonText: '확인',
+	                allowOutsideClick: true
+	            });
 	            return;
 	        }
 	    });
@@ -73,20 +77,24 @@ $("#memberRegistForm").submit(function(e) {
 
 	// input 데이터 체크 및 팝업text 입력, 포커스 입력
 	if ($name.val() == "") {
-		validateMessage = '이름을 입력해 주세요.';
+		validateMessage = '이름을 입력해 주세요';
 		validateFocus = $name;
 	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
-		validateMessage = '생년월일을 다시 확인해 주세요.';
+		validateMessage = '생년월일을 다시 확인해 주세요';
 		validateFocus = $dateOfBirth;
 	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
-		validateMessage = '휴대폰 번호를 다시 확인해 주세요.';
+		validateMessage = '휴대폰 번호를 다시 확인해 주세요';
 		validateFocus = $htel;
 	}
 
 	// input 데이터 체크 및 팝업창 띄워주고 포커스
 	if(validateMessage != null) {
 		validateFocus.focus();
-		alert(validateMessage);
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
 		return false;
 	}
 	
@@ -100,14 +108,28 @@ $("#memberRegistForm").submit(function(e) {
           success: function(result)
           {
               if(result.success) { // show response from the php script.
-            	  alert("멤버가 등록 되었습니다.")
-            	  location.reload();
+            	  Swal.fire({
+                      text: "멤버가 등록 되었습니다",
+                      confirmButtonText: '확인',
+                      allowOutsideClick: true
+                  }).then(function() {
+                	  location.reload();
+                  });
               }else {
-            	  alert(result.message);
+            	  Swal.fire({
+            		    text: result.message,
+            		    confirmButtonText: '확인',
+            		    allowOutsideClick: true
+            	  });
+
               }
           },
    		  fail: function(result) {
-   			  alert("멤버 등록에 실패 했습니다.");
+   			Swal.fire({
+   			    text: "멤버 등록에 실패 했습니다",
+   			    confirmButtonText: '확인',
+   			    allowOutsideClick: true
+   			});
    		  }
     });
 

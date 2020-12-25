@@ -22,7 +22,16 @@
    				<span class="shop-link-login" onclick="samePeriod()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="head_title text-center">${map.name }</p>
+			    
+		    	<c:choose>
+			    	<c:when test="${map.gubun == 0 || map.gubun == 9}">
+                 		<p class="head_title text-center">${map.name}년생</p>
+                    </c:when>
+                    <c:otherwise>
+                    	<p class="head_title text-center">${map.name}학년</p>
+                    </c:otherwise>
+                </c:choose>
+			    
             
 				<div class="div-container">
 					

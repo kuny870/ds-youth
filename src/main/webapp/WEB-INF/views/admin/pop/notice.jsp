@@ -82,7 +82,7 @@
         
         
         cookiedata = document.cookie; 
-        if ( cookiedata.indexOf("notice=done") < 0 ) {
+        if ( cookiedata.indexOf("notice-20200302=done") < 0 ) {
         	$("#mask, .window").show();
         }else {
         	$("#mask, .window").hide(); 
@@ -94,21 +94,18 @@
 </script>
 </head>
 <body>
-    <div id ="wrap"> 
-        <div id = "container">  
+    <div id="wrap"> 
+        <div id="container">  
             <div id="mask"></div>
            	<div class="window">
                 <div style="width:100%; height:100%; text-align:center; vertical-align:middle;">
-                	<div style="font-size: 15px; font-weight: 700">[ 공 지 ]</div><br/>
-                	<div>1. 새가족 팀원</div>
-                	<div>등록일/수료일 입력 기능</div>
-                	<div>추가되었습니다.</div>
-                	<br/>
-                	<div>2. 가족 편성표</div>
-                	<div>준비 중입니다.</div>
+                	<div class="notice-title" style="font-size: 15px; font-weight: 700">[ 3월 2일 업데이트 ]</div><br/>
+                	<div class="notice-content-1">1. 출석부</div>
+                	<div class="notice-content-2">패드용 출석부가</div>
+                	<div class="notice-content-3">업데이트 되었습니다.^^</div>
                 </div>
 				<p style="text-align:center; background:#ffffff; padding:5px; margin-top:20px;">
-					<button class="notice-close-btn" onclick="todayClose('notice',1)" style="margin-right: 3px;">오늘 열지 않음</button>
+					<button class="notice-close-btn" onclick="todayClose('notice-20200302',365)" style="margin-right: 3px;">다시 열지 않음</button>
 					<button class="notice-close-btn close" style="margin-left: 3px;">닫기</button>
 				</p>
             </div>

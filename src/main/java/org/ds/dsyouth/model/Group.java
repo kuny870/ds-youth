@@ -19,7 +19,9 @@ public class Group {
 	
 	public Group() {
 		this.year = DateHelper.getYear();
-		if(Integer.parseInt(DateHelper.getMonth()) < 7) {
+		if(Integer.parseInt(DateHelper.getYear()) == 2020 && Integer.parseInt(DateHelper.getMonth()) > 8) {
+			this.season = "코로나순";
+		}else if(Integer.parseInt(DateHelper.getMonth()) < 7) {
 			this.season = "상반기";
 		}else {
 			this.season = "하반기";

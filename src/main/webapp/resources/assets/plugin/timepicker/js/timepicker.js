@@ -39,7 +39,7 @@ var minuteStr = new Array( 12 ).fill( null ).map(function(t,i){
 }).join('');
 
 var content = $('<div class="timepicker">\
-		<div v-show class="title">선택해주세요.</div>\
+		<div v-show class="title">선택해주세요</div>\
 			<div class="chose-all">\
 				<div class="handle">\
 					<div class="cell-4"><a class="icon-up js-plus-houer"></a></div>\
@@ -135,7 +135,7 @@ timepicker.bindEvent = function () {
 		thisTimePicker.update();
 		thisTimePicker.choseMinute.hide();
 		thisTimePicker.choseAll.show();
-		thisTimePicker.title.text('선택해주세요.');
+		thisTimePicker.title.text('선택해주세요');
 	
 	// 选择小时
 	}).on('click','.js-hour-cell',function () {
@@ -143,7 +143,7 @@ timepicker.bindEvent = function () {
 		thisTimePicker.update();
 		thisTimePicker.choseHour.hide();
 		thisTimePicker.choseAll.show();
-		thisTimePicker.title.text('선택해주세요.');
+		thisTimePicker.title.text('선택해주세요');
 	// 阻止冒泡
 	}).on('click',function(e) {
 		e.stopPropagation();
@@ -153,14 +153,14 @@ timepicker.bindEvent = function () {
 	thisTimePicker.hourShow.on('click',function() {
 		thisTimePicker.choseAll.hide();
 		thisTimePicker.choseHour.show();
-		thisTimePicker.title.text('시간을 선택해주세요.');
+		thisTimePicker.title.text('시간을 선택해주세요');
 	});
 
 	// 切换到选择分钟
 	thisTimePicker.minuteShow.on('click',function() {
 		thisTimePicker.choseAll.hide();
 		thisTimePicker.choseMinute.show();
-		thisTimePicker.title.text('분을 선택해주세요.');
+		thisTimePicker.title.text('분을 선택해주세요');
 	});
 };
 

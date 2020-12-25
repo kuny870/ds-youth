@@ -44,7 +44,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 		
 		boolean result = false;
 		
-		if("상반기".equals(attendance.getSeason())) {
+		if("코로나순".equals(attendance.getSeason())) {
+			for(Integer i = 10; i < 13; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroup(attendance);
+			}
+		}else if("상반기".equals(attendance.getSeason())) {
 			for(Integer i = 1; i < 7; i++) {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroup(attendance);

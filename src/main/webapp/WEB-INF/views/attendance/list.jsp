@@ -17,83 +17,90 @@
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
+	<link href="${resourcesPath}/assets/css/attendance.css?${nowTime}" rel="stylesheet">
   </head>
   <body>
+
     <div class="container">
     
             <div class="header-product">
+            <div class="header-att">
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="main_title text-center">
+			    <div class="main-title-att text-center">
 			    	출석부
-			    	<img src="${resourcesPath }/assets/images/download_att.jpg" class="attendance-img" onclick="excelDownPopup()">
-			    </p>
-            
+			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="attendance-img" onclick="excelDownPopup()" style="margin-left: 27.8vw; margin-top: 0.3vw; width: 8vw;">
+			    </div>
+            </div>
 				<div class="div-container">
                     
-					<div class="customer-select-search" style="width: 37.3%; margin-left:5%; float: left;">
-						 <select class="select-attendance-list-team" id="teamId" name="teamId">
-	                       	<c:forEach var="team" items="${teamList }">
-	                       		<c:set var="selected" value="" />
-							        <c:if test="${team.id eq attendanceSearch.teamId }">
+                    <div class="search-div">
+						<div class="customer-select-search" style="width: 37.3%; margin-left:5%; float: left;">
+							 <select class="select-attendance-list-team" id="teamId" name="teamId">
+		                       	<c:forEach var="team" items="${teamList }">
+		                       		<c:set var="selected" value="" />
+								        <c:if test="${team.id eq attendanceSearch.teamId }">
+											<c:set var="selected" value="selected" />
+										</c:if>
+									<option value="${team.id}" ${selected} >${team.tShortName}</option>
+								</c:forEach>
+		                    </select> 
+	                    </div>
+	                    
+	                    <div class="customer-select-search" style="width: 22%; margin-left: -27px; float: left;">
+							<!-- 년 선택 -->
+	                   		<select class="select-attendance-list-year" id="year" name="year">
+		                       	<c:forEach var="year" items="${yearList }">
+		                       		<c:set var="selected" value="" />
+									<c:if test="${year eq attendanceSearch.year }">
 										<c:set var="selected" value="selected" />
 									</c:if>
-								<option value="${team.id}" ${selected} >${team.tShortName}</option>
-							</c:forEach>
-	                    </select> 
-                    </div>
-                    
-                    <div class="customer-select-search" style="width: 22%; margin-left: -27px; float: left;">
-						<!-- 년 선택 -->
-                   		<select class="select-attendance-list-year" id="year" name="year">
-	                       	<c:forEach var="year" items="${yearList }">
-	                       		<c:set var="selected" value="" />
-								<c:if test="${year eq attendanceSearch.year }">
-									<c:set var="selected" value="selected" />
-								</c:if>
-								<option value="${year}" ${selected} >${year}년</option>
-							</c:forEach>
-	                    </select>
-                    </div>    
-                    
-                    <div class="customer-select-search" style="width: 20%; margin-left: 3%; float: left;">
-						<!-- 월 선택 -->
-                   		<select class="select-attendance-list-month" id="month" name="month">
-	                       	<c:forEach var="month" items="${SMonthSearchType }">
-	                       		<c:set var="selected" value="" />
-								<c:if test="${month.getVName() eq attendanceSearch.month }">
-									<c:set var="selected" value="selected" />
-								</c:if>
-								<option value="${month.getVName()}" ${selected} >${month.getVName()}월</option>
-							</c:forEach>
-	                    </select>
-                    </div>    
-                    
-		            <div>
-		            	<button class="basic-btn attendance-list-btn" onclick="attendanceSearch()">조회</button>
-		            </div>
+									<option value="${year}" ${selected} >${year}년</option>
+								</c:forEach>
+		                    </select>
+	                    </div>    
+	                    
+	                    <div class="customer-select-search" style="width: 20%; margin-left: 3%; float: left;">
+							<!-- 월 선택 -->
+	                   		<select class="select-attendance-list-month" id="month" name="month">
+		                       	<c:forEach var="month" items="${SMonthSearchType }">
+		                       		<c:set var="selected" value="" />
+									<c:if test="${month.getVName() eq attendanceSearch.month }">
+										<c:set var="selected" value="selected" />
+									</c:if>
+									<option value="${month.getVName()}" ${selected} >${month.getVName()}월</option>
+								</c:forEach>
+		                    </select>
+	                    </div>    
+	                    
+			            <div>
+			            	<button class="basic-btn attendance-list-btn" onclick="attendanceSearch()">조회</button>
+			            </div>
+			        </div>
 
                     
+                    <div class="attendance-table">
 					<div class="sales-table">
-			            <div class="table-wrap">
+			            <div class="table-wrap-att">
 
 			                <table>
 			                    <thead>
 			                        <tr>
 			                            <th class="th-5p6">No</th>
-			                            <th class="th-22p0">
-			                            	 <!-- teamId 4 : 1새가족, 8 : 2새가족 -->
-			                            	 <c:choose>
-							                	<c:when test="${attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8 }">
-							                		인도자
-							                	</c:when>
-							                	<c:otherwise>
-							                		순
-							                	</c:otherwise>
-							                </c:choose>
-			                            </th>
-			                            <th class="th-18p0">이름 (동기)</th>
+			                            
+			                            <!-- teamId 4 : 1새가족, 8 : 2새가족 -->
+		                            	 <c:choose>
+						                	<c:when test="${attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8 }">
+						                		<th class="th-18p0">이름 (동기)</th>
+						                		<th class="th-22p0">인도자</th>
+						                	</c:when>
+						                	<c:otherwise>
+						                		<th class="th-22p0">순</th>
+						                		<th class="th-18p0">이름 (동기)</th>
+						                	</c:otherwise>
+						                </c:choose>
+						                
 			                            <c:forEach var="s" items="${sunday}" varStatus="i">
 			                            	<th class="th-7p6">${s}</th>
 			                            </c:forEach>
@@ -112,10 +119,19 @@
 										</c:when>
 										<c:otherwise>
 											
+											<c:set var="index" value="1" />
 											<c:forEach var="att" items="${attendanceList}" varStatus="i">
 					                    		<input type="hidden" id="${att.id}" name="aId"/>
 					                    		<tr>
-						                            <td>${i.index + 1}</td>
+					                    			<c:choose>
+					                    				<c:when test="${att.attYn == 'Y' }">
+					                    					<td>${index}</td>
+					                    					<c:set var="index" value="${index+1}" />
+					                    				</c:when>
+					                    				<c:otherwise>
+					                    					<td></td>
+					                    				</c:otherwise>
+						                            </c:choose>
 						                            
 						                            <c:set var="bold" value=""/>
 						                            <!-- teamId 4 : 1새가족, 8 : 2새가족 -->
@@ -137,74 +153,117 @@
 						                            	</c:choose>
 					                            	</c:if>
 						                            
-						                            <td style="font-weight: ${bold}">
-						                            	    <!-- teamId 4 : 1새가족, 8 : 2새가족 -->
-							                            	<c:choose>
-						                            			<c:when test="${att.attYn == 'Y'}">
-						                            				 <c:choose>
-													                	<c:when test="${attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8 }">
-													                		${att.member.guider}
-													                	</c:when>
-													                	<c:otherwise>
-													                		${groupName}
-													                	</c:otherwise>
-													                </c:choose>
-						                            			</c:when>
-						                            			<c:otherwise>
-						                            			</c:otherwise>
-						                            		</c:choose>
-						                            </td>
+						                            
 						                            <c:set var="bold" value=""/>
 						                            <c:set var="italic" value=""/>
-						                            <c:if test="${att.groupGrade == '순장' }">
+						                            <c:if test="${att.groupGrade == '순장' && att.attYn == 'Y'}">
 						                            	<c:set var="bold" value="700"/>
 						                            </c:if>
 						                            <c:if test="${att.member.memState != '1' }">
 						                            	<c:set var="italic" value="italic"/>
 						                            </c:if>
-						                            <td style="font-weight: ${bold}; font-style: ${italic};">
-						                            	<c:choose>
-					                            			<c:when test="${att.attYn == 'Y'}">
-					                            				${att.member.name }
-					                            				<!-- 동기 표시 -->
-					                            				<c:if test="${att.member.samePeriodId != null }">
-					                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
-								                            		<c:choose>
-								                            			<c:when test="${yearTmp == 19}">
-								                            				(1)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 20}">
-								                            				(2)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 21}">
-								                            				(3)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 22}">
-								                            				(4)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 23}">
-								                            				(5)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 24}">
-								                            				(6)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 25}">
-								                            				(7)
-								                            			</c:when>
-								                            			<c:when test="${yearTmp == 26}">
-								                            				(8)
-								                            			</c:when>
-								                            			<c:otherwise>
-								                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
-								                            			</c:otherwise>
-								                            		</c:choose>
-								                            	</c:if>
-					                            			</c:when>
-					                            			<c:otherwise>
-					                            				2부
-					                            			</c:otherwise>
-					                            		</c:choose>
-						                            </td>
+						                            
+						                            
+				                            	    <!-- teamId 4 : 1새가족, 8 : 2새가족 -->
+					                            	<c:choose>
+									                	<c:when test="${attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8 }">
+				                            				 <c:choose>
+				                            					<c:when test="${att.attYn == 'Y'}">
+				                            						<td style="font-weight: ${bold}; font-style: ${italic};">
+							                            				${att.member.name }
+							                            				<!-- 동기 표시 -->
+							                            				<c:if test="${att.member.samePeriodId != null }">
+							                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
+										                            		<c:choose>
+										                            			<c:when test="${yearTmp == 19}">
+										                            				(1)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 20}">
+										                            				(2)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 21}">
+										                            				(3)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 22}">
+										                            				(4)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 23}">
+										                            				(5)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 24}">
+										                            				(6)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 25}">
+										                            				(7)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 26}">
+										                            				(8)
+										                            			</c:when>
+										                            			<c:otherwise>
+										                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
+										                            			</c:otherwise>
+										                            		</c:choose>
+										                            	</c:if>
+										                            </td>
+										                            <td style="font-weight: ${bold}">${att.member.guider}</td>
+						                            			</c:when>
+						                            			<c:otherwise>
+						                            				<td style="font-style: ${italic};">2부</td>
+							                            			<td></td>
+						                            			</c:otherwise>
+						                            		</c:choose>
+				                            			</c:when>
+				                            			
+				                            			<c:otherwise>
+									                		<td style="font-weight: ${bold}">${groupName}</td>
+									                		<td style="font-weight: ${bold}; font-style: ${italic};">
+								                            	<c:choose>
+							                            			<c:when test="${att.attYn == 'Y'}">
+							                            				${att.member.name }
+							                            				<!-- 동기 표시 -->
+							                            				<c:if test="${att.member.samePeriodId != null }">
+							                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
+										                            		<c:choose>
+										                            			<c:when test="${yearTmp == 19}">
+										                            				(1)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 20}">
+										                            				(2)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 21}">
+										                            				(3)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 22}">
+										                            				(4)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 23}">
+										                            				(5)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 24}">
+										                            				(6)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 25}">
+										                            				(7)
+										                            			</c:when>
+										                            			<c:when test="${yearTmp == 26}">
+										                            				(8)
+										                            			</c:when>
+										                            			<c:otherwise>
+										                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
+										                            			</c:otherwise>
+										                            		</c:choose>
+										                            	</c:if>
+							                            			</c:when>
+							                            			<c:otherwise>
+						                            					2부
+							                            			</c:otherwise>
+							                            		</c:choose>
+								                            </td>
+				                            			</c:otherwise>
+				                            		</c:choose>
+						                            
+						                            
+						                            <!-- 출석체크 checkbox -->
 						                            <c:forEach var="sun" items="${sunday}" varStatus="i">
 						                            	<c:set var="checked" value=""/>
 						                            	<c:choose>
@@ -303,6 +362,7 @@
 			                
 			            </div>
 			        </div>
+			        </div>
 	
 				</div>
 				
@@ -320,7 +380,6 @@
 			
 	    	</div>
 	    </div>    
-
   </body>
   
   <script src="${resourcesPath}/assets/js/attendance/list.js?${nowTime}"></script>

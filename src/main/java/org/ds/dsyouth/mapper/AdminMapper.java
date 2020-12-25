@@ -7,6 +7,7 @@ import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.YearSeason;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -50,4 +51,6 @@ public interface AdminMapper {
 	SamePeriod selectSamePeriodByBirthYear(SamePeriod samePeriod);	// 동일한 동기 있는지 체크
 	
 	List<MemberState> selectMemberStateList();
+	
+	List<YearSeason> selectYearSeasonList(String thisYear);
 }

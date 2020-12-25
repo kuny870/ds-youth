@@ -4,8 +4,9 @@ package org.ds.dsyouth.search.type;
  * 응답 코드
  */
 public enum EGroupSeason {
-	상반기("", "상반기"),
-	하반기("", "하반기")
+	상반기("", "상반기")
+	,하반기("", "하반기")
+	,코로나순("", "코로나순")
 	;
 
 	/**

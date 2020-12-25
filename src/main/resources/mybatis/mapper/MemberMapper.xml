@@ -284,7 +284,6 @@
 		    , t.id as t_id
 		    , t.t_short_name as t_t_short_name
 		    , g.id as g_id
-		    , g.g_name as g_g_name
 		    , sp.birth_year as sp_birth_year
 		FROM member m
         LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id
@@ -296,7 +295,18 @@
 			AND t.id = #{teamId}
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5', '6')
-			AND IF(#{season} = '상반기', at.month BETWEEN 1 and 6, at.month BETWEEN 7 and 12)
+			<choose>
+				<when test="season == '상반기'">
+					AND at.month BETWEEN 1 and 6
+				</when>
+				<when test="season == '하반기'">
+					AND at.month BETWEEN 7 and 12
+				</when>
+				<when test="season == '코로나순'">
+					AND at.month BETWEEN 10 and 12
+				</when>
+			</choose>
+			<!-- AND IF(#{season} = '상반기', at.month BETWEEN 1 and 6, at.month BETWEEN 7 and 12) -->
 		GROUP BY
 			at.member_id
 		ORDER BY

@@ -2,6 +2,7 @@ package org.ds.dsyouth.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -10,16 +11,15 @@ import org.ds.dsyouth.exception.BirthYearDuplicatedException;
 import org.ds.dsyouth.exception.DepartDuplicatedException;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.exception.TeamDuplicatedException;
-import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.YearSeason;
 import org.ds.dsyouth.rest.common.ResponseCode;
 import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.AdminService;
-import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.StringHelper;
 import org.ds.dsyouth.validator.TeamValidator;
@@ -393,6 +393,35 @@ public class AdminRestController {
 		
 		try {
 			adminService.removeSamePeriod(samePeriod);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
+	/**
+	 * 실시간 season select 변환 - 년도 선택시 시즌 불러오기
+	 * @param year
+	 * @param request
+	 * @param httpResponse
+	 * @return
+	 */
+	@RequestMapping(value = "/select/season", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse select_season(
+			@ModelAttribute("year") String year) {
+		
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			List<YearSeason> seasonList = adminService.getYearSeasonList(year);
+			
+			response.setData(seasonList);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setSuccess(false);

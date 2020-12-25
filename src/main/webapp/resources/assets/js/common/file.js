@@ -14,7 +14,11 @@ function readFileImage(file, callback) {
             callback(w,h,t,n,s);
         };
         image.onerror= function() {
-            alert('Invalid file type: '+ file.type);
+        	Swal.fire({
+        	    text: 'Invalid file type: '+ file.type,
+        	    confirmButtonText: '확인',
+        	    allowOutsideClick: true
+        	});
         };      
     };
     
@@ -73,7 +77,11 @@ function formFileUpload() {
                         }
                     } else {
                         input.parents('.component-form-file').addClass('img-error');
-                        alert('재시도 해주세요.');
+                        Swal.fire({
+                            text: '재시도 해주세요',
+                            confirmButtonText: '확인',
+                            allowOutsideClick: true
+                        });
                     };
                     console.log(response);
                 }
@@ -136,18 +144,30 @@ function formFileUpload() {
         
         if ( input.hasClass('upload_video') ) {
             if($.inArray(ext, ['mp4']) == -1) {
-                alert('mp4 파일만 업로드 할수 있습니다.');
+            	Swal.fire({
+                    text: 'mp4 파일만 업로드 할수 있습니다',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
                 return;
             }            
         } else {
             if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-                alert('png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+            	Swal.fire({
+                    text: 'png,jpg,jpeg 파일만 업로드 할수 있습니다',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
                 return;
             }            
         };
         
         if ( fileSize > maxSize ) {
-            alert("첨부파일 사이즈는 1MB 이내로 등록 가능합니다.");
+        	Swal.fire({
+                text: "첨부파일 사이즈는 1MB 이내로 등록 가능합니다",
+                confirmButtonText: '확인',
+                allowOutsideClick: true
+            });
             return;
         };
         
@@ -164,7 +184,11 @@ function formFileUpload() {
                         if ( width == w && height == h ) {
                             upload(input);
                         } else {
-                            alert(width+'x'+height+'로 업로드 해주세요.');
+                        	Swal.fire({
+                                text: width+'x'+height+'로 업로드 해주세요',
+                                confirmButtonText: '확인',
+                                allowOutsideClick: true
+                            });
                         }
                     });
                 };

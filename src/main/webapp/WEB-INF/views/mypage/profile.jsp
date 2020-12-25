@@ -37,10 +37,10 @@
                             <input type="text" class="md-input" id="name" name="name" value="${login.name }" placeholder="이름" autocomplete="off">
                         </label>                        
                         <label>
-                            <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" value="${login.dateOfBirth }" placeholder="생년월일 주민번호 앞 6자리" maxlength="6" oninput="numberMaxLength6(this);" autocomplete="off">
+                            <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" value="${login.dateOfBirth }" placeholder="생년월일 주민번호 앞 6자리" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
                         </label>                                                
                         <label>
-                            <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" value="${login.htel }" placeholder='휴대폰 번호 "-" 빼고 입력' maxlength="11" oninput="numberMaxLength11(this);" autocomplete="off">                        
+                            <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" value="${login.htel }" placeholder='휴대폰 번호 "-" 빼고 입력' maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">                        
                         </label>
                         
                         <div class="customer-select">

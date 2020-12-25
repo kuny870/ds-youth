@@ -8,14 +8,18 @@ $("#retreatRegistForm").submit(function(e) {
 
 	// input 데이터 체크 및 팝업text 입력, 포커스 입력
 	if ($retreatName.val() == "") {
-		validateMessage = '수련회명을 입력해 주세요.';
+		validateMessage = '수련회명을 입력해 주세요';
 		validateFocus = $retreatName;
 	}
 
 	// input 데이터 체크 및 팝업창 띄워주고 포커스
 	if(validateMessage != null) {
 		validateFocus.focus();
-		alert(validateMessage);
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
 		return false;
 	}
 	
@@ -29,14 +33,28 @@ $("#retreatRegistForm").submit(function(e) {
           success: function(result)
           {
               if(result.success) { // show response from the php script.
-            	  alert("수련회가 등록 되었습니다.")
-            	  retreat();
+            	  Swal.fire({
+                      text: "수련회가 등록 되었습니다",
+                      confirmButtonText: '확인',
+                      allowOutsideClick: true
+                  }).then(function() {
+                	  retreat();
+                  });
               }else {
-            	  alert(result.message);
+            	  Swal.fire({
+            		    text: result.message,
+            		    confirmButtonText: '확인',
+            		    allowOutsideClick: true
+            		});
+
               }
           },
    		  fail: function(result) {
-   			  alert("수련회 등록에 실패 했습니다.");
+   			Swal.fire({
+   			    text: "수련회 등록에 실패 했습니다",
+   			    confirmButtonText: '확인',
+   			    allowOutsideClick: true
+   			});
    		  }
     });
 

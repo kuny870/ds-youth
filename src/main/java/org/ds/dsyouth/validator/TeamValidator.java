@@ -21,7 +21,7 @@ public class TeamValidator implements Validator {
 		Team team = (Team) target; // validate 하고 싶은 객체를 받아와서 셋팅!
 		
 		if(team.gettShortName().length() == 0) {
-			errors.rejectValue("tShortName", "emptyTShortName", "짧은 팀 이름을 입력해 주세요.");
+			errors.rejectValue("tShortName", "emptyTShortName", "짧은 팀 이름을 입력해 주세요");
 		}
 		
 	}

@@ -1,3 +1,38 @@
+function getSeason(sParam){
+    var $target = $("select[name='season']");
+     
+    $target.empty();
+    if(sParam == ""){
+    	$target.append("<option value=''>-</option>");
+        return;
+    } else if (sParam != "") {
+    	
+	    $.ajax({
+	        type: "POST",
+	        url: contextPath + "/rest/select/season",
+	        async: false,
+	        data:{ year : sParam },
+	        dataType: "json",
+	        success: function(result) {
+	            if(result.data.length == 0){
+	                $target.append("<option value=''>-</option>");
+	            }else{
+	                $(result.data).each(function(i){
+	                    $target.append("<option value=" + result.data[i].season + ">"+ result.data[i].season +"</option>");
+	                });
+	            }
+	        }, error:function(xhr){
+	            console.log(xhr.responseText);
+	            alert("시즌 정보를 불러오는데 실패 했습니다.");
+	            return;
+	        }
+	    });
+	    
+    }
+    
+}
+
+
 //순명 등록
 $("#registGroupForm").submit(function(e) {
 
@@ -9,17 +44,21 @@ $("#registGroupForm").submit(function(e) {
 
 	// input 데이터 체크 및 팝업text 입력, 포커스 입력
 	if ($team.val() == "팀선택") {
-		validateMessage = '팀을 선택해 주세요.';
+		validateMessage = '팀을 선택해 주세요';
 		validateFocus = $team;
 	} else if ($gName.val() == "") {
-		validateMessage = '순명을 입력해 주세요.';
+		validateMessage = '순명을 입력해 주세요';
 		validateFocus = $gName;
 	}
 
 	// input 데이터 체크 및 팝업창 띄워주고 포커스
 	if(validateMessage != null) {
 		validateFocus.focus();
-		alert(validateMessage);
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
 		return false;
 	} 
 	
@@ -33,14 +72,28 @@ $("#registGroupForm").submit(function(e) {
           success: function(result)
           {
               if(result.success) { // show response from the php script.
-            	  alert("순명이 등록 되었습니다.")
-            	  location.reload();
+            	  Swal.fire({
+            		  text: "순명이 등록 되었습니다",
+            		  confirmButtonText: '확인',
+            		  allowOutsideClick: true
+            	  }).then(function() {
+            		  location.reload();
+            	  });
               }else {
-            	  alert(result.message);
+            	  Swal.fire({
+            		  text: result.message,
+            		  confirmButtonText: '확인',
+            		  allowOutsideClick: true
+            	  });	
+
               }
           },
    		  fail: function(result) {
-   			  alert("순명 등록에 실패 했습니다.");
+   			 Swal.fire({
+	       		  text: "순명 등록에 실패 했습니다",
+	       		  confirmButtonText: '확인',
+	       		  allowOutsideClick: true
+	       	  });
    		  }
     });
 
@@ -71,35 +124,55 @@ function modify(id) {
     }else {
     	
     	// 순명 수정 프로세스
-    	var conf = confirm('정말 수정 하시겠습니까?');
+    	Swal.fire({
+            title: '순명 수정',
+            html: '정말 수정 하시겠습니까?',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+            confirmButtonText: '확인',
+            allowOutsideClick: true,
+            reverseButtons: true
+        }).then(function (result) {
+        		
+        	if(result.value){
+        		
+        		var url = contextPath + "/rest/group/modify"
+        		
+        		$.ajax({
+        	          type: "POST",
+        	          url: url,
+        	          data: {
+        	        	  id : id,
+        	        	  gName : gNameInput.value,
+        	        	  year : year,
+        	        	  season : season
+        	          }, // serializes the form’s elements.
+        	          success: function(result)
+        	          {
+        	              if(result.success) { // show response from the php script.
+        	            	  location.reload();
+        	              }else {
+        	            	  Swal.fire({
+        		                    text: result.message,
+        		                    confirmButtonText: '확인',
+        		                    allowOutsideClick: true
+        		                });
 
-    	if(conf){
-    		
-    		var url = contextPath + "/rest/group/modify"
-    		
-    		$.ajax({
-    	          type: "POST",
-    	          url: url,
-    	          data: {
-    	        	  id : id,
-    	        	  gName : gNameInput.value,
-    	        	  year : year,
-    	        	  season : season
-    	          }, // serializes the form’s elements.
-    	          success: function(result)
-    	          {
-    	              if(result.success) { // show response from the php script.
-    	            	  location.reload();
-    	              }else {
-    	            	  alert(result.message);
-    	              }
-    	          },
-    	   		  fail: function(result) {
-    	   			  alert("순명 수정에 실패했습니다.");
-    	   		  }
-    	    });
-    	}
-    	
+        	              }
+        	          },
+        	   		  fail: function(result) {
+        	   			Swal.fire({
+    	                    text: "순명 수정에 실패했습니다",
+    	                    confirmButtonText: '확인',
+    	                    allowOutsideClick: true
+    	                });
+        	   		  }
+        	    });
+        		
+        	}
+        	
+        });
+
     }
     
     
@@ -123,32 +196,52 @@ function remove(id) {
     }else {
     	
     	// 순명 삭제 프로세스
-    	var conf = confirm('정말 삭제 하시겠습니까?\n' + $targetInputHidden.val() + ' 그룹의 데이터가 초기화 됩니다.');
+    	Swal.fire({
+            title: '순명 삭제',
+            html: '정말 삭제 하시겠습니까?<br>' + $targetInputHidden.val() + ' 그룹의 데이터가 초기화 됩니다.',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+            confirmButtonText: '확인',
+            allowOutsideClick: true,
+            reverseButtons: true
+        }).then(function (result) {
+        	
+        	if(result.value){
+        		
+        		var url = contextPath + "/rest/group/remove"
+        		
+        		$.ajax({
+        	          type: "POST",
+        	          url: url,
+        	          data: {
+        	        	  id : id
+        	          }, // serializes the form’s elements.
+        	          success: function(result)
+        	          {
+        	              if(result.success) { // show response from the php script.
+        	            	  location.reload();
+        	              }else {
+        	            	  Swal.fire({
+        		                    text: result.message,
+        		                    confirmButtonText: '확인',
+        		                    allowOutsideClick: true
+        		                });
 
-    	if(conf){
+        	              }
+        	          },
+        	   		  fail: function(result) {
+        	   			Swal.fire({
+    	                    text: "순명 삭제에 실패했습니다",
+    	                    confirmButtonText: '확인',
+    	                    allowOutsideClick: true
+    	                });
+        	   		  }
+        	    });
+        		
+        	}
+        	
+        });
 
-    		var url = contextPath + "/rest/group/remove"
-    		
-    		$.ajax({
-    	          type: "POST",
-    	          url: url,
-    	          data: {
-    	        	  id : id
-    	          }, // serializes the form’s elements.
-    	          success: function(result)
-    	          {
-    	              if(result.success) { // show response from the php script.
-    	            	  location.reload();
-    	              }else {
-    	            	  alert(result.message);
-    	              }
-    	          },
-    	   		  fail: function(result) {
-    	   			  alert("순명 삭제에 실패했습니다.");
-    	   		  }
-    	    });
-    	}
-    	
     }
 
 }

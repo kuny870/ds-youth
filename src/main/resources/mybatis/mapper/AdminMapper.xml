@@ -40,6 +40,14 @@
 		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
   	</resultMap>
   	
+  	<!-- 순 시즌 -->
+	<resultMap id="YearSeasonMap" type="YearSeason">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="year" jdbcType="VARCHAR" property="year" />
+	    <result column="season" jdbcType="VARCHAR" property="season" />
+		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+  	</resultMap>
+  	
   	<!-- 동기 -->
 	<resultMap id="SamePeriodMap" type="SamePeriod">
 	    <id column="id" jdbcType="INTEGER" property="id" />
@@ -58,6 +66,23 @@
   	</resultMap>
 	
   	
+  	<!-- 순 시즌 불러오기 -->
+	<select id="selectYearSeasonList" resultMap="YearSeasonMap">
+		SELECT
+			id,
+			year,
+			season,
+			del_yn
+		FROM year_season
+		WHERE 1=1
+			AND year = #{thisYear} 
+			AND del_yn = 'N'
+		ORDER BY
+			year ASC
+            , FIELD(season, '코로나순') ASC
+			, season ASC
+	</select>
+	
   	
   	<!-- 부서 등록 -->
 	<insert id="insertDepart" parameterType="Depart">

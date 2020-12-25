@@ -26,9 +26,9 @@
             
 				<div class="div-container">
 					
-					<div class="customer-select-search" style="width: 25%; margin-left: 10%; float: left;">
+					<div class="customer-select-search" style="width: 30%; margin-left: 6%; float: left;">
 						<!-- 년 선택 -->
-                   		<select class="select-admin-group-name-year" id="year" name="year">
+                   		<select class="select-admin-group-name-year" id="year" name="year" onchange="getSeason(this.value);">
 	                       	<c:forEach var="year" items="${yearList }">
 	                       		<c:set var="selected" value="" />
 								<c:if test="${year eq group.year }">
@@ -39,15 +39,15 @@
 	                    </select>
                     </div>    
                     
-                    <div class="customer-select-search" style="width: 23%; margin-left: 7%; float: left;">
+                    <div class="customer-select-search" style="width: 35%; margin-left: 5%; float: left;">
 						<!-- 상반기 / 하반기 선택 -->
                    		<select class="select-admin-group-name-season" id="season" name="season">
-	                       	<c:forEach var="ss" items="${season }">
+	                       	<c:forEach var="ss" items="${seasonList }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${ss eq group.getSeason() }">
+								<c:if test="${ss.season eq group.season }">
 									<c:set var="selected" value="selected" />
 								</c:if>
-								<option value="${ss}" ${selected} >${ss}</option>
+								<option value="${ss.season}" ${selected} >${ss.season}</option>
 							</c:forEach>
 	                    </select>
                     </div>    

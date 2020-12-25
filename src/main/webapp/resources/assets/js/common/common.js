@@ -13,20 +13,54 @@ $(document).ready(function(){
 	// 맨 상단 타이틀 글자크기에 따른 폰트 조절
 	var headTitle = $(".head_title").html();
 	
-	if(headTitle.length > 15 && headTitle.length < 22) {
-		$(".head_title").addClass('font-size-5vw');
-	}else if(headTitle.length >= 22 && headTitle.length < 25){
-		$(".head_title").addClass('font-size-4p5vw');
-	}else if(headTitle.length >= 25 && headTitle.length < 28){
-		$(".head_title").addClass('font-size-4vw');
-	}else if(headTitle.length >= 28){
-		$(".head_title").addClass('font-size-3p5vw');
+	if(headTitle != null){
+		if(headTitle.length > 15 && headTitle.length < 22) {
+			$(".head_title").addClass('font-size-5vw');
+		}else if(headTitle.length >= 22 && headTitle.length < 25){
+			$(".head_title").addClass('font-size-4p5vw');
+		}else if(headTitle.length >= 25 && headTitle.length < 28){
+			$(".head_title").addClass('font-size-4vw');
+		}else if(headTitle.length >= 28){
+			$(".head_title").addClass('font-size-3p5vw');
+		}
 	}
 	
+	// 2020.03.05 모바일 터치 클릭 이벤트 - 음영효과
+    $("button").bind("touchstart", function(e){
+        $(this).css("filter", "brightness(80%)");
+    });
+    $("button").bind("touchend", function(e){
+        $(this).css("filter", "none");
+    });
+    $("a").bind("touchstart", function(e){
+        $(this).css("filter", "brightness(80%)");
+    });
+    $("a").bind("touchend", function(e){
+        $(this).css("filter", "none");
+    });
+    $(".shop-link-login").bind("touchstart", function(e){
+        $(this).css("filter", "brightness(80%)");
+    });
+    $(".shop-link-login").bind("touchend", function(e){
+        $(this).css("filter", "none");
+    });
+    $(".attendance-img").bind("touchstart", function(e){
+        $(this).css("filter", "brightness(80%)");
+    });
+    $(".attendance-img").bind("touchend", function(e){
+        $(this).css("filter", "none");
+    });
+    $(".dsyouth-link").bind("touchstart", function(e){
+        $(this).css("filter", "brightness(80%)");
+    });
+    $(".dsyouth-link").bind("touchend", function(e){
+        $(this).css("filter", "none");
+    });
+    
 });
 
 
-function excelDown(year, month) {
+/*function excelDown(year, month) {
 
 	var season = "";
 	
@@ -37,13 +71,10 @@ function excelDown(year, month) {
 	}
 	
 	location.href = contextPath + "/excelDownload?year=" + year + "&season=" + season;
-}
+}*/
 
 // input 자리수 제한
-function numberMaxLength2(e) { if(e.value.length > e.maxLength) { e.value = e.value.slice(0, e.maxLength); }}
-function numberMaxLength4(e) { if(e.value.length > e.maxLength) { e.value = e.value.slice(0, e.maxLength); }}
-function numberMaxLength6(e) { if(e.value.length > e.maxLength) { e.value = e.value.slice(0, e.maxLength); }}
-function numberMaxLength11(e) { if(e.value.length > e.maxLength) { e.value = e.value.slice(0, e.maxLength); }}
+function numberMaxLength(e) { if(e.value.length > e.maxLength) { e.value = e.value.slice(0, e.maxLength); }}
 
 // 페이지 이동
 function mypage() {location.href = contextPath + "/mypage";}				// mypage
@@ -125,7 +156,26 @@ function excelDownPopup(){
 function excelDown() {
 	var year = $('#yearExcel').val();
 	var season = $('#seasonExcel').val();
-	location.href = contextPath + "/attendance/excelDownload?year=" + year + "&season=" + season;
+	var month = "";
+
+	if(season == "상반기") {
+		month = "1";
+	}else if(season == "하반기") {
+		month = "7";
+	}else if(season == "코로나순") {
+		month = "10";
+	}
+	
+	location.href = contextPath + "/attendance/excelDownload?year=" + year + "&month=" + month + "&season=" + season;
 	
 	$("#mask, .window").hide();
+}
+
+// 공통 팝업
+function openPopup(str) {
+	Swal.fire({
+        text: str,
+        confirmButtonText: '확인',
+        allowOutsideClick: true
+    });
 }
