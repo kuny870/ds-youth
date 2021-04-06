@@ -43,7 +43,7 @@
 			                       			<c:when test="${login.authId == 1}">
 		                       					<tr>
 						                            <td class="css-a3">
-						                            	<a href="${contextPath }/admin/auth/detail/${auth.id}/${auth.name}">${auth.name} (${auth.cnt})</a>
+						                            	<a href="${contextPath }/admin/auth/detail/${auth.id}">${auth.name} (${auth.cnt})</a>
 						                            	<input type="hidden" id="${auth.id}-input-hidden" value="${auth.name}" />
 						                            </td>
 						                            <td>
@@ -58,7 +58,7 @@
 			                       				<c:if test="${auth.no < 8}">
 			                       					<tr>
 							                            <td class="css-a3">
-							                            	<a href="${contextPath }/admin/auth/detail/${auth.id}/${auth.name}">${auth.name} (${auth.cnt})</a>
+							                            	<a href="${contextPath }/admin/auth/detail/${auth.id}">${auth.name} (${auth.cnt})</a>
 							                            	<input type="hidden" id="${auth.id}-input-hidden" value="${auth.name}" />
 							                            </td>
 							                            <td>

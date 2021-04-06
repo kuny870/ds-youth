@@ -5,6 +5,7 @@ import java.util.List;
 import org.ds.dsyouth.model.Address;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.User;
+import org.ds.dsyouth.model.UserKeepLogin;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,7 +15,7 @@ public interface AuthMapper {
 	List<Auth> selectAuthList();
 	int selectAuthCnt(int id);	// 권한의 cnt 구하기
 	int selectAuthExecCnt();	// 국장 권한의 cnt 구하기
-	List<User> selectUserListByAuth();	// 회원권한
+	List<User> selectUserListByAuth(int id);	// 회원권한
 	List<User> selectUserListByUser();	// 회원관리
 	boolean deleteAuth(Auth auth);	// 권한 초기화
 	boolean deleteAuthExec();	// 국장 권한 초기화
@@ -28,11 +29,13 @@ public interface AuthMapper {
 //	Partner selectPartnerByLoginId(Partner partner);
 //	User selectUserById(User user);
 	
-	boolean insertSessionId(User user);
-	boolean deleteSessionId(User user);
+	boolean insertKeepLogin(UserKeepLogin ukl);
+	boolean deleteSessionId(UserKeepLogin ukl);
+	boolean deleteAllSessionId(UserKeepLogin ukl);
+	
 //	boolean deleteSessionIdMaster(Master master);
 //	boolean deleteSessionIdPartner(Partner partner);
-	User selectSessionId(String sessionId);
+	UserKeepLogin selectSessionId(String sessionId);
 	
 //	boolean updateEmailToken(User user);
 //	boolean updateEmailAuth(User user);
@@ -47,5 +50,7 @@ public interface AuthMapper {
 	Address selectAddress(Address address);
 	boolean updateAddress(Address address);
 	boolean deleteAddress(Address address);
+	
+	Auth selectAuthById(int id);
 	
 }

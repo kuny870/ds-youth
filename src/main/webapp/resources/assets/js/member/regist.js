@@ -8,6 +8,9 @@ $(document).ready(function(){
 
 
 function getTeam(val){
+	var newMember = document.getElementById('new-member');
+	newMember.style.display = 'none';
+	
     var $target = $("select[name='teamId']");
     $target.empty();
     if(val == ""){
@@ -29,9 +32,13 @@ function getTeam(val){
 	                    $target.append("<option value=" + result.data[i].id + ">"+ result.data[i].tShortName +"</option>");
 	                });
 	                
-	                var guider = document.getElementById('guider');
-                	guider.style.display = 'none';
+	                // 새가족 전용 데이터 초기화
+                	var guider = document.getElementById('guider');
                 	guider.value = '';
+                	var memberRegDate = document.getElementById('memberRegDate');
+                	memberRegDate.value = '';
+                	var memberGradDate = document.getElementById('memberGradDate');
+                	memberGradDate.value = '';
 	                
 	            }
 	        }, error:function(xhr){
@@ -52,12 +59,19 @@ function getTeam(val){
 
 function getNewMemberDetail(val){
 	var newMember = document.getElementById('new-member');
+	var guider = document.getElementById('guider');
+	var memberRegDate = document.getElementById('memberRegDate');
+	var memberGradDate = document.getElementById('memberGradDate');
 	
 	 if(val == 4 || val == 8) {
-		 newMember.style.display = 'block';
+		newMember.style.display = 'block';
      }else {
-    	 newMember.style.display = 'none';
-    	 newMember.value = '';
+    	newMember.style.display = 'none';
+    	
+    	// 새가족 전용 데이터 초기화
+     	guider.value = '';
+     	memberRegDate.value = '';
+     	memberGradDate.value = '';
      }
 }
 
@@ -107,7 +121,7 @@ $("#memberRegistForm").submit(function(e) {
           data: form.serialize(), // serializes the form’s elements.
           success: function(result)
           {
-              if(result.success) { // show response from the php script.
+              if(result.success) {
             	  Swal.fire({
                       text: "멤버가 등록 되었습니다",
                       confirmButtonText: '확인',

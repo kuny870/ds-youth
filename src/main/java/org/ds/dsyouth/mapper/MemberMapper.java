@@ -12,6 +12,7 @@ public interface MemberMapper {
 
 	boolean insertMember(Member member);
 	boolean updateMember(Member member);
+	boolean updateMemberMemo(Member member);
 	boolean deleteMember(Member member);
 	Member selectMember(Member member);
 	List<Member> selectMemberListByGroupGrade(Group group);	// 순장 data를 가지고 있는 memberList 값 가져오기

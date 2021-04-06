@@ -28,7 +28,7 @@
 			    <p class="head_title text-center">팀원 관리</p>
             
 				<div class="div-container">
-					<div class="customer-select-search" style="width: 37.3%; float: left;">
+					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
 						 <select class="select-member-list-team" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value);">
 						 	<option value="" >팀 전체</option>
 	                       	<c:forEach var="team" items="${teamList }">
@@ -41,7 +41,7 @@
 	                    </select>   
                     </div>
                     
-                    <div class="customer-select-search" style="width: 37.3%; margin-left:-15px; float: left;">
+                    <div class="customer-select-search" style="width: 36%; margin-left: -17px; float: left;">
 						 <select class="select-member-list-group" id="groupId" name="groupId">
 						 	<option value="" >순 전체</option>
 	                       	<c:forEach var="group" items="${groupList }">
@@ -54,7 +54,7 @@
 	                    </select>
                     </div>        
                     
-                    <div class="customer-select-search" style="width: 22%; margin-left:-30px; margin-right:-3px; float: left;">
+                    <div class="customer-select-search" style="width: 22%; margin-left:-33px; margin-right:-3px; float: left;">
                          <input type="text" class="md-input2" id="nameKW" name="nameKW" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
 		            </div>
 		            <div>
@@ -89,7 +89,7 @@
 				                            <td>${i.index + 1}</td>
 				                            <td>
 				                            	<div class="css-team-list-a">
-				                            		<a href="${contextPath}/member/modify?id=${mem.id}&pageNo=${memberSearch.pageNo}&teamId=${memberSearch.teamId}&groupId=${memberSearch.groupId}&nameKW=${memberSearch.nameKW}">
+				                            		<a href="javascript:memberModify('${mem.id}','${memberSearch.pageNo}','${memberSearch.teamId}','${memberSearch.groupId}','${memberSearch.nameKW }')">
 				                            			${mem.name}
 				                            			<c:if test="${mem.samePeriodId != null }">
 				                            				<c:set var="yearTmp" value="${year - mem.samePeriod.birthYear}"/>

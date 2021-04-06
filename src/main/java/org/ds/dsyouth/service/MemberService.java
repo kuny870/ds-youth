@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
-import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.page.Paging;
 import org.ds.dsyouth.search.MemberSearch;
 
@@ -12,6 +11,7 @@ public interface MemberService {
 
 	boolean registMember(Member member);
 	boolean modifyMember(Member member);
+	boolean modifyMemberMemo(Member member);
 	boolean removeMember(Member member);
 	
 	Member getMember(Member member);			// id 값으로 member 객체 불러오기

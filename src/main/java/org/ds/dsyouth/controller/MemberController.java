@@ -1,5 +1,6 @@
 package org.ds.dsyouth.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -43,10 +44,14 @@ public class MemberController {
 	 * 팀원 list
 	 * @param memberSearch
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
-	public ModelAndView member_list(MemberSearch memberSearch) {
+	public ModelAndView member_list(MemberSearch memberSearch) throws UnsupportedEncodingException {
 
+		String nameKW = java.net.URLDecoder.decode(memberSearch.getNameKW(), "UTF-8");
+		memberSearch.setNameKW(nameKW);
+		
 		Paging<Member> paging = memberService.getMemberList(memberSearch);
 		
 		List<Depart> departList = adminService.getDepartList();
@@ -111,10 +116,14 @@ public class MemberController {
 	 * @param member
 	 * @param memberSearch
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
-	public ModelAndView member_modify(Member member, MemberSearch memberSearch) {
+	public ModelAndView member_modify(Member member, MemberSearch memberSearch) throws UnsupportedEncodingException {
 
+		String nameKW = java.net.URLDecoder.decode(memberSearch.getNameKW(), "UTF-8");
+		memberSearch.setNameKW(nameKW);
+		
 		member = memberService.getMember(member);
 		List<Depart> departList = adminService.getDepartList();
 		List<Team> teamList = adminService.getTeamByDepart(member.getDepartId().toString());

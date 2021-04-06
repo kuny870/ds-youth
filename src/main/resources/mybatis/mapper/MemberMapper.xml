@@ -7,6 +7,7 @@
 	<resultMap id="MemberMap" type="Member">
 	    <id column="id" jdbcType="INTEGER" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="memo" jdbcType="VARCHAR" property="memo" />
 		<result column="guider" jdbcType="VARCHAR" property="guider" />
 		<result column="depart_id" jdbcType="INTEGER" property="departId" />
 		<result column="team_id" jdbcType="INTEGER" property="teamId" />
@@ -164,6 +165,15 @@
 	</update>
 
 
+ 	<!-- 멤버 메모 수정 -->
+	<update id="updateMemberMemo" parameterType="Member">
+		UPDATE member SET
+			memo = #{memo}
+		WHERE 
+			id = #{id}
+	</update>
+	
+
 	<!-- 멤버 삭제 -->
 	<update id="deleteMember" parameterType="Member">
 		UPDATE member SET del_yn = 'Y' WHERE id = #{id}
@@ -184,8 +194,11 @@
 			WHERE 1=1
 				AND m.del_yn = 'N'
 				AND m.mem_state NOT IN ('6')
-				<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
+				<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10 and teamId != 4 and teamId != 8">
 					AND t.id = #{teamId}
+				</if>
+				<if test="teamId == 4 or teamId == 8">
+					AND (t.id = '4' or t.id = '8')
 				</if>
 				<if test="groupId != null and groupId != '' and groupId != 0">
 					AND at.group_id = #{groupId}
@@ -224,7 +237,7 @@
 		    , t.t_short_name as t_t_short_name
 		    , at.group_id as at_group_id
 		    , g.id as g_id
-		    , substring(g.g_name, 3) as g_g_name
+		    , g.g_name as g_g_name
 		    , sp.birth_year as sp_birth_year
 		FROM member m
 		LEFT OUTER JOIN depart d ON d.id = m.depart_id
@@ -235,8 +248,11 @@
 		WHERE 1=1
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('6')
-			<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10">
+			<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10 and teamId != 4 and teamId != 8">
 				AND t.id = #{teamId}
+			</if>
+			<if test="teamId == 4 or teamId == 8">
+				AND (t.id = '4'	or t.id = '8')
 			</if>
 			<if test="groupId != null and groupId != '' and groupId != 0">
 				AND at.group_id = #{groupId}
@@ -249,7 +265,8 @@
 			m.id
 		ORDER BY 
 			<if test="teamId == 4 or teamId == 8">
-				m.member_grad_date ASC ,
+				<!-- m.member_grad_date ASC , --> <!-- 청년부 등록일자 순 배열 --> 
+				t.id ASC ,
 			</if>
 			m.name ASC
 		LIMIT 
@@ -267,6 +284,7 @@
 		    , m.team_id
 		    , at.group_id as at_group_id
 		    , g.g_name as g_g_name
+		    , g.ord as g_ord
 		    , at.group_grade as at_group_grade
 		    , m.date_of_birth
 		    , m.htel
@@ -292,7 +310,12 @@
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		WHERE 1=1
-			AND t.id = #{teamId}
+			<if test="teamId != null and teamId != '' and teamId != 0 and teamId != 10 and teamId != 4 and teamId != 8">
+				AND t.id = #{teamId}
+			</if>
+			<if test="teamId == 4 or teamId == 8">
+				AND (t.id = '4' or t.id = '8')
+			</if>
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5', '6')
 			<choose>
@@ -310,9 +333,11 @@
 		GROUP BY
 			at.member_id
 		ORDER BY
-			FIELD(at.group_id, #{id}) DESC
+			t.id ASC
+			, FIELD(at.group_id, #{id}) DESC
 			, at.group_id DESC
 			, at.group_grade DESC
+			, g.ord ASC
 			, g.g_name ASC
 			, m.name ASC
 		
@@ -331,7 +356,7 @@
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5')
             AND at.group_grade = '순장'
-            AND g.season = #{season}
+            AND g.season_flag = #{seasonFlag}
 		GROUP BY
 			m.id
 		ORDER BY
@@ -372,6 +397,7 @@
 		ORDER BY
 			FIELD(sp.id, #{sId}) DESC
 			, d.d_name ASC
+			, FIELD(t.t_short_name, '새가족') ASC
 			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
 			, FIELD(t.t_short_name, '기쁨') ASC
 			, t.t_short_name ASC
@@ -412,6 +438,7 @@
 			AND m.mem_state NOT IN ('5', '6')
 		ORDER BY 
 			d.d_name ASC
+			, FIELD(t.t_short_name, '새가족') ASC
 			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
 			, FIELD(t.t_short_name, '기쁨') ASC
 			, t.t_short_name ASC

@@ -7,9 +7,11 @@ public class Group {
 	private Integer id;
 	private String year;
 	private String season;
+	private String seasonFlag;
 	private String departId;
 	private String teamId;
 	private String gName;
+	private Integer ord;
 	private Integer cnt;
 	private Integer regUser;
 	private String delYn;
@@ -20,14 +22,22 @@ public class Group {
 	public Group() {
 		this.year = DateHelper.getYear();
 		if(Integer.parseInt(DateHelper.getYear()) == 2020 && Integer.parseInt(DateHelper.getMonth()) > 8) {
-			this.season = "코로나순";
+			this.seasonFlag = "3";
 		}else if(Integer.parseInt(DateHelper.getMonth()) < 7) {
-			this.season = "상반기";
+			this.seasonFlag = "1";
 		}else {
-			this.season = "하반기";
+			this.seasonFlag = "2";
 		}
 	}
 	
+	public String getSeasonFlag() {
+		return seasonFlag;
+	}
+
+	public void setSeasonFlag(String seasonFlag) {
+		this.seasonFlag = seasonFlag;
+	}
+
 	public String getYear() {
 		return year;
 	}
@@ -81,6 +91,12 @@ public class Group {
 	}
 	public void setgName(String gName) {
 		this.gName = gName;
+	}
+	public Integer getOrd() {
+		return ord;
+	}
+	public void setOrd(Integer ord) {
+		this.ord = ord;
 	}
 	public Integer getCnt() {
 		return cnt;

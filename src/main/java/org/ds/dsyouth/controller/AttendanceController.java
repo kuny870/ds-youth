@@ -1,16 +1,15 @@
 package org.ds.dsyouth.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ds.dsyouth.common.Constants;
 import org.ds.dsyouth.excel.GenericExcelView;
-import org.ds.dsyouth.exception.ExcelDownFail;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Team;
@@ -47,6 +46,7 @@ public class AttendanceController {
 	 */
 	@RequestMapping(value = "/attendance/list", method = RequestMethod.GET)
 	public ModelAndView attendance_list(
+			HttpServletRequest request,
 			@ModelAttribute AttendanceSearch attendanceSearch) {
 
 		// 이번년도 구하기
@@ -82,7 +82,6 @@ public class AttendanceController {
 		mav.addObject("year", year);
 		mav.addObject("sunday", sunday);
 		
-		
 		return mav;
 	}
 	
@@ -96,6 +95,9 @@ public class AttendanceController {
     		Map<String, Object> model,
     		HttpServletResponse response) throws IOException {
         
+    	String season = java.net.URLDecoder.decode(attendanceSearch.getSeason(), "UTF-8");
+    	attendanceSearch.setSeason(season);
+    	
     	List<Depart> departList = adminService.getDepartList();
     	List<Team> teamList = adminService.getTeamList();
 		
@@ -103,14 +105,14 @@ public class AttendanceController {
     	
     	for(int i=0; i<teamList.size(); i++) {
     		attendanceSearch.setTeamId(teamList.get(i).getId().toString());
-    		List<Attendance> attendanceList = attendanceService.getMemberListByAtt(attendanceSearch);
+    		List<Attendance> attendanceList = attendanceService.getMemberListByAttForExcel(attendanceSearch);
     		// 순편성 전일 경우 엑셀 다운로드 막기 ( TODO 향후 기능개선 필요 )
-    		if(attendanceList.size() == 0) {
-    			PrintWriter out = response.getWriter(); 
-    			out.println("<script>alert('Excel DownLoad Fail'); history.back();</script>"); 
-    			out.flush(); 
-    			out.close();
-    		}
+//    		if(attendanceList.size() == 0) {
+//    			PrintWriter out = response.getWriter(); 
+//    			out.println("<script>alert('Excel DownLoad Fail'); history.back();</script>"); 
+//    			out.flush(); 
+//    			out.close();
+//    		}
     		attendanceExcel.add(attendanceList);
     	}
 		

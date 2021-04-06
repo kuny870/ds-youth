@@ -14,6 +14,7 @@ import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.YearSeason;
+import org.ds.dsyouth.search.AttendanceSearch;
 import org.ds.dsyouth.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,12 +91,29 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.selectYearSeasonList(thisYear);
 	}
 	
+	/**
+	 * 단일 시즌 불러오기
+	 */
+	@Override
+	public YearSeason getYearSeason(AttendanceSearch as) {
+		return adminMapper.selectYearSeason(as);
+	}
+	
 	
 	/**
 	 * 순명 등록
 	 */
 	@Override
 	public boolean registGroup(Group group) {
+		
+		if("1".equals(group.getSeasonFlag())) {
+			group.setSeason("상반기");
+		}else if("2".equals(group.getSeasonFlag())) {
+			group.setSeason("하반기");
+		}else if("3".equals(group.getSeasonFlag())){
+			group.setSeason("코로나순");
+		}
+		
 		return adminMapper.insertGroup(group);
 	}
 
@@ -152,10 +170,10 @@ public class AdminServiceImpl implements AdminService {
 	 */
 	@Override
 	public boolean modifyTeam(Team team) throws TeamDuplicatedException {
-		Team teamConfirm = adminMapper.selectTeamByShortTeam(team);
-		if(teamConfirm != null) {
-			throw new TeamDuplicatedException();
-		}
+//		Team teamConfirm = adminMapper.selectTeamByShortTeam(team);
+//		if(teamConfirm != null) {
+//			throw new TeamDuplicatedException();
+//		}
 		return adminMapper.updateTeam(team);
 	}
 
@@ -180,7 +198,7 @@ public class AdminServiceImpl implements AdminService {
 	public Team getTeam(Team team) {
 		return adminMapper.selectTeam(team);
 	}
-
+	
 	/**
 	 * 팀 불러오기 by teamId
 	 */
@@ -196,6 +214,14 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Team> getTeamList() {
 		return adminMapper.selectTeamList();
+	}
+	
+	/**
+	 * 팀 리스트 불러오기 by 청년부 관리
+	 */
+	@Override
+	public List<Team> getTeamListByAdmin() {
+		return adminMapper.selectTeamListByAdmin();
 	}
 
 	/**

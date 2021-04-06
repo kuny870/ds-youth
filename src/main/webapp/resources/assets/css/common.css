@@ -31,15 +31,17 @@ btn
 **************************/
 .btn {
     font-family: 'Noto Sans KR', sans-serif;
-    height: 14.4vw;
+    /* height: 14.4vw; */
+    height: 50px;
     border-radius: 1.3333333333333335vw;
     /* background-color: #f63b70; */
     background-color: #284AF3;
-    font-size: 4.444444444444445vw;
+    font-size: 18px;
     font-weight: 500;
     color: #ffffff;
     cursor: pointer;
     border: none;
+    padding-bottom: 6px;
 }
 .link {
     /* color: #f22653; */

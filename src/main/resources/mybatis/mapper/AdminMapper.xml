@@ -29,9 +29,11 @@
 	    <id column="id" jdbcType="INTEGER" property="id" />
 	    <result column="year" jdbcType="VARCHAR" property="year" />
 	    <result column="season" jdbcType="VARCHAR" property="season" />
+	    <result column="season_flag" jdbcType="VARCHAR" property="seasonFlag" />
 	    <result column="depart_id" jdbcType="VARCHAR" property="departId" />
 		<result column="team_id" jdbcType="VARCHAR" property="teamId" />
 		<result column="g_name" jdbcType="VARCHAR" property="gName" />
+		<result column="ord" jdbcType="INTEGER" property="ord" />
 		<result column="cnt" jdbcType="INTEGER" property="cnt" />
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
 		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
@@ -45,6 +47,7 @@
 	    <id column="id" jdbcType="INTEGER" property="id" />
 	    <result column="year" jdbcType="VARCHAR" property="year" />
 	    <result column="season" jdbcType="VARCHAR" property="season" />
+	    <result column="season_flag" jdbcType="VARCHAR" property="seasonFlag" />
 		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
   	</resultMap>
   	
@@ -64,14 +67,29 @@
 		<result column="ord" jdbcType="VARCHAR" property="ord" />
 		<result column="del_yn" jdbcType="VARCHAR" property="delYn" />
   	</resultMap>
-	
   	
+  	
+  	<!-- 단일 시즌 불러오기 -->
+	<select id="selectYearSeason" resultMap="YearSeasonMap">
+		SELECT
+			id,
+			year,
+			season,
+			season_flag,
+			del_yn
+		FROM year_season
+		WHERE 1=1
+			AND year = #{year}
+			AND season_flag = #{seasonFlag}
+	</select>
+	
   	<!-- 순 시즌 불러오기 -->
 	<select id="selectYearSeasonList" resultMap="YearSeasonMap">
 		SELECT
 			id,
 			year,
 			season,
+			season_flag,
 			del_yn
 		FROM year_season
 		WHERE 1=1
@@ -79,7 +97,7 @@
 			AND del_yn = 'N'
 		ORDER BY
 			year ASC
-            , FIELD(season, '코로나순') ASC
+            , FIELD(season_flag, '3') ASC
 			, season ASC
 	</select>
 	
@@ -207,12 +225,38 @@
 			, d.d_name as d_d_name
 		FROM team t
 		LEFT OUTER JOIN depart d ON d.id = t.depart_id  
-		WHERE t.del_yn = 'N'
+		WHERE 1=1
+			AND t.del_yn = 'N'
 			AND t.t_short_name != '기타'
+		GROUP BY 
+			t.t_short_name
 		ORDER BY
-			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			FIELD(t.t_short_name, '새가족') ASC
+			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
 			, d.d_name ASC
 			, FIELD(t.t_short_name, '기쁨') ASC
+			, t.t_short_name ASC
+	</select>
+	
+	
+	<!-- 팀 리스트 불러오기 by 청년부 관리 -->
+	<select id="selectTeamListByAdmin" resultMap="TeamMap">
+		SELECT
+			t.id
+			, t.depart_id
+			, t.t_short_name
+			, t.t_full_name
+			, t.t_theme
+			, t.del_yn
+			, d.d_name as d_d_name
+		FROM team t
+		LEFT OUTER JOIN depart d ON d.id = t.depart_id  
+		WHERE 1=1
+			AND t.del_yn = 'N'
+			AND t.t_short_name != '기타'
+		ORDER BY
+			d.d_name ASC
+			, FIELD(t.t_short_name, '기쁨', '새가족') ASC
 			, t.t_short_name ASC
 	</select>
 	
@@ -243,9 +287,12 @@
   			 , t_theme
   			 , del_yn
   		FROM team t
-  		WHERE t.depart_id = #{departId}
+  		WHERE 1=1
+  			AND t.del_yn = 'N'
+  			AND t.depart_id = #{departId}
   		ORDER BY
-  			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+  			FIELD(t.t_short_name, '새가족') ASC
+  			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
   			, FIELD(t.t_short_name, '기쁨') ASC
   			, t.t_short_name ASC
   	</select>
@@ -259,17 +306,19 @@
   			 , season
   			 , depart_id
   			 , team_id
-  			 , substring(g_name, 3) as g_name
+  			 , g_name
+  			 , ord
   			 , reg_user
   			 , del_yn
   		FROM `group` 
   		WHERE 1=1 
   			AND team_id = #{teamId}
   			AND year = #{year}
-  			AND season = #{season}
+  			AND season_flag = #{seasonFlag}
   			AND del_yn = 'N'
   		ORDER BY 
-  			g_name ASC
+  			ord ASC
+  			, g_name ASC
   	</select>
   	
   	
@@ -278,7 +327,7 @@
 		select
 			*
 		from team
-		where t_short_name = #{tShortName}
+		where id = #{id}
 		and del_yn = 'N'
 	</select>
 	
@@ -336,6 +385,9 @@
                  <if test="season != null">
                        season,
                  </if>
+                 <if test="seasonFlag != null">
+                       season_flag,
+                 </if>
           		 <if test="departId != null">
                        depart_id,
                  </if>
@@ -344,6 +396,9 @@
                  </if>
                  <if test="gName != null">
                        g_name,
+                 </if>
+                 <if test="ord != null">
+                       ord,
                  </if>
                  <if test="regUser != null">
                        reg_user,
@@ -356,6 +411,9 @@
 	           <if test="season != null">
 	                 #{season},
 	           </if>
+	           <if test="seasonFlag != null">
+	                 #{seasonFlag},
+	           </if>
 	           <if test="departId != null">
 	                 #{departId},
 	           </if>
@@ -364,6 +422,9 @@
 	           </if>
 	           <if test="gName != null">
 	                 #{gName},
+	           </if>
+	           <if test="ord != null">
+	                 #{ord},
 	           </if>
 	           <if test="regUser != null">
 	                 #{regUser},
@@ -377,19 +438,25 @@
 		update `group`
 	    <set>
 	    	<if test="year != null">
-	        	year = #{year},
+	        	year = #{year}
 	      	</if>
 	      	<if test="season != null">
-	        	season = #{season},
+	        	, season = #{season}
+	      	</if>
+	      	<if test="seasonFlag != null">
+	        	, season_flag = #{seasonFlag}
 	      	</if>
 	      	<if test="departId != null">
-	        	depart_id = #{departId},
+	        	, depart_id = #{departId}
 	      	</if>
 	    	<if test="teamId != null">
-	    		team_id = #{teamId},
+	    		, team_id = #{teamId}
 	    	</if>
 			<if test="gName != null">
-				g_name = #{gName}
+				, g_name = #{gName}
+			</if>
+			<if test="ord != null">
+				, ord = #{ord}
 			</if>
 	    </set>
 		where id = #{id}
@@ -402,9 +469,11 @@
 			g.id
 			, g.year
 			, g.season
+			, g.season_flag
 			, g.depart_id
 			, g.team_id
 			, g.g_name
+			, g.ord
 			, g.reg_user
 			, g.del_yn
 			, d.d_name as d_d_name
@@ -414,13 +483,16 @@
 		LEFT OUTER JOIN team t ON t.id = g.team_id  
 		WHERE 1=1 
   			AND g.year = #{year}
-  			AND g.season = #{season}
+  			AND g.season_flag = #{seasonFlag}
   			AND g.del_yn = 'N'
 		ORDER BY
-			FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
+			FIELD(t.id, #{teamId}) DESC
+			, FIELD(t.t_short_name, '새가족') ASC
+			, FIELD(SUBSTRING(t.t_short_name, 2), '새가족') ASC
 			, d.d_name ASC
 			, FIELD(t.t_short_name, '기쁨') ASC
 			, t.t_short_name ASC
+			, g.ord ASC
 			, g.g_name ASC
 	</select>
 	
@@ -431,9 +503,11 @@
 			g.id
 			, g.year
 			, g.season
+			, g.season_flag
 			, g.depart_id
 			, g.team_id
 			, g.g_name
+			, g.ord
 			, g.reg_user
 			, g.del_yn
 			, d.d_name as d_d_name

@@ -10,26 +10,39 @@ public class AttendanceSearch {
 	private String lastYear;
 	private Integer month;
 	private String season;
+	private String seasonFlag;
 	private String thisSeason;
 	
 	public AttendanceSearch() {
-		this.teamId = "9";
+		this.teamId = "";
 		this.year = DateHelper.getYear();
 		this.lastYear = DateHelper.getLastYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
 	}
 	
+	public String getSeasonFlag() {
+		return seasonFlag;
+	}
+
+	public void setSeasonFlag(String seasonFlag) {
+		this.seasonFlag = seasonFlag;
+	}
+
+	public void setThisSeason(String thisSeason) {
+		this.thisSeason = thisSeason;
+	}
+
 	public String setThisSeason() {
 		return thisSeason;
 	}
 	
 	public String getThisSeason() {
 		if(StringHelper.parseInt(DateHelper.getYear()) == 2020  && month > 8) {
-			this.thisSeason = "코로나순";
+			this.thisSeason = "3";
 		}else if(month < 7) {
-			this.thisSeason = "상반기";
+			this.thisSeason = "1";
 		}else {
-			this.thisSeason = "하반기";
+			this.thisSeason = "2";
 		}
 		return thisSeason;
 	}
@@ -68,7 +81,7 @@ public class AttendanceSearch {
 
 	public String getTeamId() {
 		if("".equals(this.teamId) || "0".equals(this.teamId) || "10".equals(this.teamId)) {
-			this.teamId = "9";
+			this.teamId = "";
 		}
 		return teamId;
 	}

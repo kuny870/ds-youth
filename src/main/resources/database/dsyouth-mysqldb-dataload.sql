@@ -176,3 +176,11 @@ SELECT member_id, group_id, group_grade, mem_state, 'N', year, month
 FROM attendance_2020
 WHERE (month=10 or month=11 or month=12);
 ---------------------------------------------------------------------------
+
+-- 기기별/브라우저별 로그인 유지 위한 session table 분리 작업
+INSERT INTO user_keep_login
+( login_id, session_id)
+SELECT login_id, session_id
+FROM user
+WHERE use_cookie = 'Y' and del_yn = 'N';
+---------------------------------------------------------------------------

@@ -10,6 +10,7 @@ import org.ds.dsyouth.exception.PasswordNoMatchException;
 import org.ds.dsyouth.model.Address;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.User;
+import org.ds.dsyouth.model.UserKeepLogin;
 
 public interface AuthService {
 
@@ -26,8 +27,8 @@ public interface AuthService {
 	void getUserCheck(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException, IdNoMatchException, PasswordNoMatchException;
 //	void getMasterCheck(Master master) throws NoSuchAlgorithmException, UnsupportedEncodingException, IdNoMatchException, PasswordNoMatchException;
 //	void getPartnerCheck(Partner partner) throws NoSuchAlgorithmException, UnsupportedEncodingException, IdNoMatchException, PasswordNoMatchException;
-	boolean keepLogin(User user);
-	boolean removeSerssionId(User user);
+	boolean keepLogin(UserKeepLogin ukl);
+	boolean removeSessionId(UserKeepLogin ukl);
 //	boolean removeSerssionIdMaster(Master master);
 //	boolean removeSerssionIdPartner(Partner partner);
 	User getSessionId(String sessionId);
@@ -49,9 +50,11 @@ public interface AuthService {
 	int getAuthCnt(int id);		// 권한의 cnt 구하기
 	int getAuthExecCnt();		// 국장 권한의 cnt 구하기
 	
-	List<User> getUserListByAuth();	// 회원권한
+	List<User> getUserListByAuth(int id);	// 회원권한
 	List<User> getUserListByUser();	// 회원관리
 	boolean removeAuth(Auth auth);	// 권한 초기화
 	boolean removeAuthExec();	// 국장 권한 초기화
+	
+	Auth getAuthById(int id);
 	
 }

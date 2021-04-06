@@ -12,6 +12,7 @@ import org.ds.dsyouth.mapper.AuthMapper;
 import org.ds.dsyouth.model.Address;
 import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.User;
+import org.ds.dsyouth.model.UserKeepLogin;
 import org.ds.dsyouth.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -127,12 +128,12 @@ public class AuthServiceImpl implements AuthService {
 		return authMapper.selectUserByLoginId(user);
 	}
 	@Override
-	public boolean keepLogin(User user) {
-		return authMapper.insertSessionId(user);
+	public boolean keepLogin(UserKeepLogin ukl) {
+		return authMapper.insertKeepLogin(ukl);
 	}
 	@Override
-	public boolean removeSerssionId(User user) {
-		return authMapper.deleteSessionId(user);
+	public boolean removeSessionId(UserKeepLogin ukl) {
+		return authMapper.deleteSessionId(ukl);
 	}
 	@Override
 	public boolean registAddress(Address address) {
@@ -224,7 +225,11 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public boolean removeUser(User user) {
 		boolean result = authMapper.deleteUser(user);
-		if(result) {authMapper.deleteSessionId(user);}
+		if(result) {
+			UserKeepLogin ukl = new UserKeepLogin();
+			ukl.setLoginId(user.getLoginId());
+			authMapper.deleteAllSessionId(ukl);
+		}
 		return result;
 	}
 	
@@ -240,7 +245,14 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public User getSessionId(String sessionId) {
-		return authMapper.selectSessionId(sessionId);
+		UserKeepLogin ukl = authMapper.selectSessionId(sessionId);
+		User user = null;
+		if(ukl != null) {
+			user = new User();
+			user.setLoginId(ukl.getLoginId());
+			user = authMapper.selectUserByLoginId(user);
+		}
+		return user;
 	}
 
 
@@ -256,8 +268,8 @@ public class AuthServiceImpl implements AuthService {
 	 * 권한별 User list
 	 */
 	@Override
-	public List<User> getUserListByAuth() {
-		return authMapper.selectUserListByAuth();
+	public List<User> getUserListByAuth(int id) {
+		return authMapper.selectUserListByAuth(id);
 	}
 	
 	/**
@@ -291,6 +303,12 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public boolean removeAuthExec() {
 		return authMapper.deleteAuthExec();
+	}
+
+
+	@Override
+	public Auth getAuthById(int id) {
+		return authMapper.selectAuthById(id);
 	}
 
 }

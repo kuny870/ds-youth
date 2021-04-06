@@ -36,7 +36,7 @@
                             <input type="text" class="md-input" id="tFullName" name="tFullName" value="${team.tFullName}" placeholder="팀명 (full name)">
                         </label>  
                         <label>
-                            <textarea style="margin-top:10px; margin-bottom:10px; height:60px;" rows="10" id="tTheme" name="tTheme" placeholder="팀 주제 말씀">${team.tTheme}</textarea>
+                            <textarea style="margin-top:10px; margin-bottom:10px; height:150px;" rows="10" id="tTheme" name="tTheme" placeholder="팀 주제 말씀">${team.tTheme}</textarea>
                         </label>                      
                     </div>
                     

@@ -134,11 +134,12 @@ public class AuthController {
 	 * 권한별 관리 상세
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/auth/detail/{id}/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/auth/detail/{id}", method = RequestMethod.GET)
 	public ModelAndView auth_detail(
 			Auth auth)	{
 
-		List<User> userList = authService.getUserListByAuth();
+		auth = authService.getAuthById(auth.getId());
+		List<User> userList = authService.getUserListByAuth(auth.getId());
 		
 		ModelAndView mav = new ModelAndView("admin/auth/detail");
 		

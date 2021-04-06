@@ -9,8 +9,10 @@ $(document).ready(function(){
 
 
 function getTeam(sParam){
+	var newMember = document.getElementById('new-member');
+	newMember.style.display = 'none';
+	
     var $target = $("select[name='teamId']");
-     
     $target.empty();
     if(sParam == ""){
     	$target.append("<option value=''>팀선택</option>");
@@ -31,9 +33,13 @@ function getTeam(sParam){
 	                    $target.append("<option value=" + result.data[i].id + ">"+ result.data[i].tShortName +"</option>");
 	                });
 	                
-	                var guider = document.getElementById('guider');
-                	guider.style.display = 'none';
+	                // 새가족 전용 데이터 초기화
+                	var guider = document.getElementById('guider');
                 	guider.value = '';
+                	var memberRegDate = document.getElementById('memberRegDate');
+                	memberRegDate.value = '';
+                	var memberGradDate = document.getElementById('memberGradDate');
+                	memberGradDate.value = '';
                 	
 	            }
 	        }, error:function(xhr){
@@ -54,12 +60,19 @@ function getTeam(sParam){
 
 function getNewMemberDetail(val){
 	var newMember = document.getElementById('new-member');
+	var guider = document.getElementById('guider');
+	var memberRegDate = document.getElementById('memberRegDate');
+	var memberGradDate = document.getElementById('memberGradDate');
 	
 	 if(val == 4 || val == 8) {
-		 newMember.style.display = 'block';
+		newMember.style.display = 'block';
      }else {
-    	 newMember.style.display = 'none';
-    	 newMember.value = '';
+    	newMember.style.display = 'none';
+    	
+    	// 새가족 전용 데이터 초기화
+     	guider.value = '';
+     	memberRegDate.value = '';
+     	memberGradDate.value = '';
      }
 }
 
@@ -82,6 +95,8 @@ function memberModify() {
 			var sGroupId = $('#sGroupId').val();
 			var sNameKW = $('#sNameKW').val();
 			var pageNo = $('#pageNo').val();
+			
+			var nameKW = encodeURI(encodeURI(sNameKW));
 			
 			var dateOfBirthRegex=/^[0-9]{6}$/;
 			var htelRegex=/^[0-9]{10,11}$/;
@@ -146,7 +161,7 @@ function memberModify() {
 		                      confirmButtonText: '확인',
 		                      allowOutsideClick: true
 		                  }).then(function() {
-		                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW + "&pageNo=" + pageNo;
+		                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + nameKW + "&pageNo=" + pageNo;
 		                  });
 		              }else {
 		            	  Swal.fire({

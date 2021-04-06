@@ -1,6 +1,6 @@
 /* �뙘�뾽李� �떆�옉 */
 .noticeClose {
-       background-color: #333333;
+      background-color: #333333;
       color: #ffffff ;
       text-align:right;
       font-size: 12px ;
@@ -113,6 +113,7 @@
 .on-style {
 	color: #284AF3;
     font-size: 3vw;
+    cursor: pointer;
 }
 .on-style2 {
 	background: #d3d3d3;
@@ -166,6 +167,42 @@
 	width: 35%;
 }
 
+.admin-group-select {
+	float:left;
+	margin-top: 10px;
+	margin-left: 3.7vw;
+	height: 35%;
+	width: 28%;
+}
+
+.sayu-month {
+	width:10%;
+	font-size: 13px;
+	margin-top: 6px;
+	margin-right: 3px;
+	
+	float: left;
+}
+
+.sayu-date-select {
+	float:left;
+	height: 32px;
+	width: 24%;
+	padding: 0 5px;
+	margin-right: -12px;
+}
+
+.sayu-input {
+	font-size: 13px !important;
+    width:  60% !important;
+    height: 32px !important;
+    padding: 0 12px !important;
+    margin-left: 22px;
+    
+    border-radius: 4px !important;
+    border-width : 1.333333px !important;
+}
+
 .basic-input {
 	border-radius: 6.666667px;
     border-width : 1.333333px;
@@ -180,12 +217,40 @@
 }
 
 .admin-group-input {
+	font-size: 13px;
+    margin-top: 10px; 
+    width: 48.5%; 
+    height: 35%;
+}
+
+.admin-order-input {
+	font-size: 13px;
+    margin-top: 10px; 
+    width: 10%; 
+    height: 35%;
+    margin-right: 7px;
+}
+
+.admin-group-list-input {
 	font-size: 3vw;
     width: 90%; 
     height: 25%;
     margin-left: 4%;
     border-radius: 3px;
     text-align: center;
+}
+
+.admin-ord-input {
+	font-size: 3vw;
+    width: 90%; 
+    height: 25%;
+    margin-left: 4%;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.admin-ord-div {
+	font-size: 3vw;
 }
 
 .basic-btn {
@@ -224,8 +289,9 @@
 }
 
 .admin-list-btn {
-	width: 25%; 
-	height: 100%; 
+	width: 81%; 
+	height: 77%; 
+	margin-bottom: 7px;
 	font-size: 5vw;
 }
 
@@ -333,7 +399,6 @@
 	margin-left: 25px;
 	margin-right: 25px;
 }
-
 
 .md-input {
 	font-size: 15px;
@@ -601,7 +666,7 @@
     display: block;
 }
 .container .form .form-bottom-radio{
-    padding:3.2444444444vw 0 12 24.71111111111111vw
+    padding:2.2444444444vw 0 12 27.71111111111111vw
 }
 
 
@@ -623,12 +688,15 @@
 }
 
 .container .form .form-bottom button.modify-btn {
-    height: 12.4vw;
+    /* height: 12.4vw; */
+    height: 50px;
 }
 .container .form .form-bottom button.remove-btn {
     background-color: red;
-    margin-top : -20px;
-    height: 12.4vw;
+    /* margin-top : -20px;
+    height: 12.4vw; */
+    margin-top: -7%;
+    height: 50px;
 }
 
 
@@ -657,9 +725,9 @@
     position: absolute;
     display: block;
     left: 10.8444444444vw;
-    top: -1.3333333333vw;
-    width: 9.6vw;
-    height: 9.6vw;
+    top:0.7vw;
+    width: 5.6vw;
+    height: 5.6vw;
     background: url("../../assets/images/ico_check.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -834,12 +902,14 @@
     margin: 0px;
     width:15%;
     height:114%;
+    cursor: pointer;    
 }
 
 .dsyouth-link {
 	display:none; 
 	margin-right: 15px; 
 	font-size: 3.3vw;
+	cursor: pointer;
 }
 
 .back-img {
@@ -2442,6 +2512,7 @@
     overflow:hidden;
     white-space : nowrap;
     text-overflow: ellipsis;
+    vertical-align: middle;
 }
 .sales-table > .table-wrap > table td:first-child{
     border-left: none;
@@ -2668,10 +2739,15 @@
 */
 
 /* 2020.03.02 �뙣�뱶�슜 異붽�! */
-@media (min-width: 576px) {
+@media (min-width: 680px) {
 	input[type=checkbox]{
-		width:30px;
-		height:30px;
+		width:18px;
+		height:17px;
+	}
+	.admin-list-btn {
+		height: 65%;
+		font-size: 4vw;
+		margin-bottom: 25px;	
 	}
 	.layer_fixed {
 		height: 165px !important;
@@ -2694,18 +2770,17 @@
 	    padding: 0 5;
 	}
 	.attendance-list-btn {
-		height: 35px;
+		height: 34px;
 	    font-size: 17px;
 	}
 	.member-list-btn {
 		height: 35px;
-		margin-left: -10px;
+		margin-left: -16px;
 		font-size: 17px;
 	}
 	.radio-gender > .ico {
 		width: 5.6vw;
 		height: 5.6vw;
-		margin-top: 22px;
 	}
 	.admin-team-select {
 		font-size: 25px;
@@ -2713,30 +2788,46 @@
 	.admin-team-input {
 		font-size: 25px;
 	}
-	.md-input {
+	.admin-order-input {
 		font-size: 25px;
+		margin-right: 1.8vw;
+		margin-left: -0.9vw;
+	}
+	.admin-group-input {
+		font-size: 23px;
+		margin-right: -1.4vw;
+	}
+	.md-input {
+		font-size: 18px;
 	}
 	.md-button {
-		font-size: 35px;
+		font-size: 30px;
 	}
 	.md-button2 {
 		font-size: 25px;
 	}
 	.container .form .form-bottom button.btn {
-		height: 9.4vw;
-		font-size: 4vw;
+		/* height: 9.4vw;
+		font-size: 4vw; */
+		height: 60px;
+		font-size: 28px;
 	}
 	.container .form .form-bottom-radio {
 	    padding: 3.244444vw 0px 30px 29.711111vw;
 	}
 	.container .form .form-bottom button.modify-btn {
-		height: 9.4vw;
-		font-size: 4vw;
+		/* height: 9.4vw;
+		font-size: 4vw; */
+		height: 60px;
+		font-size: 28px;
 	}
 	.container .form .form-bottom button.remove-btn {
-    	height: 9.4vw;
+    	/* height: 9.4vw;
     	font-size: 4vw;
-    	margin-top: -60px;
+    	margin-top: -60px; */
+    	height: 60px;
+    	font-size: 28px;
+    	margin-top: -50px;
 	}
 	.window{
 	    position: fixed;

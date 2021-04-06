@@ -1,8 +1,12 @@
 package org.ds.dsyouth.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.ds.dsyouth.common.Constants;
 import org.ds.dsyouth.model.Auth;
@@ -12,6 +16,7 @@ import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
+import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.model.YearSeason;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
@@ -109,7 +114,7 @@ public class AdminController {
 	public ModelAndView admin_team() {
 
 		List<Depart> departList = adminService.getDepartList();
-		List<Team> teamList = adminService.getTeamList();
+		List<Team> teamList = adminService.getTeamListByAdmin();
 		
 		ModelAndView mav = new ModelAndView("admin/team/list");
 		
@@ -125,7 +130,7 @@ public class AdminController {
 	 * @param team
 	 * @return
 	 */
-	@RequestMapping(value = "/team/modify/{tShortName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/team/modify/{id}", method = RequestMethod.GET)
 	public ModelAndView team_modify(Team team) {
 
 		team = adminService.getTeam(team);
@@ -137,16 +142,28 @@ public class AdminController {
 		return mav;
 	}
 	
-	
 	/**
 	 * 순명 관리
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/admin/group/name", method = RequestMethod.GET)
-	public ModelAndView admin_group(Group group) {
+	public ModelAndView admin_group(
+			HttpServletRequest request, 
+			Group group) {
 
-		String thisYear = DateHelper.getYear();
+		String thisYear = "";
 		String thisMonth = DateHelper.getMonth();
+		
+		if(group.getYear() == null) {
+			thisYear = DateHelper.getYear();
+		}else {
+			thisYear = group.getYear();
+		}
+		
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute(Constants.SESSION_USER);
+		group.setTeamId(user.getTeamId().toString());
 		
 		List<Team> teamList = adminService.getTeamList();
 		List<Group> groupList = adminService.getGroupList(group);
@@ -158,6 +175,8 @@ public class AdminController {
 			int cnt = memberService.getGroupCnt(groupList.get(i));
 			groupList.get(i).setCnt(cnt);
 		}
+		
+		thisYear = DateHelper.getYear();
 		
 		int yearInt = StringHelper.parseIntAndArrayRange(thisYear);
 		

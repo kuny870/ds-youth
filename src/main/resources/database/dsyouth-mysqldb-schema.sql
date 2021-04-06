@@ -17,6 +17,20 @@ drop table board_opinion;
 drop table board_free;
 drop table address;
 
+ALTER TABLE attendance_2021
+ADD (sayu1 VARCHAR(50));
+
+ALTER TABLE `group`
+ADD (ord int(10));
+
+ALTER TABLE attendance_2021
+ADD (att_ord Integer(10) DEFAULT 0);
+
+update `group` set  ord = 0;
+
+-- 출석부 순서 초기화 쿼리
+update attendance_2021 set  att_ord = 0;
+
 -- 등급
 create table auth (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
@@ -48,6 +62,15 @@ create table user (
 	del_yn varchar(10) not null default 'N',	-- 탈퇴 여부
     
     constraint pk_user primary key (id)
+);
+
+-- 사용자 로그인 유지
+create table user_keep_login (
+    login_id varchar(50) not null,		-- 아이디
+    session_id varchar(100) not null,	-- 세션 아이디
+	reg_date datetime DEFAULT CURRENT_TIMESTAMP,	-- 가입 시간
+    
+    constraint pk_user_keep_login primary key (id)
 );
 
 

@@ -11,7 +11,6 @@ import org.ds.dsyouth.page.Paging;
 import org.ds.dsyouth.search.MemberSearch;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
-import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,33 +46,39 @@ public class MemberServiceImpl implements MemberService {
 				att.setYear(year);
 				att.setMonth(i.toString());
 				att.setMemState(member.getMemState());
+				
 				att.setAttYn("Y");
-				if(member.getTeamId() == 4 || member.getTeamId() == 8) {
-					attendanceMapper.insertAttendance(att);
-					att.setAttYn("N");
-					attendanceMapper.insertAttendance(att);
-				}else {
-					attendanceMapper.insertAttendance(att);
-				}
+				attendanceMapper.insertAttendance(att);	// 예배 출석부 추가
+				
+				att.setAttYn("N");
+				attendanceMapper.insertAttendance(att);	// 2부 모임 출석부 추가
+				
+//				if(member.getTeamId() == 4 || member.getTeamId() == 8) {
+//					attendanceMapper.insertAttendance(att);
+//					att.setAttYn("N");
+//					attendanceMapper.insertAttendance(att);
+//				}else {
+//					attendanceMapper.insertAttendance(att);
+//				}
 			}
 			
 			// 만약 12월에 멤버를 등록하면 다음년도 출석부에도 추가해 준다.
-			if("12".equals(month)) {
-				Integer newYear = StringHelper.parseInt(year)+1;
-				for(Integer i = 1; i < 13; i++) {
-					att.setMemberId(member.getId().toString());
-					att.setYear(newYear.toString());
-					att.setMonth(i.toString());
-					att.setAttYn("Y");
-					if(member.getTeamId() == 4 || member.getTeamId() == 8) {
-						attendanceMapper.insertAttendance(att);
-						att.setAttYn("N");
-						attendanceMapper.insertAttendance(att);
-					}else {
-						attendanceMapper.insertAttendance(att);
-					}
-				}
-			}
+//			if("12".equals(month)) {
+//				Integer newYear = StringHelper.parseInt(year)+1;
+//				for(Integer i = 1; i < 13; i++) {
+//					att.setMemberId(member.getId().toString());
+//					att.setYear(newYear.toString());
+//					att.setMonth(i.toString());
+//					att.setAttYn("Y");
+//					if(member.getTeamId() == 4 || member.getTeamId() == 8) {
+//						attendanceMapper.insertAttendance(att);
+//						att.setAttYn("N");
+//						attendanceMapper.insertAttendance(att);
+//					}else {
+//						attendanceMapper.insertAttendance(att);
+//					}
+//				}
+//			}
 		}
 		
 		return result;
@@ -114,6 +119,15 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return result;
+	}
+	
+	
+	/**
+	 * 멤버 메모 수정
+	 */
+	@Override
+	public boolean modifyMemberMemo(Member member) {
+		return memberMapper.updateMemberMemo(member);
 	}
 
 

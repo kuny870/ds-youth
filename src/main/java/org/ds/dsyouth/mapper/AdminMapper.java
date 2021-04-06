@@ -8,6 +8,7 @@ import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.YearSeason;
+import org.ds.dsyouth.search.AttendanceSearch;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -31,6 +32,7 @@ public interface AdminMapper {
 	Team selectTeam(Team team);
 	Team selectTeamById(String teamId);
 	List<Team> selectTeamList();
+	List<Team> selectTeamListByAdmin();
 	List<Team> selectTeamByDepart(String departId);	// 팀리스트 불러오기 (by 부서)
 	Team selectTeamByShortTeam(Team team);	// 같은 팀이 있는지 체크
 	
@@ -53,4 +55,6 @@ public interface AdminMapper {
 	List<MemberState> selectMemberStateList();
 	
 	List<YearSeason> selectYearSeasonList(String thisYear);
+	
+	YearSeason selectYearSeason(AttendanceSearch as);
 }

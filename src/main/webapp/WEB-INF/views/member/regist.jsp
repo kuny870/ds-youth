@@ -65,17 +65,12 @@
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">                        
                         </label>
                         
-                       
-                        <c:set var="disabled" value=""/>
-                        <c:if test="${login.authId > 2}">
-                        	<c:set var="disabled" value="disabled"/>
-                        	<input type="hidden" id="departId" name="departId" value="${login.departId }">
-                        	<input type="hidden" id="teamId" name="teamId" value="${login.teamId }">
-                        </c:if>
+                       	<input type="hidden" id="departId" name="departId" value="${login.departId }">
+                       	<input type="hidden" id="teamId" name="teamId" value="${login.teamId }">
                         
                         <!-- 부서 -->
                         <div class="customer-select">
-                            <select id="departId" name="departId" onchange="getTeam(this.value);" ${disabled}>
+                            <select id="departId" name="departId" onchange="getTeam(this.value);">
                             	<c:forEach var="depart" items="${departList }">
 									<c:set var="selected" value="" />
 									<c:if test="${depart.id eq login.departId}">
@@ -87,7 +82,7 @@
 	                    </div>
 	                    <!-- 팀 -->
 	                    <div class="customer-select">
-                            <select id="teamId" name="teamId" onchange="getNewMemberDetail(this.value);" ${disabled}>
+                            <select id="teamId" name="teamId" onchange="getNewMemberDetail(this.value);">
                             	<c:forEach var="team" items="${teamList }">
 									<c:set var="selected" value="" />
 									<c:if test="${team.id eq login.teamId}">

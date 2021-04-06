@@ -19,6 +19,7 @@ import org.ds.dsyouth.model.Auth;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.User;
+import org.ds.dsyouth.model.UserKeepLogin;
 import org.ds.dsyouth.rest.common.ResponseCode;
 import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.AdminService;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.WebUtils;
 
 @RestController
 @RequestMapping("/rest")
@@ -98,7 +100,7 @@ public class AuthRestController {
 		}
 		
 		try {
-			
+
 			authService.getUserCheck(user);
 			
 			User userTemp = authService.getUserByLoginId(user);
@@ -114,9 +116,28 @@ public class AuthRestController {
 			  cookie.setMaxAge(60*60*999999999); // 쿠키 유효시간 설정 
 			  httpResponse.addCookie(cookie); // 쿠키 값을 response 에 저장
 		  
-			  user.setSessionId(session.getId()); 
+			  //[모바일 or PC 구별하기]
+//			  String filter = "iphone|ipod|android|windows ce|blackberry|symbian|windows phone|webos|opera mini|opera mobi|polaris|iemobile|lgtelecom|nokia|sonyericsson|lg|samsung";
+//			  String filters[] = filter.split("\\|");
+//			  String webType = "";
+//						
+//			  for(String tmp : filters){
+//				if ( request.getHeader("User-Agent").toLowerCase().indexOf(tmp) != -1) {
+//					webType = "MOBILE";
+//					break;
+//				} else {
+//				    webType = "PC";
+//				}
+//			  }
+//				
+//			  // 사용자의 기기 구분값을 담기.
+//			  request.setAttribute("webType", webType);
+			
+			  UserKeepLogin ukl = new UserKeepLogin();
+			  ukl.setLoginId(userTemp.getLoginId());
+			  ukl.setSessionId(cookie.getValue());
 			  
-			  authService.keepLogin(user); 
+			  authService.keepLogin(ukl);
 		    }
 			 
 			
@@ -583,12 +604,18 @@ public class AuthRestController {
 			HttpServletRequest request) {
 
 		RestResponse response = new RestResponse();
-		
 		HttpSession session = request.getSession();
 		session.invalidate();
 		
 		try {
-			authService.removeSerssionId(user);
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			if(loginCookie != null) {
+				String sessionId = loginCookie.getValue();
+				UserKeepLogin ukl = new UserKeepLogin();
+				ukl.setLoginId(user.getLoginId());
+				ukl.setSessionId(sessionId);
+				authService.removeSessionId(ukl);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setSuccess(false);

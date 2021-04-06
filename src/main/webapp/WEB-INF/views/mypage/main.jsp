@@ -151,7 +151,7 @@
                 <h3>&nbsp;</h3>
                 <div class="mypage-rows">
                     <div class="mypage-row">
-                        <a href="javascript:logout(${login.id})">로그아웃</a>  
+                        <a href="javascript:logout('${login.loginId}')">로그아웃</a>  
                     </div>
                     <c:if test="${login.authId != 1}">
 	                    <div class="mypage-row">

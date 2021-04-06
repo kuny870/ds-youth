@@ -62,6 +62,4 @@
 		<welcome-file>/WEB-INF/views/auth/login.jsp</welcome-file>
   	</welcome-file-list> -->
 	
-	
-
 </web-app>

@@ -35,6 +35,13 @@
 	    <association property="auth" resultMap="org.ds.dsyouth.mapper.AuthMapper.AuthMap" columnPrefix="a_" />
   	</resultMap>
   	
+  	<resultMap id="UserKeepLoginMap" type="UserKeepLogin">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+		<result column="login_id" jdbcType="VARCHAR" property="loginId" />
+		<result column="session_id" jdbcType="VARCHAR" property="sessionId" />
+		<result column="reg_date" jdbcType="VARCHAR" property="regDate" />
+  	</resultMap>
+  	
   	<!-- 주소 -->
   	<resultMap id="AddressMap" type="Address">
 	    <id column="id" jdbcType="INTEGER" property="id" />
@@ -48,6 +55,18 @@
   	</resultMap>
   	
   	
+	<!-- 권한 불러오기 -->
+  	<select id="selectAuthById" resultMap="AuthMap">
+		select
+			id,
+			`no`,
+			`name`,
+			`description`
+		from auth
+		where id = #{id}
+	</select>
+	
+	
   	<!-- 권한 List 불러오기 -->
   	<select id="selectAuthList" resultMap="AuthMap">
 		select
@@ -93,8 +112,8 @@
 	</update>
 	
 	<!-- 회원 권한 User List 불러오기 -->
-  	<select id="selectUserListByAuth" resultMap="UserMap">
-		select
+  	<select id="selectUserListByAuth" parameterType="int" resultMap="UserMap">
+		SELECT
 			u.id,
 		    u.login_id,
 		    u.login_pw,
@@ -115,13 +134,17 @@
 		    a.name as a_name,
 		    d.d_name as d_d_name,
 		    t.t_short_name as t_t_short_name
-		from user u
+		FROM user u
 		LEFT OUTER JOIN auth a ON a.id = u.auth_id
 		LEFT OUTER JOIN depart d ON d.id = u.depart_id
 		LEFT OUTER JOIN team t ON t.id = u.team_id
-		where u.login_id != 'admin'
-			and u.del_yn = 'N'
-		order by d.d_name asc, t.t_short_name asc, u.name asc
+		WHERE u.login_id != 'admin'
+			AND u.del_yn = 'N'
+		ORDER BY
+			FIELD(u.auth_id, #{id}) DESC
+			, d.d_name ASC
+			, t.t_short_name ASC
+			, u.name ASC
 	</select>
 	
 	<!-- 회원 관리 User List 불러오기 -->
@@ -390,7 +413,9 @@
 			zipcode,
 			memo
 		from address
-		where id = #{id} and del_yn = 'N'
+		where 1=1
+			and id = #{id} 
+			and del_yn = 'N'
 	</select>
 	
 	
@@ -401,20 +426,47 @@
 
 
 	<!-- sessionId 값 등록 -->
-	<update id="insertSessionId" parameterType="User">
-		update user set session_id = #{sessionId}, use_cookie = 'Y' where login_id = #{loginId}
-	</update>
-
+	<insert id="insertKeepLogin" parameterType="UserKeepLogin">
+		insert into user_keep_login
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="loginId != null">
+				login_id,
+			</if>
+			<if test="sessionId != null">
+				session_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="loginId != null">
+	        	#{loginId},
+	        </if>
+	        <if test="sessionId != null">
+	        	#{sessionId},
+	        </if>
+	    </trim>
+	</insert>
 
 	<!-- sessionId 값 불러오기 -->
-	<select id="selectSessionId" parameterType="String" resultMap="UserMap">
-		select * from user where session_id = #{sessionId}	
+	<select id="selectSessionId" parameterType="String" resultMap="UserKeepLoginMap">
+		select * from user_keep_login where session_id = #{sessionId}	
 	</select>
 		
 	
 	<!-- sessionId 값 삭제 -->
-	<update id="deleteSessionId" parameterType="User">
-		update user set session_id = '', use_cookie = 'N' where id = #{id}
-	</update>
+	<delete id="deleteSessionId" parameterType="UserKeepLogin">
+		DELETE FROM 
+			user_keep_login 
+		WHERE 1=1
+			AND login_id = #{loginId}
+			AND session_id = #{sessionId}
+	</delete>
+	
+	<!-- sessionId 모두 삭제 -->
+	<delete id="deleteAllSessionId" parameterType="UserKeepLogin">
+		DELETE FROM 
+			user_keep_login 
+		WHERE 1=1
+			AND login_id = #{loginId}
+	</delete>
 	
 </mapper>

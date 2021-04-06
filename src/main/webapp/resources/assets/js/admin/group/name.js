@@ -1,5 +1,5 @@
 function getSeason(sParam){
-    var $target = $("select[name='season']");
+    var $target = $("select[name='seasonFlag']");
      
     $target.empty();
     if(sParam == ""){
@@ -18,7 +18,7 @@ function getSeason(sParam){
 	                $target.append("<option value=''>-</option>");
 	            }else{
 	                $(result.data).each(function(i){
-	                    $target.append("<option value=" + result.data[i].season + ">"+ result.data[i].season +"</option>");
+	                    $target.append("<option value=" + result.data[i].seasonFlag + ">"+ result.data[i].season +"</option>");
 	                });
 	            }
 	        }, error:function(xhr){
@@ -38,7 +38,8 @@ $("#registGroupForm").submit(function(e) {
 
 	var $team = $('#teamId');
 	var $gName = $('#gName');
-
+	var $gOrd = $('#ord');
+	
 	var validateMessage = null;
 	var validateFocus = null;
 
@@ -46,6 +47,9 @@ $("#registGroupForm").submit(function(e) {
 	if ($team.val() == "팀선택") {
 		validateMessage = '팀을 선택해 주세요';
 		validateFocus = $team;
+	} else if ($gOrd.val() == "") {
+		validateMessage = '순서를 입력해 주세요';
+		validateFocus = $gOrd;
 	} else if ($gName.val() == "") {
 		validateMessage = '순명을 입력해 주세요';
 		validateFocus = $gName;
@@ -104,18 +108,48 @@ $("#registGroupForm").submit(function(e) {
 function modify(id) {
 	
 	var gNameATag = document.getElementById(id + '-a');
-	var gNameInput = document.getElementById(id + '-input');
+	var gNameInput = document.getElementById(id + '-gName-input');
+	
+	var gOrdDiv = document.getElementById(id + '-ord-div');
+	var gOrdInput = document.getElementById(id + '-ord-input');
+	
 	var $targetModifyBtn = $("button[id="+ id + "-modify-btn]");
 	var $targetRemoveBtn = $("button[id="+ id + "-remove-btn]");
 	
 	var year = $('#year').val();
-	var season = $('#season').val();
+	var seasonFlag = $('#seasonFlag').val();
 	
 	// aTag 와 input 태그 크로스
 	if(gNameATag.style.display != 'none'){
 		gNameATag.style.display = 'none';
     	gNameInput.style.display = 'block';
+    	
+    	gOrdDiv.style.display = 'none';
+    	gOrdInput.style.display = 'block';
     }
+	
+	var validateMessage = null;
+	var validateFocus = null;
+
+	// input 데이터 체크 및 팝업text 입력, 포커스 입력
+	if (gOrdInput.value == "") {
+		validateMessage = '순서를 입력해 주세요';
+		validateFocus = gOrdInput;
+	} else if (gNameInput.value == "") {
+		validateMessage = '순명을 입력해 주세요';
+		validateFocus = gNameInput;
+	}
+
+	// input 데이터 체크 및 팝업창 띄워주고 포커스
+	if(validateMessage != null) {
+		validateFocus.focus();
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
+		return false;
+	} 
 	
 	// 수정버튼과 취소버튼 크로스
     if($targetModifyBtn.html() === '수정'){
@@ -142,10 +176,11 @@ function modify(id) {
         	          type: "POST",
         	          url: url,
         	          data: {
-        	        	  id : id,
-        	        	  gName : gNameInput.value,
-        	        	  year : year,
-        	        	  season : season
+        	        	  id : id
+        	        	  , gName : gNameInput.value
+        	        	  , ord : gOrdInput.value
+        	        	  , year : year
+        	        	  , seasonFlag : seasonFlag
         	          }, // serializes the form’s elements.
         	          success: function(result)
         	          {
@@ -181,7 +216,11 @@ function modify(id) {
 function remove(id) {
 	
 	var gNameATag = document.getElementById(id + '-a');
-	var gNameInput = document.getElementById(id + '-input');
+	var gNameInput = document.getElementById(id + '-gName-input');
+	
+	var gOrdDiv = document.getElementById(id + '-ord-div');
+	var gOrdInput = document.getElementById(id + '-ord-input');
+	
 	var $targetInputHidden = $("input[id="+ id + "-input-hidden]");
 	var $targetModifyBtn = $("button[id="+ id + "-modify-btn]");
 	var $targetRemoveBtn = $("button[id="+ id + "-remove-btn]");
@@ -190,6 +229,10 @@ function remove(id) {
 	if($targetRemoveBtn.html() === '취소'){
 		gNameATag.style.display = 'block';
 		gNameInput.style.display = 'none';
+		
+		gOrdDiv.style.display = 'block';
+		gOrdInput.style.display = 'none';
+		
 		gNameInput.value = $targetInputHidden.val();
 		$targetModifyBtn.html('수정');
 		$targetRemoveBtn.html('삭제');

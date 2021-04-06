@@ -7,7 +7,7 @@ function logout(val) {
           type: "POST",
           url: url,
           data: {
-        	  id : val
+        	  loginId : val
           }, // serializes the form’s elements.
           success: function(result)
           {

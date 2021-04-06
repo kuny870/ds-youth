@@ -41,13 +41,13 @@
                     
                     <div class="customer-select-search" style="width: 35%; margin-left: 5%; float: left;">
 						<!-- 상반기 / 하반기 선택 -->
-                   		<select class="select-admin-group-name-season" id="season" name="season">
+                   		<select class="select-admin-group-name-season" id="seasonFlag" name="seasonFlag">
 	                       	<c:forEach var="ss" items="${seasonList }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${ss.season eq group.season }">
+								<c:if test="${ss.seasonFlag eq group.seasonFlag }">
 									<c:set var="selected" value="selected" />
 								</c:if>
-								<option value="${ss.season}" ${selected} >${ss.season}</option>
+								<option value="${ss.seasonFlag}" ${selected} >${ss.season}</option>
 							</c:forEach>
 	                    </select>
                     </div>    
@@ -57,7 +57,6 @@
 		            	<button class="basic-btn attendance-list-btn" onclick="groupSearch()">조회</button>
 		            </div>
                     
-                    
 					<div class="sales-table">
 			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">
 
@@ -65,6 +64,7 @@
 			                    <thead>
 			                        <tr>
 			                            <th class="th-14p3">팀</th>
+			                            <th class="th-7p6">순서</th>
 			                            <th>순공부명</th>
 			                            <th class="th-22p0">순장</th>
 			                            <th class="th-20p0"></th>
@@ -86,10 +86,14 @@
 						                            </c:otherwise>
 						                        </c:choose>
 				                            </td>
+				                            <td>
+				                            	<div class="admin-ord-div" id="${group.id}-ord-div">${group.ord}</div>
+				                            	<input type="number" pattern="\d*" class="admin-ord-input" id="${group.id}-ord-input" value="${group.ord}" maxlength="2" autocomplete="off" style="display: none;"/>
+				                            </td>
 				                            <td class="css-group-name-a">
 				                            	<input type="hidden" id="${group.id}-input-hidden" value="${group.gName}" />
-				                            	<a id="${group.id}-a" href="${contextPath }/admin/group/detail?year=${group.year}&season=${group.season}&id=${group.id}">${group.gName} (${group.cnt})</a>
-				                            	<input type="text" class="admin-group-input" id="${group.id}-input" value="${group.gName}" style="display: none;"/>
+				                            	<a id="${group.id}-a" href="${contextPath }/admin/group/detail?year=${group.year}&seasonFlag=${group.seasonFlag}&id=${group.id}">${group.gName} (${group.cnt})</a>
+				                            	<input type="text" class="admin-group-list-input" id="${group.id}-gName-input" value="${group.gName}" style="display: none;"/>
 				                            </td>
 				                            <td>
 				                            	<c:forEach var="member" items="${memberList}" varStatus="j">
@@ -125,10 +129,10 @@
 					        <form id="registGroupForm">
 					        	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
 					        	<input type="hidden" id="year" name="year" value="${group.year }" />
-					        	<input type="hidden" id="season" name="season" value="${group.season }" />
+					        	<input type="hidden" id="seasonFlag" name="seasonFlag" value="${group.seasonFlag }" />
 					        
 					        	<div style="text-align: center;">
-					        		<select class="basic-select admin-team-select" id="teamId" name="teamId">
+					        		<select class="basic-select admin-group-select" id="teamId" name="teamId">
 					        			<option>팀선택</option>
 					        			<c:forEach var="team" items="${teamList }">
 					        				<c:set var="selected" value="" />
@@ -138,7 +142,8 @@
 											<option value="${team.id}" ${selected} >${team.tShortName}</option>
 										</c:forEach>
 					        		</select>
-					 	        	<input class="basic-input admin-team-input" id="gName" name="gName" placeholder="ex) 기본진리"></input>
+					        		<input type="number" pattern="\d*" class="basic-input admin-order-input" id="ord" name="ord" placeholder="순서" maxlength="2" autocomplete="off"></input>
+					 	        	<input class="basic-input admin-group-input" id="gName" name="gName" placeholder="ex) 기본진리-건희"></input>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">추가</button>

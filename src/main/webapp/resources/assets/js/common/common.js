@@ -88,14 +88,14 @@ function group() {location.href = contextPath + "/admin/group/name";}		// 순 �
 //순 list
 function groupList() {
 	var year = $('#year').val();
-	var season = $('#season').val();
-	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
+	var seasonFlag = $('#seasonFlag').val();
+	location.href = contextPath + "/admin/group/name?year=" + year + "&seasonFlag=" + seasonFlag;
 }
 //순 list 조회
 function groupSearch() {
 	var year = $('#year').val();
-	var season = $('#season').val();
-	location.href = contextPath + "/admin/group/name?year=" + year + "&season=" + season;
+	var seasonFlag = $('#seasonFlag').val();
+	location.href = contextPath + "/admin/group/name?year=" + year + "&seasonFlag=" + seasonFlag;
 }
 
 function samePeriod() {location.href = contextPath + "/admin/samePeriod";}	// 동기 관리
@@ -126,7 +126,8 @@ function memberList() {
 	var sGroupId = $('#sGroupId').val();
 	var sNameKW = $('#sNameKW').val();
 	var pageNo = $('#pageNo').val();
-	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW;
+	var name = encodeURI(encodeURI(sNameKW));
+	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + name;
 }
 
 //팀원 등록 페이지 이동
@@ -143,19 +144,17 @@ function memberSearch() {
 	var teamId = $('#teamId').val();
 	var groupId = $('#groupId').val();
 	var nameKW = $('#nameKW').val();
-	var param = {pageNo : 1, teamId : teamId, groupId : groupId, nameKW : nameKW};
+	var name = encodeURI(encodeURI(nameKW));
+	var param = {pageNo : 1, teamId : teamId, groupId : groupId, nameKW : name};
 	pageModule.searchPage(param);
-}
-
-// 출석부 엑셀 다운로드 팝업
-function excelDownPopup(){
-    wrapWindowByMask();
 }
 
 // 출석부 엑셀 다운 실제 구현부
 function excelDown() {
 	var year = $('#yearExcel').val();
 	var season = $('#seasonExcel').val();
+	season = encodeURI(encodeURI(season));
+	
 	var month = "";
 
 	if(season == "상반기") {
@@ -178,4 +177,18 @@ function openPopup(str) {
         confirmButtonText: '확인',
         allowOutsideClick: true
     });
+}
+
+// 모바일 기기 체크
+function isMobile(){
+
+	var UserAgent = navigator.userAgent;
+
+	if (UserAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null)
+	{
+		return true;
+	}else{
+		return false;
+	}
+
 }

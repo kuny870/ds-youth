@@ -31,7 +31,7 @@ public class AttendanceRestController {
 			String gId,
 			String[] memberArr,
 			String year,
-			String season,
+			String seasonFlag,
 			HttpServletRequest request) {
 
 		RestResponse response = new RestResponse();
@@ -43,7 +43,7 @@ public class AttendanceRestController {
 				att.setMemberId(memberArr[i]);
 				att.setGroupId(gId);
 				att.setYear(year);
-				att.setSeason(season);
+				att.setSeasonFlag(seasonFlag);
 				attendanceService.modifyAttendanceGroup(att);
 			}
 			
@@ -92,30 +92,53 @@ public class AttendanceRestController {
 	@RequestMapping(value = "/attDetail/regist", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse attDetail_regist(
 			String year,
+			String month,
 			String[] aId,
+			String[] memberId,
+			String[] attYn,
 			String[] firstWeek,
 			String[] secondWeek,
 			String[] thirdWeek,
 			String[] fourthWeek,
 			String[] fifthWeek,
+			Integer[] sortAttOrd,
+			String sortYN,
 			HttpServletRequest request) {
 
 		RestResponse response = new RestResponse();
 		
 		try {
 			
-			for (int i = 0; i < aId.length; i++) {
-				Attendance att = new Attendance();
-				att.setYear(year);
-				att.setId(StringHelper.parseInt(aId[i]));
-				att.setFirstWeek(firstWeek[i]);
-				att.setSecondWeek(secondWeek[i]);
-				att.setThirdWeek(thirdWeek[i]);
-				att.setFourthWeek(fourthWeek[i]);
-				if(fifthWeek != null) {
-					att.setFifthWeek(fifthWeek[i]);
+			// 출석부 순서 적용
+			if("Y".equals(sortYN)) {
+				
+				for (int i = 0; i < aId.length; i++) {
+					Attendance att = new Attendance();
+					att.setYear(year);
+					att.setMonth(month);
+					att.setMemberId(memberId[i]);
+					att.setAttYn(attYn[i]);
+					att.setAttOrd(sortAttOrd[i]);
+					attendanceService.modifyAttendanceOrd(att);
 				}
-				attendanceService.modifyAttendanceCheck(att);
+				
+			// 출석 적용
+			}else {
+				
+				for (int i = 0; i < aId.length; i++) {
+					Attendance att = new Attendance();
+					att.setYear(year);
+					att.setId(StringHelper.parseInt(aId[i]));
+					att.setFirstWeek(firstWeek[i]);
+					att.setSecondWeek(secondWeek[i]);
+					att.setThirdWeek(thirdWeek[i]);
+					att.setFourthWeek(fourthWeek[i]);
+					if(fifthWeek != null) {
+						att.setFifthWeek(fifthWeek[i]);
+					}
+					attendanceService.modifyAttendanceCheck(att);
+				}
+				
 			}
 			
 		} catch (Exception e) {
@@ -126,5 +149,61 @@ public class AttendanceRestController {
 		
 		return response;
 	}
+	
+	/**
+	 * 출석 id 한개 불러오기
+	 * @param aId
+	 * @param arr
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/att/getOneAtt", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse att_getOne(
+			Attendance att,
+			HttpServletRequest request) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			att = attendanceService.getOneAttendance(att);
+			response.setData(att);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * 출석부 수정 - 사유 삭제
+	 * @param groupStudy
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/remove/sayu", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse remove_sayu(
+			Attendance att,
+			HttpServletRequest request) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			attendanceService.removeAttSayu(att);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
 	
 }

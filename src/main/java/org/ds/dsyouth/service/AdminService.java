@@ -12,6 +12,7 @@ import org.ds.dsyouth.model.MemberState;
 import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.YearSeason;
+import org.ds.dsyouth.search.AttendanceSearch;
 
 public interface AdminService {
 
@@ -25,6 +26,7 @@ public interface AdminService {
 	Team getTeam(Team team);
 	Team getTeamById(String teamId);
 	List<Team> getTeamList();
+	List<Team> getTeamListByAdmin();
 	List<Team> getTeamByDepart(String departId);	// 팀리스트 불러오기 (by 부서)
 	
 	// 부서
@@ -50,5 +52,7 @@ public interface AdminService {
 	List<MemberState> getMemberStateList();
 	
 	List<YearSeason> getYearSeasonList(String thisYear);
+	
+	YearSeason getYearSeason(AttendanceSearch as);
 
 }

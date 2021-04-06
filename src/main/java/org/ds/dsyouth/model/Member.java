@@ -8,6 +8,7 @@ public class Member {
 
 	private Integer id;
 	private String name;
+	private String memo;
 	private String guider;
 	private String dateOfBirth;
 	private Integer departId;
@@ -30,7 +31,12 @@ public class Member {
 	private SamePeriod samePeriod;
 	private Attendance attendance;
 	
-	
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
 	public Attendance getAttendance() {
 		return attendance;
 	}

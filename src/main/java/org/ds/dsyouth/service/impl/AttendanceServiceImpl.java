@@ -25,8 +25,15 @@ public class AttendanceServiceImpl implements AttendanceService {
 	public List<Attendance> getMemberListByAtt(AttendanceSearch attSearch) {
 		return attendanceMapper.selectAttendance(attSearch);
 	}
-
 	
+	/**
+	 * 팀별 출석부 명단 불러오기
+	 */
+	@Override
+	public List<Attendance> getMemberListByAttForExcel(AttendanceSearch attSearch) {
+		return attendanceMapper.selectAttendanceForExcel(attSearch);
+	}
+
 	/**
 	 * 출석부 체크
 	 */
@@ -44,17 +51,17 @@ public class AttendanceServiceImpl implements AttendanceService {
 		
 		boolean result = false;
 		
-		if("코로나순".equals(attendance.getSeason())) {
+		if("3".equals(attendance.getSeasonFlag())) {
 			for(Integer i = 10; i < 13; i++) {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroup(attendance);
 			}
-		}else if("상반기".equals(attendance.getSeason())) {
+		}else if("1".equals(attendance.getSeasonFlag())) {
 			for(Integer i = 1; i < 7; i++) {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroup(attendance);
 			}
-		}else if("하반기".equals(attendance.getSeason())) {
+		}else if("2".equals(attendance.getSeasonFlag())) {
 			for(Integer i = 7; i < 13; i++) {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroup(attendance);
@@ -74,7 +81,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 		boolean result = false;
 		
 		// thisMonth : 현재달이 상반기인 경우
-		if("상반기".equals(attendance.getSeason())) {
+		if("1".equals(attendance.getSeasonFlag())) {
 			for(Integer i = 1; i < 7; i++) {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroupGrade(attendance);
@@ -88,6 +95,31 @@ public class AttendanceServiceImpl implements AttendanceService {
 		}
 		
 		return result;
+	}
+
+
+	/**
+	 * 출석부 한개 값 불러오기
+	 */
+	@Override
+	public Attendance getOneAttendance(Attendance att) {
+		return attendanceMapper.selectOneAttendance(att);
+	}
+
+	/**
+	 * 사유 삭제
+	 */
+	@Override
+	public boolean removeAttSayu(Attendance att) {
+		return attendanceMapper.deleteAttSayu(att);
+	}
+
+	/**
+	 * 출석부 순서 변경
+	 */
+	@Override
+	public boolean modifyAttendanceOrd(Attendance att) {
+		return attendanceMapper.updateAttendanceOrd(att);
 	}
 
 }

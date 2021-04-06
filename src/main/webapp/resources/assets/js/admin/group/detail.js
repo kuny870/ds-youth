@@ -3,7 +3,7 @@ function attGroup() {
 
 	var gId = $('#gId').val();
 	var year = $('#year').val();
-	var season = $('#season').val();
+	var seasonFlag = $('#seasonFlag').val();
 	
 	var chks = document.getElementsByName("chks");  //컨트롤 name이 chks인 컨트롤 컬렉션을 가지고 옵니다.
 	var memberArr = new Array();
@@ -33,7 +33,7 @@ function attGroup() {
         	'gId' : gId,
         	'memberArr' : memberArr,
         	'year' : year,
-        	'season' : season
+        	'seasonFlag' : seasonFlag
         }, // serializes the form’s elements.
         success: function(result)
         {
@@ -68,7 +68,7 @@ function attGroup() {
 function attGroupGrade(mId, name, grade) {
 
 	var year = $('#year').val();
-	var season = $('#season').val();
+	var seasonFlag = $('#seasonFlag').val();
 	
 	if(grade == "순원") {
 		grade = "순장";
@@ -98,7 +98,7 @@ function attGroupGrade(mId, name, grade) {
     	        	'memberId' : mId,
     	        	'groupGrade' : grade,
     	        	'year' : year,
-    	        	'season' : season
+    	        	'seasonFlag' : seasonFlag
     	        }, // serializes the form’s elements.
     	        success: function(result)
     	        {

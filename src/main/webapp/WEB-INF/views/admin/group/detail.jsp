@@ -53,7 +53,7 @@
 				                            	<tr>
 				                            </c:otherwise>
 				                        </c:choose>
-						                            <td>
+						                            <td style="cursor: pointer;">
 						                            	<c:choose>
 														    <c:when test="${group.gName == member.group.gName}">
 							                    				<c:choose>
@@ -145,7 +145,7 @@
 		        	<form>
 		        		<input type="hidden" id="gId" name="gId" value="${group.id }" />
 		        		<input type="hidden" id="year" name="year" value="${group.year }" />
-                    	<input type="hidden" id="season" name="season" value="${group.season }" />
+                    	<input type="hidden" id="seasonFlag" name="seasonFlag" value="${group.seasonFlag }" />
                     	
 				        <div class="form-bottom" style="text-align:center;">
 			            	<button class="btn md-button2" type="button" onclick="attGroup()">적용</button>

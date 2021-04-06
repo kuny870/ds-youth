@@ -19,6 +19,12 @@
 		<result column="fourth_week" jdbcType="VARCHAR" property="fourthWeek" />
 		<result column="fifth_week" jdbcType="VARCHAR" property="fifthWeek" />
 		<result column="total_last_year" jdbcType="INTEGER" property="totalLastYear" />
+		<result column="sayu1" jdbcType="VARCHAR" property="sayu1" />
+		<result column="sayu2" jdbcType="VARCHAR" property="sayu2" />
+		<result column="sayu3" jdbcType="VARCHAR" property="sayu3" />
+		<result column="sayu4" jdbcType="VARCHAR" property="sayu4" />
+		<result column="sayu5" jdbcType="VARCHAR" property="sayu5" />
+		<result column="att_ord" jdbcType="INTEGER" property="attOrd" />
 		
 		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
 		<association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
@@ -67,6 +73,21 @@
                  <if test="fifthWeek != null">
                        fifth_week,
                  </if>
+                 <if test="sayu1 != null">
+                       sayu1,
+                 </if>
+                 <if test="sayu2 != null">
+                       sayu2,
+                 </if>
+                 <if test="sayu3 != null">
+                       sayu3,
+                 </if>
+                 <if test="sayu4 != null">
+                       sayu4,
+                 </if>
+                 <if test="sayu5 != null">
+                       sayu5,
+                 </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
 	           <if test="groupId != null">
@@ -105,6 +126,24 @@
 	           <if test="fifthWeek != null">
 	                 #{fifthWeek},
 	           </if>
+	           <if test="sayu1 != null">
+	                 #{sayu1},
+	           </if>
+	           <if test="sayu2 != null">
+	                 #{sayu2},
+	           </if>
+	           <if test="sayu3 != null">
+	                 #{sayu3},
+	           </if>
+	           <if test="sayu4 != null">
+	                 #{sayu4},
+	           </if>
+	           <if test="sayu5 != null">
+	                 #{sayu5},
+	           </if>
+	            <if test="att_ord != null">
+	                 #{attOrd},
+	           </if>
        </trim>
    </insert>
    
@@ -125,8 +164,15 @@
 		    , at.third_week AS third_week
 		    , at.fourth_week AS fourth_week
 		    , at.fifth_week AS fifth_week
+		    , at.sayu1 AS sayu1
+		    , at.sayu2 AS sayu2
+		    , at.sayu3 AS sayu3
+		    , at.sayu4 AS sayu4
+		    , at.sayu5 AS sayu5
+		    , at.att_ord AS att_ord
 			, m.id AS m_id
 			, m.name AS m_name
+			, m.memo AS m_memo
 			, m.guider AS m_guider
 		    , m.depart_id AS m_depart_id
 		    , m.team_id AS m_team_id
@@ -141,7 +187,7 @@
 		    , t.t_short_name AS t_t_short_name
 		    , t.t_full_name AS t_t_full_name
 		    , t.t_theme AS t_t_theme
-		    , substring(g.g_name, 3) AS g_g_name
+		    , g.g_name AS g_g_name
 		    , sp.birth_year AS sp_birth_year
 		    
 		    <if test="year > 2019">
@@ -177,8 +223,14 @@
         
 		WHERE 1=1
 			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
 			<if test="teamId != null and teamId != '' and teamId != 0">
-				AND t.id = #{teamId}
+				<if test="teamId != 4 and teamId != 8">
+					AND t.id = #{teamId}
+				</if>
+				<if test="teamId == 4 or teamId == 8">
+					AND (t.id = '4' or t.id = '8')
+				</if>
 				<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
 				<if test="teamId != 4 and teamId != 8">
 					AND at.group_id != ''
@@ -190,14 +242,35 @@
 			
 		ORDER BY 
 			<choose>
+				<when test="teamId == ''">
+					FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
+					, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
+					, g.ord ASC
+					, g.g_name ASC
+					, att_ord ASC
+				</when>
 				<when test="teamId == 4 or teamId == 8">
-					g.g_name DESC
+					att_ord ASC
+					, t.id ASC
 				</when>
 				<otherwise>
-					g.g_name ASC
+					g.ord ASC
+					, g.g_name ASC
+					, att_ord ASC
 				</otherwise>
 			</choose>
+			
 			, at.group_grade DESC
+			
+			<choose>
+				<!-- 2021 기도순 열공팀 출석부 특수정렬! -->
+				<when test="year == 2021 and 7 > month and teamId == 7">
+					, FIELD(m.name, '장정훈','조민수','김성아','김보람','김광진','이창희','황요한') DESC
+					, FIELD(m.name, '이경민','황세영','남윤성','이다은','이유진','손세훈','정주원') DESC
+					, FIELD(m.name, '박희영','천병현','신은경','이진아','박성인','현지성','최주현') DESC
+				</when>
+			</choose>
+			
 			, ms.ord ASC
 			
 			<choose>
@@ -239,9 +312,185 @@
 				</when>
 			</choose>
 			
-			<if test="year > 2019">
+			<!-- 지난해의 출석률순으로 출석부 배열 -->
+			<!-- <if test="year > 2019">
 				, B.total_last_year DESC
+			</if> -->
+			
+			, m.name ASC
+			, at.id ASC
+	</select>
+	
+	
+	<!-- 엑셀 다운로드용 - 팀별 출석부 명단 불러오기 -->
+	<select id="selectAttendanceForExcel" parameterType="org.ds.dsyouth.search.AttendanceSearch" resultMap="AttendanceMap">
+		SELECT
+			at.id AS id
+			, at.group_id AS group_id
+			, at.group_grade AS group_grade
+			, at.mem_state AS mem_state
+			, at.member_id AS member_id
+			, at.att_yn AS att_yn
+		    , at.year AS year
+		    , at.month AS month
+		    , at.first_week AS first_week
+		    , at.second_week AS second_week
+		    , at.third_week AS third_week
+		    , at.fourth_week AS fourth_week
+		    , at.fifth_week AS fifth_week
+		    , at.sayu1 AS sayu1
+		    , at.sayu2 AS sayu2
+		    , at.sayu3 AS sayu3
+		    , at.sayu4 AS sayu4
+		    , at.sayu5 AS sayu5
+		    , at.att_ord AS att_ord
+			, m.id AS m_id
+			, m.name AS m_name
+			, m.memo AS m_memo
+			, m.guider AS m_guider
+		    , m.depart_id AS m_depart_id
+		    , m.team_id AS m_team_id
+		    , m.date_of_birth AS m_date_of_birth
+		    , m.htel AS m_htel
+		    , m.gender AS m_gender
+		    , m.member_reg_date AS member_reg_date
+		    , m.member_grad_date AS member_grad_date
+		    , m.same_period_id AS m_same_period_id
+		    , m.mem_state AS m_mem_state
+		    , t.id AS t_id
+		    , t.t_short_name AS t_t_short_name
+		    , t.t_full_name AS t_t_full_name
+		    , t.t_theme AS t_t_theme
+		    , g.g_name AS g_g_name
+		    , sp.birth_year AS sp_birth_year
+		    
+		    <if test="year > 2019">
+		    	, B.total_last_year AS total_last_year
+		    </if>
+		    
+		FROM attendance_${year} at
+		LEFT OUTER JOIN member m ON m.id = at.member_id
+		LEFT OUTER JOIN member_state ms ON ms.id = at.mem_state
+		LEFT OUTER JOIN team t ON t.id = m.team_id
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+		
+		<!-- 작년 출석률을 가져오는 부분이기에 2019년도 테이블부터있기때문에 현재 year 데이터가 2020보다 작으면 안된다. -->
+		<if test="year > 2019">
+			LEFT OUTER JOIN (
+				SELECT
+					m.id AS id
+					, (SUM(IF(a.first_week = 'Y', 1, 0))
+	                  + SUM(IF(a.second_week = 'Y', 1, 0))
+	                  + SUM(IF(a.third_week = 'Y', 1, 0))
+	                  + SUM(IF(a.fourth_week = 'Y', 1, 0))
+	                  + SUM(IF(a.fifth_week = 'Y', 1, 0))) AS total_last_year
+				FROM attendance_${lastYear} a
+				LEFT OUTER JOIN member m ON m.id = a.member_id
+				LEFT OUTER JOIN team t ON t.id = m.team_id
+				WHERE 1=1
+					AND m.del_yn = 'N'
+					AND t.id = #{teamId}
+				GROUP BY a.member_id
+	        ) B ON B.id = m.id
+        </if>
+        
+		WHERE 1=1
+			AND m.del_yn = 'N'
+			AND m.mem_state NOT IN ('5', '6')
+			<if test="teamId != null and teamId != '' and teamId != 0">
+				<if test="teamId != 4 and teamId != 8">
+					AND t.id = #{teamId}
+				</if>
+				<if test="teamId == 4 or teamId == 8">
+					AND (t.id = '4' or t.id = '8')
+				</if>
+				<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
+				<if test="teamId != 4 and teamId != 8">
+					AND at.group_id != ''
+				</if>
 			</if>
+			<if test="month != null and month != '' and month != 0">
+				AND at.month = #{month}
+			</if>
+			
+		GROUP BY at.member_id
+		ORDER BY 
+			<choose>
+				<when test="teamId == ''">
+					FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
+					, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
+					, g.ord ASC
+					, g.g_name ASC
+					, at.att_ord ASC
+				</when>
+				<when test="teamId == 4 or teamId == 8">
+					at.att_ord ASC	
+					, t.id ASC
+				</when>
+				<otherwise>
+					g.ord ASC
+					, g.g_name ASC
+					, at.att_ord ASC
+				</otherwise>
+			</choose>
+			
+			, at.group_grade DESC
+			
+			<choose>
+				<!-- 2021 기도순 열공팀 출석부 특수정렬! -->
+				<when test="year == 2021 and 7 > month and teamId == 7">
+					, FIELD(m.name, '장정훈','조민수','김성아','김보람','김광진','이창희','황요한') DESC
+					, FIELD(m.name, '이경민','황세영','남윤성','이다은','이유진','손세훈','정주원') DESC
+					, FIELD(m.name, '박희영','천병현','신은경','이진아','박성인','현지성','최주현') DESC
+				</when>
+			</choose>
+			
+			, ms.ord ASC
+			
+			<choose>
+				<!-- 2020 코로나순 기쁨팀 출석부 특수정렬! -->
+				<when test="year == 2020 and month > 9 and teamId == 1">
+					, FIELD(m.name, '한혜린','박소희','윤지은') DESC
+				</when>
+				<!-- 2020 코로나순 언약팀 출석부 특수정렬! -->
+				<when test="year == 2020 and month > 9 and teamId == 2">
+					, FIELD(m.name, '정상현','오하준','김세훈') DESC
+					, FIELD(m.name, '이가은','박성인','정다혜','이윤호') DESC
+					, FIELD(m.name, '이혜림','문신영','김진웅','현지성') DESC
+					, FIELD(m.name, '정은혜','조수빈','이은혜','김예림') DESC
+				</when>
+				<!-- 2020 코로나순 등대팀 출석부 특수정렬! -->
+				<when test="year == 2020 and month > 9 and teamId == 3">
+					, FIELD(m.name, '김진수','정희진','김민주','조동현') DESC
+				</when>
+				<!-- 2020 코로나순 동산팀 출석부 특수정렬! -->
+				<when test="year == 2020 and month > 9 and teamId == 9">
+					, FIELD(m.name, '정주원','김현준') DESC
+					, FIELD(m.name, '서유리','황요한') DESC
+				</when>
+				<!-- 2020 코로나순 은행팀 출석부 특수정렬! -->
+				<when test="year == 2020 and month > 9 and teamId == 6">
+					, FIELD(m.name, '박하용', '윤현재','이병용','최동규','염종천') DESC
+				</when>
+				<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
+				<when test="year == 2020 and teamId == 2">
+					, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
+					, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
+					, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
+				</when>
+				<!-- 2020 상반기 기쁨팀 출석부 특수정렬! -->
+				<when test="year == 2020 and teamId == 1">
+					, FIELD(m.name, '홍영재','이승민') DESC
+					, FIELD(m.name, '김범수','이정연','이신재') DESC
+					, FIELD(m.name, '김도형','황성국','한희진','한혜린','김지수','김수영') DESC
+				</when>
+			</choose>
+			
+			<!-- 지난해의 출석률순으로 출석부 배열 -->
+			<!-- <if test="year > 2019">
+				, B.total_last_year DESC
+			</if> -->
 			
 			, m.name ASC
 			, at.id ASC
@@ -249,7 +498,7 @@
 	
 	
 	
-	<!-- 출석부 체크 -->
+	<!-- 출석부 체크 적용 -->
 	<update id="updateAttendanceCheck" parameterType="Attendance">
 		UPDATE attendance_${year}
     	<set>
@@ -268,9 +517,49 @@
 	      	<if test="fifthWeek != null">
 	        	fifth_week = #{fifthWeek},
 	      	</if>
+	      	<if test="sayu1 != null">
+	        	sayu1 = #{sayu1},
+	      	</if>
+	      	<if test="sayu2 != null">
+	        	sayu2 = #{sayu2},
+	      	</if>
+	      	<if test="sayu3 != null">
+	        	sayu3 = #{sayu3},
+	      	</if>
+	      	<if test="sayu4 != null">
+	        	sayu4 = #{sayu4},
+	      	</if>
+	      	<if test="sayu5 != null">
+	        	sayu5 = #{sayu5},
+	      	</if>
 	    </set>
 		WHERE 1=1
 			AND id = #{id}
+	</update>
+	
+	
+	<!-- 출석부 순서 변경 -->
+	<update id="updateAttendanceOrd" parameterType="Attendance">
+		UPDATE attendance_${year}
+    	<set>
+	      	<if test="attOrd != null">
+	        	att_ord = #{attOrd},
+	      	</if>
+	    </set>
+		WHERE 1=1
+			AND member_id = #{memberId} 
+			AND att_yn = #{attYn}
+			
+			<choose>
+				<when test="month > 6">
+					AND month > 6 
+				</when>
+				<otherwise>
+					<![CDATA[
+						AND month < 7
+					]]>
+				</otherwise>
+			</choose>
 	</update>
 	
 	
@@ -330,6 +619,19 @@
 		WHERE 1=1
 			AND member_id = #{memberId}
 			AND month = #{month}
+	</update>
+	
+	<!-- 출석부 한개 불러오기 -->
+	<select id="selectOneAttendance" parameterType="Attendance" resultMap="AttendanceMap">
+		SELECT * FROM attendance_${year} WHERE id = #{id}
+	</select>
+	
+	<!-- 출석부 사유 삭제 -->
+	<update id="deleteAttSayu" parameterType="Attendance">
+		UPDATE attendance_${year}
+		SET ${removeFlag} = ''
+		WHERE 1=1
+			AND id = #{id}
 	</update>
 	
 </mapper>

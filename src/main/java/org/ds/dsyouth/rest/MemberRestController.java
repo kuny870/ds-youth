@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.ds.dsyouth.exception.IdDuplicatedException;
+import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Member;
 import org.ds.dsyouth.rest.common.ResponseCode;
 import org.ds.dsyouth.rest.common.RestResponse;
+import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.validator.MemberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class MemberRestController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private AttendanceService attendanceService;
 
 	@Autowired
 	MemberValidator memberValidator;
@@ -88,6 +93,49 @@ public class MemberRestController {
 		
 		try {
 			memberService.modifyMember(member);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
+	/**
+	 * 멤버 메모 수정
+	 * @param member
+	 * @return
+	 */
+	@RequestMapping(value = "/member/memo", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse member_memo_edit(
+			@ModelAttribute Member member,
+			String sundays, String sayu, Integer attId, String thisYear) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			Attendance att = new Attendance();
+			
+			if("1".equals(sundays)) {
+				att.setSayu1(sayu);
+			}else if("2".equals(sundays)) {
+				att.setSayu2(sayu);
+			}else if("3".equals(sundays)) {
+				att.setSayu3(sayu);
+			}else if("4".equals(sundays)) {
+				att.setSayu4(sayu);
+			}else{
+				att.setSayu5(sayu);
+			}
+			att.setId(attId);
+			att.setYear(thisYear);
+			
+			memberService.modifyMemberMemo(member);
+			attendanceService.modifyAttendanceCheck(att);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

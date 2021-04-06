@@ -324,7 +324,7 @@ $("#loginForm").submit(function(e) {
 	                    text: result.message,
 	                    confirmButtonText: '확인',
 	                    allowOutsideClick: true
-	                });
+	              	});
 
               }
           },
@@ -334,10 +334,10 @@ $("#loginForm").submit(function(e) {
                   confirmButtonText: '확인',
                   allowOutsideClick: true
               });
+        	  
           }
     });
     e.preventDefault(); // avoid to execute the actual submit of the form.
-    
   
 });
 

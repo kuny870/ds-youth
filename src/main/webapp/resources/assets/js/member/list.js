@@ -1,3 +1,8 @@
+function memberModify(id, pageNo, teamId, groupId, nameKW) {
+	var name = encodeURI(encodeURI(nameKW));
+	location.href = contextPath + "/member/modify?id=" + id + "&pageNo=" + pageNo + "&teamId=" + teamId + "&groupId=" + groupId + "&nameKW=" + name;
+}
+
 function fnGetCtgSub(sParam){
     var $target = $("select[name='groupId']");
      
@@ -50,12 +55,13 @@ var pageModule = (function () {
         	   	 var teamId = $('#teamId').val();
         		 var groupId = $('#groupId').val();
         		 var nameKW = $('#nameKW').val();
+        		 var name = encodeURI(encodeURI(nameKW));
                  // 페이지 번호를 JSON형태로 저장해서 파라미터로 보낸다.
                  var param = {
                            pageNo : pageNo,
                            teamId : teamId,
                            groupId : groupId,
-                           nameKW : nameKW
+                           nameKW : name
                      };
                 movePage(param);
            },

@@ -42,7 +42,7 @@
 			                    		<tr>
 			                    			<td>${team.depart.dName}</td>
 				                            <td class="css-a">
-				                            	 <a href="${contextPath }/team/modify/${team.tShortName}">${team.tShortName}</a>
+				                            	 <a href="${contextPath }/team/modify/${team.id}">${team.tShortName}</a>
 				                            	 <input type="hidden" id="${team.id}-input-hidden" value="${team.tShortName}" />
 				                           	</td>
 				                            <td>
@@ -78,7 +78,7 @@
 											<option value="${depart.id}" >${depart.dName}</option>
 										</c:forEach>
 					        		</select>
-					 	        	<input class="basic-input admin-team-input" id="tShortName" name="tShortName" placeholder="팀" autocomplete="off"></input>
+					 	        	<input class="basic-input admin-team-input" id="tShortName" name="tShortName" placeholder="팀명" autocomplete="off"></input>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">추가</button>

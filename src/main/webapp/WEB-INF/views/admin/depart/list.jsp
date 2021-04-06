@@ -32,7 +32,7 @@
 			                <table>
 			                    <thead>
 			                        <tr>
-			                            <th>부서명</th>
+			                            <th>부서</th>
 			                            <th class="th-14p3"></th>
 			                        </tr>
 			                    </thead>
@@ -64,7 +64,7 @@
 			        	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
 			        
 			        	<div style="text-align: center;">
-			 	        	<input class="md-input" id="dName" name="dName" placeholder="부서" autocomplete="off"></input>
+			 	        	<input class="md-input" id="dName" name="dName" placeholder="부서명" autocomplete="off"></input>
 			 	        </div>
 				        <div class="form-bottom" style="text-align:center;">
 			            	<button class="btn md-button" type="submit">추가</button>
