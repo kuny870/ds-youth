@@ -1,4 +1,8 @@
 /* �뙘�뾽李� �떆�옉 */
+.cursor-pointer {
+	cursor: pointer;
+}
+
 .noticeClose {
       background-color: #333333;
       color: #ffffff ;
@@ -319,7 +323,7 @@
 .admin-reset-btn {
 	width: 12vw;
 	height: 7vw;
-	font-size: 2.6vw;
+	font-size: 2.5vw;
 	background-color: red;
 }
 

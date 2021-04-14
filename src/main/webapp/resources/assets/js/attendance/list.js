@@ -121,6 +121,9 @@ function getSayu(val){
 
 // 사유 삭제
 function sayuRemove() {
+	
+	if(doubleSubmitCheck()) return;
+	
 	var id = $('#attId2').val();
 	var year = $('#thisYear').val();
 	var ord = $('#ord').val();
@@ -181,6 +184,8 @@ function sayuRemove() {
 
 // 멤버 메모 등록
 function memberMemoAndSayuRegist() {
+	
+	if(doubleSubmitCheck()) return;
 	
 	// 지체상황 data
 	var memberId = $("#memoPopId").val();
@@ -304,6 +309,8 @@ function getSeason(sParam){
 // 출석 적용
 function attendanceRegist() {
 	
+	if(doubleSubmitCheck()) return;
+
 //	console.log("sortables: " + sortableArr);
 	
 	if(sortableArr.length > 0) {

@@ -23,7 +23,8 @@
     <div class="container">
    		<div class="header-product">
             <p class="main_title text-center" style="background: white;">
-                 <img src="${resourcesPath }/assets/images/dsyouth_logo.png" class="main-img"> <span class="main-title"> 청년부</span>
+                 <img src="${resourcesPath }/assets/images/dsyouth_logo.png" class="main-img">
+                 <span class="main-title cursor-pointer" onclick="window.open('http://gofile.me/6NANj/vkCQtOUIt', '_blanck'); return false;"> 청년부</span>
             </p>
             <div class="mypage-wrap">
             

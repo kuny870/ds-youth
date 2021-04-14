@@ -15,7 +15,7 @@ function remove(id, name) {
         }).then(function (result) {
             if(result.value) {
             	
-            	var url = contextPath + "/rest/authExec/remove"
+            	var url = contextPath + "/rest/authExec/remove";
     			
     			$.ajax({
     		          type: "POST",
@@ -63,7 +63,7 @@ function remove(id, name) {
         }).then(function (result) {
             if(result.value) {
             	
-            	var url = contextPath + "/rest/auth/remove"
+            	var url = contextPath + "/rest/auth/remove";
     			
     			$.ajax({
     		          type: "POST",

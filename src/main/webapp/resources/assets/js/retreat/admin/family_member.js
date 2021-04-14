@@ -1,6 +1,8 @@
 // 가족원 적용
 function familyRegist(fId) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var chks = document.getElementsByName("chks");  //컨트롤 name이 chks인 컨트롤 컬렉션을 가지고 옵니다.
 	var departId = document.getElementsByName("departId");
 	var teamId = document.getElementsByName("teamId");
@@ -32,10 +34,11 @@ function familyRegist(fId) {
     	    confirmButtonText: '확인',
     	    allowOutsideClick: true
     	});
+    	doubleSubmitFlag = false;
     	return false;
     }
 
-    var url = contextPath + "/rest/familyMember/regist"
+    var url = contextPath + "/rest/familyMember/regist";
     $.ajax({
         type: "POST",
         url: url,

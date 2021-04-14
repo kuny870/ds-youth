@@ -1,3 +1,7 @@
+function enterKeyEvent(groupId) {
+	modify(groupId);
+}
+
 function getSeason(sParam){
     var $target = $("select[name='seasonFlag']");
      
@@ -36,6 +40,8 @@ function getSeason(sParam){
 //순명 등록
 $("#registGroupForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $team = $('#teamId');
 	var $gName = $('#gName');
 	var $gOrd = $('#ord');
@@ -63,11 +69,12 @@ $("#registGroupForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	} 
 	
 	var form = $(this);
-	var url = contextPath + "/rest/group/regist"
+	var url = contextPath + "/rest/group/regist";
    
 	$.ajax({
           type: "POST",
@@ -155,58 +162,96 @@ function modify(id) {
     if($targetModifyBtn.html() === '수정'){
     	$targetModifyBtn.html('확인');
     	$targetRemoveBtn.html('취소');
+    	$('#' + id + '-gName-input').focus();
     }else {
     	
-    	// 순명 수정 프로세스
-    	Swal.fire({
-            title: '순명 수정',
-            html: '정말 수정 하시겠습니까?',
-            showCancelButton: true,
-            cancelButtonText: '취소',
-            confirmButtonText: '확인',
-            allowOutsideClick: true,
-            reverseButtons: true
-        }).then(function (result) {
-        		
-        	if(result.value){
-        		
-        		var url = contextPath + "/rest/group/modify"
-        		
-        		$.ajax({
-        	          type: "POST",
-        	          url: url,
-        	          data: {
-        	        	  id : id
-        	        	  , gName : gNameInput.value
-        	        	  , ord : gOrdInput.value
-        	        	  , year : year
-        	        	  , seasonFlag : seasonFlag
-        	          }, // serializes the form’s elements.
-        	          success: function(result)
-        	          {
-        	              if(result.success) { // show response from the php script.
-        	            	  location.reload();
-        	              }else {
-        	            	  Swal.fire({
-        		                    text: result.message,
-        		                    confirmButtonText: '확인',
-        		                    allowOutsideClick: true
-        		                });
+    	// 순명 수정 프로세스 TO-BE
+    	var url = contextPath + "/rest/group/modify";
+		
+		$.ajax({
+	          type: "POST",
+	          url: url,
+	          data: {
+	        	  id : id
+	        	  , gName : gNameInput.value
+	        	  , ord : gOrdInput.value
+	        	  , year : year
+	        	  , seasonFlag : seasonFlag
+	          }, // serializes the form’s elements.
+	          success: function(result)
+	          {
+	              if(result.success) { // show response from the php script.
+	            	  location.reload();
+	              }else {
+	            	  Swal.fire({
+		                    text: result.message,
+		                    confirmButtonText: '확인',
+		                    allowOutsideClick: true
+		                });
 
-        	              }
-        	          },
-        	   		  fail: function(result) {
-        	   			Swal.fire({
-    	                    text: "순명 수정에 실패했습니다",
-    	                    confirmButtonText: '확인',
-    	                    allowOutsideClick: true
-    	                });
-        	   		  }
-        	    });
-        		
-        	}
-        	
-        });
+	              }
+	          },
+	   		  fail: function(result) {
+	   			Swal.fire({
+                    text: "순명 수정에 실패했습니다",
+                    confirmButtonText: '확인',
+                    allowOutsideClick: true
+                });
+	   		  }
+	    });
+		
+		
+    	
+    	// 순명 수정 프로세스 AS-IS
+//    	Swal.fire({
+//            title: '순명 수정',
+//            html: '정말 수정 하시겠습니까?',
+//            showCancelButton: true,
+//            cancelButtonText: '취소',
+//            confirmButtonText: '확인',
+//            allowOutsideClick: true,
+//            reverseButtons: true
+//        }).then(function (result) {
+//        		
+//        	if(result.value){
+//        		
+//        		var url = contextPath + "/rest/group/modify";
+//        		
+//        		$.ajax({
+//        	          type: "POST",
+//        	          url: url,
+//        	          data: {
+//        	        	  id : id
+//        	        	  , gName : gNameInput.value
+//        	        	  , ord : gOrdInput.value
+//        	        	  , year : year
+//        	        	  , seasonFlag : seasonFlag
+//        	          }, // serializes the form’s elements.
+//        	          success: function(result)
+//        	          {
+//        	              if(result.success) { // show response from the php script.
+//        	            	  location.reload();
+//        	              }else {
+//        	            	  Swal.fire({
+//        		                    text: result.message,
+//        		                    confirmButtonText: '확인',
+//        		                    allowOutsideClick: true
+//        		                });
+//
+//        	              }
+//        	          },
+//        	   		  fail: function(result) {
+//        	   			Swal.fire({
+//    	                    text: "순명 수정에 실패했습니다",
+//    	                    confirmButtonText: '확인',
+//    	                    allowOutsideClick: true
+//    	                });
+//        	   		  }
+//        	    });
+//        		
+//        	}
+//        	
+//        });
 
     }
     
@@ -214,7 +259,7 @@ function modify(id) {
 }
 
 function remove(id) {
-	
+
 	var gNameATag = document.getElementById(id + '-a');
 	var gNameInput = document.getElementById(id + '-gName-input');
 	
@@ -251,7 +296,7 @@ function remove(id) {
         	
         	if(result.value){
         		
-        		var url = contextPath + "/rest/group/remove"
+        		var url = contextPath + "/rest/group/remove";
         		
         		$.ajax({
         	          type: "POST",

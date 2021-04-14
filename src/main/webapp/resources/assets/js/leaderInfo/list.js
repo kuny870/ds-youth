@@ -1,6 +1,8 @@
 // 리더배포자료 등록
 $("#registLeaderInfoForm").submit(function(e) {
 	
+	if(doubleSubmitCheck()) return;
+	
 	var dateRegex=/^[0-9]{1,2}$/;
 	
 	var $month = $('#month');
@@ -36,6 +38,7 @@ $("#registLeaderInfoForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
@@ -43,7 +46,7 @@ $("#registLeaderInfoForm").submit(function(e) {
 	var form = $('#registLeaderInfoForm')[0];
     var formData = new FormData(form);
     
-	var url = contextPath + "/rest/leaderInfo/regist"
+	var url = contextPath + "/rest/leaderInfo/regist";
 	
 	$.ajax({
         type: "post",

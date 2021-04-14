@@ -21,8 +21,9 @@
 		    <nav>
 		        <ul>
 		            <li>
-		                <span class="dsyouth-link" id="linkCopy">링크복사</span>
-		            	<a class="dsyouth-link" id="clipURL" href="http://keonhee.synology.me/dsyouth">링크복사</a>
+		                <!-- <span class="dsyouth-link" id="linkCopy">링크복사</span>
+		            	<a class="dsyouth-link" id="clipURL" href="http://keonhee.synology.me/dsyouth">링크복사</a> -->
+		            	<a href="http://gofile.me/6NANj/vkCQtOUIt" onclick="window.open(this.href, '_blanck'); return false;">사용가이드</a>
 		            </li>
 		        </ul>
 		    </nav>

@@ -15,7 +15,7 @@ function pwReset(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/user/pw/reset"
+    		var url = contextPath + "/rest/user/pw/reset";
     		
     		$.ajax({
     	          type: "POST",
@@ -74,7 +74,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/user/remove"
+    		var url = contextPath + "/rest/user/remove";
     		
     		$.ajax({
     	          type: "POST",
@@ -128,7 +128,7 @@ function restore(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/user/restore"
+    		var url = contextPath + "/rest/user/restore";
     		
     		$.ajax({
     	          type: "POST",

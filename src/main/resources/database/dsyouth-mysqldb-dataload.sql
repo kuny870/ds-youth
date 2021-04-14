@@ -184,3 +184,6 @@ SELECT login_id, session_id
 FROM user
 WHERE use_cookie = 'Y' and del_yn = 'N';
 ---------------------------------------------------------------------------
+
+
+

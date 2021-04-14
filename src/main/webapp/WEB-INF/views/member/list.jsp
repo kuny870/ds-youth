@@ -55,7 +55,7 @@
                     </div>        
                     
                     <div class="customer-select-search" style="width: 22%; margin-left:-33px; margin-right:-3px; float: left;">
-                         <input type="text" class="md-input2" id="nameKW" name="nameKW" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
+                         <input type="text" class="md-input2" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
 		            </div>
 		            <div>
 		            	<button class="basic-btn member-list-btn" onclick="memberSearch()">검색</button>

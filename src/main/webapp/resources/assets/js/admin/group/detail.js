@@ -1,6 +1,8 @@
 // 순공부 적용
 function attGroup() {
 
+	if(doubleSubmitCheck()) return;
+	
 	var gId = $('#gId').val();
 	var year = $('#year').val();
 	var seasonFlag = $('#seasonFlag').val();
@@ -21,10 +23,11 @@ function attGroup() {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+    	doubleSubmitFlag = false;
     	return false;
     }
 
-    var url = contextPath + "/rest/attGroup/edit"
+    var url = contextPath + "/rest/attGroup/edit";
     $.ajax({
         type: "POST",
         url: url,
@@ -88,7 +91,7 @@ function attGroupGrade(mId, name, grade) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/attGroupGrade/edit"
+    		var url = contextPath + "/rest/attGroupGrade/edit";
         	
     	    $.ajax({
     	        type: "POST",

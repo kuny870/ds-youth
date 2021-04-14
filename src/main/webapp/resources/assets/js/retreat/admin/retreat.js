@@ -14,7 +14,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/retreat/remove"
+    		var url = contextPath + "/rest/retreat/remove";
     		
     		$.ajax({
     	          type: "POST",

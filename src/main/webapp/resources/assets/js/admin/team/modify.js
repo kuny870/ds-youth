@@ -2,7 +2,7 @@
 $("#teamModifyForm").submit(function(e) {
 
 	var form = $(this);
-	var url = contextPath + "/rest/team/modify"
+	var url = contextPath + "/rest/team/modify";
    
 	$.ajax({
           type: "POST",

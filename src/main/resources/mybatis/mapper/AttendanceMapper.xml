@@ -88,6 +88,9 @@
                  <if test="sayu5 != null">
                        sayu5,
                  </if>
+                 <if test="attOrd != null">
+                       att_ord,
+                 </if>
           </trim>
           <trim prefix="values (" suffix=")" suffixOverrides=",">
 	           <if test="groupId != null">
@@ -141,7 +144,7 @@
 	           <if test="sayu5 != null">
 	                 #{sayu5},
 	           </if>
-	            <if test="att_ord != null">
+	            <if test="attOrd != null">
 	                 #{attOrd},
 	           </if>
        </trim>
@@ -250,8 +253,8 @@
 					, att_ord ASC
 				</when>
 				<when test="teamId == 4 or teamId == 8">
-					att_ord ASC
-					, t.id ASC
+					t.id ASC
+					, att_ord ASC
 				</when>
 				<otherwise>
 					g.ord ASC
@@ -260,57 +263,8 @@
 				</otherwise>
 			</choose>
 			
-			, at.group_grade DESC
-			
-			<choose>
-				<!-- 2021 기도순 열공팀 출석부 특수정렬! -->
-				<when test="year == 2021 and 7 > month and teamId == 7">
-					, FIELD(m.name, '장정훈','조민수','김성아','김보람','김광진','이창희','황요한') DESC
-					, FIELD(m.name, '이경민','황세영','남윤성','이다은','이유진','손세훈','정주원') DESC
-					, FIELD(m.name, '박희영','천병현','신은경','이진아','박성인','현지성','최주현') DESC
-				</when>
-			</choose>
-			
+			, at.group_grade DESC			
 			, ms.ord ASC
-			
-			<choose>
-				<!-- 2020 코로나순 기쁨팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 1">
-					, FIELD(m.name, '한혜린','박소희','윤지은') DESC
-				</when>
-				<!-- 2020 코로나순 언약팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 2">
-					, FIELD(m.name, '정상현','오하준','김세훈') DESC
-					, FIELD(m.name, '이가은','박성인','정다혜','이윤호') DESC
-					, FIELD(m.name, '이혜림','문신영','김진웅','현지성') DESC
-					, FIELD(m.name, '정은혜','조수빈','이은혜','김예림') DESC
-				</when>
-				<!-- 2020 코로나순 등대팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 3">
-					, FIELD(m.name, '김진수','정희진','김민주','조동현') DESC
-				</when>
-				<!-- 2020 코로나순 동산팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 9">
-					, FIELD(m.name, '정주원','김현준') DESC
-					, FIELD(m.name, '서유리','황요한') DESC
-				</when>
-				<!-- 2020 코로나순 은행팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 6">
-					, FIELD(m.name, '박하용', '윤현재','이병용','최동규','염종천') DESC
-				</when>
-				<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
-				<when test="year == 2020 and teamId == 2">
-					, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
-					, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
-					, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
-				</when>
-				<!-- 2020 상반기 기쁨팀 출석부 특수정렬! -->
-				<when test="year == 2020 and teamId == 1">
-					, FIELD(m.name, '홍영재','이승민') DESC
-					, FIELD(m.name, '김범수','이정연','이신재') DESC
-					, FIELD(m.name, '김도형','황성국','한희진','한혜린','김지수','김수영') DESC
-				</when>
-			</choose>
 			
 			<!-- 지난해의 출석률순으로 출석부 배열 -->
 			<!-- <if test="year > 2019">
@@ -436,56 +390,7 @@
 			</choose>
 			
 			, at.group_grade DESC
-			
-			<choose>
-				<!-- 2021 기도순 열공팀 출석부 특수정렬! -->
-				<when test="year == 2021 and 7 > month and teamId == 7">
-					, FIELD(m.name, '장정훈','조민수','김성아','김보람','김광진','이창희','황요한') DESC
-					, FIELD(m.name, '이경민','황세영','남윤성','이다은','이유진','손세훈','정주원') DESC
-					, FIELD(m.name, '박희영','천병현','신은경','이진아','박성인','현지성','최주현') DESC
-				</when>
-			</choose>
-			
 			, ms.ord ASC
-			
-			<choose>
-				<!-- 2020 코로나순 기쁨팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 1">
-					, FIELD(m.name, '한혜린','박소희','윤지은') DESC
-				</when>
-				<!-- 2020 코로나순 언약팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 2">
-					, FIELD(m.name, '정상현','오하준','김세훈') DESC
-					, FIELD(m.name, '이가은','박성인','정다혜','이윤호') DESC
-					, FIELD(m.name, '이혜림','문신영','김진웅','현지성') DESC
-					, FIELD(m.name, '정은혜','조수빈','이은혜','김예림') DESC
-				</when>
-				<!-- 2020 코로나순 등대팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 3">
-					, FIELD(m.name, '김진수','정희진','김민주','조동현') DESC
-				</when>
-				<!-- 2020 코로나순 동산팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 9">
-					, FIELD(m.name, '정주원','김현준') DESC
-					, FIELD(m.name, '서유리','황요한') DESC
-				</when>
-				<!-- 2020 코로나순 은행팀 출석부 특수정렬! -->
-				<when test="year == 2020 and month > 9 and teamId == 6">
-					, FIELD(m.name, '박하용', '윤현재','이병용','최동규','염종천') DESC
-				</when>
-				<!-- 2020 상반기 언약팀 - 한나순 출석부 특수정렬! -->
-				<when test="year == 2020 and teamId == 2">
-					, FIELD(m.name, '정다혜','정은혜','박성인','이혜림') DESC
-					, FIELD(m.name, '최혜리','강유라','김목인','조수빈','김세훈') DESC
-					, FIELD(m.name, '김도희','김예림','문신영','이은혜','이가은') DESC
-				</when>
-				<!-- 2020 상반기 기쁨팀 출석부 특수정렬! -->
-				<when test="year == 2020 and teamId == 1">
-					, FIELD(m.name, '홍영재','이승민') DESC
-					, FIELD(m.name, '김범수','이정연','이신재') DESC
-					, FIELD(m.name, '김도형','황성국','한희진','한혜린','김지수','김수영') DESC
-				</when>
-			</choose>
 			
 			<!-- 지난해의 출석률순으로 출석부 배열 -->
 			<!-- <if test="year > 2019">

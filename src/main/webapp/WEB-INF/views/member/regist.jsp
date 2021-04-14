@@ -65,8 +65,8 @@
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">                        
                         </label>
                         
-                       	<input type="hidden" id="departId" name="departId" value="${login.departId }">
-                       	<input type="hidden" id="teamId" name="teamId" value="${login.teamId }">
+                       	<input type="hidden" id="loginDepartId" name="loginDepartId" value="${login.departId }">
+                       	<input type="hidden" id="loginTeamId" name="loginTeamId" value="${login.teamId }">
                         
                         <!-- 부서 -->
                         <div class="customer-select">

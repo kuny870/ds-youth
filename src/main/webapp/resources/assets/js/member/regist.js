@@ -79,6 +79,8 @@ function getNewMemberDetail(val){
 // 멤버 등록
 $("#memberRegistForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var dateOfBirthRegex=/^[0-9]{6}$/;
 	var htelRegex=/^[0-9]{10,11}$/;
 	
@@ -109,11 +111,12 @@ $("#memberRegistForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/member/regist"
+	var url = contextPath + "/rest/member/regist";
    
 	$.ajax({
           type: "POST",
@@ -123,7 +126,7 @@ $("#memberRegistForm").submit(function(e) {
           {
               if(result.success) {
             	  Swal.fire({
-                      text: "멤버가 등록 되었습니다",
+                      text: "팀원이 등록 되었습니다",
                       confirmButtonText: '확인',
                       allowOutsideClick: true
                   }).then(function() {

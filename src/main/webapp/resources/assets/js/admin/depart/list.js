@@ -1,6 +1,8 @@
 //부서등록
 $("#registDepartForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $dName = $('#dName');
 
 	var validateMessage = null;
@@ -20,11 +22,12 @@ $("#registDepartForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
     	return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/depart/regist"
+	var url = contextPath + "/rest/depart/regist";
    
 	$.ajax({
           type: "POST",
@@ -78,7 +81,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/depart/remove"
+    		var url = contextPath + "/rest/depart/remove";
     		
     		$.ajax({
     	          type: "POST",

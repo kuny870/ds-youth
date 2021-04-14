@@ -1,6 +1,8 @@
 //비밀번호 수정
 $("#pwEditForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $currentPw = $('#currentPw');
 	var $loginPw = $('#loginPw');
 	var $loginPwConfirm = $('#loginPwConfirm');
@@ -31,11 +33,12 @@ $("#pwEditForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/pw/reset"
+	var url = contextPath + "/rest/pw/reset";
    
 	$.ajax({
           type: "POST",

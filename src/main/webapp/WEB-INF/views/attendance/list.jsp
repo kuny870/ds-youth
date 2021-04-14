@@ -148,7 +148,7 @@
 													<c:set var="groupNameTmp" value="${att.group.gName}"/>
 													<tbody class="${tbodySortable }">
 												</c:when>
-												<c:when test="${i.index > 0 && att.group.gName == groupNameTmp}">
+												<c:when test="${i.index > 0 && att.group.gName == groupNameTmp && att.team.id == teamIdTmp}">
 			                       					<c:set var="tbodySortable" value="sortable${sortableIndex}"/>
 			                            		</c:when>
 							                    <c:otherwise>
@@ -158,6 +158,7 @@
 							                    	<tbody class="${tbodySortable }">
 							                    </c:otherwise>
 											</c:choose>
+											<c:set var="teamIdTmp" value="${att.team.id}"/>
 										
 					                    
 			                            				<c:choose>

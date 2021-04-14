@@ -204,6 +204,8 @@ function get(url) {
 // 로그인
 $("#loginForm").submit(function(e) {
 	
+	if(doubleSubmitCheck()) return;
+	
 	var $loginId = $('#loginId');
 	var $loginPw = $('#loginPw');
 	var useCookie = $('#useCookieCheckBox').is(":checked");
@@ -234,12 +236,13 @@ $("#loginForm").submit(function(e) {
              confirmButtonText: '확인',
              allowOutsideClick: true
          });
+         doubleSubmitFlag = false;
          return false;
     }
     
     
     var form = $(this);
-    var url = contextPath + "/rest/login"
+    var url = contextPath + "/rest/login";
 	
     $.ajax({
           type: "POST",
@@ -346,7 +349,7 @@ $("#loginForm").submit(function(e) {
 // 로그아웃
 function logout(val) {
 	
-	var url = contextPath + "/rest/logout"
+	var url = contextPath + "/rest/logout";
 	
 	$.ajax({
       type: "POST",

@@ -1,6 +1,8 @@
 //가족 등록
 $("#registFamilyForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $famName = $('#famName');
 
 	var validateMessage = null;
@@ -20,11 +22,12 @@ $("#registFamilyForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/family/regist"
+	var url = contextPath + "/rest/family/regist";
    
 	$.ajax({
           type: "POST",
@@ -79,7 +82,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/family/remove"
+    		var url = contextPath + "/rest/family/remove";
     		
     		$.ajax({
     	          type: "POST",

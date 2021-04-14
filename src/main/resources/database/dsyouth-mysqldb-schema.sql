@@ -26,7 +26,8 @@ ADD (ord int(10));
 ALTER TABLE attendance_2021
 ADD (att_ord Integer(10) DEFAULT 0);
 
-update `group` set  ord = 0;
+update `group` set ord = 0;
+update attendance_2021 set att_ord = 99 where att_ord = 0;
 
 -- 출석부 순서 초기화 쿼리
 update attendance_2021 set  att_ord = 0;
@@ -53,7 +54,7 @@ create table user (
     date_of_birth varchar(50) null,		-- 생년월일
     htel varchar(50) null,	-- 핸드폰번호
     gender varchar(10) null,	-- 성별 / male or female
-    session_id varchar(100) null,	-- 세션 아이디
+    session_id varchar(100) null,	-- 세션 id
     use_cookie varchar(10) not null default 'N', -- 로그인 유지 여부
     auth_id int(10) not null default 7,	-- 회원 등급 default : 일반 순원 7
     auth_exec int(10) not null default 0, -- 임원 여부 / 0:일반 or 1:국장
@@ -67,10 +68,8 @@ create table user (
 -- 사용자 로그인 유지
 create table user_keep_login (
     login_id varchar(50) not null,		-- 아이디
-    session_id varchar(100) not null,	-- 세션 아이디
-	reg_date datetime DEFAULT CURRENT_TIMESTAMP,	-- 가입 시간
-    
-    constraint pk_user_keep_login primary key (id)
+    session_id varchar(100) not null,	-- 세션 id
+	reg_date datetime DEFAULT CURRENT_TIMESTAMP	-- 등록 시간
 );
 
 
@@ -122,7 +121,8 @@ create table team (
 create table year_season (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
     `year` varchar(10) not null,	-- 년도
-    season varchar(10) not null,	-- 시즌
+    season varchar(20) not null,	-- 시즌
+    season_flag varchar(10) not default null,	-- 시즌구분자
     del_yn varchar(10) not null default 'N',	-- 삭제 여부
     
 	constraint pk_year_season primary key (id)
@@ -158,6 +158,7 @@ create table attendance_${nextYear} (
     third_week varchar(10) not null default 'N',	-- 3주
     fourth_week varchar(10) not null default 'N',	-- 4주
     fifth_week varchar(10) not null default 'N',	-- 5주
+    att_ord int(10) not null default 99,       -- 출석부 순서
     
     constraint pk_attendance_${nextYear} primary key (id)
 );
@@ -176,11 +177,11 @@ third_week = 'N',
 fourth_week = 'N',
 fifth_week = 'N';
 
--- 회원 상태 값
+-- 멤버 상태 값
 create table member_state (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
-	m_state varchar(20) not null,		-- 회원 상태
-	ord varchar(10) null,				-- 순서
+	m_state varchar(20) not null,		-- 멤버 상태
+	ord varchar(10) null,				-- 상태값에 따른 순서
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
 	
 	constraint pk_member_state primary key (id)

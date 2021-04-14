@@ -41,6 +41,8 @@ function fnGetCtgSub(sParam){
 //회원가입
 $("#joinForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var idRegex = /^[a-z]{4,15}/g;
 	var dateOfBirthRegex=/^[0-9]{6}$/;
 	var htelRegex=/^[0-9]{10,11}$/;
@@ -102,11 +104,12 @@ $("#joinForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/join"
+	var url = contextPath + "/rest/join";
    
 	$.ajax({
           type: "POST",

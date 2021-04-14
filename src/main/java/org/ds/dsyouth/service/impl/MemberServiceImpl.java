@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		result = memberMapper.insertMember(member);
 		
-		if(member.getId() != 0) {
+		if(result) {
 			String year = DateHelper.getYear();
 			String month = DateHelper.getMonth();
 			Attendance att = new Attendance();

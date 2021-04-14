@@ -1,6 +1,8 @@
 //동기 등록
 $("#registSamePeriodForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $birthYear = $('#birthYear');
 	
 	var validateMessage = null;
@@ -28,11 +30,12 @@ $("#registSamePeriodForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/samePeriod/regist"
+	var url = contextPath + "/rest/samePeriod/regist";
    
 	$.ajax({
           type: "POST",
@@ -87,7 +90,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/samePeriod/remove"
+    		var url = contextPath + "/rest/samePeriod/remove";
     		
     		$.ajax({
     	          type: "POST",

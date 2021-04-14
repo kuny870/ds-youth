@@ -1,7 +1,9 @@
 // 로그아웃
 function logout(val) {
 	
-	var url = contextPath + "/rest/logout"
+	if(doubleSubmitCheck()) return;
+	
+	var url = contextPath + "/rest/logout";
 	
 	$.ajax({
           type: "POST",

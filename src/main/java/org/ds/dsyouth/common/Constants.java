@@ -10,7 +10,7 @@ public class Constants {
 	/**
 	 * Session User Key
 	 */
-	public static final String SESSION_INFFLY_DOMAIN = "http://nextinnovation.synology.me:7070/dsyouth";
+	public static final String SESSION_DSYOUTH_DOMAIN = "http://keonhee.synology.me/dsyouth";
 	
 	/**
 	 * Session User Key

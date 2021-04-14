@@ -79,6 +79,46 @@ function getNewMemberDetail(val){
 //멤버 수정
 function memberModify() {
 	
+	var sTeamId = $('#sTeamId').val();
+	var sGroupId = $('#sGroupId').val();
+	var sNameKW = $('#sNameKW').val();
+	var pageNo = $('#pageNo').val();
+	
+	var nameKW = encodeURI(encodeURI(sNameKW));
+	
+	var dateOfBirthRegex=/^[0-9]{6}$/;
+	var htelRegex=/^[0-9]{10,11}$/;
+	
+	var $name = $('#name');
+	var $dateOfBirth = $('#dateOfBirth');
+	var $htel = $('#htel');
+
+	var validateMessage = null;
+	var validateFocus = null;
+	
+	// input 데이터 체크 및 팝업text 입력, 포커스 입력
+	if ($name.val() == "") {
+		validateMessage = '이름을 입력해 주세요';
+		validateFocus = $name;
+	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+		validateMessage = '생년월일을 다시 확인해 주세요';
+		validateFocus = $dateOfBirth;
+	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+		validateMessage = '휴대폰 번호를 다시 확인해 주세요';
+		validateFocus = $htel;
+	}
+
+	// input 데이터 체크 및 팝업창 띄워주고 포커스
+	if(validateMessage != null) {
+		validateFocus.focus();
+		Swal.fire({
+            text: validateMessage,
+            confirmButtonText: '확인',
+            allowOutsideClick: true
+        });
+		return false;
+	}
+		
 	Swal.fire({
 	    title: '팀원 정보 수정',
 	    html: "수정 하시겠습니까?",
@@ -90,46 +130,6 @@ function memberModify() {
 	}).then(function (result) {
 		
 		if(result.value){
-			
-			var sTeamId = $('#sTeamId').val();
-			var sGroupId = $('#sGroupId').val();
-			var sNameKW = $('#sNameKW').val();
-			var pageNo = $('#pageNo').val();
-			
-			var nameKW = encodeURI(encodeURI(sNameKW));
-			
-			var dateOfBirthRegex=/^[0-9]{6}$/;
-			var htelRegex=/^[0-9]{10,11}$/;
-			
-			var $name = $('#name');
-			var $dateOfBirth = $('#dateOfBirth');
-			var $htel = $('#htel');
-
-			var validateMessage = null;
-			var validateFocus = null;
-			
-			// input 데이터 체크 및 팝업text 입력, 포커스 입력
-			if ($name.val() == "") {
-				validateMessage = '이름을 입력해 주세요';
-				validateFocus = $name;
-			} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
-				validateMessage = '생년월일을 다시 확인해 주세요';
-				validateFocus = $dateOfBirth;
-			} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
-				validateMessage = '휴대폰 번호를 다시 확인해 주세요';
-				validateFocus = $htel;
-			}
-
-			// input 데이터 체크 및 팝업창 띄워주고 포커스
-			if(validateMessage != null) {
-				validateFocus.focus();
-				Swal.fire({
-		            text: validateMessage,
-		            confirmButtonText: '확인',
-		            allowOutsideClick: true
-		        });
-				return false;
-			}
 			
 			var url = contextPath + "/rest/member/edit"
 

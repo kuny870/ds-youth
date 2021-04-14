@@ -1,6 +1,8 @@
 // 수련회 등록
 $("#retreatRegistForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $retreatName = $('#retreatName');
 	
 	var validateMessage = null;
@@ -20,11 +22,12 @@ $("#retreatRegistForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/retreat/regist"
+	var url = contextPath + "/rest/retreat/regist";
    
 	$.ajax({
           type: "POST",

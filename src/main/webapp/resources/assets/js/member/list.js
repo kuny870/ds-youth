@@ -1,3 +1,7 @@
+function enterKeyEvent() {
+	memberSearch();
+}
+
 function memberModify(id, pageNo, teamId, groupId, nameKW) {
 	var name = encodeURI(encodeURI(nameKW));
 	location.href = contextPath + "/member/modify?id=" + id + "&pageNo=" + pageNo + "&teamId=" + teamId + "&groupId=" + groupId + "&nameKW=" + name;

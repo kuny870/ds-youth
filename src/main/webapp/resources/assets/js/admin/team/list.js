@@ -1,6 +1,8 @@
 //팀 등록
 $("#registTeamForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var $departId = $('#departId');
 	var $team = $('#team');
 
@@ -24,11 +26,12 @@ $("#registTeamForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/team/regist"
+	var url = contextPath + "/rest/team/regist";
    
 	$.ajax({
           type: "POST",
@@ -83,7 +86,7 @@ function remove(id) {
     	
     	if(result.value){
     		
-    		var url = contextPath + "/rest/team/remove"
+    		var url = contextPath + "/rest/team/remove";
     		
     		$.ajax({
     	          type: "POST",

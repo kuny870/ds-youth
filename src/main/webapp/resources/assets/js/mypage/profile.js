@@ -39,6 +39,8 @@ function fnGetCtgSub(sParam){
 //기본정보 수정
 $("#profileForm").submit(function(e) {
 
+	if(doubleSubmitCheck()) return;
+	
 	var dateOfBirthRegex=/^[0-9]{6}$/;
 	var htelRegex=/^[0-9]{10,11}$/;
 	
@@ -85,11 +87,12 @@ $("#profileForm").submit(function(e) {
             confirmButtonText: '확인',
             allowOutsideClick: true
         });
+		doubleSubmitFlag = false;
 		return false;
 	}
 	
 	var form = $(this);
-	var url = contextPath + "/rest/profile/reset"
+	var url = contextPath + "/rest/profile/reset";
    
 	$.ajax({
           type: "POST",

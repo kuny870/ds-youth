@@ -93,7 +93,7 @@
 				                            <td class="css-group-name-a">
 				                            	<input type="hidden" id="${group.id}-input-hidden" value="${group.gName}" />
 				                            	<a id="${group.id}-a" href="${contextPath }/admin/group/detail?year=${group.year}&seasonFlag=${group.seasonFlag}&id=${group.id}">${group.gName} (${group.cnt})</a>
-				                            	<input type="text" class="admin-group-list-input" id="${group.id}-gName-input" value="${group.gName}" style="display: none;"/>
+				                            	<input type="text" class="admin-group-list-input" id="${group.id}-gName-input" onkeyup="if(window.event.keyCode==13){(enterKeyEvent(${group.id}))}" value="${group.gName}" style="display: none;"/>
 				                            </td>
 				                            <td>
 				                            	<c:forEach var="member" items="${memberList}" varStatus="j">
