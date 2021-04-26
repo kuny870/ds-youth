@@ -1,3 +1,7 @@
+function enterKeyEvent() {
+	attendanceSearch();
+}
+
 let sortableArr = [];
 
 $(function() {

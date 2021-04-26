@@ -242,6 +242,9 @@
 			<if test="month != null and month != '' and month != 0">
 				AND at.month = #{month}
 			</if>
+			<if test="nameKW != null and nameKW != ''">
+				AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+			</if>
 			
 		ORDER BY 
 			<choose>
@@ -366,6 +369,9 @@
 			</if>
 			<if test="month != null and month != '' and month != 0">
 				AND at.month = #{month}
+			</if>
+			<if test="nameKW != null and nameKW != ''">
+				AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
 			</if>
 			
 		GROUP BY at.member_id

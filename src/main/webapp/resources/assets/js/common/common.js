@@ -117,7 +117,9 @@ function attendanceSearch() {
 	var teamId = $('#teamId').val();
 	var year = $('#year').val();
 	var month = $('#month').val();
-	location.href = contextPath + "/attendance/list?teamId=" + teamId + "&year=" + year + "&month=" + month;
+	var sNameKW = $('#nameKW').val();
+	var name = encodeURI(encodeURI(sNameKW));
+	location.href = contextPath + "/attendance/list?teamId=" + teamId + "&year=" + year + "&month=" + month + "&nameKW=" + name;
 }
 
 //팀원 list (검색 정보 포함)

@@ -12,14 +12,26 @@ public class AttendanceSearch {
 	private String season;
 	private String seasonFlag;
 	private String thisSeason;
+	private String nameKW; // 이름 검색 조건
 	
 	public AttendanceSearch() {
 		this.teamId = "";
 		this.year = DateHelper.getYear();
 		this.lastYear = DateHelper.getLastYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
+		this.setNameKW("");
 	}
 	
+	public String getNameKW() {
+		return nameKW;
+	}
+
+
+	public void setNameKW(String nameKW) {
+		this.nameKW = nameKW;
+	}
+
+
 	public String getSeasonFlag() {
 		return seasonFlag;
 	}

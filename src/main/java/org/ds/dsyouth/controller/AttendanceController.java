@@ -1,6 +1,7 @@
 package org.ds.dsyouth.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,12 +44,16 @@ public class AttendanceController {
 	 * 출석 관리 리스트
 	 * @param attSearch
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/attendance/list", method = RequestMethod.GET)
 	public ModelAndView attendance_list(
 			HttpServletRequest request,
-			@ModelAttribute AttendanceSearch attendanceSearch) {
+			@ModelAttribute AttendanceSearch attendanceSearch) throws UnsupportedEncodingException {
 
+		String nameKW = java.net.URLDecoder.decode(attendanceSearch.getNameKW(), "UTF-8");
+		attendanceSearch.setNameKW(nameKW);
+		
 		// 이번년도 구하기
 		String year = DateHelper.getYear();
 				

@@ -47,7 +47,7 @@
 				<div class="div-container">
                     
                     <div class="search-div">
-						<div class="customer-select-search" style="width: 36%; margin-left:5%; float: left;">
+						<div class="customer-select-search" style="width: 26%; margin-left:5%; float: left;">
 							 <select class="select-attendance-list-team" id="teamId" name="teamId">
 		                       	<option value="" >팀 전체</option>
 		                       	<c:forEach var="team" items="${teamList }">
@@ -60,7 +60,7 @@
 		                    </select> 
 	                    </div>
 	                    
-	                    <div class="customer-select-search" style="width: 22%; margin-left: -27px; float: left;">
+	                    <div class="customer-select-search" style="width: 19%; margin-left: -20px; float: left;">
 							<!-- 년 선택 -->
 	                   		<select class="select-attendance-list-year" id="year" name="year">
 		                       	<c:forEach var="year" items="${yearList }">
@@ -73,7 +73,7 @@
 		                    </select>
 	                    </div>    
 	                    
-	                    <div class="customer-select-search" style="width: 20%; margin-left: 3%; float: left;">
+	                    <div class="customer-select-search" style="width: 15%; margin-left: 3%; float: left;">
 							<!-- 월 선택 -->
 	                   		<select class="select-attendance-list-month" id="month" name="month">
 		                       	<c:forEach var="month" items="${SMonthSearchType }">
@@ -86,6 +86,11 @@
 		                    </select>
 	                    </div>    
 	                    
+	                    
+	                    <div class="customer-select-search" style="width: 17%; margin-left: 12px; margin-right:-3px; float: left;">
+                        	<input type="text" class="md-input2" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${attendanceSearch.nameKW }" style="border: 1px solid #ccc;">
+		            	</div>
+		            
 			            <div>
 			            	<button class="basic-btn attendance-list-btn" onclick="attendanceSearch()">조회</button>
 			            </div>
