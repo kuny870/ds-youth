@@ -1,7 +1,7 @@
 package org.ds.dsyouth.exception;
 
 
-import org.ds.dsyouth.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
 
 public class TeamDuplicatedException extends CommonException {
 	/**

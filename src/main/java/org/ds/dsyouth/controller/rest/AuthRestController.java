@@ -1,4 +1,4 @@
-package org.ds.dsyouth.rest;
+package org.ds.dsyouth.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.ds.dsyouth.common.Constants;
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.exception.IdNoMatchException;
 import org.ds.dsyouth.exception.PasswordNoMatchException;
@@ -20,8 +22,6 @@ import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.model.UserKeepLogin;
-import org.ds.dsyouth.rest.common.ResponseCode;
-import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
 import org.ds.dsyouth.utils.StringHelper;

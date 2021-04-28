@@ -1,7 +1,7 @@
 package org.ds.dsyouth.validator;
 
-import org.ds.dsyouth.rest.common.ResponseCode;
-import org.ds.dsyouth.rest.common.RestResponse;
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;

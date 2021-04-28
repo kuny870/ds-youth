@@ -1,4 +1,4 @@
-package org.ds.dsyouth.rest.common;
+package org.ds.dsyouth.controller.rest.common;
 
 /**
  * 공통 Restful JsonResponse 객체

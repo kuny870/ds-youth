@@ -1,4 +1,4 @@
-package org.ds.dsyouth.rest;
+package org.ds.dsyouth.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Member;
-import org.ds.dsyouth.rest.common.ResponseCode;
-import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.validator.MemberValidator;

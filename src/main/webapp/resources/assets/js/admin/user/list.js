@@ -5,7 +5,7 @@ function pwReset(id) {
 	
 	Swal.fire({
         title: '임시 비밀번호 발급',
-        html: '임시 비밀번호를 발급하시겠습니까?<br>' + $targetInputHidden.val() + ' 의 비밀번호가 000000 으로 변경됩니다.',
+        html: '임시 비밀번호를 발급하시겠습니까?<br>' + $targetInputHidden.val() + ' 의 비밀번호가 0000 으로 변경됩니다.',
         showCancelButton: true,
         cancelButtonText: '취소',
         confirmButtonText: '확인',

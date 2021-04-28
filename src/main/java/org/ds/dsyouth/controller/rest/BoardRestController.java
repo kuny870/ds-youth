@@ -1,4 +1,4 @@
-package org.ds.dsyouth.rest;
+package org.ds.dsyouth.controller.rest;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -7,13 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdNoMatchException;
 import org.ds.dsyouth.exception.PasswordNoMatchException;
 import org.ds.dsyouth.model.BoardFree;
 import org.ds.dsyouth.model.BoardOpinion;
 import org.ds.dsyouth.model.LeaderInfo;
-import org.ds.dsyouth.rest.common.ResponseCode;
-import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.BoardService;
 import org.ds.dsyouth.utils.DateHelper;
 import org.ds.dsyouth.utils.FileUploadHelper;

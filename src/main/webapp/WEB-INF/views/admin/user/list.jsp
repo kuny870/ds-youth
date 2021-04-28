@@ -27,7 +27,7 @@
 				<div class="div-container">
 				
 					<div style="margin-left: 20px; color: blue; margin-bottom: 10px; font-size: 3.3vw;">
-						＊ 임시 비밀번호('000000') 발급 시 아이디를 클릭해 주세요
+						＊ 임시 비밀번호('0000') 발급 시 아이디를 클릭해 주세요
 					</div>
 					
 					<div class="sales-table">

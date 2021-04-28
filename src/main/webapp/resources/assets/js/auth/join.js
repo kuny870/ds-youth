@@ -70,8 +70,8 @@ $("#joinForm").submit(function(e) {
 	} else if ($loginPw.val() == "") {
 		validateMessage = '비밀번호를 입력해 주세요';
 		validateFocus = $loginPw;
-	} else if ($loginPw.val().length < 6) {
-		validateMessage = '비밀번호를 6자리 이상 입력해 주세요';
+	} else if ($loginPw.val().length < 4) {
+		validateMessage = '비밀번호를 4자리 이상 입력해 주세요';
 		validateFocus = $loginPw;
 	} else if ($loginPw.val() != $loginPwConfirm.val()) {
 		validateMessage = '비밀번호가 일치하지 않습니다';

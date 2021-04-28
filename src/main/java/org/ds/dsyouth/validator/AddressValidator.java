@@ -3,8 +3,8 @@ package org.ds.dsyouth.validator;
 import java.util.Arrays;
 import java.util.List;
 
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.model.Address;
-import org.ds.dsyouth.rest.common.RestResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;

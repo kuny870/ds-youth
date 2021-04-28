@@ -1,4 +1,4 @@
-package org.ds.dsyouth.rest;
+package org.ds.dsyouth.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -6,13 +6,13 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.ds.dsyouth.controller.rest.common.ResponseCode;
+import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.CreateRetreatTableException;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Family;
 import org.ds.dsyouth.model.FamilyMember;
 import org.ds.dsyouth.model.Retreat;
-import org.ds.dsyouth.rest.common.ResponseCode;
-import org.ds.dsyouth.rest.common.RestResponse;
 import org.ds.dsyouth.service.RetreatService;
 import org.ds.dsyouth.validator.RetreatValidator;
 import org.slf4j.LoggerFactory;

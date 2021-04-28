@@ -35,7 +35,7 @@
                             <input type="password" class="md-input" id="currentPw" name="currentPw" placeholder="현재 비밀번호">
                         </label>
                         <label>
-                            <input type="password" class="md-input" id="loginPw" name="loginPw" placeholder="변경 비밀번호 - 6자 이상">
+                            <input type="password" class="md-input" id="loginPw" name="loginPw" placeholder="변경 비밀번호 - 4자 이상">
                         </label>
                         <label>
                             <input type="password" class="md-input" id="loginPwConfirm" name="loginPwConfirm" placeholder="변경 비밀번호 확인">

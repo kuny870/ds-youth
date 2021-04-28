@@ -198,7 +198,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public boolean modifyUserPwReset(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		
-		user.setLoginPw("000000");
+		user.setLoginPw("0000");
 		
 		// SHA-256 MessageDigest의 생성
         MessageDigest mdSHA256 = MessageDigest.getInstance("SHA-256");

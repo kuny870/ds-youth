@@ -29,7 +29,7 @@
                             <input type="text" class="md-input" id="loginId" name="loginId" placeholder="아이디 - 영문숫자(4-12) (필수)" value="" autocomplete="off">
                         </label>
                         <label>
-                            <input type="password" class="md-input" id="loginPw" name="loginPw" placeholder="비밀번호 - 6자 이상 (필수)" value="" autocomplete="off">
+                            <input type="password" class="md-input" id="loginPw" name="loginPw" placeholder="비밀번호 - 4자 이상 (필수)" value="" autocomplete="off">
                         </label>
                         <label>
                             <input type="password" class="md-input" id="loginPwConfirm" name="loginPwConfirm" placeholder="비밀번호 확인 (필수)" value="" autocomplete="off">
