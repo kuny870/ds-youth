@@ -263,7 +263,6 @@
 		    <version>3.6</version>
 		</dependency>
 		
-		<!-- 배치 프로그램 -->
 		<dependency>
 	    	<groupId>org.springframework</groupId>
 	    	<artifactId>spring-context-support</artifactId>

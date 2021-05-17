@@ -18,12 +18,24 @@
 		<result column="third_week" jdbcType="VARCHAR" property="thirdWeek" />
 		<result column="fourth_week" jdbcType="VARCHAR" property="fourthWeek" />
 		<result column="fifth_week" jdbcType="VARCHAR" property="fifthWeek" />
-		<result column="total_last_year" jdbcType="INTEGER" property="totalLastYear" />
 		<result column="sayu1" jdbcType="VARCHAR" property="sayu1" />
 		<result column="sayu2" jdbcType="VARCHAR" property="sayu2" />
 		<result column="sayu3" jdbcType="VARCHAR" property="sayu3" />
 		<result column="sayu4" jdbcType="VARCHAR" property="sayu4" />
 		<result column="sayu5" jdbcType="VARCHAR" property="sayu5" />
+		
+		<result column="last_first_week" jdbcType="VARCHAR" property="lastFirstWeek" />
+		<result column="last_second_week" jdbcType="VARCHAR" property="lastSecondWeek" />
+		<result column="last_third_week" jdbcType="VARCHAR" property="lastThirdWeek" />
+		<result column="last_fourth_week" jdbcType="VARCHAR" property="lastFourthWeek" />
+		<result column="last_fifth_week" jdbcType="VARCHAR" property="lastFifthWeek" />
+		<result column="last_sayu1" jdbcType="VARCHAR" property="lastSayu1" />
+		<result column="last_sayu2" jdbcType="VARCHAR" property="lastSayu2" />
+		<result column="last_sayu3" jdbcType="VARCHAR" property="lastSayu3" />
+		<result column="last_sayu4" jdbcType="VARCHAR" property="lastSayu4" />
+		<result column="last_sayu5" jdbcType="VARCHAR" property="lastSayu5" />
+		
+		<result column="total_last_year" jdbcType="INTEGER" property="totalLastYear" />
 		<result column="att_ord" jdbcType="INTEGER" property="attOrd" />
 		
 		<association property="member" resultMap="org.ds.dsyouth.mapper.MemberMapper.MemberMap" columnPrefix="m_" />
@@ -172,6 +184,22 @@
 		    , at.sayu3 AS sayu3
 		    , at.sayu4 AS sayu4
 		    , at.sayu5 AS sayu5
+		    
+		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
+		    	
+		   	, at2.first_week AS last_first_week
+		    , at2.second_week AS last_second_week
+		    , at2.third_week AS last_third_week
+		    , at2.fourth_week AS last_fourth_week
+		    , at2.fifth_week AS last_fifth_week
+		    , at2.sayu1 AS last_sayu1
+		    , at2.sayu2 AS last_sayu2
+		    , at2.sayu3 AS last_sayu3
+		    , at2.sayu4 AS last_sayu4
+		    , at2.sayu5 AS last_sayu5
+		    	
+		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
+		    
 		    , at.att_ord AS att_ord
 			, m.id AS m_id
 			, m.name AS m_name
@@ -193,9 +221,9 @@
 		    , g.g_name AS g_g_name
 		    , sp.birth_year AS sp_birth_year
 		    
-		    <if test="year > 2019">
+		    <!-- <if test="year > 2019">
 		    	, B.total_last_year AS total_last_year
-		    </if>
+		    </if> -->
 		    
 		FROM attendance_${year} at
 		LEFT OUTER JOIN member m ON m.id = at.member_id
@@ -204,8 +232,85 @@
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		
+		<!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
+		
+		LEFT OUTER JOIN (
+			
+			SELECT
+				at.first_week AS first_week
+			    , at.second_week AS second_week
+			    , at.third_week AS third_week
+			    , at.fourth_week AS fourth_week
+			    , at.fifth_week AS fifth_week
+			    , at.sayu1 AS sayu1
+			    , at.sayu2 AS sayu2
+			    , at.sayu3 AS sayu3
+			    , at.sayu4 AS sayu4
+			    , at.sayu5 AS sayu5
+			    
+			    , at.member_id AS member_id
+			    , at.att_yn AS att_yn
+		    
+			FROM attendance_${year} at
+			LEFT OUTER JOIN member m ON m.id = at.member_id
+			LEFT OUTER JOIN member_state ms ON ms.id = at.mem_state
+			LEFT OUTER JOIN team t ON t.id = m.team_id
+			LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
+					        
+			WHERE 1=1
+				AND m.del_yn = 'N'
+				AND m.mem_state NOT IN ('5', '6')
+				<if test="teamId != null and teamId != '' and teamId != 99">
+					<if test="teamId != 4 and teamId != 8">
+						AND t.id = #{teamId}
+					</if>
+					<if test="teamId == 4 or teamId == 8">
+						AND (t.id = '4' or t.id = '8')
+					</if>
+					<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
+					<if test="teamId != 4 and teamId != 8">
+						AND at.group_id != ''
+					</if>
+				</if>
+				<if test="month != null and month != '' and month != 0">
+					AND at.month = #{lastMonth}
+				</if>
+				<if test="nameKW != null and nameKW != ''">
+					AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+				</if>
+				
+			ORDER BY 
+				<choose>
+					<when test="teamId == 99">
+						FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
+						, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
+						, g.ord ASC
+						, g.g_name ASC
+						, att_ord ASC
+					</when>
+					<when test="teamId == 4 or teamId == 8">
+						t.id ASC
+						, att_ord ASC
+					</when>
+					<otherwise>
+						g.ord ASC
+						, g.g_name ASC
+						, att_ord ASC
+					</otherwise>
+				</choose>
+				
+				, at.group_grade DESC			
+				, ms.ord ASC			
+				, m.name ASC
+				, at.id ASC
+			
+		) at2 ON (at2.member_id = at.member_id AND at2.att_yn = at.att_yn)
+		
+		<!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
+		
+		
 		<!-- 작년 출석률을 가져오는 부분이기에 2019년도 테이블부터있기때문에 현재 year 데이터가 2020보다 작으면 안된다. -->
-		<if test="year > 2019">
+<!-- 		<if test="year > 2019">
 			LEFT OUTER JOIN (
 				SELECT
 					m.id AS id
@@ -222,12 +327,12 @@
 					AND t.id = #{teamId}
 				GROUP BY a.member_id
 	        ) B ON B.id = m.id
-        </if>
+        </if> -->
         
 		WHERE 1=1
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5', '6')
-			<if test="teamId != null and teamId != '' and teamId != 0">
+			<if test="teamId != null and teamId != '' and teamId != 99">
 				<if test="teamId != 4 and teamId != 8">
 					AND t.id = #{teamId}
 				</if>
@@ -248,7 +353,7 @@
 			
 		ORDER BY 
 			<choose>
-				<when test="teamId == ''">
+				<when test="teamId == 99">
 					FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
 					, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
 					, g.ord ASC
@@ -300,6 +405,22 @@
 		    , at.sayu3 AS sayu3
 		    , at.sayu4 AS sayu4
 		    , at.sayu5 AS sayu5
+		    
+		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
+		    	
+		   	, at2.first_week AS last_first_week
+		    , at2.second_week AS last_second_week
+		    , at2.third_week AS last_third_week
+		    , at2.fourth_week AS last_fourth_week
+		    , at2.fifth_week AS last_fifth_week
+		    , at2.sayu1 AS last_sayu1
+		    , at2.sayu2 AS last_sayu2
+		    , at2.sayu3 AS last_sayu3
+		    , at2.sayu4 AS last_sayu4
+		    , at2.sayu5 AS last_sayu5
+		    	
+		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
+		    
 		    , at.att_ord AS att_ord
 			, m.id AS m_id
 			, m.name AS m_name
@@ -321,9 +442,9 @@
 		    , g.g_name AS g_g_name
 		    , sp.birth_year AS sp_birth_year
 		    
-		    <if test="year > 2019">
+		   <!--  <if test="year > 2019">
 		    	, B.total_last_year AS total_last_year
-		    </if>
+		    </if> -->
 		    
 		FROM attendance_${year} at
 		LEFT OUTER JOIN member m ON m.id = at.member_id
@@ -332,8 +453,86 @@
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		
+		
+		<!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
+		
+		LEFT OUTER JOIN (
+			
+			SELECT
+				at.first_week AS first_week
+			    , at.second_week AS second_week
+			    , at.third_week AS third_week
+			    , at.fourth_week AS fourth_week
+			    , at.fifth_week AS fifth_week
+			    , at.sayu1 AS sayu1
+			    , at.sayu2 AS sayu2
+			    , at.sayu3 AS sayu3
+			    , at.sayu4 AS sayu4
+			    , at.sayu5 AS sayu5
+			    
+			    , at.member_id AS member_id
+			    , at.att_yn AS att_yn
+		    
+			FROM attendance_${year} at
+			LEFT OUTER JOIN member m ON m.id = at.member_id
+			LEFT OUTER JOIN member_state ms ON ms.id = at.mem_state
+			LEFT OUTER JOIN team t ON t.id = m.team_id
+			LEFT OUTER JOIN `group` g ON g.id = at.group_id AND g.del_yn != 'Y'
+					        
+			WHERE 1=1
+				AND m.del_yn = 'N'
+				AND m.mem_state NOT IN ('5', '6')
+				<if test="teamId != null and teamId != '' and teamId != 99">
+					<if test="teamId != 4 and teamId != 8">
+						AND t.id = #{teamId}
+					</if>
+					<if test="teamId == 4 or teamId == 8">
+						AND (t.id = '4' or t.id = '8')
+					</if>
+					<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
+					<if test="teamId != 4 and teamId != 8">
+						AND at.group_id != ''
+					</if>
+				</if>
+				<if test="month != null and month != '' and month != 0">
+					AND at.month = #{lastMonth}
+				</if>
+				<if test="nameKW != null and nameKW != ''">
+					AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+				</if>
+				
+			ORDER BY 
+				<choose>
+					<when test="teamId == 99">
+						FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
+						, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
+						, g.ord ASC
+						, g.g_name ASC
+						, att_ord ASC
+					</when>
+					<when test="teamId == 4 or teamId == 8">
+						t.id ASC
+						, att_ord ASC
+					</when>
+					<otherwise>
+						g.ord ASC
+						, g.g_name ASC
+						, att_ord ASC
+					</otherwise>
+				</choose>
+				
+				, at.group_grade DESC			
+				, ms.ord ASC			
+				, m.name ASC
+				, at.id ASC
+			
+		) at2 ON (at2.member_id = at.member_id AND at2.att_yn = at.att_yn)
+		
+		<!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
+		
+		
 		<!-- 작년 출석률을 가져오는 부분이기에 2019년도 테이블부터있기때문에 현재 year 데이터가 2020보다 작으면 안된다. -->
-		<if test="year > 2019">
+		<!-- <if test="year > 2019">
 			LEFT OUTER JOIN (
 				SELECT
 					m.id AS id
@@ -350,12 +549,12 @@
 					AND t.id = #{teamId}
 				GROUP BY a.member_id
 	        ) B ON B.id = m.id
-        </if>
+        </if> -->
         
 		WHERE 1=1
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5', '6')
-			<if test="teamId != null and teamId != '' and teamId != 0">
+			<if test="teamId != null and teamId != '' and teamId != 99">
 				<if test="teamId != 4 and teamId != 8">
 					AND t.id = #{teamId}
 				</if>
@@ -377,7 +576,7 @@
 		GROUP BY at.member_id
 		ORDER BY 
 			<choose>
-				<when test="teamId == ''">
+				<when test="teamId == 99">
 					FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
 					, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
 					, g.ord ASC

@@ -32,6 +32,16 @@ update attendance_2021 set att_ord = 99 where att_ord = 0;
 -- 출석부 순서 초기화 쿼리
 update attendance_2021 set  att_ord = 0;
 
+-- 매년 한두번씩 삭제된 멤버의 출석부 데이터 정리 쿼리
+delete at from attendance_2021 at
+inner JOIN
+    member m
+ON 
+    m.id = at.member_id
+WHERE 
+    m.del_yn = 'Y';
+    
+    
 -- 등급
 create table auth (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
@@ -49,8 +59,8 @@ create table user (
     login_id varchar(50) not null,		-- 아이디
     login_pw varchar(100) not null,		-- 비밀번호
     name varchar(50) not null,	-- 이름
-    depart_id int(10) not null,	-- 1,2청년부
-    team_id int(10) not null,	-- 팀
+    depart_id int(10) not null default '3',	-- 1,2청년부
+    team_id int(10) not null default '10',	-- 팀
     date_of_birth varchar(50) null,		-- 생년월일
     htel varchar(50) null,	-- 핸드폰번호
     gender varchar(10) null,	-- 성별 / male or female
@@ -77,11 +87,15 @@ create table user_keep_login (
 create table member (
     id int(50) not null AUTO_INCREMENT,	-- 고유번호
     name varchar(50) not null,	-- 이름
+    memo varchar(5000) null,	-- 지체상황
+    guider varchar(50) null,	-- 인도자
     depart_id int(10) null,	-- 1,2청년부
     team_id int(10) null,	-- 팀
     date_of_birth varchar(50) null,		-- 생년월일
     htel varchar(50) null,	-- 핸드폰번호
     gender varchar(10) null,	-- 성별 / male or female
+    member_reg_date varchar(20) null,		-- 멤버 등록 날짜
+    member_grad_date varchar(20) null,		-- 멤버 수정 날짜
     same_period_id int(10) null,	-- 동기
     profile_img varchar(255) null,	-- 프로필 이미지
     reg_user int(10) not null,	-- 등록한 사용자
@@ -122,7 +136,7 @@ create table year_season (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
     `year` varchar(10) not null,	-- 년도
     season varchar(20) not null,	-- 시즌
-    season_flag varchar(10) not default null,	-- 시즌구분자
+    season_flag varchar(10) null,	-- 시즌구분자
     del_yn varchar(10) not null default 'N',	-- 삭제 여부
     
 	constraint pk_year_season primary key (id)
@@ -134,6 +148,7 @@ create table `group` (
 	id int(50) not null AUTO_INCREMENT,	-- 고유번호
 	`year` varchar(10) not null,			-- 년
 	season varchar(10) not null,		-- 상반기 / 하반기
+	season_flag varchar(10) null,		-- 상하반기 구분코드
     depart_id varchar(10) not null,	-- 부서
 	team_id varchar(10) not null,	-- 팀
     g_name varchar(50) not null,	-- 순명 
@@ -153,11 +168,29 @@ create table attendance_${nextYear} (
     att_yn varchar(10) not null default 'Y',	-- 출석 카운트
     `year` varchar(10) not null,	-- 년
     `month` varchar(10) not null,	-- 월
+    
+    last_first_week varchar(10) not null default 'N',	-- 전달 1주
+    last_sayu1 varchar(50) null,	-- 전달 1주 예배 불참 사유
+    last_second_week varchar(10) not null default 'N',	-- 전달 2주
+    last_sayu2 varchar(50) null,	-- 전달 2주 예배 불참 사유
+    last_third_week varchar(10) not null default 'N',	-- 전달 3주
+    last_sayu3 varchar(50) null,	-- 전달 3주 예배 불참 사유
+    last_fourth_week varchar(10) not null default 'N',	-- 전달 4주
+    last_sayu4 varchar(50) null,	-- 전달 4주 예배 불참 사유
+    last_fifth_week varchar(10) not null default 'N',	-- 전달 5주
+    last_sayu5 varchar(50) null,	-- 전달 5주 예배 불참 사유
+    
     first_week varchar(10) not null default 'N',	-- 1주
+    sayu1 varchar(50) null,	-- 1주 예배 불참 사유
     second_week varchar(10) not null default 'N',	-- 2주
+    sayu2 varchar(50) null,	-- 2주 예배 불참 사유
     third_week varchar(10) not null default 'N',	-- 3주
+    sayu3 varchar(50) null,	-- 3주 예배 불참 사유
     fourth_week varchar(10) not null default 'N',	-- 4주
+    sayu4 varchar(50) null,	-- 4주 예배 불참 사유
     fifth_week varchar(10) not null default 'N',	-- 5주
+    sayu5 varchar(50) null,	-- 5주 예배 불참 사유
+    
     att_ord int(10) not null default 99,       -- 출석부 순서
     
     constraint pk_attendance_${nextYear} primary key (id)
@@ -185,7 +218,7 @@ create table member_state (
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
 	
 	constraint pk_member_state primary key (id)
-)
+);
 
 
 -- 동기

@@ -96,6 +96,13 @@ public class AttendanceRestController {
 			String[] aId,
 			String[] memberId,
 			String[] attYn,
+			
+			String[] lastFirstWeek,
+			String[] lastSecondWeek,
+			String[] lastThirdWeek,
+			String[] lastFourthWeek,
+			String[] lastFifthWeek,
+			
 			String[] firstWeek,
 			String[] secondWeek,
 			String[] thirdWeek,

@@ -17,7 +17,7 @@ public class MainInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		Object login_session = session.getAttribute("login");
 
-		if(login_session == null){	// login session 값이 없을 시
+		if(login_session == null){	// login session check
 			response.sendRedirect(request.getContextPath() + "/login");
 			return false;
 		}

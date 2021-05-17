@@ -64,7 +64,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-    function sayuPop(id, name, date, sayu, ord, gubun){
+    function sayuPop(id, name, date, sayu, ord, gubun, monthFlag){
 	
     	if(gubun == '1'){
     		$('#sayuRemove').show();
@@ -75,6 +75,11 @@
     	
     	var year = $('#thisYear').val();
     	var month = $('#thisMonth').val();
+    	
+    	if(monthFlag == '0') {
+    		month = month - 1;
+    		$('.sayuRemove').css('display', 'none');
+    	}
     	
     	$('#sayuName').text('▷ ' + name);
     	$('#sayuStr').html(month + "/" + date + " 예배 불참 사유 : " + sayu);

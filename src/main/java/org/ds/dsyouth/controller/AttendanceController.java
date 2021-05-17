@@ -63,6 +63,7 @@ public class AttendanceController {
 		List<YearSeason> seasonList = adminService.getYearSeasonList(year);
 		
 		// 선택한 달의 일요일 날짜 구하기
+		List lastSunday = DateHelper.getDayOfWeekByMonth(attendanceSearch.getYear() + String.format("%02d", (attendanceSearch.getMonth())-1));
 		List sunday = DateHelper.getDayOfWeekByMonth(attendanceSearch.getYear() + String.format("%02d", attendanceSearch.getMonth()));
 				
 		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
@@ -86,6 +87,7 @@ public class AttendanceController {
 		mav.addObject("yearList", yearList);
 		mav.addObject("year", year);
 		mav.addObject("sunday", sunday);
+		mav.addObject("lastSunday", lastSunday);
 		
 		return mav;
 	}

@@ -15,6 +15,7 @@
 		var contextPath = '${contextPath}';
 		var resourcesPath = '${resourcesPath}';
 	</script>
+	
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
@@ -49,7 +50,7 @@
                     <div class="search-div">
 						<div class="customer-select-search" style="width: 26%; margin-left:5%; float: left;">
 							 <select class="select-attendance-list-team" id="teamId" name="teamId">
-		                       	<option value="" >팀 전체</option>
+		                       	<option value="99" >팀 전체</option>
 		                       	<c:forEach var="team" items="${teamList }">
 		                       		<c:set var="selected" value="" />
 								        <c:if test="${team.id eq attendanceSearch.teamId }">
@@ -102,6 +103,18 @@
 			            
 			                <table>
 			                    <thead>
+			                    
+			                    	<c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+				                    	<tr class="lastAtt">
+				                            <th class="th-5p6"></th>
+					                		<th class="th-18p0"></th>
+					                		<th class="th-22p0"></th>
+					                		<th colspan="${lastSunday.size()}" style="border-right: 2px ridge">${attendanceSearch.lastMonth }월</th>
+							                <th colspan="${sunday.size()}">${attendanceSearch.month }월</th>
+				                            <th></th>
+				                        </tr>
+			                        </c:if>
+			                    	
 			                        <tr>
 			                            <th class="th-5p6">No</th>
 			                            
@@ -117,6 +130,16 @@
 						                	</c:otherwise>
 						                </c:choose>
 						                
+						                <c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+							                <c:forEach var="ls" items="${lastSunday}" varStatus="i">
+							                	<c:set var="borderRight" value="" />
+							                	<c:if test="${i.index+1 eq lastSunday.size() }">
+													<c:set var="borderRight" value="border-right: 2px ridge" />
+												</c:if>
+				                            	<th class="lastAtt th-7p6" style="${borderRight}">${ls}</th>
+				                            </c:forEach>
+			                            </c:if>
+			                            
 			                            <c:forEach var="s" items="${sunday}" varStatus="i">
 			                            	<th class="th-7p6">${s}</th>
 			                            </c:forEach>
@@ -143,7 +166,7 @@
 										<c:set var="sortableIndex" value="1" />
 										<c:set var="index" value="1" />
 										
-										
+										<!-- 출석부 start -->
 										<c:forEach var="att" items="${attendanceList}" varStatus="i">
 										
 											<c:set var="tbodySortable" value="sortable"/>
@@ -185,10 +208,12 @@
 											                    
 																<input type="hidden" id="${att.id}" name="aId"/>
 									                    		<c:set var="secondUseYN" value="" />
+									                    		<c:set var="secondUseYN_CSS" value="" />
 									                    		<c:set var="memberMemoPop" value="" />
 									                    		<c:set var="notSortable" value="not-sortable" />
 									                    		<c:if test="${att.attYn == 'N' }">
 									                    			<c:set var="secondUseYN" value="secondYN" />
+									                    			<c:set var="secondUseYN_CSS" value="display: none;" />
 									                    		</c:if>
 									                    		<c:if test="${att.attYn == 'Y' }">
 									                    			<c:set var="memberMemoPop" value="open" />
@@ -196,7 +221,7 @@
 									                    		</c:if>
 
 									                    		
-					                            				<tr class="${secondUseYN} ${notSortable} ">
+					                            				<tr class="${secondUseYN} ${notSortable} " style="${secondUseYN_CSS}">
 					                            				
 								                    			<c:choose>
 								                    				<c:when test="${att.attYn == 'Y' }">
@@ -223,7 +248,7 @@
 									                            		<c:when test="${i.index == 0}">
 										                            		<!-- 팀 전체 검색 시 순명 앞에 팀명 출력 -->
 									                            			<c:choose>
-									                            				<c:when test="${attendanceSearch.teamId == ''}">
+									                            				<c:when test="${attendanceSearch.teamId == '99'}">
 									                            					<c:set var="groupName" value="${att.team.tShortName} / ${att.group.gName }"/>
 									                            					<c:set var="groupNameTmp" value="${att.group.gName }"/>
 									                            				</c:when>
@@ -236,7 +261,7 @@
 									                            		<c:when test="${i.index > 0 && att.group.gName != groupNameTmp}">
 									                            			<!-- 팀 전체 검색 시 순명 앞에 팀명 출력 -->
 									                            			<c:choose>
-									                            				<c:when test="${attendanceSearch.teamId == ''}">
+									                            				<c:when test="${attendanceSearch.teamId == '99'}">
 									                            					
 									                            					<c:choose>
 									                            						<c:when test="${att.group.gName == '' || att.group.gName == null}">
@@ -406,9 +431,198 @@
 												                            
 							                            			</c:otherwise>
 							                            		</c:choose>
+							                            		
+									                            
+									                            
+									                            
+									                            
+									                            
 									                            
 									                            
 									                            <!-- 출석체크 checkbox -->
+									                            
+									                            <c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+									                            
+										                            <c:forEach var="lastSun" items="${lastSunday}" varStatus="i">
+										                            	<c:set var="checked" value=""/>
+										                            	<c:choose>
+									                            			<c:when test="${i.index == 0}">
+									                            				<c:if test="${att.lastFirstWeek == 'Y' }" >
+												                            		<c:set var="checked" value="checked"/>
+												                            	</c:if>
+												                            	<td class="lastAtt">
+												                            		<c:choose>
+												                            			<c:when test="${att.lastSayu1 != '' && att.lastSayu1 != null}">
+												                            				
+												                            				<c:choose>
+									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu1}', '${i.index+1}', '1', '0')" title="${att.lastSayu1}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:when>
+									                            								<c:otherwise>
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu1}', '${i.index+1}', '0', '0')" title="${att.lastSayu1}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:otherwise>
+									                            							</c:choose>
+									                            							<input type="checkbox" id="lastFirstWeek" name="lastFirstWeek" ${checked} style="display:none;" disabled>
+												                            			</c:when>
+												                            			<c:otherwise>
+												                            				<input type="checkbox" id="lastFirstWeek" name="lastFirstWeek" ${checked} disabled>
+												                            			</c:otherwise>
+												                            		</c:choose>
+												                            	</td>
+									                            			</c:when>
+									                            			<c:when test="${i.index == 1}">
+									                            				<c:if test="${att.lastSecondWeek == 'Y' }" >
+												                            		<c:set var="checked" value="checked"/>
+												                            	</c:if>
+												                            	<td class="lastAtt">
+												                            		<c:choose>
+												                            			<c:when test="${att.lastSayu2 != '' && att.lastSayu2 != null}">
+												                            				
+												                            				<c:choose>
+									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu2}', '${i.index+1}', '1', '0')" title="${att.lastSayu2}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:when>
+									                            								<c:otherwise>
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu2}', '${i.index+1}', '0', '0')" title="${att.lastSayu2}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:otherwise>
+									                            							</c:choose>
+									                            							<input type="checkbox" id="lastSecondWeek" name="lastSecondWeek" ${checked} style="display:none;" disabled>
+									                            							
+												                            			</c:when>
+												                            			<c:otherwise>
+												                            				<input type="checkbox" id="lastSecondWeek" name="lastSecondWeek" ${checked} disabled>
+												                            			</c:otherwise>
+												                            		</c:choose>
+												                            	</td>
+									                            			</c:when>
+									                            			<c:when test="${i.index == 2}">
+									                            				<c:if test="${att.lastThirdWeek == 'Y' }" >
+												                            		<c:set var="checked" value="checked"/>
+												                            	</c:if>
+												                            	<td class="lastAtt">
+												                            		<c:choose>
+												                            			<c:when test="${att.lastSayu3 != '' && att.lastSayu3 != null}">
+												                            			
+												                            				<c:choose>
+									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu3}', '${i.index+1}', '1', '0')" title="${att.lastSayu3}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:when>
+									                            								<c:otherwise>
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu3}', '${i.index+1}', '0', '0')" title="${att.lastSayu3}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:otherwise>
+									                            							</c:choose>
+												                            				<input type="checkbox" id="lastThirdWeek" name="lastThirdWeek" ${checked} style="display:none;" disabled>
+												                            				
+												                            			</c:when>
+												                            			<c:otherwise>
+												                            				<input type="checkbox" id="lastThirdWeek" name="lastThirdWeek" ${checked} disabled>
+												                            			</c:otherwise>
+												                            		</c:choose>
+												                            	</td>
+									                            			</c:when>
+									                            			<c:when test="${i.index == 3}">
+									                            			
+										                            			<c:set var="borderRight" value="" />
+															                	<c:if test="${lastSunday.size() eq 4 }">
+																					<c:set var="borderRight" value="border-right: 2px ridge" />
+																				</c:if>
+																				
+									                            				<c:if test="${att.lastFourthWeek == 'Y' }" >
+												                            		<c:set var="checked" value="checked"/>
+												                            	</c:if>
+												                            	<td class="lastAtt" style="${borderRight}">
+												                            		<c:choose>
+												                            			<c:when test="${att.lastSayu4 != '' && att.lastSayu4 != null}">
+												                            			
+												                            				<c:choose>
+									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu4}', '${i.index+1}', '1', '0')" title="${att.lastSayu4}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:when>
+									                            								<c:otherwise>
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu4}', '${i.index+1}', '0', '0')" title="${att.lastSayu4}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:otherwise>
+									                            							</c:choose>
+									                            							<input type="checkbox" id="lastFourthWeek" name="lastFourthWeek" ${checked} style="display:none;" disabled>
+									                            							
+												                            			</c:when>
+												                            			<c:otherwise>
+												                            				<input type="checkbox" id="lastFourthWeek" name="lastFourthWeek" ${checked} disabled>
+												                            			</c:otherwise>
+												                            		</c:choose>
+												                            	</td>
+									                            			</c:when>
+									                            			<c:otherwise>
+									                            			
+									                            				<c:set var="borderRight" value="" />
+															                	<c:if test="${lastSunday.size() eq 5 }">
+																					<c:set var="borderRight" value="border-right: 2px ridge" />
+																				</c:if>
+																				
+									                            				<c:if test="${att.lastFifthWeek == 'Y' }" >
+												                            		<c:set var="checked" value="checked"/>
+												                            	</c:if>
+												                            	<td class="lastAtt" style="${borderRight}">
+												                            		<c:choose>
+												                            			<c:when test="${att.lastSayu5 != '' && att.lastSayu5 != null}">
+												                            			
+												                            				<c:choose>
+									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu5}', '${i.index+1}', '1', '0')" title="${att.lastSayu5}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:when>
+									                            								<c:otherwise>
+									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu5}', '${i.index+1}', '0', '0')" title="${att.lastSayu5}" class="none-underline">
+										                            									사유
+										                            								</a>
+									                            								</c:otherwise>
+									                            							</c:choose>
+									                            							<input type="checkbox" id="lastFifthWeek" name="lastFifthWeek" ${checked} style="display:none;" disabled>
+									                            							
+												                            			</c:when>
+												                            			<c:otherwise>
+												                            				<input type="checkbox" id="lastFifthWeek" name="lastFifthWeek" ${checked} disabled>
+												                            			</c:otherwise>
+												                            		</c:choose>
+												                            	</td>
+									                            			</c:otherwise>
+									                            		</c:choose>
+										                            </c:forEach>
+									                            
+									                            </c:if>
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
+									                            
 									                            <c:forEach var="sun" items="${sunday}" varStatus="i">
 									                            	<c:set var="checked" value=""/>
 									                            	<c:choose>
@@ -422,12 +636,12 @@
 											                            				
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '1')" title="${att.sayu1}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '1', '1')" title="${att.sayu1}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '0')" title="${att.sayu1}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '0', '1')" title="${att.sayu1}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:otherwise>
@@ -450,12 +664,12 @@
 											                            				
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '1')" title="${att.sayu2}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '1', '1')" title="${att.sayu2}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '0')" title="${att.sayu2}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '0', '1')" title="${att.sayu2}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:otherwise>
@@ -479,12 +693,12 @@
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '1')" title="${att.sayu3}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '1', '1')" title="${att.sayu3}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '0')" title="${att.sayu3}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '0', '1')" title="${att.sayu3}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:otherwise>
@@ -508,12 +722,12 @@
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '1')" title="${att.sayu4}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '1', '1')" title="${att.sayu4}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '0')" title="${att.sayu4}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '0', '1')" title="${att.sayu4}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:otherwise>
@@ -537,12 +751,12 @@
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '1')" title="${att.sayu5}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '1', '1')" title="${att.sayu5}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
-								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '0')" title="${att.sayu5}" class="none-underline">
+								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '0', '1')" title="${att.sayu5}" class="none-underline">
 									                            									사유
 									                            								</a>
 								                            								</c:otherwise>
@@ -578,7 +792,9 @@
 		                       			 		</c:choose>
 								                        
 								                        
-					                    </c:forEach>	<!-- 멤버 for문 end -->
+					                    </c:forEach>
+					                    <!-- 출석부 end -->
+					                    
 					                    
 					                    </tbody>
 				                    
@@ -589,12 +805,38 @@
 			                    	<tr>
 			                    		<td></td>
 			                    		<td colspan="2">소계</td>
+			                    		<c:set var="lastFirstWeekCnt" value="0"/>
+			                    		<c:set var="lastSecondWeekCnt" value="0"/>
+			                    		<c:set var="lastThirdWeekCnt" value="0"/>
+			                    		<c:set var="lastFourthWeekCnt" value="0"/>
+			                    		<c:set var="lastFifthWeekCnt" value="0"/>
 			                    		<c:set var="firstWeekCnt" value="0"/>
 			                    		<c:set var="secondWeekCnt" value="0"/>
 			                    		<c:set var="thirdWeekCnt" value="0"/>
 			                    		<c:set var="fourthWeekCnt" value="0"/>
 			                    		<c:set var="fifthWeekCnt" value="0"/>
 			                    		<c:forEach var="att" items="${attendanceList}" varStatus="i">
+			                    		
+			                    			<c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7}">
+			                    				<c:if test="${att.attYn == 'Y' }">
+					                    			<c:if test="${att.lastFirstWeek == 'Y'}">
+					                    				<c:set var="lastFirstWeekCnt" value="${lastFirstWeekCnt + 1}"/>
+					                    			</c:if>
+					                    			<c:if test="${att.lastSecondWeek == 'Y'}">
+					                    				<c:set var="lastSecondWeekCnt" value="${lastSecondWeekCnt + 1}"/>
+					                    			</c:if>
+					                    			<c:if test="${att.lastThirdWeek == 'Y'}">
+					                    				<c:set var="lastThirdWeekCnt" value="${lastThirdWeekCnt + 1}"/>
+					                    			</c:if>
+					                    			<c:if test="${att.lastFourthWeek == 'Y'}">
+					                    				<c:set var="lastFourthWeekCnt" value="${lastFourthWeekCnt + 1}"/>
+					                    			</c:if>
+					                    			<c:if test="${att.lastFifthWeek == 'Y'}">
+					                    				<c:set var="lastFifthWeekCnt" value="${lastFifthWeekCnt + 1}"/>
+					                    			</c:if>
+			                    				</c:if>
+			                    			</c:if>
+			                    			
 			                    			<c:if test="${att.attYn == 'Y' }">
 				                    			<c:if test="${att.firstWeek == 'Y'}">
 				                    				<c:set var="firstWeekCnt" value="${firstWeekCnt + 1}"/>
@@ -613,13 +855,35 @@
 				                    			</c:if>
 			                    			</c:if>
 			                    		</c:forEach>
+			                    		
+			                    		<c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7}">
+				                    		<td class="lastAtt">${lastFirstWeekCnt }</td>
+				                    		<td class="lastAtt">${lastSecondWeekCnt }</td>
+				                    		<td class="lastAtt">${lastThirdWeekCnt }</td>
+				                    		
+				                    		<c:set var="borderRight" value="" />
+						                	<c:if test="${lastSunday.size() eq 4 }">
+												<c:set var="borderRight" value="border-right: 2px ridge" />
+											</c:if>
+																			
+				                    		<td class="lastAtt" style="${borderRight}">${lastFourthWeekCnt }</td>
+				                    		<c:if test="${lastSunday.size() > 4 }" >
+				                    			<td class="lastAtt" style="border-right: 2px ridge;">${lastFifthWeekCnt }</td>
+				                    		</c:if>
+				                    	</c:if>
+			                    		
 			                    		<td>${firstWeekCnt }</td>
 			                    		<td>${secondWeekCnt }</td>
 			                    		<td>${thirdWeekCnt }</td>
 			                    		<td>${fourthWeekCnt }</td>
-			                    		<c:if test="${sunday.size() > 4 }" >
-			                    			<td>${fifthWeekCnt }</td>
-			                    		</c:if>
+			                    		<c:choose>
+			                    			<c:when test="${sunday.size() > 4 }">
+			                    				<td>${fifthWeekCnt }</td>
+			                    			</c:when>
+				                    		<c:otherwise>
+				                    			<td></td>
+				                    		</c:otherwise>
+			                    		</c:choose>
 			                    	</tr>
 			                    </tfoot>
 			                </table>

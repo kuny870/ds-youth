@@ -1,4 +1,3 @@
-/* �뙘�뾽李� �떆�옉 */
 .cursor-pointer {
 	cursor: pointer;
 }
@@ -38,7 +37,6 @@
 	left:0; 
 	top:0; 
 }
-/* �뙘�뾽李� �걹 */
 
 /*login.html*/
 .main_title{
@@ -84,13 +82,6 @@
 .display-none {display: none;}
 
 .main-img {width: 12%;}
-.attendance-img {
-	position: absolute;
-	margin-left: 27vw;
-	width: 11vw;
-	vertical-align: middle;
-	float: right;
-}
 
 .css-leader-list-a > a {text-decoration: none; color: #284AF3; font-size: 3.5vw; line-height: 8.8vw;}
 .css-group-name-a > a {text-decoration: none; color: #284AF3; font-size: 3vw;}
@@ -138,12 +129,6 @@
 
 .div-temp2 {
 	height: 50px;
-}
-
-.no-attendance {
-	line-height: 55vw;
-	height: 55vw;
-	font-size: 5vw;
 }
 
 .basic-select {
@@ -235,6 +220,13 @@
     margin-right: 7px;
 }
 
+.admin-group-list-btn {
+	height: 27px;
+	margin-right: 6%; 
+	margin-bottom: 5%; 
+	float: right;
+}
+
 .admin-group-list-input {
 	font-size: 3vw;
     width: 90%; 
@@ -283,13 +275,6 @@
 
 .member-list-btn {
 	height: 27px;
-}
-
-.attendance-list-btn {
-	height: 27px;
-	margin-right: 6%; 
-	margin-bottom: 5%; 
-	float: right;
 }
 
 .admin-list-btn {
@@ -519,24 +504,6 @@
 .select-member-list-group {
 	width:66%; 
 	margin-bottom: 10%; 
-	height:27px; 
-	font-size: 12px;
-}
-
-.select-attendance-list-team {
-	width:70%; 
-	height:27px; 
-	font-size: 12px;
-}
-
-.select-attendance-list-year {
-	width: 100%;
-	height:27px; 
-	font-size: 12px;
-}
-
-.select-attendance-list-month {
-	width: 100%;
 	height:27px; 
 	font-size: 12px;
 }
@@ -1285,7 +1252,6 @@
     height: 2.1333333333vw !important;
 }
 
-/* 占쎈눇�뙼�맪占쏙퐦�삕占쎌졆占쎈쐻占쎈윪占쎌젳占쎌녃域밟뫁�굲 */
 .form-middle-pay{
     padding: 0 !important;
     margin: 8.88888888888vw 6.577777777777vw 0 6.577777777777vw !important;
@@ -1327,7 +1293,6 @@
 .form-middle-pay .form-pay .pay-radio-chk > span{
     color: #284AF3;
 }
-/* 占쎈쐩�넫琉울폕 占쎈퉲�겫�룞�삕 */
 .form-payinfo > .title{
 	font-size: 4.8vw;
 	font-weight: 700;
@@ -1626,7 +1591,6 @@
     color: #343a40;
 }
 
-/*占쎌뜏占쎌뒩占쎈땻占쎈즵占쎈쐻占쎈윪占쎄괜�뜝�럥��占쎈쐻�뜝占� buy-complete*/
 .form-wrap{
     padding: 0 6.4888888888vw;
 }
@@ -1772,7 +1736,6 @@
 .address-info .col-right{
     width: 61.1555555555vw;
 }
-/*占쎌뜏占쎌뒩占쎈땻占쎈즵 �뜝�럥�뱵�뜝�럥爾쎾뜝�럡�떖占쎈쐻占쎈윥�뵳占쏙옙堉⑨옙癒��굲*/
 .cancle-info{
     padding: 7.1111111111vw 0 0 0;
 }
@@ -1799,7 +1762,6 @@
     right: 2.66666666666vw;
     bottom: 2.66666666666vw;
 }
-/* 占쎌뜏占쎌뒩占쎈땻占쎈즵占쎈쐻占쎈윪占쎄섈占쎈쐻占쎈윪�억옙 */
 .seller-wrap{
     height: 35.5555555555vw;
     text-align: center;
@@ -1834,7 +1796,6 @@
     font-size: 4vw;
 }
 
-/*�뜝�럥夷⑨옙�넂�⑥�リ섬 占쎈쎗占쎈즵�몭諛곕㎟�뜝占�*/
 .cancle-radio{
     display: inline-block;
 }
@@ -1847,7 +1808,6 @@
     font-size: 3.5555555555vw;
 }
 
-/* �뜝�럥�떛嶺뚮ㅎ�뫒甕겄듬쐻占쎈윞占쏙옙占쎈쐻占쎈윥占쎈였 占쎈쐻占쎈윪占쎄섈占쎈쐻占쎈윪�앓듬쐻占쎈윥�뵳占쏙옙堉⑨옙癒��굲 */
 .container .header > .btn-screen-close{
     position: absolute;
     top: 11.8222222222vw;
@@ -2548,7 +2508,7 @@
 }
 
 
-/* 권한 관리용 table css */
+/* table css */
 .sales-table > .table-wrap2 > table{
     width: 100%;
     border: 1px solid #fff;
@@ -2612,7 +2572,6 @@
 }
 
 
-/*嶺뚮∥�뾼占쎈데*/
 .main-header > .logo{
     float: left;
     padding: 1.51111111111vw 0 0 4.08888888888vw;
@@ -2741,7 +2700,7 @@
 }
 */
 
-/* 2020.03.02 �뙣�뱶�슜 異붽�! */
+/* non-mobile */
 @media (min-width: 680px) {
 	input[type=checkbox]{
 		width:18px;
@@ -2771,10 +2730,6 @@
 	    border-radius: 2.666667px;
 	    border-width: 1.333333px;
 	    padding: 0 5;
-	}
-	.attendance-list-btn {
-		height: 34px;
-	    font-size: 17px;
 	}
 	.member-list-btn {
 		height: 35px;

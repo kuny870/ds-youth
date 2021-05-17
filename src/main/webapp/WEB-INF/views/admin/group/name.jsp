@@ -54,7 +54,7 @@
                     
                     
                     <div>
-		            	<button class="basic-btn attendance-list-btn" onclick="groupSearch()">조회</button>
+		            	<button class="basic-btn admin-group-list-btn" onclick="groupSearch()">조회</button>
 		            </div>
                     
 					<div class="sales-table">

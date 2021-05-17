@@ -15,13 +15,25 @@ public class Attendance {
 	private String thirdWeek;
 	private String fourthWeek;
 	private String fifthWeek;
-	private String seasonFlag;
-	private Integer totalLastYear;
 	private String sayu1;
 	private String sayu2;
 	private String sayu3;
 	private String sayu4;
 	private String sayu5;
+	
+	private String lastFirstWeek;
+	private String lastSecondWeek;
+	private String lastThirdWeek;
+	private String lastFourthWeek;
+	private String lastFifthWeek;
+	private String lastSayu1;
+	private String lastSayu2;
+	private String lastSayu3;
+	private String lastSayu4;
+	private String lastSayu5;
+	
+	private String seasonFlag;
+	private Integer totalLastYear;
 	private String removeFlag;
 	private Integer attOrd;
 	
@@ -193,6 +205,67 @@ public class Attendance {
 	}
 	public void setAttOrd(Integer attOrd) {
 		this.attOrd = attOrd;
+	}
+	
+	public String getLastFirstWeek() {
+		return lastFirstWeek;
+	}
+	public void setLastFirstWeek(String lastFirstWeek) {
+		this.lastFirstWeek = lastFirstWeek;
+	}
+	public String getLastSecondWeek() {
+		return lastSecondWeek;
+	}
+	public void setLastSecondWeek(String lastSecondWeek) {
+		this.lastSecondWeek = lastSecondWeek;
+	}
+	public String getLastThirdWeek() {
+		return lastThirdWeek;
+	}
+	public void setLastThirdWeek(String lastThirdWeek) {
+		this.lastThirdWeek = lastThirdWeek;
+	}
+	public String getLastFourthWeek() {
+		return lastFourthWeek;
+	}
+	public void setLastFourthWeek(String lastFourthWeek) {
+		this.lastFourthWeek = lastFourthWeek;
+	}
+	public String getLastFifthWeek() {
+		return lastFifthWeek;
+	}
+	public void setLastFifthWeek(String lastFifthWeek) {
+		this.lastFifthWeek = lastFifthWeek;
+	}
+	public String getLastSayu1() {
+		return lastSayu1;
+	}
+	public void setLastSayu1(String lastSayu1) {
+		this.lastSayu1 = lastSayu1;
+	}
+	public String getLastSayu2() {
+		return lastSayu2;
+	}
+	public void setLastSayu2(String lastSayu2) {
+		this.lastSayu2 = lastSayu2;
+	}
+	public String getLastSayu3() {
+		return lastSayu3;
+	}
+	public void setLastSayu3(String lastSayu3) {
+		this.lastSayu3 = lastSayu3;
+	}
+	public String getLastSayu4() {
+		return lastSayu4;
+	}
+	public void setLastSayu4(String lastSayu4) {
+		this.lastSayu4 = lastSayu4;
+	}
+	public String getLastSayu5() {
+		return lastSayu5;
+	}
+	public void setLastSayu5(String lastSayu5) {
+		this.lastSayu5 = lastSayu5;
 	}
 	
 }

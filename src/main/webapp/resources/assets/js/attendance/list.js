@@ -71,9 +71,6 @@ $(function() {
 	    }
 	    
 	}   // PC용 페이지 end
-	
-	// 2부 체크박스 처음에 숨김
-	$(".secondYN").hide();
 
 });
 
@@ -345,6 +342,7 @@ function attendanceRegist() {
 	var thirdArray = new Array();
 	var fourthArray = new Array();
 	var fifthArray = new Array();
+	
 	var sortAttOrdArray = new Array();
 	
 	// 이름

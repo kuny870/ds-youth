@@ -9,16 +9,18 @@ public class AttendanceSearch {
 	private String year;
 	private String lastYear;
 	private Integer month;
+	private Integer lastMonth;
 	private String season;
 	private String seasonFlag;
 	private String thisSeason;
 	private String nameKW; // 이름 검색 조건
 	
 	public AttendanceSearch() {
-		this.teamId = "";
+		this.teamId = "9";
 		this.year = DateHelper.getYear();
 		this.lastYear = DateHelper.getLastYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
+		this.lastMonth = StringHelper.parseInt(DateHelper.getMonth())-1;
 		this.setNameKW("");
 	}
 	
@@ -93,13 +95,21 @@ public class AttendanceSearch {
 
 	public String getTeamId() {
 		if("".equals(this.teamId) || "0".equals(this.teamId) || "10".equals(this.teamId)) {
-			this.teamId = "";
+			this.teamId = "9";
 		}
 		return teamId;
 	}
 
 	public void setTeamId(String teamId) {
 		this.teamId = teamId;
+	}
+
+	public Integer getLastMonth() {
+		return month-1;
+	}
+
+	public void setLastMonth(Integer lastMonth) {
+		this.lastMonth = lastMonth;
 	}
 	
 }
