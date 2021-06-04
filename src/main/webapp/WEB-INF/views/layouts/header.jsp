@@ -35,4 +35,10 @@
 	<head>
 		<title>DSYouth</title>
 	</head>
+	<body>
+		<!--로딩바-->
+		<div id="loading" style="margin-left: 0px; display: none;">
+		    <img src="${pageContext.request.contextPath}/resources/assets/images/loadingbar.gif">
+		</div>
+	</body>
 </html>

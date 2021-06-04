@@ -18,6 +18,7 @@
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/modalLayer.css" />
+	
   </head>
   <body>
     <div class="container">
@@ -45,7 +46,7 @@
                        				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/attendance/list?teamId=${login.teamId}">출석부</a>
+                       				<a href="${contextPath }/attendance/list?teamId=${login.teamId}" onclick="loadingbar()">출석부</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>
@@ -55,7 +56,7 @@
                        				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">팀원 관리</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/member/list?teamId=${login.teamId}">팀원 관리</a>
+                       				<a href="${contextPath }/member/list?teamId=${login.teamId}" onclick="loadingbar()">팀원 관리</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>

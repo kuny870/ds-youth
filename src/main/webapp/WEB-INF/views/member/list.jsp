@@ -171,18 +171,18 @@
 							    <ul>
 							      <c:if test="${paging.startPage - paging.pageSize gt 0}">
 							         <li class="paginate_button previous" id="DataTables_Table_0_previous">
-							             <a href="javascript:pageModule.movePage(${paging.startPage-1})" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0"><</a>
+							             <a href="javascript:pageModule.movePage(${paging.startPage-1})" onclick="loadingbar()" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0"><</a>
 							         </li>
 							      </c:if>
 							      <c:forEach varStatus="i" begin="${paging.startPage}" end="${paging.endPage}" step="1">
 							         <c:set var="active" value="${i.index eq paging.pageNo ? 'active' : ''}"/>
 							         <li>
-							             <a class="${active}" href="javascript:pageModule.movePage(${i.index})" aria-controls="DataTables_Table_0" tabindex="0">${i.index}</a>
+							             <a class="${active}" href="javascript:pageModule.movePage(${i.index})" onclick="loadingbar()" aria-controls="DataTables_Table_0" tabindex="0">${i.index}</a>
 							         </li>
 							       </c:forEach>
 							        <c:if test="${paging.totalPage - paging.endPage gt 0}">
 							          <li class="paginate_button next" id="DataTables_Table_0_next">
-							            <a href="javascript:pageModule.movePage(${paging.startPage+paging.pageSize})" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">></a>
+							            <a href="javascript:pageModule.movePage(${paging.startPage+paging.pageSize})" onclick="loadingbar()" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">></a>
 							          </li>
 							        </c:if>
 							     </ul>

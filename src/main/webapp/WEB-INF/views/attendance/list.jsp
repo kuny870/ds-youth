@@ -28,7 +28,7 @@
 	
   </head>
   <body>
-
+  
     <div class="container">
     
             <div class="header-product">
@@ -93,7 +93,7 @@
 		            	</div>
 		            
 			            <div>
-			            	<button class="basic-btn attendance-list-btn" onclick="attendanceSearch()">조회</button>
+			            	<button class="basic-btn attendance-list-btn" id="searchBtn" onclick="attendanceSearch()">조회</button>
 			            </div>
 			        </div>
 
