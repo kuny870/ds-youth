@@ -23,10 +23,10 @@ public class Group {
 		this.year = DateHelper.getYear();
 		if(Integer.parseInt(DateHelper.getYear()) == 2020 && Integer.parseInt(DateHelper.getMonth()) > 8) {
 			this.seasonFlag = "3";
-		}else if(Integer.parseInt(DateHelper.getMonth()) < 7) {
-			this.seasonFlag = "1";
-		}else {
+		}else if( (Integer.parseInt(DateHelper.getYear()) == 2021 && Integer.parseInt(DateHelper.getMonth()) > 5) || (Integer.parseInt(DateHelper.getYear()) != 2021 && Integer.parseInt(DateHelper.getMonth()) > 6) ) {
 			this.seasonFlag = "2";
+		}else {
+			this.seasonFlag = "1";
 		}
 	}
 	

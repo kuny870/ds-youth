@@ -268,8 +268,8 @@ public class AuthServiceImpl implements AuthService {
 	 * 권한별 User list
 	 */
 	@Override
-	public List<User> getUserListByAuth(int id) {
-		return authMapper.selectUserListByAuth(id);
+	public List<User> getUserListByAuth(Auth auth) {
+		return authMapper.selectUserListByAuth(auth);
 	}
 	
 	/**

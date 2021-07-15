@@ -661,13 +661,29 @@
 			AND att_yn = #{attYn}
 			
 			<choose>
-				<when test="month > 6">
-					AND month > 6 
+				<when test="year == 2021">
+					<choose>
+						<when test="month > 5">
+							AND month > 5
+						</when>
+						<otherwise>
+							<![CDATA[
+								AND month < 6
+							]]>
+						</otherwise>
+					</choose>
 				</when>
 				<otherwise>
-					<![CDATA[
-						AND month < 7
-					]]>
+					<choose>
+						<when test="month > 6">
+							AND month > 6
+						</when>
+						<otherwise>
+							<![CDATA[
+								AND month < 7
+							]]>
+						</otherwise>
+					</choose>
 				</otherwise>
 			</choose>
 	</update>

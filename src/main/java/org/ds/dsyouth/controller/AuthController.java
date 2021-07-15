@@ -139,7 +139,7 @@ public class AuthController {
 			Auth auth)	{
 
 		auth = authService.getAuthById(auth.getId());
-		List<User> userList = authService.getUserListByAuth(auth.getId());
+		List<User> userList = authService.getUserListByAuth(auth);
 		
 		ModelAndView mav = new ModelAndView("admin/auth/detail");
 		

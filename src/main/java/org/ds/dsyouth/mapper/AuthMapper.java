@@ -15,7 +15,7 @@ public interface AuthMapper {
 	List<Auth> selectAuthList();
 	int selectAuthCnt(int id);	// 권한의 cnt 구하기
 	int selectAuthExecCnt();	// 국장 권한의 cnt 구하기
-	List<User> selectUserListByAuth(int id);	// 회원권한
+	List<User> selectUserListByAuth(Auth auth);	// 회원권한
 	List<User> selectUserListByUser();	// 회원관리
 	boolean deleteAuth(Auth auth);	// 권한 초기화
 	boolean deleteAuthExec();	// 국장 권한 초기화

@@ -112,7 +112,7 @@
 	</update>
 	
 	<!-- 회원 권한 User List 불러오기 -->
-  	<select id="selectUserListByAuth" parameterType="int" resultMap="UserMap">
+  	<select id="selectUserListByAuth" parameterType="Auth" resultMap="UserMap">
 		SELECT
 			u.id,
 		    u.login_id,
@@ -141,6 +141,9 @@
 		WHERE u.login_id != 'admin'
 			AND u.del_yn = 'N'
 		ORDER BY
+			<if test="id == 8">
+				u.auth_exec DESC ,
+			</if>
 			FIELD(u.auth_id, #{id}) DESC
 			, d.d_name ASC
 			, t.t_short_name ASC

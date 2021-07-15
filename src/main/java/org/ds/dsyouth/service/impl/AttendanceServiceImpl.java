@@ -61,6 +61,11 @@ public class AttendanceServiceImpl implements AttendanceService {
 				attendance.setMonth(i.toString());
 				result = attendanceMapper.updateAttendanceGroup(attendance);
 			}
+		}else if("2".equals(attendance.getSeasonFlag()) && "2021".equals(attendance.getYear()) ) {
+			for(Integer i = 6; i < 13; i++) {
+				attendance.setMonth(i.toString());
+				result = attendanceMapper.updateAttendanceGroup(attendance);
+			}
 		}else if("2".equals(attendance.getSeasonFlag())) {
 			for(Integer i = 7; i < 13; i++) {
 				attendance.setMonth(i.toString());

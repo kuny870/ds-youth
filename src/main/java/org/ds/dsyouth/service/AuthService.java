@@ -50,7 +50,7 @@ public interface AuthService {
 	int getAuthCnt(int id);		// 권한의 cnt 구하기
 	int getAuthExecCnt();		// 국장 권한의 cnt 구하기
 	
-	List<User> getUserListByAuth(int id);	// 회원권한
+	List<User> getUserListByAuth(Auth auth);	// 회원권한
 	List<User> getUserListByUser();	// 회원관리
 	boolean removeAuth(Auth auth);	// 권한 초기화
 	boolean removeAuthExec();	// 국장 권한 초기화

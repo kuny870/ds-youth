@@ -2735,6 +2735,11 @@
 		width:18px;
 		height:17px;
 	}
+	.admin-group-list-btn {
+		height: 35px;
+		width: 100px;
+	}
+	
 	.admin-list-btn {
 		height: 65%;
 		font-size: 4vw;

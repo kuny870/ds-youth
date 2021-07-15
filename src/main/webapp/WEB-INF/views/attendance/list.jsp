@@ -104,7 +104,8 @@
 			                <table>
 			                    <thead>
 			                    
-			                    	<c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+			                    	<c:if test="${(attendanceSearch.year == 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 6) or 
+			                    				(attendanceSearch.year != 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 7)}">
 				                    	<tr class="lastAtt">
 				                            <th class="th-5p6"></th>
 					                		<th class="th-18p0"></th>
@@ -130,7 +131,8 @@
 						                	</c:otherwise>
 						                </c:choose>
 						                
-						                <c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+						                <c:if test="${(attendanceSearch.year == 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 6) or 
+			                    				(attendanceSearch.year != 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 7)}">
 							                <c:forEach var="ls" items="${lastSunday}" varStatus="i">
 							                	<c:set var="borderRight" value="" />
 							                	<c:if test="${i.index+1 eq lastSunday.size() }">
@@ -441,7 +443,8 @@
 									                            
 									                            <!-- 출석체크 checkbox -->
 									                            
-									                            <c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7 }">
+									                            <c:if test="${(attendanceSearch.year == 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 6) or 
+			                    											(attendanceSearch.year != 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 7)}">
 									                            
 										                            <c:forEach var="lastSun" items="${lastSunday}" varStatus="i">
 										                            	<c:set var="checked" value=""/>
@@ -856,7 +859,8 @@
 			                    			</c:if>
 			                    		</c:forEach>
 			                    		
-			                    		<c:if test="${attendanceSearch.month != 1 and attendanceSearch.month != 7}">
+			                    		 <c:if test="${(attendanceSearch.year == 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 6) or 
+			                    				(attendanceSearch.year != 2021 and attendanceSearch.month != 1 and attendanceSearch.month != 7)}">
 				                    		<td class="lastAtt">${lastFirstWeekCnt }</td>
 				                    		<td class="lastAtt">${lastSecondWeekCnt }</td>
 				                    		<td class="lastAtt">${lastThirdWeekCnt }</td>
