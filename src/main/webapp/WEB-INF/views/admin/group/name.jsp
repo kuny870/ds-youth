@@ -132,18 +132,20 @@
 					        	<input type="hidden" id="seasonFlag" name="seasonFlag" value="${group.seasonFlag }" />
 					        
 					        	<div style="text-align: center;">
-					        		<select class="basic-select admin-group-select" id="teamId" name="teamId">
-					        			<option>팀선택</option>
-					        			<c:forEach var="team" items="${teamList }">
-					        				<c:set var="selected" value="" />
-											<c:if test="${team.id eq login.teamId}">
-												<c:set var="selected" value="selected" />
-											</c:if>
-											<option value="${team.id}" ${selected} >${team.tShortName}</option>
-										</c:forEach>
-					        		</select>
-					        		<input type="number" pattern="\d*" class="basic-input admin-order-input" id="ord" name="ord" placeholder="순서" maxlength="2" autocomplete="off"></input>
-					 	        	<input class="basic-input admin-group-input" id="gName" name="gName" placeholder="ex) 기본진리-건희"></input>
+					        		<div class="admin-group-name-div">
+						        		<select class="basic-select admin-group-select" id="teamId" name="teamId">
+						        			<option>팀선택</option>
+						        			<c:forEach var="team" items="${teamList }">
+						        				<c:set var="selected" value="" />
+												<c:if test="${team.id eq login.teamId}">
+													<c:set var="selected" value="selected" />
+												</c:if>
+												<option value="${team.id}" ${selected} >${team.tShortName}</option>
+											</c:forEach>
+						        		</select>
+						        		<input type="number" pattern="\d*" class="basic-input admin-order-input" id="ord" name="ord" placeholder="순서" maxlength="2" autocomplete="off"></input>
+						 	        	<input class="basic-input admin-group-input" id="gName" name="gName" placeholder="ex) 기본진리-건희"></input>
+					 	        	</div>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">추가</button>

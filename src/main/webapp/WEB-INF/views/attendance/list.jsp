@@ -49,7 +49,7 @@
                     
                     <div class="search-div">
 						<div class="customer-select-search" style="width: 26%; margin-left:5%; float: left;">
-							 <select class="select-attendance-list-team" id="teamId" name="teamId">
+							 <select class="select-attendance-list-team" id="teamId" name="teamId" onchange="attendanceSearch()">
 		                       	<option value="99" >팀 전체</option>
 		                       	<c:forEach var="team" items="${teamList }">
 		                       		<c:set var="selected" value="" />
@@ -63,7 +63,7 @@
 	                    
 	                    <div class="customer-select-search" style="width: 19%; margin-left: -20px; float: left;">
 							<!-- 년 선택 -->
-	                   		<select class="select-attendance-list-year" id="year" name="year">
+	                   		<select class="select-attendance-list-year" id="year" name="year" onchange="attendanceSearch()">
 		                       	<c:forEach var="year" items="${yearList }">
 		                       		<c:set var="selected" value="" />
 									<c:if test="${year eq attendanceSearch.year }">
@@ -76,7 +76,7 @@
 	                    
 	                    <div class="customer-select-search" style="width: 15%; margin-left: 3%; float: left;">
 							<!-- 월 선택 -->
-	                   		<select class="select-attendance-list-month" id="month" name="month">
+	                   		<select class="select-attendance-list-month" id="month" name="month" onchange="attendanceSearch()">
 		                       	<c:forEach var="month" items="${SMonthSearchType }">
 		                       		<c:set var="selected" value="" />
 									<c:if test="${month.getVName() eq attendanceSearch.month }">
@@ -329,6 +329,9 @@
 										                            				<c:if test="${att.member.samePeriodId != null }">
 										                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
 													                            		<c:choose>
+													                            			<c:when test="${yearTmp == 18}">
+													                            				(0)
+													                            			</c:when>
 													                            			<c:when test="${yearTmp == 19}">
 													                            				(1)
 													                            			</c:when>
@@ -391,6 +394,9 @@
 										                            				<c:if test="${att.member.samePeriodId != null }">
 										                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
 													                            		<c:choose>
+													                            			<c:when test="${yearTmp == 18}">
+													                            				(0)
+													                            			</c:when>
 													                            			<c:when test="${yearTmp == 19}">
 													                            				(1)
 													                            			</c:when>
@@ -880,14 +886,10 @@
 			                    		<td>${secondWeekCnt }</td>
 			                    		<td>${thirdWeekCnt }</td>
 			                    		<td>${fourthWeekCnt }</td>
-			                    		<c:choose>
-			                    			<c:when test="${sunday.size() > 4 }">
-			                    				<td>${fifthWeekCnt }</td>
-			                    			</c:when>
-				                    		<c:otherwise>
-				                    			<td></td>
-				                    		</c:otherwise>
-			                    		</c:choose>
+		                    			<c:if test="${sunday.size() > 4 }">
+		                    				<td>${fifthWeekCnt }</td>
+		                    			</c:if>
+			                    		<td></td>
 			                    	</tr>
 			                    </tfoot>
 			                </table>

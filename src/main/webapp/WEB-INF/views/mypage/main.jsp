@@ -53,10 +53,10 @@
 	                    <div class="mypage-row">
 	                    	<c:choose>
                        			<c:when test="${departList.size() == 0 || teamList.size() == 0}">
-                       				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">팀원 관리</a>
+                       				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">팀별 관리</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/member/list?teamId=${login.teamId}" onclick="loadingbar()">팀원 관리</a>
+                       				<a href="${contextPath }/member/list?teamId=${login.teamId}" onclick="loadingbar()">팀별 관리</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>
@@ -66,7 +66,7 @@
 	                <h3>동기</h3>
 					<div class="mypage-rows">
 	                    <div class="mypage-row">
-	                        <a href="${contextPath }/samePeriod/list">동기 모임</a>
+	                        <a href="${contextPath }/samePeriod/list">동기별 보기</a>
 	                    </div>
 	                </div>
 	                

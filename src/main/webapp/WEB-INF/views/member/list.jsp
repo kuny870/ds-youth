@@ -15,6 +15,7 @@
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
+	<link href="${resourcesPath}/assets/css/attendance.css?${nowTime}" rel="stylesheet">
   </head>
   <body>
   	<c:set var="memberList" value="${paging.list }" />
@@ -22,14 +23,20 @@
     <div class="container">
     
             <div class="header-product">
+             <div class="header-att">
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="head_title text-center">팀원 관리</p>
+			    <div class="main-title-att text-center">
+			    	팀별 관리
+			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="attendance-img" onclick="excelDownTeamList()" style="margin-left: 25vw; margin-top: 0.3vw; width: 8vw;">
+			    </div>
+			    </div>
+			    
             
 				<div class="div-container">
 					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
-						 <select class="select-member-list-team" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value);">
+						 <select class="select-member-list-team" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value); memberSearch();">
 						 	<option value="" >팀 전체</option>
 	                       	<c:forEach var="team" items="${teamList }">
 	                       		<c:set var="selected" value="" />
@@ -42,7 +49,7 @@
                     </div>
                     
                     <div class="customer-select-search" style="width: 36%; margin-left: -17px; float: left;">
-						 <select class="select-member-list-group" id="groupId" name="groupId">
+						 <select class="select-member-list-group" id="groupId" name="groupId" onchange="memberSearch();">
 						 	<option value="" >순 전체</option>
 	                       	<c:forEach var="group" items="${groupList }">
 	                       		<c:set var="selected" value="" />
@@ -86,7 +93,7 @@
 			                    <tbody>
 			                    	<c:forEach var="mem" items="${memberList}" varStatus="i">
 			                    		<tr>
-				                            <td>${i.index + 1}</td>
+				                            <td>${ ((memberSearch.pageNo - 1) * 10) + (i.index + 1) }</td>
 				                            <td>
 				                            	<div class="css-team-list-a">
 				                            		<a href="javascript:memberModify('${mem.id}','${memberSearch.pageNo}','${memberSearch.teamId}','${memberSearch.groupId}','${memberSearch.nameKW }')">
@@ -94,6 +101,9 @@
 				                            			<c:if test="${mem.samePeriodId != null }">
 				                            				<c:set var="yearTmp" value="${year - mem.samePeriod.birthYear}"/>
 				                            				<c:choose>
+				                            					<c:when test="${yearTmp == 18}">
+						                            				(0)
+						                            			</c:when>
 						                            			<c:when test="${yearTmp == 19}">
 						                            				(1)
 						                            			</c:when>

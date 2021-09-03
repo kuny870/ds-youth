@@ -1,6 +1,7 @@
 package org.ds.dsyouth.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
@@ -23,5 +24,7 @@ public interface MemberService {
 	
 	int getGroupCnt(Group group);	// 그룹의 cnt 구하기
 	int getSamePeriodCnt(int id);	// 동기의 cnt 구하기
+	
+	List<Member> getMemberListForExcel(Map year);	// 팀별 List 불러오기
 	
 }

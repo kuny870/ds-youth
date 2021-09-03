@@ -20,7 +20,7 @@ import org.ds.dsyouth.search.AttendanceSearch;
 import org.ds.dsyouth.utils.DateHelper;
 import org.springframework.web.servlet.view.document.AbstractExcelView;
 
-public class GenericExcelView extends AbstractExcelView {
+public class GenericExcelViewAttendance extends AbstractExcelView {
 
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, HSSFWorkbook workbook, HttpServletRequest request,
@@ -271,9 +271,11 @@ public class GenericExcelView extends AbstractExcelView {
 	                  // 동기
 	               	  String samePeriodStr = "";
 	               	  Attendance att = attendanceExcel.get(i).get(x);
-	               	  int yearTmp = Integer.parseInt(attendanceSearch.getYear()) - att.getSamePeriod().getBirthYear();
 	               	  
 	               	  if(att.getSamePeriod() != null) {
+	               		  
+	               		  int yearTmp = Integer.parseInt(attendanceSearch.getYear()) - att.getSamePeriod().getBirthYear();
+	               		
 	               		  if(yearTmp == 19) {
 	               			  samePeriodStr = "(1)";
 	               		  }else if(yearTmp == 20) {

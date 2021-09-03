@@ -24,7 +24,10 @@
    				</span>
 			    
 		    	<c:choose>
-			    	<c:when test="${map.gubun == 0 || map.gubun == 9}">
+		    		<c:when test="${map.gubun == 0}">
+                 		<p class="head_title text-center">예비1학년</p>
+                    </c:when>
+			    	<c:when test="${map.gubun == 9}">
                  		<p class="head_title text-center">${map.name}년생</p>
                     </c:when>
                     <c:otherwise>

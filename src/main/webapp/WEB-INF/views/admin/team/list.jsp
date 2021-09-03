@@ -72,13 +72,15 @@
 					        	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
 					        
 					        	<div style="text-align: center;">
-					        		<select class="basic-select admin-team-select" id="departId" name="departId">
-					        			<option>부서선택</option>
-					        			<c:forEach var="depart" items="${departList }">
-											<option value="${depart.id}" >${depart.dName}</option>
-										</c:forEach>
-					        		</select>
-					 	        	<input class="basic-input admin-team-input" id="tShortName" name="tShortName" placeholder="팀명" autocomplete="off"></input>
+					        		<div class="admin-team-input-div">
+						        		<select class="basic-select admin-team-select" id="departId" name="departId">
+						        			<option>부서선택</option>
+						        			<c:forEach var="depart" items="${departList }">
+												<option value="${depart.id}" >${depart.dName}</option>
+											</c:forEach>
+						        		</select>
+						 	        	<input class="basic-input admin-team-input" id="tShortName" name="tShortName" placeholder="팀명" autocomplete="off"></input>
+					 	        	</div>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">추가</button>

@@ -30,7 +30,14 @@ public class Member {
 	private Group group;
 	private SamePeriod samePeriod;
 	private Attendance attendance;
+	private MemberState memberState;
 	
+	public MemberState getMemberState() {
+		return memberState;
+	}
+	public void setMemberState(MemberState memberState) {
+		this.memberState = memberState;
+	}
 	public String getMemo() {
 		return memo;
 	}

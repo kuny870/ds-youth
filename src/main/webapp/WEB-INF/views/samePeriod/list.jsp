@@ -23,7 +23,7 @@
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <p class="head_title text-center">동기 모임</p>
+			    <p class="head_title text-center">동기별 보기</p>
             
 				<div class="div-container">
 					
@@ -56,8 +56,11 @@
 			                    			
 				                            <td class="css-a">
 				                            	<c:choose>
-				                            		<c:when test="${year - samePeriod.birthYear < 19}">
-					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=0">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
+				                            		<c:when test="${year - samePeriod.birthYear < 18}">
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=0">고등부 (${samePeriod.cnt})</a>
+						                            </c:when>
+				                            		<c:when test="${year - samePeriod.birthYear == 18}">
+					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=0&gubun=0">예비1학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 												    <c:when test="${year - samePeriod.birthYear == 19}">
 					                    				<a href="${contextPath }/samePeriod/detail?sId=${samePeriod.id}&name=1&gubun=1">1학년 (${samePeriod.cnt})</a>

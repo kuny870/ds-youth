@@ -1,6 +1,7 @@
 package org.ds.dsyouth.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.ds.dsyouth.mapper.AttendanceMapper;
 import org.ds.dsyouth.mapper.MemberMapper;
@@ -212,5 +213,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.selectMemberListBySamePeriodPer(sId);
 	}
 	
+	/**
+	 * 팀별 명단 불러오기
+	 */
+	@Override
+	public List<Member> getMemberListForExcel(Map year) {
+		return memberMapper.selectMemberListForExcel(year);
+	}
 
 }

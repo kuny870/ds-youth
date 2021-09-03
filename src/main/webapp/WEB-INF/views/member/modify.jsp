@@ -56,9 +56,9 @@
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="${member.name}">
                         </label>   
                         <!-- 생년월일 -->                     
-                        <label>
+                        <%-- <label>
                             <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="${member.dateOfBirth}" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
-                        </label>
+                        </label> --%>
                         <!-- 휴대폰 번호 -->
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="${member.htel}" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">
@@ -98,20 +98,34 @@
                             </select>                        
 	                   </div>
 	                   
+	                   <!-- 동기설정 -->   
+                       <div class="customer-select">
+                            <select id="samePeriodId" name="samePeriodId">
+                            	<option value="" >동기선택</option>
+                            	<c:forEach var="sp" items="${samePeriodList}">
+                            		<c:set var="selected" value="" />
+                            		<c:if test="${sp.id eq member.samePeriodId}">
+										<c:set var="selected" value="selected" />
+									</c:if>
+									<option value="${sp.id}" ${selected }>${sp.birthYear} 동기</option>
+								</c:forEach>
+                            </select>                        
+	                   </div>
+	                   
 	                   <!-- 새가족일 경우 인도자 -->
 	                   <div id="new-member" style="display: none;">
 		                   <label>
 	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="${member.guider}" autocomplete="off" style="margin-top: 6vw;">                        
 	                       </label>
-	                       <div style="width: 80%; margin-top: 15px;">
-		                       <table style="width: 100%; table-layout: fixed;">
+	                       <div class="member-modify-guider-div" style="width: 80%; margin-top: 15px;">
+		                       <table class="member-modify-guider-table" style="width: 100%; table-layout: fixed;">
 			                       	<tr>
 				                       	<td>
-				                            <span style="margin-left: 10px;">등록일</span>
+				                            <span class="member-modify-guider-text" style="margin-left: 10px;">등록일</span>
 				                            <input style="margin-right: 5px;" type="date" class="customer-calendar" id="memberRegDate" name="memberRegDate" value="">
 				                        </td>
 				                        <td>
-				                            <span style="margin-left: 15px;">수료일</span>
+				                            <span class="member-modify-guider-text" style="margin-left: 15px;">수료일</span>
 				                            <input style="margin-left: 5px;" type="date" class="customer-calendar" id="memberGradDate" name="memberGradDate" value="">                        
 				                       </td>
 			                       </tr>

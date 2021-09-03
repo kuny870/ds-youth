@@ -55,11 +55,11 @@
 	            		<!-- 이름 -->
                         <label>
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="" autocomplete="off">
-                        </label>   
-                        <!-- 생년월일 -->                     
-                        <label>
-                            <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
                         </label>
+                        <!-- 생년월일 -->                     
+                        <!-- <label>
+                            <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
+                        </label> -->
                         <!-- 휴대폰 번호 -->
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">                        
@@ -89,6 +89,16 @@
 										<c:set var="selected" value="selected" />
 									</c:if>
 									<option value="${team.id}" ${selected} >${team.tShortName}</option>
+								</c:forEach>
+                            </select>                        
+	                   </div>
+	                   
+	                   <!-- 동기설정 -->   
+                       <div class="customer-select">
+                            <select id="samePeriodId" name="samePeriodId">
+                            	<option value="" >동기선택</option>
+                            	<c:forEach var="sp" items="${samePeriodList}">
+									<option value="${sp.id}" >${sp.birthYear} 동기</option>
 								</c:forEach>
                             </select>                        
 	                   </div>

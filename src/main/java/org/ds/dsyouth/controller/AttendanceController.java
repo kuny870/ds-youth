@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ds.dsyouth.common.Constants;
-import org.ds.dsyouth.excel.GenericExcelView;
+import org.ds.dsyouth.excel.GenericExcelViewAttendance;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Team;
@@ -97,7 +97,7 @@ public class AttendanceController {
      * 출석부 엑셀 다운로드
      */
     @RequestMapping(value = "/attendance/excelDownload", method = RequestMethod.GET)
-    public GenericExcelView attendance_excel_download(
+    public GenericExcelViewAttendance attendance_excel_download(
     		AttendanceSearch attendanceSearch,
     		Map<String, Object> model,
     		HttpServletResponse response) throws IOException {
@@ -128,7 +128,7 @@ public class AttendanceController {
         model.put("teamList", teamList);
         model.put("attendanceSearch", attendanceSearch);
 
-        return new GenericExcelView();
+        return new GenericExcelViewAttendance();
 
     }
 	

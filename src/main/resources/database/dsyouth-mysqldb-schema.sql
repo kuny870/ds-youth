@@ -29,6 +29,17 @@ ADD (att_ord Integer(10) DEFAULT 0);
 update `group` set ord = 0;
 update attendance_2021 set att_ord = 99 where att_ord = 0;
 
+
+-- TODO 전체 연락처 가져오기
+SELECT t.t_short_name, m.name, m.htel FROM member m
+left outer join team t on t.id = m.team_id
+where m.mem_state != 5 and m.mem_state != 6 and m.del_yn = 'N'
+ORDER BY 
+m.depart_id ASC,
+FIELD(t.t_short_name, '새가족') ASC,
+t.id ASC
+;
+
 -- 출석부 순서 초기화 쿼리
 update attendance_2021 set  att_ord = 0;
 
@@ -133,11 +144,11 @@ create table team (
 
 -- 순관리
 create table year_season (
-	id int(50) not null AUTO_INCREMENT,	-- 고유번호
-    `year` varchar(10) not null,	-- 년도
-    season varchar(20) not null,	-- 시즌
-    season_flag varchar(10) null,	-- 시즌구분자
-    del_yn varchar(10) not null default 'N',	-- 삭제 여부
+	id int(50) not null AUTO_INCREMENT comment '고유번호',	-- 고유번호
+    `year` varchar(10) not null comment '년도',	-- 년도
+    season varchar(20) not null comment '시즌',	-- 시즌
+    season_flag varchar(10) null comment '시즌구분자',	-- 시즌구분자
+    del_yn varchar(10) not null default 'N' comment '삭제여부',	-- 삭제 여부
     
 	constraint pk_year_season primary key (id)
 );
@@ -160,41 +171,31 @@ create table `group` (
 
 -- 팀별 출석부
 create table attendance_${nextYear} (
-	id int(50) not null AUTO_INCREMENT,	-- 고유번호
-    member_id varchar(10) not null,	-- member 고유 id
-    group_id varchar(10) null,	-- 순
-    group_grade varchar(10) not null default '순원',	-- 순장여부
-    mem_state varchar(10) not null,		-- 회원상태 값
-    att_yn varchar(10) not null default 'Y',	-- 출석 카운트
-    `year` varchar(10) not null,	-- 년
-    `month` varchar(10) not null,	-- 월
+	id int(50) not null AUTO_INCREMENT comment '고유번호',	-- 고유번호
+    member_id varchar(10) not null comment 'member 고유 id',	-- member 고유 id
+    group_id varchar(10) null comment '순',	-- 순
+    group_grade varchar(10) not null default '순원' comment '순장여부',	-- 순장여부
+    mem_state varchar(10) not null comment '회원상태',		-- 회원상태 값
+    att_yn varchar(10) not null default 'Y' comment '출석 카운트',	-- 출석 카운트
+    `year` varchar(10) not null comment '년',	-- 년
+    `month` varchar(10) not null comment '월',	-- 월
     
-    last_first_week varchar(10) not null default 'N',	-- 전달 1주
-    last_sayu1 varchar(50) null,	-- 전달 1주 예배 불참 사유
-    last_second_week varchar(10) not null default 'N',	-- 전달 2주
-    last_sayu2 varchar(50) null,	-- 전달 2주 예배 불참 사유
-    last_third_week varchar(10) not null default 'N',	-- 전달 3주
-    last_sayu3 varchar(50) null,	-- 전달 3주 예배 불참 사유
-    last_fourth_week varchar(10) not null default 'N',	-- 전달 4주
-    last_sayu4 varchar(50) null,	-- 전달 4주 예배 불참 사유
-    last_fifth_week varchar(10) not null default 'N',	-- 전달 5주
-    last_sayu5 varchar(50) null,	-- 전달 5주 예배 불참 사유
+    first_week varchar(10) not null default 'N' comment '1주',	-- 1주
+    sayu1 varchar(50) null comment '1주 예배 불참 사유',	-- 1주 예배 불참 사유
+    second_week varchar(10) not null default 'N' comment '2주',	-- 2주
+    sayu2 varchar(50) null comment '2주 예배 불참 사유',	-- 2주 예배 불참 사유
+    third_week varchar(10) not null default 'N' comment '3주',	-- 3주
+    sayu3 varchar(50) null comment '3주 예배 불참 사유',	-- 3주 예배 불참 사유
+    fourth_week varchar(10) not null default 'N' comment '4주',	-- 4주
+    sayu4 varchar(50) null comment '4주 예배 불참 사유',	-- 4주 예배 불참 사유
+    fifth_week varchar(10) not null default 'N' comment '5주',	-- 5주
+    sayu5 varchar(50) null comment '5주 예배 불참 사유',	-- 5주 예배 불참 사유
     
-    first_week varchar(10) not null default 'N',	-- 1주
-    sayu1 varchar(50) null,	-- 1주 예배 불참 사유
-    second_week varchar(10) not null default 'N',	-- 2주
-    sayu2 varchar(50) null,	-- 2주 예배 불참 사유
-    third_week varchar(10) not null default 'N',	-- 3주
-    sayu3 varchar(50) null,	-- 3주 예배 불참 사유
-    fourth_week varchar(10) not null default 'N',	-- 4주
-    sayu4 varchar(50) null,	-- 4주 예배 불참 사유
-    fifth_week varchar(10) not null default 'N',	-- 5주
-    sayu5 varchar(50) null,	-- 5주 예배 불참 사유
-    
-    att_ord int(10) not null default 99,       -- 출석부 순서
+    att_ord int(10) not null default 99 comment '출석부 순서',       -- 출석부 순서
     
     constraint pk_attendance_${nextYear} primary key (id)
 );
+
 
 -- 출석부 테이블 데이터 복사
 INSERT INTO attendance_${nextYear} SELECT * FROM attendance_${thisYear}

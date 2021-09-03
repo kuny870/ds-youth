@@ -1,13 +1,17 @@
 package org.ds.dsyouth.controller;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.ds.dsyouth.common.Constants;
+import org.ds.dsyouth.excel.GenericExcelViewTeamList;
 import org.ds.dsyouth.model.Depart;
 import org.ds.dsyouth.model.Group;
 import org.ds.dsyouth.model.Member;
@@ -20,6 +24,7 @@ import org.ds.dsyouth.search.MemberSearch;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,6 +96,7 @@ public class MemberController {
 		
 		List<Depart> departList = adminService.getDepartList();
 		List<MemberState> memberStateList = adminService.getMemberStateList();
+		List<SamePeriod> samePeriodList = adminService.getSamePeriodList();
 		List<Team> teamList = null;
 		
 		// departId 값이 '0' 은 admin 관리자 '3' 은 기타 부서 소속 
@@ -102,6 +108,7 @@ public class MemberController {
 			
 		ModelAndView mav = new ModelAndView("member/regist");
 		
+		mav.addObject("samePeriodList", samePeriodList);
 		mav.addObject("memberStateList", memberStateList);
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
@@ -128,9 +135,11 @@ public class MemberController {
 		List<Depart> departList = adminService.getDepartList();
 		List<Team> teamList = adminService.getTeamByDepart(member.getDepartId().toString());
 		List<MemberState> memberStateList = adminService.getMemberStateList();
+		List<SamePeriod> samePeriodList = adminService.getSamePeriodList();
 		
 		ModelAndView mav = new ModelAndView("member/modify");
 		
+		mav.addObject("samePeriodList", samePeriodList);
 		mav.addObject("memberStateList", memberStateList);
 		mav.addObject("member", member);
 		mav.addObject("departList", departList);
@@ -187,6 +196,31 @@ public class MemberController {
 		
 		return mav;
 	}
+	
+	
+	/*
+     * 팀별관리 엑셀 다운로드
+     */
+    @RequestMapping(value = "/team/excelDownload", method = RequestMethod.GET)
+    public GenericExcelViewTeamList team_excel_download(
+    		Map<String, Object> model,
+    		HttpServletResponse response) throws IOException {
+
+    	String year = DateHelper.getYear();
+    	Integer monthTmp = StringHelper.parseInt(DateHelper.getMonth());
+    	String month = monthTmp.toString();
+    	
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("year", year);
+    	map.put("month", month);
+    	
+    	List<Member> memberList = memberService.getMemberListForExcel(map);
+		
+        model.put("memberList", memberList);
+
+        return new GenericExcelViewTeamList();
+
+    }
 	
 	
 }

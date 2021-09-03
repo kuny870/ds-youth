@@ -60,8 +60,11 @@
 			                    			
 				                            <td class="css-a">
 				                            	<c:choose>
-				                            		<c:when test="${year - samePeriod.birthYear < 19}">
-					                    				<a href="${contextPath }/admin/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=0">${fn:substring(samePeriod.birthYear,2,4)}년생 (${samePeriod.cnt})</a>
+				                            		<c:when test="${year - samePeriod.birthYear < 18}">
+					                    				<a href="${contextPath }/admin/samePeriod/detail?sId=${samePeriod.id}&name=${fn:substring(samePeriod.birthYear,2,4)}&gubun=00">고등부 (${samePeriod.cnt})</a>
+						                            </c:when>
+						                            <c:when test="${year - samePeriod.birthYear == 18}">
+					                    				<a href="${contextPath }/admin/samePeriod/detail?sId=${samePeriod.id}&name=0&gubun=0">예비1학년 (${samePeriod.cnt})</a>
 						                            </c:when>
 												    <c:when test="${year - samePeriod.birthYear == 19}">
 					                    				<a href="${contextPath }/admin/samePeriod/detail?sId=${samePeriod.id}&name=1&gubun=1">1학년 (${samePeriod.cnt})</a>

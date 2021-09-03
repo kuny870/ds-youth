@@ -38,22 +38,22 @@
 	        <form id="loginForm">
 	          <div class="form-middle-login">
 	            <label>
-	              <input type="text" class="md-input" id="loginId" name="loginId" placeholder="아이디" autocomplete="off">
+	              <input type="text" class="md-input loginId" id="loginId" name="loginId" placeholder="아이디" autocomplete="off">
 	            </label>
 	            <label>
-	              <input type="password" class="md-input" id="loginPw" name="loginPw" placeholder="비밀번호" autocomplete="off">
+	              <input type="password" class="md-input loginPw" id="loginPw" name="loginPw" placeholder="비밀번호" autocomplete="off">
 	            </label>
 	          </div>
 	          <div class="form-bottom-link">
-	            <label class="radio-inline">
+	            <label class="radio-inline useCookie">
 	            <input type="checkbox" id="useCookieCheckBox" name="useCookieCheckBox">
 	            <input type="hidden" id="useCookie" name="useCookie" value="">
-                	<span>로그인 상태 유지</span>
+               		<span>로그인 상태 유지</span>
 	            </label>
 	          </div>
 	        
 	          <div class="form-bottom">
-	            <button class="btn" type="submit">로그인</button>
+	            <button class="btn login-btn" type="submit">로그인</button>
 	          </div>
 	        </form>
 	      </div>

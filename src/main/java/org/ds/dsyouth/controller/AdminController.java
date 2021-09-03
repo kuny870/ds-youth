@@ -187,7 +187,7 @@ public class AdminController {
 		
 		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
 		List yearList = new ArrayList();
-		for(int i = 2019; i <= yearInt; i++) {
+		for(int i = yearInt; i >= 2019; i--) {
 			yearList.add(i);
 			if(yearList.size() == 5) {
 				break;

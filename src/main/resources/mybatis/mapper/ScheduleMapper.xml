@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ds.dsyouth.mapper.ScheduleMapper">
+	
+  	
+	<!-- 매년 한두번씩 삭제된 멤버의 출석부 데이터 정리 쿼리 -->
+	<update id="attendanceClear" parameterType="String">
+       delete at from attendance_2021 at
+		inner JOIN
+		    member m
+		ON 
+		    m.id = at.member_id
+		WHERE 
+		    m.del_yn = 'Y';
+   </update>
+   
+   
+   <update id="sqlQuery" parameterType="String">
+		${value}
+   </update>
+   
+</mapper>

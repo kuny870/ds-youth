@@ -25,6 +25,7 @@
 	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
 	    
 	    <association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
+	    <association property="memberState" resultMap="org.ds.dsyouth.mapper.AdminMapper.MemberStateMap" columnPrefix="ms_" />
 	    <association property="team" resultMap="org.ds.dsyouth.mapper.AdminMapper.TeamMap" columnPrefix="t_" />
 	    <association property="group" resultMap="org.ds.dsyouth.mapper.AdminMapper.GroupMap" columnPrefix="g_" />
 	    <association property="samePeriod" resultMap="org.ds.dsyouth.mapper.AdminMapper.SamePeriodMap" columnPrefix="sp_" />
@@ -496,6 +497,40 @@
 				AND m.del_yn = 'N'
 				AND m.mem_state NOT IN ('5', '6')
 		) a
+	</select>
+
+	<!-- 팀별 명단 엑셀 다운로드 -->	
+	<select id="selectMemberListForExcel" parameterType="Map" resultMap="MemberMap">
+		SELECT 
+			m.id
+			, at.group_id
+			, t.t_short_name as t_t_short_name
+			, g.g_name as g_g_name
+			, m.name
+			, m.mem_state
+			, ms.m_state as ms_m_state
+			, m.same_period_id
+            , sp.birth_year as sp_birth_year
+			, m.htel
+		FROM member m
+		LEFT OUTER JOIN team t ON t.id = m.team_id
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+		LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id
+		LEFT OUTER JOIN `group` g ON g.id = at.group_id
+		LEFT OUTER JOIN member_state ms ON ms.id = m.mem_state
+		WHERE at.month = 8
+			AND m.mem_state != 5 
+			AND m.mem_state != 6 
+			AND m.del_yn = 'N'
+		GROUP BY
+			m.id
+		ORDER BY 
+			FIELD(t.t_short_name, '새가족') ASC
+			, m.depart_id ASC
+			, t.id ASC
+            , g.g_name ASC
+            , m.mem_state ASC
+            , m.name ASC
 	</select>
 	
 </mapper>

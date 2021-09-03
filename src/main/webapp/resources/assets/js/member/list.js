@@ -75,3 +75,9 @@ var pageModule = (function () {
            }
      }
 })();
+
+
+//팀별관리 엑셀 다운 실제 구현부
+function excelDownTeamList() {
+	location.href = contextPath + "/team/excelDownload";
+}
