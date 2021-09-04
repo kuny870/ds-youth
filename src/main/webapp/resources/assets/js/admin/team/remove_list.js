@@ -4,8 +4,8 @@ function restore(id) {
 	var $targetInputHidden = $("input[id="+ id + "-input-hidden]");
 	
 	Swal.fire({
-        title: '멤버 복구',
-        html: '정말 복구 시키시겠습니까?\n' + $targetInputHidden.val() + ' 의 정보가 복구 됩니다.',
+        title: '팀원 복구',
+        html: '정말 복구 시키시겠습니까?<br>' + $targetInputHidden.val() + ' 의 정보가 복구 됩니다.',
         showCancelButton: true,
         cancelButtonText: '취소',
         confirmButtonText: '확인',
