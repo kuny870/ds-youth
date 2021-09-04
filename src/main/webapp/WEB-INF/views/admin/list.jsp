@@ -64,8 +64,8 @@
 			                </div>
 		                </c:if>
 		                
-		                <!-- 목사 이상 -->
-					    <c:if test="${login.authId <= 2}">
+		                <!-- 팀장 이상 -->
+					    <c:if test="${login.authId <= 4}">
 	                    	<div class="admin-list-div">
 		                		<!-- <label class="admin-list-label">부서</label> -->
 		                		<button class="basic-btn admin-list-btn" onclick="teamList()">팀원 관리</button>
