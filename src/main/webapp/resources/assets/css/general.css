@@ -11,6 +11,26 @@
 	font-size: 3.5vw;
 }
 
+.main-title-teamList-div {
+	background: #f8f9fa;
+	padding: 3.7333333333vw;
+}
+.main-title-teamList-span{
+	font-size: 6.2vw;
+	line-height: 8.22222222222vw;
+}
+.teamList-img {
+	position: absolute;
+	
+	margin-left: 25vw;
+	margin-top: 0.3vw;
+	width: 8vw;
+	
+	vertical-align: middle;
+	float: right;
+	cursor: pointer;
+}
+
 /* page-loading */
 #loading {
 	width: 100%;
@@ -2745,6 +2765,31 @@
 /* non-mobile */
 @media (min-width: 680px) {
 	
+	.header-teamList {
+		height: 88px !important;
+	}
+	.main-title-teamList-div {
+		padding: 0px;
+		padding-top: 17px;
+	}
+	.main-title-teamList-span{
+	    font-size: 35px !important;
+	    position: absolute;
+	    margin-left: -69px;
+	    line-height: 52px;
+	}
+	.teamList-img {
+		width: 49px !important;
+
+	    position: initial;
+	    margin-right: 30px;
+	    margin-top: 1px !important;
+	
+	    vertical-align: middle;
+	    float: right;
+	    cursor: pointer;
+	}
+
 	/* admin auth */
 	.sales-table > .table-wrap2 {
 		width: 850px;
@@ -2889,6 +2934,8 @@
 	.div-container {
 		width: 850px;
 		margin: auto;
+		margin-top: 40px;
+		margin-bottom: 130px;
 	}
 	.select-member-list-team {
 		margin-left: 17%;

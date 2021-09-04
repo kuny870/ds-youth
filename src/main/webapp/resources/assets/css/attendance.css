@@ -32,8 +32,11 @@
 
 .attendance-img {
 	position: absolute;
-	margin-left: 27vw;
-	width: 11vw;
+	
+	margin-left: 27.8vw; 
+	margin-top: 0.3vw;
+	width: 8vw;
+	
 	vertical-align: middle;
 	float: right;
 	cursor: pointer;
@@ -203,11 +206,13 @@
 	    text-align: center;
 	    table-layout: fixed;
 	}
-	.main-title-att{
+	.main-title-att-div{
+		background: #f8f9fa;
+	    padding: 3.7333333333vw;
+	}
+	.main-title-att-span{
 	    font-size: 6.2vw;
 	    line-height: 8.22222222222vw;
-	    background: #f8f9fa;
-	    padding: 3.7333333333vw;
 	}
 }
 
@@ -276,10 +281,15 @@
 	.header-product {
 		height: 88px !important;
 	}
-	.main-title-att {
-		font-size: 35px !important;
+	.main-title-att-div {
 		padding-top: 17px;
 	}
+	.main-title-att-span{
+	    font-size: 35px !important;
+	    position: absolute;
+	    margin-left: -48px;
+	}
+	
 	.header-product .shop-link-login {
 		top: 0px;
 		line-height: 0px;
@@ -295,7 +305,9 @@
 	}
 	.attendance-img {
 		width: 49px !important;
-		margin-left: 33vw !important;
+		/* margin-left: 33vw !important; */
+		position: initial;
+		margin-right: 30px;
 		margin-top: 1px !important;
 	}
 	input[type=checkbox]{

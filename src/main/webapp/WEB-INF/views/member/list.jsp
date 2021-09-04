@@ -15,7 +15,6 @@
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
-	<link href="${resourcesPath}/assets/css/attendance.css?${nowTime}" rel="stylesheet">
   </head>
   <body>
   	<c:set var="memberList" value="${paging.list }" />
@@ -23,13 +22,13 @@
     <div class="container">
     
             <div class="header-product">
-             <div class="header-att">
+             <div class="header-teamList">
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <div class="main-title-att text-center">
-			    	팀별 관리
-			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="attendance-img" onclick="excelDownTeamList()" style="margin-left: 25vw; margin-top: 0.3vw; width: 8vw;">
+			    <div class="main-title-teamList-div text-center">
+			    	<span class="main-title-teamList-span">팀별 관리</span>
+			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="teamList-img" onclick="excelDownTeamList()">
 			    </div>
 			    </div>
 			    

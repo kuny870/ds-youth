@@ -36,9 +36,9 @@
    				<span class="shop-link-login" onclick="mypage()">
    					<img src="${resourcesPath}/assets/images/back_btn.png" class="back-img">
    				</span>
-			    <div class="main-title-att text-center">
-			    	출석부
-			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="attendance-img" onclick="excelDownPopup()" style="margin-left: 27.8vw; margin-top: 0.3vw; width: 8vw;">
+			    <div class="main-title-att-div text-center">
+			    	<span class="main-title-att-span">출석부</span>
+			    	<img src="${resourcesPath }/assets/images/btn_excel.png" class="attendance-img" onclick="excelDownPopup()">
 			    </div>
             </div>
             
