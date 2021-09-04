@@ -124,6 +124,22 @@ public class AdminController {
 		return mav;
 	}
 	
+	/**
+	 * 팀원 관리
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/teamList", method = RequestMethod.GET)
+	public ModelAndView admin_teamList() {
+
+		List<Member> memberList = memberService.getMemberListByRemove();
+		
+		ModelAndView mav = new ModelAndView("admin/team/remove_list");
+		
+		mav.addObject("memberList", memberList);
+		
+		return mav;
+	}
+	
 	
 	/**
 	 * 팀 관리 수정

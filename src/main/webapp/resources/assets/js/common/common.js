@@ -84,6 +84,7 @@ function auth() {location.href = contextPath + "/admin/auth";}				// 권한 관�
 function depart() {location.href = contextPath + "/admin/depart";}			// 부서 관리
 function team() {location.href = contextPath + "/admin/team";}				// 팀 관리
 function group() {location.href = contextPath + "/admin/group/name";}		// 순 관리
+function teamList() {location.href = contextPath + "/admin/teamList";}				// 팀 관리
 
 //순 list
 function groupList() {

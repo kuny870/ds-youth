@@ -23,6 +23,7 @@
 	    <result column="mod_date" jdbcType="VARCHAR" property="modDate" />
 	    <result column="mem_state" jdbcType="VARCHAR" property="memState" />
 	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
+	    <result column="del_date" jdbcType="VARCHAR" property="delDate" />
 	    
 	    <association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
 	    <association property="memberState" resultMap="org.ds.dsyouth.mapper.AdminMapper.MemberStateMap" columnPrefix="ms_" />
@@ -125,6 +126,7 @@
 	<update id="updateMember" parameterType="Member">
 		UPDATE member
     	<set>
+    		mod_date = now(),
 			<if test="name != null">
 				name = #{name},
 			</if>
@@ -170,6 +172,7 @@
 	<update id="updateMemberMemo" parameterType="Member">
 		UPDATE member SET
 			memo = #{memo}
+			, mod_date = now()
 		WHERE 
 			id = #{id}
 	</update>
@@ -177,7 +180,13 @@
 
 	<!-- 멤버 삭제 -->
 	<update id="deleteMember" parameterType="Member">
-		UPDATE member SET del_yn = 'Y' WHERE id = #{id}
+		UPDATE 
+			member 
+		SET 
+			del_yn = 'Y'
+			, del_date = now()
+		WHERE
+			id = #{id}
 	</update>
 
 
@@ -532,5 +541,54 @@
             , m.mem_state ASC
             , m.name ASC
 	</select>
+	
+	
+	<!-- 삭제된 멤버 불러오기 -->
+	<select id="selectMemberListByRemove" resultMap="MemberMap">
+		SELECT
+			m.id
+		    , m.name
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.member_reg_date
+		    , m.member_grad_date
+		    , m.same_period_id
+		    , m.profile_img
+		    , m.reg_user
+		    , m.reg_date
+		    , m.mod_date
+		    , m.mem_state
+		    , m.del_yn
+		    , m.del_date
+		    , d.d_name as d_d_name
+		    , t.t_short_name as t_t_short_name
+		    , sp.birth_year as sp_birth_year
+		FROM member m
+		LEFT OUTER JOIN depart d ON d.id = m.depart_id
+		LEFT OUTER JOIN team t ON t.id = m.team_id
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+		WHERE 1=1
+			AND m.del_yn = 'Y'
+		ORDER BY
+			m.depart_id ASC
+			, FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
+			, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
+			, m.name ASC
+	</select>
+	
+	<!-- 멤버 복구 -->
+	<update id="restoreMember" parameterType="Member">
+		UPDATE 
+			member
+		SET 
+			del_yn = 'N'
+			, del_date = null
+		WHERE 
+			id = #{id}
+	</update>
 	
 </mapper>

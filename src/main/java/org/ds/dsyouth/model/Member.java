@@ -24,6 +24,7 @@ public class Member {
 	private Date modDate;
 	private String memState;
 	private String delYn;
+	private String delDate;
 	
 	private Depart depart;
 	private Team team;
@@ -190,5 +191,10 @@ public class Member {
 	public void setMemState(String memState) {
 		this.memState = memState;
 	}
-
+	public String getDelDate() {
+		return delDate;
+	}
+	public void setDelDate(String delDate) {
+		this.delDate = delDate;
+	}
 }

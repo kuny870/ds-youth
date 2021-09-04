@@ -369,6 +369,7 @@ CREATE TABLE `member` (
   `mod_date` datetime DEFAULT NULL,
   `mem_state` varchar(10) NOT NULL DEFAULT '1',
   `del_yn` varchar(10) NOT NULL DEFAULT 'N',
+  `del_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=410 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

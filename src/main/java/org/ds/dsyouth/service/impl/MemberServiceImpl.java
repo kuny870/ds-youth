@@ -221,4 +221,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.selectMemberListForExcel(year);
 	}
 
+
+	@Override
+	public List<Member> getMemberListByRemove() {
+		return memberMapper.selectMemberListByRemove();
+	}
+	
+	/**
+	 * 멤버 복구
+	 */
+	@Override
+	public boolean restoreMember(Member member) {
+		return memberMapper.restoreMember(member);
+	}
+
 }

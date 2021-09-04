@@ -11,6 +11,7 @@ import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Member;
+import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.validator.MemberValidator;
@@ -160,6 +161,31 @@ public class MemberRestController {
 		
 		try {
 			memberService.removeMember(member);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * 멤버 복구
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/member/restore", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse member_restore(
+			@ModelAttribute Member member,
+			HttpServletRequest request) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			memberService.restoreMember(member);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setSuccess(false);

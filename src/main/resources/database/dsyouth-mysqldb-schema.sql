@@ -114,6 +114,7 @@ create table member (
     mod_date datetime null,		-- 수정 시간
     mem_state varchar(10) not null default '1',	-- 회원상태값  1:회원, 2:기타, 3:군인, 4:해외, 5:장기결석, 6:새가족수료, 7:졸업
 	del_yn varchar(10) not null default 'N',	-- 삭제 여부
+	del_date datetime null,		-- 삭제 시간
 
 	constraint pk_member primary key (id)
 );
