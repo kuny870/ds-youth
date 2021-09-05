@@ -246,10 +246,15 @@
 		font-size: 49px;
 	}
 
+	.search-div {
+		width: 750px !important;
+		margin: auto !important;
+	}
 	.attendance-table {
-    	width: 576px !important;
+    	width: 750px !important;
     	margin: auto !important;
 	}
+	
 	.sales-table > .table-wrap-att {
 		width: 100% !important;
 		display: flex;
@@ -266,10 +271,6 @@
 	.sales-table > .table-wrap-att > table td {
 		line-height: 43px !important;
 		font-size: 18px !important;
-	}
-	.search-div {
-		width: 576px !important;
-		margin: auto !important;
 	}
 	.div-container {
 		margin-top: 40px !important;
