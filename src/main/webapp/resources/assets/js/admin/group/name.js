@@ -160,7 +160,7 @@ function modify(id) {
 	
 	// 수정버튼과 취소버튼 크로스
     if($targetModifyBtn.html() === '수정'){
-    	$targetModifyBtn.html('확인');
+    	$targetModifyBtn.html('적용');
     	$targetRemoveBtn.html('취소');
     	$('#' + id + '-gName-input').focus();
     }else {

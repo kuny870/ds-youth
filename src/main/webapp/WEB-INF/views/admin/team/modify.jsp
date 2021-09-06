@@ -43,7 +43,7 @@
                     <!-- 팀장 이상만 수정 가능 -->
                     <c:if test="${login.authId <= 3}">
 	                    <div class="form-bottom form-bottom-fixed" style="margin-bottom: 60px;">
-	                        <button class="btn" type="submit">수정</button>
+	                        <button class="btn" type="submit">적용</button>
 	                    </div>
                     </c:if>
                         

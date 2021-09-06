@@ -87,9 +87,16 @@
                             <span class="text">여자</span>
                         </label>
                     </div>
-                    <div class="form-bottom form-bottom-fixed" style="margin-bottom: 60px;">
-                        <button class="btn" type="submit">확인</button>
-                    </div>    
+                    <div class="form-bottom form-bottom-fixed">
+                        <button class="btn modify-btn" type="submit">적용</button>
+                    </div>
+					
+					<c:if test="${login.authId != 1}">
+	                   <div class="form-bottom form-bottom-fixed">
+	                        <button type="button" class="btn remove-btn" onclick="withdraw(${login.id})">회원탈퇴</button>
+	                    </div>
+                	</c:if>
+                        
                 </form>
             </div>
             

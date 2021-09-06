@@ -155,11 +155,6 @@
                     <div class="mypage-row">
                         <a href="javascript:logout('${login.loginId}')">로그아웃</a>  
                     </div>
-                    <c:if test="${login.authId != 1}">
-	                    <div class="mypage-row">
-	                        <a href="javascript:withdraw(${login.id})">회원탈퇴</a>        
-	                    </div>
-	                </c:if>
                 </div>
             </div>
         </div>

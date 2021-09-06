@@ -160,7 +160,7 @@
                     <!-- 리더 이상 -->
 	    			<c:if test="${login.authId <= 6}">
 	                    <div class="form-bottom form-bottom-fixed">                
-	                        <button type="button" class="btn modify-btn" onclick="memberModify()">수정</button>
+	                        <button type="button" class="btn modify-btn" onclick="memberModify()">적용</button>
 	                    </div>
 	                </c:if>
                 </form>
