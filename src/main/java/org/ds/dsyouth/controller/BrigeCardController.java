@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class BrigeCardController {
 
-	@RequestMapping(value = "bridgecard/main", method = RequestMethod.GET)
+	@RequestMapping(value = {"bridgecard/main", "dsyouth/bridgecard/main"}, method = RequestMethod.GET)
     public String main() {
         return "bridgecard/main";
     }
 
-    @RequestMapping(value = "bridgecard/discription", method = RequestMethod.GET)
+    @RequestMapping(value = {"bridgecard/discription", "dsyouth/bridgecard/discription"}, method = RequestMethod.GET)
     public String dscription() {
         return "bridgecard/discription";
     }
 
-    @RequestMapping(value = "bridgecard/play", method = RequestMethod.GET)
+    @RequestMapping(value = {"bridgecard/play", "dsyouth/bridgecard/play"}, method = RequestMethod.GET)
     public String play() {
         return "bridgecard/play";
     }

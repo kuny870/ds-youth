@@ -252,7 +252,7 @@
 	}
 	.attendance-table {
     	width: 750px !important;
-    	margin: auto !important;
+    	/* margin: auto !important; */
 	}
 	
 	.sales-table > .table-wrap-att {

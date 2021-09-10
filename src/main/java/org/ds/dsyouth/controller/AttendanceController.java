@@ -46,7 +46,7 @@ public class AttendanceController {
 	 * @return
 	 * @throws UnsupportedEncodingException 
 	 */
-	@RequestMapping(value = "/attendance/list", method = RequestMethod.GET)
+	@RequestMapping(value = {"/attendance/list", "/dsyouth/attendance/list"}, method = RequestMethod.GET)
 	public ModelAndView attendance_list(
 			HttpServletRequest request,
 			@ModelAttribute AttendanceSearch attendanceSearch) throws UnsupportedEncodingException {

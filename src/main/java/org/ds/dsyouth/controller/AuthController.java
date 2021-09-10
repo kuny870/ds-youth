@@ -48,35 +48,8 @@ public class AuthController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/dsyouth", "/login", "/dsyouth/login"}, method = RequestMethod.GET)
 	public ModelAndView login2(HttpServletRequest request) {
-		
-		ModelAndView mav = new ModelAndView();
-		
-		// login 체크
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute(Constants.SESSION_USER) != null) {
-			// 로그인 상태 유지 시
-			mav = new ModelAndView("mypage/main");
-		} else {
-			// 세션 값 없을 시
-			mav = new ModelAndView("auth/login");
-		}
-		
-		return mav;
-	}
-	
-	/**
-	 * 로그인 화면
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(HttpServletRequest request) {
-		
-//		System.out.print("test!!!!!!!!!!!!!!!!!!!!");
-//		ApplicationContext context = new ClassPathXmlApplicationContext("jobScheduler.xml");
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -158,7 +131,7 @@ public class AuthController {
 	 * @param locale
 	 * @return
 	 */
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+	@RequestMapping(value = {"/mypage", "/dsyouth/mypage"}, method = RequestMethod.GET)
 	public ModelAndView mypage_main() {
 
 		List<Depart> departList = adminService.getDepartList();
