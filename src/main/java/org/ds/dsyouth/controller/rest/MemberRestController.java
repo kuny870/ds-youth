@@ -1,5 +1,6 @@
 package org.ds.dsyouth.controller.rest;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,9 +12,9 @@ import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Member;
-import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
+import org.ds.dsyouth.utils.FileUploadHelper;
 import org.ds.dsyouth.validator.MemberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @RestController
 @RequestMapping("/rest")
@@ -68,7 +70,8 @@ public class MemberRestController {
 		}
 	
 		try {
-			memberService.registMember(member);
+			String memberId = memberService.registMember(member);
+			response.setText(memberId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +82,52 @@ public class MemberRestController {
 		return response;
 	}
 	
+	
+	/**
+	 * 프로필 사진 등록
+	 * @param profile_img
+	 * @param req
+	 * @param rep
+	 * @return
+	 */
+	@RequestMapping(value = "/profileImg/regist", method = RequestMethod.POST, produces = "multipart/form-data")
+	public String profileImg_regist(
+			MultipartHttpServletRequest mhsr) {
+		
+		String id = mhsr.getParameter("memberId");
+		Integer memberId = Integer.parseInt(id);
+		
+		String profileImg = mhsr.getParameter("profileImg");
+		
+		RestResponse response = new RestResponse();
+		
+		try {
+			String origName = new String(mhsr.getFile(mhsr.getFileNames().next()).getOriginalFilename().getBytes("8859_1"), "UTF-8");
+			String saveFileName = "";
+			
+			if(profileImg.equals("프로필사진삭제") && origName.equals("")) {
+				
+			}else if(origName.equals("")) {
+				return "SUCCESS";
+			}else {
+				saveFileName = FileUploadHelper.fileUpload(mhsr);
+			}
+			
+			Member member = new Member();
+			member.setId(memberId);
+			member.setOriginProfileImg(origName);
+			member.setReplaceProfileImg(saveFileName);
+			
+			memberService.modifyMember(member);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return "SUCCESS";
+	}
 	
 	
 	/**
@@ -93,6 +142,7 @@ public class MemberRestController {
 		RestResponse response = new RestResponse();
 		
 		try {
+			
 			memberService.modifyMember(member);
 			
 		} catch (Exception e) {
@@ -104,16 +154,15 @@ public class MemberRestController {
 		return response;
 	}
 	
-	
 	/**
 	 * 멤버 메모 수정
 	 * @param member
 	 * @return
 	 */
 	@RequestMapping(value = "/member/memo", method = RequestMethod.POST, produces = "application/json")
-	public RestResponse member_memo_edit(
+	public RestResponse member_memo_edit( 
 			@ModelAttribute Member member,
-			String sundays, String sayu, Integer attId, String thisYear) {
+			String sundays, String sayu, Integer attId, String thisYear, String userAuthId) {
 
 		RestResponse response = new RestResponse();
 		
@@ -135,8 +184,33 @@ public class MemberRestController {
 			att.setId(attId);
 			att.setYear(thisYear);
 			
-			memberService.modifyMemberMemo(member);
+			memberService.modifyMemberMemo(member, userAuthId);
 			attendanceService.modifyAttendanceCheck(att);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
+	/**
+	 * 멤버 메모 수정
+	 * @param member
+	 * @return
+	 */
+	@RequestMapping(value = "/member/memoFlag", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse member_memoFlag_edit( 
+			@ModelAttribute Member member) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+			
+			memberService.modifyMemberMemoFlag(member);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

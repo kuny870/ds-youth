@@ -9,6 +9,7 @@ public class Member {
 	private Integer id;
 	private String name;
 	private String memo;
+	private String memoFlag;
 	private String guider;
 	private String dateOfBirth;
 	private Integer departId;
@@ -18,7 +19,8 @@ public class Member {
 	private String memberRegDate;
 	private String memberGradDate;
 	private Integer samePeriodId;
-	private String profileImg;
+	private String originProfileImg;
+	private String replaceProfileImg;
 	private Integer regUser;
 	private Date regDate;
 	private Date modDate;
@@ -33,6 +35,13 @@ public class Member {
 	private Attendance attendance;
 	private MemberState memberState;
 	
+	
+	public String getMemoFlag() {
+		return memoFlag;
+	}
+	public void setMemoFlag(String memoFlag) {
+		this.memoFlag = memoFlag;
+	}
 	public MemberState getMemberState() {
 		return memberState;
 	}
@@ -143,11 +152,17 @@ public class Member {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getProfileImg() {
-		return profileImg;
+	public String getOriginProfileImg() {
+		return originProfileImg;
 	}
-	public void setProfileImg(String profileImg) {
-		this.profileImg = profileImg;
+	public void setOriginProfileImg(String originProfileImg) {
+		this.originProfileImg = originProfileImg;
+	}
+	public String getReplaceProfileImg() {
+		return replaceProfileImg;
+	}
+	public void setReplaceProfileImg(String replaceProfileImg) {
+		this.replaceProfileImg = replaceProfileImg;
 	}
 	public String getRegDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);

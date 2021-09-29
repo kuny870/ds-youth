@@ -11,8 +11,8 @@
 		
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://192.168.50.31:3307/dsyouth?autoReconnect=true"/>
-<!--	<property name="url" value="jdbc:mysql://keonhee.synology.me:3307/dsyouth?autoReconnect=true"/>	  -->
+<!--			<property name="url" value="jdbc:mysql://192.168.50.31:3307/dsyouth_dev?autoReconnect=true"/>	  -->
+<property name="url" value="jdbc:mysql://keonhee.synology.me:3307/dsyouth_dev?autoReconnect=true"/>
 <!--	<property name="url" value="jdbc:mysql://localhost:3306/dsyouth?autoReconnect=true"/>	  -->
         <property name="username" value="kuny87"/>
         <property name="password" value="Chlrjsgml009!"/>

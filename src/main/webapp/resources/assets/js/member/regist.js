@@ -124,14 +124,47 @@ $("#memberRegistForm").submit(function(e) {
           data: form.serialize(), // serializes the form’s elements.
           success: function(result)
           {
-              if(result.success) {
-            	  Swal.fire({
-                      text: "팀원이 등록 되었습니다",
-                      confirmButtonText: '확인',
-                      allowOutsideClick: true
-                  }).then(function() {
-                	  location.reload();
-                  });
+              if(result.text != "") {
+            	  
+            	  $('#memberId').val(result.text);
+            	  
+            	  var form = $(this);
+        		  var form = $('#registProfileImgForm')[0];
+        	      var formData = new FormData(form);
+            	  
+        	      
+        	      var url = contextPath + "/rest/profileImg/regist";
+      		    
+      		    $.ajax({
+      		        type: "post",
+      		        url: url,
+      		        enctype: "multipart/form-data",
+      		        contentType: false,
+      		        processData: false,
+      		        data: formData, // serializes the form’s elements.
+      		        success: function(result)
+      		        {
+      		            if(result == "SUCCESS") { // show response from the php script.
+      		            	
+      	            	  Swal.fire({
+      	                      text: "팀원이 등록 되었습니다",
+      	                      confirmButtonText: '확인',
+      	                      allowOutsideClick: true
+      	                  }).then(function() {
+      	                	  location.reload();
+      	                  });
+      		            	
+      		            }
+      		        },
+      		 		  fail: function(result) {
+      		 			 Swal.fire({
+      		 	            text: "프로필 사진 등록에 실패 했습니다",
+      		 	            confirmButtonText: '확인',
+      		 	            allowOutsideClick: true
+      		 	        });
+      		 		  }
+      			});
+      		    
               }else {
             	  Swal.fire({
             		    text: result.message,

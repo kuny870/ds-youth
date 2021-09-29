@@ -8,6 +8,7 @@
 	    <id column="id" jdbcType="INTEGER" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="memo" jdbcType="VARCHAR" property="memo" />
+		<result column="memo_flag" jdbcType="VARCHAR" property="memoFlag" />
 		<result column="guider" jdbcType="VARCHAR" property="guider" />
 		<result column="depart_id" jdbcType="INTEGER" property="departId" />
 		<result column="team_id" jdbcType="INTEGER" property="teamId" />
@@ -16,7 +17,8 @@
 		<result column="gender" jdbcType="VARCHAR" property="gender" />
 		<result column="member_reg_date" jdbcType="VARCHAR" property="memberRegDate" />
 		<result column="member_grad_date" jdbcType="VARCHAR" property="memberGradDate" />
-		<result column="profile_img" jdbcType="VARCHAR" property="profileImg" />
+		<result column="origin_profile_img" jdbcType="VARCHAR" property="originProfileImg" />
+		<result column="replace_profile_img" jdbcType="VARCHAR" property="replaceProfileImg" />
 		<result column="same_period_id" jdbcType="INTEGER" property="samePeriodId" />
 		<result column="reg_user" jdbcType="INTEGER" property="regUser" />
 	    <result column="reg_date" jdbcType="VARCHAR" property="regDate" />
@@ -62,8 +64,11 @@
                  <if test="samePeriodId != null">
                        same_period_id,
                  </if>
-                 <if test="profileImg != null">
-                       profile_img,
+                 <if test="originProfileImg != null">
+                       origin_profile_img,
+                 </if>
+                 <if test="replaceProfileImg != null">
+                       replace_profile_img,
                  </if>
 				 <if test="regUser != null">
 					 reg_user,
@@ -103,8 +108,11 @@
 	           <if test="samePeriodId != null">
 	                 #{samePeriodId},
 	           </if>
-	           <if test="profileImg != null">
-	                 #{profile_img},
+	           <if test="originProfileImg != null">
+	                 #{origin_profile_img},
+	           </if>
+	           <if test="replaceProfileImg != null">
+	                 #{replace_profile_img},
 	           </if>
 		       <if test="regUser != null">
 		        	 #{regUser},
@@ -151,8 +159,11 @@
 	      	<if test="samePeriodId != null">
 	        	same_period_id = #{samePeriodId},
 	      	</if>
-	      	<if test="profileImg != null">
-	        	profile_img = #{profileImg},
+	      	<if test="originProfileImg != null">
+	        	origin_profile_img = #{originProfileImg},
+	      	</if>
+	      	<if test="replaceProfileImg != null">
+	        	replace_profile_img = #{replaceProfileImg},
 	      	</if>
 	      	<if test="memState != null">
 	        	mem_state = #{memState},
@@ -172,7 +183,16 @@
 	<update id="updateMemberMemo" parameterType="Member">
 		UPDATE member SET
 			memo = #{memo}
+			, memo_flag = #{memoFlag}
 			, mod_date = now()
+		WHERE 
+			id = #{id}
+	</update>
+	
+	<!-- 멤버 메모Flag 수정 -->
+	<update id="updateMemberMemoFlag" parameterType="Member">
+		UPDATE member SET
+			memo_flag = '0'
 		WHERE 
 			id = #{id}
 	</update>
@@ -236,7 +256,8 @@
 		    , m.member_reg_date
 		    , m.member_grad_date
 		    , m.same_period_id
-		    , m.profile_img
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.reg_user
 		    , m.reg_date
 		    , m.mod_date
@@ -302,7 +323,8 @@
 		    , m.member_reg_date
 		    , m.member_grad_date
 		    , m.same_period_id
-		    , m.profile_img
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.reg_user
 		    , m.reg_date
 		    , m.mod_date
@@ -388,7 +410,8 @@
 		    , m.member_reg_date
 		    , m.member_grad_date
 		    , m.same_period_id
-		    , m.profile_img
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.reg_user
 		    , m.reg_date
 		    , m.mod_date
@@ -429,7 +452,8 @@
 		    , m.member_reg_date
 		    , m.member_grad_date
 		    , m.same_period_id
-		    , m.profile_img
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.reg_user
 		    , m.reg_date
 		    , m.mod_date
@@ -462,6 +486,7 @@
 		SELECT
 			m.id
 		    , m.name
+		    , m.memo
 		    , m.guider
 		    , m.depart_id
 		    , m.team_id
@@ -470,6 +495,8 @@
 		    , m.gender
 		    , m.same_period_id
 		    , m.mem_state
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.member_reg_date
 		    , m.member_grad_date
 		FROM member m
@@ -557,7 +584,8 @@
 		    , m.member_reg_date
 		    , m.member_grad_date
 		    , m.same_period_id
-		    , m.profile_img
+		    , m.origin_profile_img
+		    , m.replace_profile_img
 		    , m.reg_user
 		    , m.reg_date
 		    , m.mod_date

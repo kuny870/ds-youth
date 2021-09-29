@@ -205,6 +205,8 @@ function memberMemoAndSayuRegist() {
 	sayu = sayu.trim();
 	var thisYear = $("#thisYear").val();
 	
+	var userAuthId = $("#userAuthId").val();
+	
 	$.ajax({
         type: "POST",
         url: contextPath + "/rest/member/memo",
@@ -215,6 +217,7 @@ function memberMemoAndSayuRegist() {
         	, sayu : sayu
         	, attId : attId
         	, thisYear : thisYear
+        	, userAuthId : userAuthId
         },
         success: function(result)
         {
@@ -250,9 +253,9 @@ function memberMemoAndSayuRegist() {
 }
 
 //멤버 메모 팝업 호출
-function memberMemoPop(gubun, attId, mId, mName, mMemo) {
+function memberMemoPop(gubun, attId, mId, mName, mMemo, profileImg, memoFlag, authId) {
 	if(gubun == "open" ) {
-		memberMemoPopup(attId, mId, mName, mMemo);
+		memberMemoPopup(attId, mId, mName, mMemo, profileImg, memoFlag, authId);
 	}
 }
 

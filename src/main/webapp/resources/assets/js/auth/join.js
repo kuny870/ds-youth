@@ -3,7 +3,7 @@ function fnGetCtgSub(sParam){
      
     $target.empty();
     if(sParam == ""){
-    	$target.append("<option value=''>팀선택</option>");
+    	$target.append("<option value=''>팀선택 (필수)</option>");
         return;
     } else if (sParam != "") {
     	
@@ -15,7 +15,7 @@ function fnGetCtgSub(sParam){
 	        dataType: "json",
 	        success: function(result) {
 	            if(result.data.length == 0){
-	                $target.append("<option value=''>팀선택</option>");
+	                $target.append("<option value=''>팀선택 (필수)</option>");
 	            }else{
 	                $(result.data).each(function(i){
 	                    $target.append("<option value=" + result.data[i].id + ">"+ result.data[i].tShortName +"</option>");
@@ -51,7 +51,7 @@ $("#joinForm").submit(function(e) {
 	var $loginPw = $('#loginPw');
 	var $loginPwConfirm = $('#loginPwConfirm');
 	var $name = $('#name');
-	var $dateOfBirth = $('#dateOfBirth');
+//	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
 	var $departId = $('#departId');
 	var $teamId = $('#teamId');
@@ -79,10 +79,10 @@ $("#joinForm").submit(function(e) {
 	} else if ($name.val() == "") {
 		validateMessage = '이름을 입력해 주세요';
 		validateFocus = $name;
-	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+	}/* else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
 		validateMessage = '생년월일을 다시 확인해 주세요';
 		validateFocus = $dateOfBirth;
-	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+	} */else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
 		validateMessage = '휴대폰 번호를 다시 확인해 주세요';
 		validateFocus = $htel;
 	} else if ($departId.val() == null || $departId.val() == "") {

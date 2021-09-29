@@ -1,3 +1,48 @@
+.member-modify-profileImg {
+	border-radius:7px;
+	height:120px;
+}
+.profile-img-wrap {
+	text-align: center;
+}
+.member-modify-profileImg-label {
+	width:80%;
+	margin-bottom: 10px;
+}
+.member-modify-originImg-label {
+	width:80%;
+	margin-bottom: 10px;
+}
+.member-modify-originImg {
+	border-radius:7px;
+	height:60px;
+}
+.member-modify-profileImg-regist-div1 {
+	text-align:center;
+}
+.member-modify-profileImg-regist-div2 {
+	width: 90%;
+}
+.member-modify-profileImg-regist-span {
+	font-size: 13px;	
+}
+.member-modify-profileImg-regist-input {
+	width: 68%;
+}
+.member-regist-profileImg-regist-div1 {
+	text-align:center;
+}
+.member-regist-profileImg-regist-div2 {
+	width: 90%;
+}
+.member-regist-profileImg-regist-span {
+	font-size: 13px;	
+}
+.member-regist-profileImg-regist-input {
+	width: 68%;
+}
+
+
 .admin-temp-pw {
 	margin-left: 20px;
 	color: blue;
@@ -682,6 +727,10 @@
 }
 .container .form .form-middle {
     padding: 7vw 0 0 16.71111111111111vw;
+}
+.container .form .form-middle2 {
+    padding: 7vw 0 0 16.71111111111111vw;
+    margin-bottom: -8vw;
 }
 .container .form .form-middle label {
     margin:0 3vw 2.311111111111112vw 0;
@@ -2790,6 +2839,14 @@
 	    cursor: pointer;
 	}
 
+	/* profile img */
+	.member-modify-originImg-label {
+		width: 100%;
+	}
+	.member-modify-profileImg-label {
+		width: 100%;
+	}
+	
 	/* admin auth */
 	.sales-table > .table-wrap2 {
 		width: 850px;
@@ -2974,6 +3031,13 @@
 		font-size: 20px;
 	}
 	
+	.container .form .form-middle2 {
+    	padding: 0;
+    	margin-bottom: 0;
+    	width: 544px;
+    	margin: 40px auto -37px; auto;
+	}	
+	
 	
 	/* etc */
 	.head_title {
@@ -3066,6 +3130,7 @@
 	.loginId, .loginPw {
 		width: 360px !important;
 		margin-bottom: 10px;
+		margin-left: -10px;
 	}
 	
 	.container .form .form-middle-login label {
@@ -3136,7 +3201,11 @@
 	}
 	/* mypage end */
 	
-	input[type=checkbox]{
+	.form-bottom-link input[type=checkbox]{
+		width:18px;
+		height:14px;
+	}
+	.table-wrap-att input[type=checkbox]{
 		width:18px;
 		height:17px;
 	}

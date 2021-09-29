@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 멤버 등록 & 출석부 등록
 	 */
 	@Override
-	public boolean registMember(Member member) {
+	public String registMember(Member member) {
 		
 		boolean result = false;
 		
@@ -80,9 +80,11 @@ public class MemberServiceImpl implements MemberService {
 //					}
 //				}
 //			}
+		}else {
+			return "";
 		}
 		
-		return result;
+		return member.getId().toString();
 	}
 
 	
@@ -127,8 +129,25 @@ public class MemberServiceImpl implements MemberService {
 	 * 멤버 메모 수정
 	 */
 	@Override
-	public boolean modifyMemberMemo(Member member) {
+	public boolean modifyMemberMemo(Member member, String userAuthId) {
+		
+		Member m_before = memberMapper.selectMember(member);
+		
+		if( ! m_before.getMemo().equals(member.getMemo()) && ! userAuthId.equals("2") ) {
+			member.setMemoFlag("1");
+		}else {
+			member.setMemoFlag("0");
+		}
+		
 		return memberMapper.updateMemberMemo(member);
+	}
+	
+	/**
+	 * 멤버 메모Flag 수정
+	 */
+	@Override
+	public boolean modifyMemberMemoFlag(Member member) {
+		return memberMapper.updateMemberMemoFlag(member);
 	}
 
 

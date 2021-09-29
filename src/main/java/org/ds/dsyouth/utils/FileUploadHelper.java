@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -37,7 +38,7 @@ public class FileUploadHelper {
 	 */
 	public static String fileUpload(MultipartHttpServletRequest mhsr) throws IllegalStateException, IOException {
 		
-		String path = mhsr.getSession().getServletContext().getRealPath("/resources/assets/images/leaderInfo");
+		String path = mhsr.getSession().getServletContext().getRealPath("/resources/assets/images/profileImg");
 		
 		Iterator iter = mhsr.getFileNames(); 
 		MultipartFile mfile = null; 

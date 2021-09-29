@@ -220,7 +220,8 @@ public class AuthRestController {
 		}
 		
 		try {
-			authService.modifyUser(user);
+			
+			authService.modifyUserInfo(user);
 			
 			user = authService.getUserByLoginId(user);
 			
@@ -266,7 +267,7 @@ public class AuthRestController {
 			
 			authService.getUserCheck(userTemp);
 			
-			authService.modifyUser(user);
+			authService.modifyUserPassword(user);
 			
 			user = authService.getUserByLoginId(user);
 			
@@ -355,7 +356,7 @@ public class AuthRestController {
 				User user = new User();
 				user.setId(StringHelper.parseInt(arr[i]));
 				user.setAuthId(auth_id);
-				authService.modifyUser(user);
+				authService.modifyUserAuth(user);
 			}
 			
 		} catch (Exception e) {
@@ -388,7 +389,7 @@ public class AuthRestController {
 				User user = new User();
 				user.setId(StringHelper.parseInt(arr[i]));
 				user.setAuthExec(auth_exec);
-				authService.modifyUser(user);
+				authService.modifyUserAuth(user);
 			}
 			
 		} catch (Exception e) {

@@ -69,7 +69,7 @@ function remove(id, name) {
     		          type: "POST",
     		          url: url,
     		          data: {
-    		        	  id : val
+    		        	  id : id
     		          }, // serializes the form’s elements.
     		          success: function(result)
     		          {

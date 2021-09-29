@@ -27,6 +27,20 @@
 			<p class="head_title text-center">팀원 추가</p>
 			
             <div class="form">
+            	
+            	<form id="registProfileImgForm" enctype="multipart/form-data">
+            		<input type="hidden" id="memberId" name="memberId" value="" />
+            		<input type="hidden" id="profileImg" name="profileImg" value="" />
+            		<div class="form-middle2">
+	            		<div class="member-regist-profileImg-regist-div1">
+	            			<div class="member-regist-profileImg-regist-div2">
+	            				<span class="member-regist-profileImg-regist-span">프로필 사진 : </span>
+	            				<input type="file" accept=".jpg, .jpeg, .png" id="originImg" name="originImg" class="member-regist-profileImg-regist-input">
+	            			</div>
+	            		</div>
+	            	</div>
+           		</form>
+           		
                 <form id="memberRegistForm">
                     <div class="form-middle">
                     	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />

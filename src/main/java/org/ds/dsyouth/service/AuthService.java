@@ -15,7 +15,9 @@ import org.ds.dsyouth.model.UserKeepLogin;
 public interface AuthService {
 
 	boolean registUser(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException, IdDuplicatedException;
-	boolean modifyUser(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	boolean modifyUserInfo(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	boolean modifyUserAuth(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;
+	boolean modifyUserPassword(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;
 	boolean modifyUserPwReset(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException;	// 임시 비밀번호로 변경하기
 	boolean removeUser(User user);	// 회원 강퇴
 	boolean restoreUser(User user);	// 회원 복구

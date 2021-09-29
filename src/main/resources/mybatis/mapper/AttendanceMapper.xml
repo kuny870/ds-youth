@@ -204,12 +204,15 @@
 			, m.id AS m_id
 			, m.name AS m_name
 			, m.memo AS m_memo
+			, m.memo_flag AS m_memo_flag
 			, m.guider AS m_guider
 		    , m.depart_id AS m_depart_id
 		    , m.team_id AS m_team_id
 		    , m.date_of_birth AS m_date_of_birth
 		    , m.htel AS m_htel
 		    , m.gender AS m_gender
+		    , m.origin_profile_img AS m_origin_profile_img
+		    , m.replace_profile_img AS m_replace_profile_img 
 		    , m.member_reg_date AS member_reg_date
 		    , m.member_grad_date AS member_grad_date
 		    , m.same_period_id AS m_same_period_id
@@ -425,12 +428,15 @@
 			, m.id AS m_id
 			, m.name AS m_name
 			, m.memo AS m_memo
+			, m.memo_flag AS m_memo_flag
 			, m.guider AS m_guider
 		    , m.depart_id AS m_depart_id
 		    , m.team_id AS m_team_id
 		    , m.date_of_birth AS m_date_of_birth
 		    , m.htel AS m_htel
 		    , m.gender AS m_gender
+		    , m.origin_profile_img AS m_origin_profile_img
+		    , m.replace_profile_img AS m_replace_profile_img 
 		    , m.member_reg_date AS member_reg_date
 		    , m.member_grad_date AS member_grad_date
 		    , m.same_period_id AS m_same_period_id

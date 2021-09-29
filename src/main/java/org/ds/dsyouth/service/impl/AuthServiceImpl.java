@@ -162,7 +162,39 @@ public class AuthServiceImpl implements AuthService {
 	 * 회원 기본정보 수정
 	 */
 	@Override
-	public boolean modifyUser(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	public boolean modifyUserInfo(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		
+		boolean result = false;
+		
+		// 팀 변경 시 '순원' 권한으로 수정 
+		User userTmp = authMapper.selectUserByLoginId(user);
+		if(userTmp.getTeamId() != user.getTeamId()) {
+			user.setAuthId(7);
+		}
+				
+        result = authMapper.updateUser(user);
+		
+		return result;
+	}
+	
+	/**
+	 * 회원 권한 수정
+	 */
+	@Override
+	public boolean modifyUserAuth(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		
+		boolean result = false;
+		
+        result = authMapper.updateUser(user);
+		
+		return result;
+	}
+	
+	/**
+	 * 회원 비밀번호 수정
+	 */
+	@Override
+	public boolean modifyUserPassword(User user) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		
 		boolean result = false;
 		

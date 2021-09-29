@@ -27,7 +27,41 @@
 			<p class="head_title text-center">팀원 정보</p>
 			
             <div class="form">
-                <form enctype="application/x-www-form-urlencoded" id="memberModifyForm">
+            
+            	
+            	<form id="registProfileImgForm" enctype="multipart/form-data">
+            		<input type="hidden" id="memberId" name="memberId" value="${member.id }" />
+            		<input type="hidden" id="profileImg" name="profileImg" value="${member.originProfileImg }" />
+            		<div class="form-middle2">
+            		
+	           			<c:choose>
+		           			<c:when test="${member.replaceProfileImg ne null and member.replaceProfileImg ne ''}">
+		           				<div class="profile-img-wrap">
+		           					<label class="member-modify-profileImg-label">
+		           						<img src="${resourcesPath}/assets/images/profileImg/${member.replaceProfileImg}" for="profile-img-change" id="member-modify-profileImg" class="member-modify-profileImg">
+		           						<img src="${resourcesPath}/assets/images/btn_close.png" id="btn_close" style="width:12px; margin-bottom: 105px; cursor: pointer;" onclick="profileImgReset()">
+		           					</label>
+		           				</div>
+		           			</c:when>
+		           			<c:otherwise>
+	           					<div class="profile-img-wrap">
+									<label id="profile-img-change-label" for="profile-img-change" class="member-modify-originImg-label">
+										<img src="${resourcesPath}/assets/images/profile_img.jpg" class="member-modify-originImg">
+									</label>
+								</div>
+	           				</c:otherwise>
+	           			</c:choose>
+           		
+	            		<div class="member-modify-profileImg-regist-div1">
+	            			<div class="member-modify-profileImg-regist-div2">
+	            				<span class="member-modify-profileImg-regist-span">프로필 사진 : </span>
+	            				<input type="file" accept=".jpg, .jpeg, .png" id="originImg" name="originImg" class="member-modify-profileImg-regist-input">
+	            			</div>
+	            		</div>
+	            	</div>
+           		</form>
+           		
+                <form enctype="multipart/form-data" id="memberModifyForm" accept-charset="UTF-8">
                     <div class="form-middle">
                     	<input type="hidden" id="sTeamId" name="sTeamId" value="${memberSearch.teamId }" />
                     	<input type="hidden" id="sGroupId" name="sGroupId" value="${memberSearch.groupId }" />
@@ -35,6 +69,17 @@
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	<input type="hidden" id="id" name="id" value="${member.id }" />
                     	
+	            		
+	            		<%-- <c:choose>
+	            			<c:when test="${member.replaceProfileImg ne null }">
+	            				<img src="${resourcesPath}/assets/images/profile_img/${member.replace_profile_img}" for="profile-img-change" style="border-radius:5px; width:40px; height:40px;">
+	            			</c:when>
+	            			<c:otherwise>
+	            				<div class="profile-img-wrap" style="text-align: center;">
+									<label id="profile-img-change-label" for="profile-img-change" style="width:80%"><div id="output"></div><span><img src="${resourcesPath}/assets/images/profile_img.jpg" style="cursor: pointer;"></span></label>
+								</div>
+	            			</c:otherwise>
+	            		</c:choose> --%>
 	            		
 	            		<!-- 멤버 상태 값 : 일반 1 , 군인 2 , 해외 3 , 장기결석 4 , 새가족수료 5 , 졸업 6 , 기타 7 -->
                     	<div class="customer-select">
@@ -50,7 +95,7 @@
 	                    </div>
 	                   	
 	                   	<label></label>
-	            		 
+	                   	
 	            		<!-- 이름 -->
                         <label>
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="${member.name}">

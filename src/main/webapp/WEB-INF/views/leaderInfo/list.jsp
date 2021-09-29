@@ -77,6 +77,10 @@
 					        		<input type="number" pattern="\d*" class="md-input3" id="month" name="month" placeholder="월" maxlength="2" oninput="numberMaxLength(this);" autocomplete="off"/>
 					        		<input type="number" pattern="\d*" class="md-input3" id="day" name="day" placeholder="일" maxlength="2" oninput="numberMaxLength(this);" autocomplete="off"/>
 			        				<input type="file" id="originImg" name="originImg" style="width: 57%; margin-left: 10px;"/>
+			        				<div class="profile-img-wrap">
+										<input type="file" accept=".jpg, .heic" id="profile-img-change" name="profileImage">
+										<label id="profile-img-change-label" for="profile-img-change"><div id="output"></div><span>프로필 사진 수정</span></label>
+									</div>
 					 	        </div>
 						        <div class="form-bottom" style="text-align:center;">
 					            	<button class="btn md-button" type="submit">확인</button>

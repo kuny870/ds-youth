@@ -1,3 +1,12 @@
+function profileImgReset() {
+	
+	document.getElementById('member-modify-profileImg').src = resourcesPath + "/assets/images/profile_img.jpg";
+	$('#member-modify-profileImg').css('height', '60px');
+	$('#btn_close').css('display', 'none');
+	$('#profileImg').val("프로필사진삭제");
+	
+}
+
 $(document).ready(function(){
 	var team = document.getElementById('teamId');
 	if(team.value == 4 || team.value == 8) {
@@ -92,6 +101,7 @@ function memberModify() {
 	var $name = $('#name');
 	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
+	var $originImg = $('#originImg');
 
 	var validateMessage = null;
 	var validateFocus = null;
@@ -118,7 +128,7 @@ function memberModify() {
         });
 		return false;
 	}
-		
+	
 	Swal.fire({
 	    title: '팀원 정보 수정',
 	    html: "수정 하시겠습니까?",
@@ -131,58 +141,90 @@ function memberModify() {
 		
 		if(result.value){
 			
-			var url = contextPath + "/rest/member/edit"
+			var form = $(this);
+			var form = $('#registProfileImgForm')[0];
+		    var formData = new FormData(form);
+			
+		    var url = contextPath + "/rest/profileImg/regist";
+		    
+		    $.ajax({
+		        type: "post",
+		        url: url,
+		        enctype: "multipart/form-data",
+		        contentType: false,
+		        processData: false,
+		        data: formData, // serializes the form’s elements.
+		        success: function(result)
+		        {
+		            if(result == "SUCCESS") { // show response from the php script.
+		            	
+		            	// 회원정보 수정 start
+		            	url = contextPath + "/rest/member/edit"
 
-			$.ajax({
-		          type: "POST",
-		          url: url,
-		          data: {
-		        	  sTeamId : sTeamId
-		        	  ,sGroupId : sGroupId
-		        	  ,sNameKW :  sNameKW
-		        	  ,pageNo : pageNo
-		              ,id : $('#id').val()
-		              ,memState : $('#memState').val()
-		              ,name : $('#name').val()
-		              ,samePeriodId : $('#samePeriodId').val()
-		              /*,dateOfBirth : $('#dateOfBirth').val()*/
-		              ,htel : $('#htel').val()
-		              ,departId : $('.departId').val()
-		              ,teamId : $('.teamId').val()
-		              ,guider : $('#guider').val()
-		              ,memberRegDate : $('#memberRegDate').val()
-		              ,memberGradDate : $('#memberGradDate').val()
-		              ,gender : $('input[name="gender"]:checked').val()
-		          },
-		          success: function(result)
-		          {
-		              if(result.success) { // show response from the php script.
-		            	  Swal.fire({
-		                      text: $name.val() + " 정보가 수정 되었습니다",
-		                      confirmButtonText: '확인',
-		                      allowOutsideClick: true
-		                  }).then(function() {
-		                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + nameKW + "&pageNo=" + pageNo;
-		                  });
-		              }else {
-		            	  Swal.fire({
-		            		    text: result.message,
-		            		    confirmButtonText: '확인',
-		            		    allowOutsideClick: true
-		            		});
-		              }
-		          },
-		   		  fail: function(result) {
-		   			Swal.fire({
-		   			    text: $name.val() + " 정보 수정에 실패 했습니다",
-		   			    confirmButtonText: '확인',
-		   			    allowOutsideClick: true
-		   			});
-		   		  }
-		    });
-			
-			e.preventDefault(); // avoid to execute the actual submit of the form.
-			
+		    			$.ajax({
+		    		          type: "POST",
+		    		          url: url,
+		    		          data: {
+		    		        	  sTeamId : sTeamId
+		    		        	  ,sGroupId : sGroupId
+		    		        	  ,sNameKW :  sNameKW
+		    		        	  ,pageNo : pageNo
+		    		              ,id : $('#id').val()
+		    		              ,memState : $('#memState').val()
+		    		              ,name : $('#name').val()
+		    		              ,samePeriodId : $('#samePeriodId').val()
+		    		              ,dateOfBirth : $('#dateOfBirth').val()
+		    		              ,htel : $('#htel').val()
+		    		              ,departId : $('.departId').val()
+		    		              ,teamId : $('.teamId').val()
+		    		              ,guider : $('#guider').val()
+		    		              ,memberRegDate : $('#memberRegDate').val()
+		    		              ,memberGradDate : $('#memberGradDate').val()
+		    		              ,gender : $('input[name="gender"]:checked').val()
+		    		          },
+		    		          success: function(result)
+		    		          {
+		    		              if(result.success) { // show response from the php script.
+		    		            	  Swal.fire({
+		    		                      text: $name.val() + " 정보가 수정 되었습니다",
+		    		                      confirmButtonText: '확인',
+		    		                      allowOutsideClick: true
+		    		                  }).then(function() {
+		    		                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + nameKW + "&pageNo=" + pageNo;
+		    		                  });
+		    		              }else {
+		    		            	  Swal.fire({
+		    		            		    text: result.message,
+		    		            		    confirmButtonText: '확인',
+		    		            		    allowOutsideClick: true
+		    		            		});
+		    		              }
+		    		          },
+		    		   		  fail: function(result) {
+		    		   			Swal.fire({
+		    		   			    text: "프로필 사진은 등록되었으나<br>" + $name.val() + " 정보 수정에 실패 했습니다",
+		    		   			    confirmButtonText: '확인',
+		    		   			    allowOutsideClick: true
+		    		   			});
+		    		   		  }
+		    		    });
+		    			
+		    			e.preventDefault(); // avoid to execute the actual submit of the form.
+		    			// 회원정보 수정 end
+		    			
+		            	
+		            }
+		        },
+		 		  fail: function(result) {
+		 			 Swal.fire({
+		 	            text: "프로필 사진 등록에 실패 했습니다",
+		 	            confirmButtonText: '확인',
+		 	            allowOutsideClick: true
+		 	        });
+		 		  }
+			});
+
+		    
 		}
 	});
 	

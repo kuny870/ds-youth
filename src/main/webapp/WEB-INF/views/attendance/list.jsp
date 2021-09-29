@@ -53,7 +53,9 @@
 		                       	<option value="99" >팀 전체</option>
 		                       	<c:forEach var="team" items="${teamList }">
 		                       		<c:set var="selected" value="" />
-								        <c:if test="${team.id eq attendanceSearch.teamId }">
+								        <c:if test="${team.id eq attendanceSearch.teamId 
+								        	|| (attendanceSearch.teamId == 4 && team.id == 8)
+								        	|| (attendanceSearch.teamId == 8 && team.id == 4)}">
 											<c:set var="selected" value="selected" />
 										</c:if>
 									<option value="${team.id}" ${selected} >${team.tShortName}</option>
@@ -315,16 +317,31 @@
 							                            						
 							                            						
 							                            						<!-- 목사님 및 본인 팀의 팀장만 지체 상황 팝업 열어서 수정 할 수 있음 -->
-							                            						<c:choose>
+							                            						<%-- <c:choose>
 							                            							<c:when test="${( (login.teamId == 4 || login.teamId == 8) && login.authId == 3) || login.authId < 3}">
-							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}')" style="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;">		
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }')" style="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;">		
 							                            							</c:when>
 							                            							<c:otherwise>
 							                            								<td style="font-weight: ${bold}; font-style: ${italic};">
 							                            							</c:otherwise>
+							                            						</c:choose> --%>
+							                            						
+							                            						<c:set var="setStyle" value=""/>
+							                            						
+							                            						<c:choose>
+							                            							<c:when test="${( (login.teamId == 4 || login.teamId == 8) && login.authId == 3) || login.authId < 3}">
+								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;"/>
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }, '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
+							                            							</c:when>
+							                            							<c:otherwise>
+							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer;"/>
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">
+							                            							</c:otherwise>
 							                            						</c:choose>
 							                            						
-										                            				${att.member.name }
+							                            						
+										                            				${att.member.name } 
+										                            				
 										                            				<!-- 동기 표시 -->
 										                            				<c:if test="${att.member.samePeriodId != null }">
 										                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
@@ -361,7 +378,13 @@
 													                            			</c:otherwise>
 													                            		</c:choose>
 													                            	</c:if>
+													                            	
+													                            	<c:if test="${(login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && att.member.teamId == login.teamId && att.member.memoFlag == 1)}">
+													                            		<img src="${resourcesPath }/assets/images/red_jeom.png" id="${att.id}-jeom-img" style="width:3px; padding:0 0px 3px 0px; margin-left:1px;">
+													                            	</c:if>
+													                            	
 													                            </td>
+													                            
 													                            <td style="font-weight: ${bold}">${att.member.guider}</td>
 									                            			</c:when>
 									                            			<c:otherwise>
@@ -380,18 +403,32 @@
 										                            			<c:when test="${att.attYn == 'Y'}">
 										                            			
 										                            				<!-- 목사님 및 본인 팀의 팀장만 지체 상황 팝업 열어서 수정 할 수 있음 -->
-									                            					<c:choose>
+									                            					<%-- <c:choose>
 									                            						<c:when test="${(att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3}">
-									                            							<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}')" style="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor:pointer; ">		
+									                            							<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }')" style="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor:pointer; ">		
 									                            						</c:when>
 									                            						<c:otherwise>
 									                            							<td style="font-weight: ${bold}; font-style: ${italic};">
 									                            						</c:otherwise>
-									                            					</c:choose>
+									                            					</c:choose> --%>
 									                            					
-										                            				${att.member.name }
+									                            					<c:set var="setStyle" value=""/>
+							                            						
+							                            						<c:choose>
+							                            							<c:when test="${(att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3}">
+								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;"/>
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
+							                            							</c:when>
+							                            							<c:otherwise>
+							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer;"/>
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">
+							                            							</c:otherwise>
+							                            						</c:choose>
+							                            						
+									                            					
+										                            				${att.member.name } 
 										                            				<!-- 동기 표시 -->
-										                            				<c:if test="${att.member.samePeriodId != null }">
+										                            				<c:if test="${att.member.samePeriodId != null }"> 
 										                            					<c:set var="yearTmp" value="${attendanceSearch.year - att.samePeriod.birthYear}"/>
 													                            		<c:choose>
 													                            			<c:when test="${yearTmp == 18}">
@@ -425,6 +462,10 @@
 													                            				(${fn:substring(att.samePeriod.birthYear,2,4)})
 													                            			</c:otherwise>
 													                            		</c:choose>
+													                            	</c:if>
+													                            	
+													                            	<c:if test="${(login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && att.member.teamId == login.teamId && att.member.memoFlag == 1)}">
+													                            		<img src="${resourcesPath }/assets/images/red_jeom.png" id="${att.id}-jeom-img" style="width:3px; padding:0 0px 3px 0px; margin-left:1px;">
 													                            	</c:if>
 													                            	
 													                            	</td>
@@ -615,19 +656,6 @@
 										                            </c:forEach>
 									                            
 									                            </c:if>
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
-									                            
 									                            
 									                            
 									                            

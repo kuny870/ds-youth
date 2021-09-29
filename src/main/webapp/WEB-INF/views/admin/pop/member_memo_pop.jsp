@@ -2,6 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
+	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+	<c:set var="resourcesPath" value="${contextPath}/resources" />
+	
 <title>MEMBER_MEMO POPUP</title>
 <style>
 /* 마스크 뛰우기 */
@@ -21,8 +25,8 @@
 	    left: 50%;
 	    margin-left: -40%; /* half of width */
 	    /* height: 300px; */
-	    top: 50%;
-	    margin-top: -190px; /* half of height */
+	    top: 45%;
+	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	
 	    /* decoration */
@@ -44,7 +48,7 @@
     margin-left: -35%; /* half of width */
     /* height: 300px; */
     top: 45%;
-    margin-top: -170px; /* half of height */
+    margin-top: -200px; /* half of height */
     overflow: auto;
 
     /* decoration */
@@ -63,7 +67,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-    function memberMemoPopup(attId, memberId, mName, mMemo){
+    function memberMemoPopup(attId, memberId, mName, mMemo, profileImg, memoFlag, authId){
 
     	var memMemo = mMemo;
     	memMemo = memMemo.split('<br/>').join("\r\n");
@@ -75,6 +79,17 @@
     	$('#attId').val(attId);
     	$('#memoPopId').val(memberId);
     	$('#memoPopName').val(mName);
+    	
+    	$('#originImgDiv').css('display', 'block');
+    	$('#profileImgDiv').css('display', 'block');
+    	
+    	if(profileImg != "" && profileImg != null) {
+    		document.getElementById('profileImgId').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
+    		$('#originImgDiv').css('display', 'none');
+    	}else {
+    		document.getElementById('originImgId').src= resourcesPath + '/assets/images/profile_img.jpg';
+    		$('#profileImgDiv').css('display', 'none');
+    	}
     	
         //화면의 높이와 너비를 구한다.
         var maskHeight = $(document).height();
@@ -92,6 +107,35 @@
         $(".memberMemoWindow").show();
         
         getSayu($("#sundays").val());
+        
+        // 목사님이 지체상황 팝업 오픈 시 빨간 점 표시 없앰 memo_flag = 0
+        if(memoFlag == "1" && authId == "2") {
+        	
+        	var url = contextPath + "/rest/member/memoFlag";
+            $.ajax({
+                type: "POST",
+                url: url,
+                traditional : true,
+                data: {
+                	id : memberId
+                }, // serializes the form’s elements.
+                success: function(result)
+                {
+                    if(result.success) { // show response from the php script.
+                    	
+                    	var jeomImg = document.getElementById(attId + '-jeom-img');
+                    	jeomImg.style.display = 'none';
+                    	
+                    }else {
+
+                    }
+                },
+         		  fail: function(result) {
+         			  
+         		  }
+             });
+        	
+        }
     }
 
     $(document).ready(function(){
@@ -120,50 +164,75 @@
         <div id="memo-container">
             <div id="memberMemoMask"></div>
            	<div class="memberMemoWindow">
-           		<div id="mName" style="font-size: 20px; margin-bottom: 10px;"></div>
-	            <div class="form">
-	                <form enctype="application/x-www-form-urlencoded" id="memberPopModifyForm">
-	                    <div class="form-middle">
-	                    	<input type="hidden" id="attId" name="attId" value="" />
-	                    	<input type="hidden" id="memoPopId" name="memoPopId" value="" />
-	                    	<input type="hidden" id="memoPopName" name="memoPopName" value="" />
-	                        <!-- <label>
-	                            <div style="font-size: 12px; margin-bottom: 5px;">최근 3개월 출석률 : </div>
-	                        </label>
-	                        <label>
-	                            <div style="font-size: 12px; margin-bottom: 5px;">최근 6개월 출석률 : </div>
-	                        </label>
-	                        <label>
-	                            <div style="font-size: 12px; margin-bottom: 5px;">최근 1년간 출석률 : </div>
-	                        </label> -->
-	                        <p style="margin-bottom: 15px; font-size: 15px;">지체 상황</p>
-	                        <label>
-	                            <textarea style="margin-top:-10px; margin-bottom:10px; height:120px; width:100%;" rows="20" id="memo" name="memo" placeholder=""></textarea>
-	                        </label>
-	                        
-	                        <p style="margin-top: 5px; margin-bottom: 10px; font-size: 15px;">예배 불참 사유</p>
-	                        
-	                        <div class="sayu-month">
-	                        	${attendanceSearch.month}월
-	                        </div>
-		                    
-		                    <div style="text-align: center;">
-				        		<select class="basic-select sayu-date-select" id="sundays" name="sundays" onchange="getSayu(this.value)">
-				        			<c:forEach var="sun" items="${sunday }" varStatus="i">
-										<option value="${i.index+1}">${sun}일</option>
-									</c:forEach>
-				        		</select>
-				        		<input type="text" class="basic-input sayu-input" id="sayu" name="sayu" placeholder="사유" value="" autocomplete="off">
-				 	        </div>
-	                    </div>
-	                </form>
-	            </div>
-	            <div>
-					<p style="text-align:center; background:#ffffff; padding:5px; margin-top:15px;">
-						<button class="memberMemoRegist" onclick="memberMemoAndSayuRegist()">저장</button>
-						<button class="memberMemoClose">닫기</button>
-					</p>
-				</div>
+           	
+           		<div id="mName" style="font-size: 20px; margin-bottom: 5px;"></div>
+           		<c:choose>
+           			<c:when test="${ (((attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8) && (login.teamId == 4 || login.teamId == 8)) && login.authId == 3) || 
+           			(attendanceSearch.teamId == login.teamId && login.authId == 3) || 
+           			login.authId < 3}">
+           			
+	           		<!-- <input style="display: none;" type="file" accept=".jpg, .heic" id="profile-img-change" name="profileImage"> -->
+						<div id="originImgDiv" class="profile-img-wrap" style="text-align:right; margin-top:-32px; margin-right: 1px;">
+							<img id="originImgId" src="" style="border-radius:7px; height:40px;">
+						</div>
+						<div id="profileImgDiv" class="profile-img-wrap" style="text-align:right; margin-top:-32px; margin-right: 1px;">
+							<img id="profileImgId" src="" style="border-radius:7px; height:130px; max-width: 68%;">
+						</div>
+	           		
+			            <div class="form">
+			                <form enctype="application/x-www-form-urlencoded" id="memberPopModifyForm">
+			                    <div class="form-middle">
+			                    	<input type="hidden" id="attId" name="attId" value="" />
+			                    	<input type="hidden" id="memoPopId" name="memoPopId" value="" />
+			                    	<input type="hidden" id="memoPopName" name="memoPopName" value="" />
+			                    	<input type="hidden" id="userAuthId" name="userAuthId" value="${login.authId }" />
+			                    	
+			                        <p style="margin-bottom: 15px; font-size: 15px;">지체 상황</p>
+			                        <label>
+			                            <textarea style="margin-top:-10px; margin-bottom:10px; height:120px; width:100%;" rows="20" id="memo" name="memo" placeholder=""></textarea>
+			                        </label>
+			                        
+			                        <p style="margin-top: 5px; margin-bottom: 10px; font-size: 15px;">예배 불참 사유</p>
+			                        
+			                        <div class="sayu-month">
+			                        	${attendanceSearch.month}월
+			                        </div>
+				                    
+				                    <div style="text-align: center;">
+						        		<select class="basic-select sayu-date-select" id="sundays" name="sundays" onchange="getSayu(this.value)">
+						        			<c:forEach var="sun" items="${sunday }" varStatus="i">
+												<option value="${i.index+1}">${sun}일</option>
+											</c:forEach>
+						        		</select>
+						        		<input type="text" class="basic-input sayu-input" id="sayu" name="sayu" placeholder="사유" value="" autocomplete="off">
+						 	        </div>
+			                    </div>
+			                </form>
+			            </div>
+		            
+			            <div>
+							<p style="text-align:center; background:#ffffff; padding:5px; margin-top:15px;">
+								<button class="memberMemoRegist" onclick="memberMemoAndSayuRegist()">저장</button>
+								<button class="memberMemoClose">닫기</button>
+							</p>
+						</div>
+			
+					</c:when>
+					<c:otherwise>
+						
+						<div id="originImgDiv" style="">
+							<img id="originImgId" src="" style="border-radius:7px; height:130px; margin-left: 15px; margin-bottom: 10px;">
+						</div>
+						<div id="profileImgDiv" style="">
+							<img id="profileImgId" src="" style="border-radius:7px; height:200px; max-width:90%; margin-left: 15px; margin-bottom: 10px;">
+						</div>
+						
+					</c:otherwise>
+				</c:choose>
+				
+				
+				
+				
             </div>
         </div>
     </div>

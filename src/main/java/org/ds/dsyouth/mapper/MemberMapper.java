@@ -14,6 +14,7 @@ public interface MemberMapper {
 	boolean insertMember(Member member);
 	boolean updateMember(Member member);
 	boolean updateMemberMemo(Member member);
+	boolean updateMemberMemoFlag(Member member);
 	boolean deleteMember(Member member);
 	Member selectMember(Member member);
 	List<Member> selectMemberListByRemove();

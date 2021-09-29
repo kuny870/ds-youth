@@ -46,7 +46,7 @@ $("#profileForm").submit(function(e) {
 	
 	var $loginId = $('#loginId');
 	var $name = $('#name');
-	var $dateOfBirth = $('#dateOfBirth');
+//	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
 	var $depart = $('#depart');
 	var $team = $('#team');
@@ -62,10 +62,10 @@ $("#profileForm").submit(function(e) {
 	} else if ($name.val() == "") {
 		validateMessage = '이름을 입력해 주세요';
 		validateFocus = $name;
-	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+	}/* else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
 		validateMessage = '생년월일을 다시 확인해 주세요';
 		validateFocus = $dateOfBirth;
-	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+	} */else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
 		validateMessage = '휴대폰 번호를 다시 확인해 주세요';
 		validateFocus = $htel;
 	} else if ($depart.val() == "선택") {

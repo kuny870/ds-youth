@@ -10,9 +10,8 @@ import org.ds.dsyouth.search.MemberSearch;
 
 public interface MemberService {
 
-	boolean registMember(Member member);
+	String registMember(Member member);
 	boolean modifyMember(Member member);
-	boolean modifyMemberMemo(Member member);
 	boolean removeMember(Member member);
 	
 	Member getMember(Member member);			// id 값으로 member 객체 불러오기
@@ -29,5 +28,7 @@ public interface MemberService {
 	List<Member> getMemberListForExcel(Map year);	// 팀별 List 불러오기
 	
 	boolean restoreMember(Member member);	// 멤버 복구
+	boolean modifyMemberMemo(Member member, String userAuthId);
+	boolean modifyMemberMemoFlag(Member member);
 	
 }

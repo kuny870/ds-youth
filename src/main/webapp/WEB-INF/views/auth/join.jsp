@@ -37,9 +37,9 @@
                         <label>
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (실명 필수)" value="" autocomplete="off">
                         </label>                        
-                        <label>
+                      <!--   <label>
                             <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
-                        </label>                                                
+                        </label>   -->                                              
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">
                         </label>

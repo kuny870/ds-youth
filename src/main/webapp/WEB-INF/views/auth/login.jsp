@@ -61,7 +61,7 @@
 	   
 	 </div>
 	 
-	 <%-- <jsp:include page="/WEB-INF/views/layouts/footer.jsp" flush="false" /> --%>
+	 <jsp:include page="/WEB-INF/views/layouts/footer.jsp" flush="false" />
 	 
   </body>
   
