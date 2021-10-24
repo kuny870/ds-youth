@@ -73,13 +73,13 @@ public class AdminController {
 		List<Auth> authList = adminService.getAuthList();
 		
 		// 각 권한에 대한 인원 카운트
-		for(int i = 0; i < authList.size() - 1; i++) {
+		for(int i = 0; i < authList.size(); i++) {
 			int authCnt = authService.getAuthCnt(authList.get(i).getId());
 			authList.get(i).setCnt(authCnt);
 		}
 		
 		int authExecCnt = authService.getAuthExecCnt();
-		authList.get(authList.size() - 1).setCnt(authExecCnt);
+		authList.get(authList.size() - 2).setCnt(authExecCnt);
 		
 		ModelAndView mav = new ModelAndView("admin/auth/list");
 		

@@ -36,7 +36,7 @@
                 </c:choose>
 
             
-				<div class="div-container">
+				<div class="div-container-non-width">
 					
 					<div class="sales-table">
 			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">

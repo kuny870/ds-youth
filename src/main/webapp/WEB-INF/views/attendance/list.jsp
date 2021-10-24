@@ -11,6 +11,7 @@
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<c:set var="resourcesPath" value="${contextPath}/resources" />
+	
 	<script>
 		var contextPath = '${contextPath}';
 		var resourcesPath = '${resourcesPath}';
@@ -304,7 +305,7 @@
 									                            <c:if test="${att.member.memState != '1' }">
 									                            	<c:set var="italic" value="italic"/>
 									                            </c:if>
-									                            <c:if test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3) && (att.member.memo != '' && att.member.memo != null) && att.attYn == 'Y'}">
+									                            <c:if test="${( ( ((login.teamId == 4 || login.teamId == 8) && login.authId == 3) || (att.member.teamId == login.teamId && login.authId == 3) ) || login.authId < 3) && (att.member.memo != '' && att.member.memo != null) && att.attYn == 'Y'}">
 									                            	<c:set var="blue" value="#284AF3"/>
 									                            </c:if>
 									                            
@@ -327,14 +328,19 @@
 							                            						</c:choose> --%>
 							                            						
 							                            						<c:set var="setStyle" value=""/>
+							                            						<c:set var="borderRightOutset" value=""/>
+
+																				<c:if test="${att.member.replaceProfileImg != null and att.member.replaceProfileImg != ''}">
+								                            						<c:set var="borderRightOutset" value="border-right: outset"/>
+								                            					</c:if>
 							                            						
 							                            						<c:choose>
 							                            							<c:when test="${( (login.teamId == 4 || login.teamId == 8) && login.authId == 3) || login.authId < 3}">
-								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;"/>
-							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }, '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
+								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer; ${borderRightOutset}"/>
+							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
 							                            							</c:when>
 							                            							<c:otherwise>
-							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer;"/>
+							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer; ${borderRightOutset}"/>
 							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">
 							                            							</c:otherwise>
 							                            						</c:choose>
@@ -379,7 +385,7 @@
 													                            		</c:choose>
 													                            	</c:if>
 													                            	
-													                            	<c:if test="${(login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && att.member.teamId == login.teamId && att.member.memoFlag == 1)}">
+													                            	<c:if test="${att.member.memo != '' && ( (login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && (login.teamId == 4 || login.teamId == 8) && att.member.memoFlag == 1) )}">
 													                            		<img src="${resourcesPath }/assets/images/red_jeom.png" id="${att.id}-jeom-img" style="width:3px; padding:0 0px 3px 0px; margin-left:1px;">
 													                            	</c:if>
 													                            	
@@ -413,19 +419,23 @@
 									                            					</c:choose> --%>
 									                            					
 									                            					<c:set var="setStyle" value=""/>
-							                            						
+									                            					<c:set var="borderRightOutset" value=""/>
+
+																					<c:if test="${att.member.replaceProfileImg != null and att.member.replaceProfileImg != ''}">
+									                            						<c:set var="borderRightOutset" value="border-right: outset"/>
+									                            					</c:if>
+									                            														                            					
 							                            						<c:choose>
 							                            							<c:when test="${(att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3}">
-								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer;"/>
-							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
+								                            							<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; color: ${blue}; cursor: pointer; ${borderRightOutset};"/>
+						                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">		
 							                            							</c:when>
 							                            							<c:otherwise>
-							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer;"/>
+							                            								<c:set var="setStyle" value="font-weight: ${bold}; font-style: ${italic}; cursor: pointer; ${borderRightOutset};"/>
 							                            								<td class="${memberMemoPop}" onclick="memberMemoPop('${memberMemoPop}', '${att.id }', '${att.member.id}', '${att.member.name}', '${att.member.memo}', '${att.member.replaceProfileImg }', '${att.member.memoFlag }', '${login.authId}')" style="${setStyle}">
 							                            							</c:otherwise>
 							                            						</c:choose>
 							                            						
-									                            					
 										                            				${att.member.name } 
 										                            				<!-- 동기 표시 -->
 										                            				<c:if test="${att.member.samePeriodId != null }"> 
@@ -464,7 +474,7 @@
 													                            		</c:choose>
 													                            	</c:if>
 													                            	
-													                            	<c:if test="${(login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && att.member.teamId == login.teamId && att.member.memoFlag == 1)}">
+													                            	<c:if test="${att.member.memo != '' && ( (login.authId <= 2 && att.member.memoFlag == 1) || (login.authId == 3 && att.member.teamId == login.teamId && att.member.memoFlag == 1) )}">
 													                            		<img src="${resourcesPath }/assets/images/red_jeom.png" id="${att.id}-jeom-img" style="width:3px; padding:0 0px 3px 0px; margin-left:1px;">
 													                            	</c:if>
 													                            	

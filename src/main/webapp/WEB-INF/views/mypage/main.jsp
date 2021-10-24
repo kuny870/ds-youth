@@ -17,19 +17,19 @@
     <link href="${resourcesPath}/assets/css/reset.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
-	<link href="${resourcesPath}/assets/css/modalLayer.css" />
+	<link href="${resourcesPath}/assets/css/modalLayer.css?${nowTime}" />
 	
   </head>
   <body>
     <div class="container">
    		<div class="header-product">
             <p class="main_title text-center" style="background: white;">
-                 <img src="${resourcesPath }/assets/images/dsyouth_logo.png" class="main-img">
+                 <img src="${resourcesPath }/assets/images/dsyouth_icon.png?${nowTime}" class="main-img">
                  <span class="main-title cursor-pointer" onclick="window.open('http://gofile.me/6NANj/xsaXoR5gx', '_blanck'); return false;"> 청년부</span>
             </p>
             <div class="mypage-wrap">
             
-                <!-- 리더 이상 -->
+                <!-- 엘더 이상 -->
                 <c:if test="${login.authId <= 6}">
                 	<h3>관리자</h3>
                 	<div class="mypage-rows">
@@ -37,7 +37,10 @@
 	                        <a href="${contextPath }/admin/list">청년부 관리</a>
 	                    </div>
 	                </div>
-	            
+	             </c:if>
+	             
+	             <!-- 리더 이상 -->
+	             <c:if test="${login.authId <= 4}">
                 	<h3>팀</h3>
 	                <div class="mypage-rows">
 	                    <div class="mypage-row">

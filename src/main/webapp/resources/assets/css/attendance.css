@@ -1,3 +1,9 @@
+.att-profileImg {
+	border-radius:15px;
+	height:30px;
+	margin-bottom: -7px;
+}
+
 .select-attendance-list-team {
 	width:70%; 
 	height:27px; 

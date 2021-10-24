@@ -17,15 +17,67 @@
     left:0;
     top:0;
 }
-/* 팝업으로 뜨는 윈도우 css  */
+
+.profile-img-wrap {
+	text-align:right !important; 
+	margin-top:-32px !important; 
+	margin-right: 1px !important;
+}
+
+.originImgId-img {
+	border-radius:7px !important;  
+	height:40px !important;
+}
+
+.originImgId-img2 {
+	border-radius:7px;
+	height:130px;
+	margin-left: 15px;
+	margin-bottom: 10px;
+}
+
+.jiche-p {
+	margin-bottom: 15px;
+	font-size: 15px;
+}
+
+.sayu-p {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+
+/* 폰 */
 @media (max-width: 679px) {
-	.memberMemoWindow{
+
+	.profileImge-img {
+		border-radius:7px !important; 
+		height:150px !important;
+		max-width: 68% !important;
+	}
+	
+	.jiche-textarea {
+		margin-top:-10px !important;
+		margin-bottom:10px !important; 
+		height:140px !important; 
+		width:100% !important;
+	}
+	
+	.profileImgId-img2 {
+		border-radius:7px;
+		height:200px;
+		max-width:90%;
+		margin-left: 15px;
+		margin-bottom: 10px;
+	}
+	
+	.memberMemoWindow {
 	    position: fixed;
 	    width: 80%;
 	    left: 50%;
 	    margin-left: -40%; /* half of width */
 	    /* height: 300px; */
-	    top: 45%;
+	    top: 42%;
 	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	
@@ -40,27 +92,51 @@
 	    z-index:10000;
 	 }
 }
-@media (min-width: 680px) {
-	.memberMemoWindow{
-    position: fixed;
-    width: 55%;
-    left: 57%;
-    margin-left: -35%; /* half of width */
-    /* height: 300px; */
-    top: 45%;
-    margin-top: -200px; /* half of height */
-    overflow: auto;
 
-    /* decoration */
-    border: 1px solid #000;
-    background-color: #eee;
-    padding: 1em;
-    box-sizing: border-box;
-    
-    display: none;
-    background-color:#FFF;
-    z-index:10000;
- }
+/* pc */
+@media (min-width: 680px) {
+
+	.profileImge-img {
+		border-radius:7px !important;
+		height:200px !important;
+		max-width: 68% !important;
+	}
+	
+	.jiche-textarea {
+		margin-top:-10px !important;
+		margin-bottom:10px !important;
+		height:180px !important; 
+		width:100% !important;
+	}
+	
+	.profileImgId-img2 {
+		border-radius:7px;
+		height:500px;
+		max-width:90%;
+		margin-left: 15px;
+		margin-bottom: 10px;
+	}
+	
+	.memberMemoWindow {
+	    position: fixed;
+	    width: 55%;
+	    left: 57%;
+	    margin-left: -35%; /* half of width */
+	    /* height: 300px; */
+	    top: 38%;
+	    margin-top: -200px; /* half of height */
+	    overflow: auto;
+	
+	    /* decoration */
+	    border: 1px solid #000;
+	    background-color: #eee;
+	    padding: 1em;
+	    box-sizing: border-box;
+	    
+	    display: none;
+	    background-color:#FFF;
+	    z-index:10000;
+ 	}
 }
 
 </style>
@@ -172,11 +248,11 @@
            			login.authId < 3}">
            			
 	           		<!-- <input style="display: none;" type="file" accept=".jpg, .heic" id="profile-img-change" name="profileImage"> -->
-						<div id="originImgDiv" class="profile-img-wrap" style="text-align:right; margin-top:-32px; margin-right: 1px;">
-							<img id="originImgId" src="" style="border-radius:7px; height:40px;">
+						<div id="originImgDiv" class="profile-img-wrap">
+							<img id="originImgId" src="" class="originImgId-img">
 						</div>
-						<div id="profileImgDiv" class="profile-img-wrap" style="text-align:right; margin-top:-32px; margin-right: 1px;">
-							<img id="profileImgId" src="" style="border-radius:7px; height:130px; max-width: 68%;">
+						<div id="profileImgDiv" class="profile-img-wrap">
+							<img id="profileImgId" src="" class="profileImge-img">
 						</div>
 	           		
 			            <div class="form">
@@ -187,12 +263,12 @@
 			                    	<input type="hidden" id="memoPopName" name="memoPopName" value="" />
 			                    	<input type="hidden" id="userAuthId" name="userAuthId" value="${login.authId }" />
 			                    	
-			                        <p style="margin-bottom: 15px; font-size: 15px;">지체 상황</p>
+			                        <p class="jiche-p">지체 상황</p>
 			                        <label>
-			                            <textarea style="margin-top:-10px; margin-bottom:10px; height:120px; width:100%;" rows="20" id="memo" name="memo" placeholder=""></textarea>
+			                            <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
 			                        </label>
 			                        
-			                        <p style="margin-top: 5px; margin-bottom: 10px; font-size: 15px;">예배 불참 사유</p>
+			                        <p class="sayu-p">예배 불참 사유</p>
 			                        
 			                        <div class="sayu-month">
 			                        	${attendanceSearch.month}월
@@ -220,11 +296,11 @@
 					</c:when>
 					<c:otherwise>
 						
-						<div id="originImgDiv" style="">
-							<img id="originImgId" src="" style="border-radius:7px; height:130px; margin-left: 15px; margin-bottom: 10px;">
+						<div id="originImgDiv">
+							<img id="originImgId" src="" class="originImgId-img2">
 						</div>
-						<div id="profileImgDiv" style="">
-							<img id="profileImgId" src="" style="border-radius:7px; height:200px; max-width:90%; margin-left: 15px; margin-bottom: 10px;">
+						<div id="profileImgDiv">
+							<img id="profileImgId" src="" class="profileImgId-img2">
 						</div>
 						
 					</c:otherwise>

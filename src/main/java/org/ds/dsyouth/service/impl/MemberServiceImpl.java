@@ -133,7 +133,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		Member m_before = memberMapper.selectMember(member);
 		
-		if( ! m_before.getMemo().equals(member.getMemo()) && ! userAuthId.equals("2") ) {
+		if( ! member.getMemo().equals( m_before.getMemo() ) && ! userAuthId.equals("2") ) {
 			member.setMemoFlag("1");
 		}else {
 			member.setMemoFlag("0");

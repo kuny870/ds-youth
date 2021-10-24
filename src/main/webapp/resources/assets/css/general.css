@@ -658,7 +658,7 @@
 
 
 .container .header {
-	margin-left: 21.488888888888889vw;
+	margin-left: 20.488888888888889vw;
 	margin-top: 10.133333333333333vw;
 } 
 .container .form .form-bottom-link {
@@ -2811,9 +2811,14 @@
 }
 */
 
-/* non-mobile */
+/* mobile */
 @media (min-width: 680px) {
 	
+	.header-product .shop-link-login{
+	   width:100px;
+	   height:88px;
+	}
+
 	.header-teamList {
 		height: 88px !important;
 	}
@@ -2986,6 +2991,12 @@
 		line-height: 45px;
 	}
 	
+	
+	.div-container-non-width {
+		margin: auto;
+		margin-top: 40px;
+		margin-bottom: 130px;
+	}
 	
 	/* teamList start */
 	.div-container {

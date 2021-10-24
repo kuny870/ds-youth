@@ -16,7 +16,7 @@ public class AttendanceSearch {
 	private String nameKW; // 이름 검색 조건
 	
 	public AttendanceSearch() {
-		this.teamId = "9";
+		this.teamId = "99";
 		this.year = DateHelper.getYear();
 		this.lastYear = DateHelper.getLastYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
@@ -95,7 +95,7 @@ public class AttendanceSearch {
 
 	public String getTeamId() {
 		if("".equals(this.teamId) || "0".equals(this.teamId) || "10".equals(this.teamId)) {
-			this.teamId = "9";
+			this.teamId = "99";
 		}
 		return teamId;
 	}

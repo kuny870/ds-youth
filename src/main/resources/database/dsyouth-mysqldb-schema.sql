@@ -340,3 +340,5 @@ create table address (
     constraint pk_address primary key (id)
 );
 
+
+CREATE INDEX MEMBER_ID_INDEX ON attendance_2021(member_id);

@@ -24,7 +24,7 @@
    				</span>
 			    <p class="head_title text-center">권한 관리</p>
             
-				<div class="div-container">
+				<div class="div-container-non-width">
 					
 					<div class="sales-table">
 			            <div class="table-wrap2" style="padding: 0.466667vw 0 0 0;">
