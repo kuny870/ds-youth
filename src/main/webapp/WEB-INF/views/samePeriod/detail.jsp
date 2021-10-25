@@ -4,6 +4,7 @@
   <head>
 
     <jsp:include page="/WEB-INF/views/layouts/header.jsp" flush="false" />
+    <jsp:include page="/WEB-INF/views/admin/pop/member_picture_pop.jsp" flush="false" />
 
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 	<c:set var="resourcesPath" value="${contextPath}/resources" />
@@ -67,7 +68,15 @@
 						                        </c:choose>
 			                        		</td>
 									    	<td>${member.team.tShortName}</td>
-									    	<td>${member.name}</td>
+									    	
+									    	<c:set var="onClick" value=""/>
+									    	<c:set var="borderRightOutset" value=""/>
+									    	<c:if test="${member.replaceProfileImg != null and member.replaceProfileImg != ''}">
+									    		<c:set var="onClick" value="memberPicturePop('${member.name}', '${member.replaceProfileImg }')"/>
+                           						<c:set var="borderRightOutset" value="border-right: outset; cursor: pointer;"/>
+                           					</c:if>
+							                            					
+									    	<td onclick="${onClick}" style="${borderRightOutset}">${member.name}</td>
 									    	<td>
 									    		<c:if test="${member.htel != ''}">
 				                            		<a href="tel:${member.htel}">
