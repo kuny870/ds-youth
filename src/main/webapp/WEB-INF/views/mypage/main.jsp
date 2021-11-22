@@ -40,7 +40,7 @@
 	             </c:if>
 	             
 	             <!-- 리더 이상 -->
-	             <c:if test="${login.authId <= 4}">
+	             <c:if test="${login.authId <= 6}">
                 	<h3>팀</h3>
 	                <div class="mypage-rows">
 	                    <div class="mypage-row">
@@ -49,7 +49,7 @@
                        				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">출석부</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/attendance/list?teamId=${login.teamId}" onclick="loadingbar()">출석부</a>
+                       				<a href="${contextPath }/attendance/list?teamId=${login.teamId}">출석부</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>
@@ -59,7 +59,7 @@
                        				<a href="#" onclick="openPopup('부서와 팀을 먼저 셋팅해주세요!')">팀별 관리</a>
                        			</c:when>
                        			<c:otherwise>
-                       				<a href="${contextPath }/member/list?teamId=${login.teamId}" onclick="loadingbar()">팀별 관리</a>
+                       				<a href="${contextPath }/member/list?teamId=${login.teamId}">팀별 관리</a>
                        			</c:otherwise>
 	                        </c:choose>
 	                    </div>

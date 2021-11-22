@@ -42,7 +42,7 @@
 	    left: 50%;
 	    margin-left: -40%; /* half of width */
 	    /* height: 300px; */
-	    top: 42%;
+	    top: 55%;
 	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	

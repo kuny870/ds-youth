@@ -115,7 +115,7 @@ function family() {			// 수련회 가족 list (검색 정보 포함)
 
 //출석 조회
 function attendanceSearch() {
-	$('#loading').show();
+//	$('#loading').show();
 	var teamId = $('#teamId').val();
 	var year = $('#year').val();
 	var month = $('#month').val();
@@ -126,7 +126,7 @@ function attendanceSearch() {
 
 //팀원 list (검색 정보 포함)
 function memberList() {
-	$('#loading').show();
+//	$('#loading').show();
 	var sTeamId = $('#sTeamId').val();
 	var sGroupId = $('#sGroupId').val();
 	var sNameKW = $('#sNameKW').val();
@@ -146,7 +146,7 @@ function memberRegist() {
 
 // 팀원 검색
 function memberSearch() {
-	$('#loading').show();
+//	$('#loading').show();
 	var teamId = $('#teamId').val();
 	var groupId = $('#groupId').val();
 	var nameKW = $('#nameKW').val();
@@ -210,6 +210,6 @@ function doubleSubmitCheck(){
 }
 
 // 로딩바
-function loadingbar() {
-	$('#loading').show();
-}
+//function loadingbar() {
+//	$('#loading').show();
+//}
