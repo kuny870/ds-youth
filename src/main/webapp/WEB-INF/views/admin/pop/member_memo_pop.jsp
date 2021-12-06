@@ -65,8 +65,8 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		height:200px;
-		max-width:90%;
+		max-height: 70%;
+		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
 	}
