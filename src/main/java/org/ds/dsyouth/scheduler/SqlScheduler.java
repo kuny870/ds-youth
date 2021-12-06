@@ -45,12 +45,12 @@ public class SqlScheduler {
 		
 		String value = "";
 		
-		value = "INSERT INTO year_season (`year`, `searson`, `season_flag`) VALUES ('" + nextYear + "', '상반기', '1')";
+		value = "INSERT INTO year_season (`year`, `season`, `season_flag`) VALUES ('" + nextYear + "', '상반기', '1')";
 		System.out.println(">>>>>>> " + value);
 		
 		scheduleMapper.sqlQuery(value);
 		
-		value = "INSERT INTO year_season (`year`, `searson`, `season_flag`) VALUES ('" + nextYear + "', '하반기', '2')";
+		value = "INSERT INTO year_season (`year`, `season`, `season_flag`) VALUES ('" + nextYear + "', '하반기', '2')";
 		System.out.println(">>>>>>> " + value);
 		
 		scheduleMapper.sqlQuery(value);
