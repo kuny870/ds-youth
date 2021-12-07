@@ -264,14 +264,22 @@
 				AND m.del_yn = 'N'
 				AND m.mem_state NOT IN ('5', '6')
 				<if test="teamId != null and teamId != '' and teamId != 99">
-					<if test="teamId != 4 and teamId != 8">
+					<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 						AND t.id = #{teamId}
+					</if>
+					<!-- 1청년부 -->
+					<if test="teamId == 98">
+						AND t.depart_id = 1
+					</if>
+					<!-- 2청년부 -->
+					<if test="teamId == 97">
+						AND t.depart_id = 2
 					</if>
 					<if test="teamId == 4 or teamId == 8">
 						AND (t.id = '4' or t.id = '8')
 					</if>
 					<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
-					<if test="teamId != 4 and teamId != 8">
+					<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 						AND at.group_id != ''
 					</if>
 				</if>
@@ -284,7 +292,7 @@
 				
 			ORDER BY 
 				<choose>
-					<when test="teamId == 99">
+					<when test="teamId == 99 or teamId == 98 or teamId == 97">
 						FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
 						, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
 						, g.ord ASC
@@ -336,14 +344,22 @@
 			AND m.del_yn = 'N'
 			AND m.mem_state NOT IN ('5', '6')
 			<if test="teamId != null and teamId != '' and teamId != 99">
-				<if test="teamId != 4 and teamId != 8">
+				<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 					AND t.id = #{teamId}
+				</if>
+				<!-- 1청년부 -->
+				<if test="teamId == 98">
+					AND t.depart_id = 1
+				</if>
+				<!-- 2청년부 -->
+				<if test="teamId == 97">
+					AND t.depart_id = 2
 				</if>
 				<if test="teamId == 4 or teamId == 8">
 					AND (t.id = '4' or t.id = '8')
 				</if>
 				<!-- TODO 새로 등록한 팀원이 새내기인지 새가족수료자 인지 불분명하여 아래 조건절을 줌 향후에 기능 향상 필요 -->
-				<if test="teamId != 4 and teamId != 8">
+				<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 					AND at.group_id != ''
 				</if>
 			</if>
@@ -356,7 +372,7 @@
 			
 		ORDER BY 
 			<choose>
-				<when test="teamId == 99">
+				<when test="teamId == 99 or teamId == 98 or teamId == 97">
 					FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
 					, FIELD(t.t_full_name, '2청년부 새가족팀','1청년부 새가족팀') DESC
 					, g.ord ASC

@@ -52,6 +52,16 @@
 						<div class="customer-select-search" style="width: 26%; margin-left:5%; float: left;">
 							 <select class="select-attendance-list-team" id="teamId" name="teamId" onchange="attendanceSearch()">
 		                       	<option value="99" >팀 전체</option>
+		                       	<c:set var="selected2" value="" />
+		                       	<c:if test="${attendanceSearch.teamId eq 98}">
+		                       		<c:set var="selected2" value="selected" />
+		                       	</c:if> 
+		                       	<option value="98" ${selected2} >1청</option>
+		                       	<c:set var="selected2" value="" />
+		                       	<c:if test="${attendanceSearch.teamId eq 97}">
+		                       		<c:set var="selected2" value="selected" />
+		                       	</c:if> 
+		                       	<option value="97" ${selected2} >2청</option>
 		                       	<c:forEach var="team" items="${teamList }">
 		                       		<c:set var="selected" value="" />
 								        <c:if test="${team.id eq attendanceSearch.teamId 
@@ -253,7 +263,7 @@
 									                            		<c:when test="${i.index == 0}">
 										                            		<!-- 팀 전체 검색 시 순명 앞에 팀명 출력 -->
 									                            			<c:choose>
-									                            				<c:when test="${attendanceSearch.teamId == '99'}">
+									                            				<c:when test="${attendanceSearch.teamId == '99' or attendanceSearch.teamId == '98' or attendanceSearch.teamId == '97'}">
 									                            					<c:set var="groupName" value="${att.team.tShortName} / ${att.group.gName }"/>
 									                            					<c:set var="groupNameTmp" value="${att.group.gName }"/>
 									                            				</c:when>
@@ -266,7 +276,7 @@
 									                            		<c:when test="${i.index > 0 && att.group.gName != groupNameTmp}">
 									                            			<!-- 팀 전체 검색 시 순명 앞에 팀명 출력 -->
 									                            			<c:choose>
-									                            				<c:when test="${attendanceSearch.teamId == '99'}">
+									                            				<c:when test="${attendanceSearch.teamId == '99' or attendanceSearch.teamId == '98' or attendanceSearch.teamId == '97'}">
 									                            					
 									                            					<c:choose>
 									                            						<c:when test="${att.group.gName == '' || att.group.gName == null}">
