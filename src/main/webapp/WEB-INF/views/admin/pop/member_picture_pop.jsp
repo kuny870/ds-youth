@@ -30,7 +30,7 @@
 
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 70%;
+		max-height: 400px;
 		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
@@ -58,13 +58,47 @@
 	 }
 }
 
-/* pc */
-@media (min-width: 680px) {
+/* 테블릿 */
+@media (min-width: 680px) and (max-width: 1200px) {
 
 	.profileImgId-img2 {
 		border-radius:7px;
-		height:500px;
-		max-width:90%;
+		max-height: 950px;
+		max-width: 90%;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+	
+	.memberPictureWindow {
+	    position: fixed;
+	    width: 80%;
+	    left: 45%;
+	    margin-left: -35%; /* half of width */
+	    /* height: 300px; */
+	    top: 25%;
+	    margin-top: -200px; /* half of height */
+	    overflow: auto;
+	
+	    /* decoration */
+	    border: 1px solid #000;
+	    background-color: #eee;
+	    padding: 1em;
+	    box-sizing: border-box;
+	    
+	    display: none;
+	    background-color:#FFF;
+	    z-index:10000;
+ 	}
+ 	
+}
+
+/* pc */
+@media (min-width: 1201px) {
+
+	.profileImgId-img2 {
+		border-radius:7px;
+		max-height: 400px;
+		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
 	}

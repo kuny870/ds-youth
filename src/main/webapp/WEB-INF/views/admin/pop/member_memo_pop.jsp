@@ -65,7 +65,7 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 70%;
+		max-height: 400px;
 		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
@@ -93,8 +93,8 @@
 	 }
 }
 
-/* pc */
-@media (min-width: 680px) {
+/* 테블릿 */
+@media (min-width: 680px) and (max-width: 1200px) {
 
 	.profileImge-img {
 		border-radius:7px !important;
@@ -111,8 +111,55 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		height:500px;
-		max-width:90%;
+		max-height: 950px;
+		max-width: 90%;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+	
+	.memberMemoWindow {
+	    position: fixed;
+	    width: 80%;
+	    left: 45%;
+	    margin-left: -35%; /* half of width */
+	    /* height: 300px; */
+	    top: 25%;
+	    margin-top: -200px; /* half of height */
+	    overflow: auto;
+	
+	    /* decoration */
+	    border: 1px solid #000;
+	    background-color: #eee;
+	    padding: 1em;
+	    box-sizing: border-box;
+	    
+	    display: none;
+	    background-color:#FFF;
+	    z-index:10000;
+ 	}
+ 	
+}
+
+/* pc */
+@media (min-width: 1201px) {
+
+	.profileImge-img {
+		border-radius:7px !important;
+		height:200px !important;
+		max-width: 68% !important;
+	}
+	
+	.jiche-textarea {
+		margin-top:-10px !important;
+		margin-bottom:10px !important;
+		height:180px !important; 
+		width:100% !important;
+	}
+	
+	.profileImgId-img2 {
+		border-radius:7px;
+		max-height: 400px;
+		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
 	}
@@ -166,7 +213,6 @@
     	
     	if(profileImg != "" && profileImg != null) {
     		document.getElementById('profileImgId').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
-    		document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
     		$('#originImgDiv').css('display', 'none');
     	}else {
     		document.getElementById('originImgId').src= resourcesPath + '/assets/images/profile_img.jpg';
@@ -243,6 +289,7 @@
       	//작은 사진을 눌렀을 때 
         $("#profileImgDiv").click(function () {
         	$("#form1").css('display', 'none');
+        	document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
         	$("#form2").css('display', 'block');
         });
       	
