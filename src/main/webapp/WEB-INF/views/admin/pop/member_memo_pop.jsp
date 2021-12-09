@@ -145,6 +145,11 @@
 //<![CDATA[
     function memberMemoPopup(attId, memberId, mName, mMemo, profileImg, memoFlag, authId){
 
+    	$("#form1").css('display', 'block');
+    	$("#form2").css('display', 'none');
+    	
+    	$('#profileImg-text').val(profileImg);
+    	
     	var memMemo = mMemo;
     	memMemo = memMemo.split('<br/>').join("\r\n");
     	memMemo = memMemo.split('#001').join("'");
@@ -161,6 +166,7 @@
     	
     	if(profileImg != "" && profileImg != null) {
     		document.getElementById('profileImgId').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
+    		document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
     		$('#originImgDiv').css('display', 'none');
     	}else {
     		document.getElementById('originImgId').src= resourcesPath + '/assets/images/profile_img.jpg';
@@ -225,9 +231,25 @@
 
         //검은 막을 눌렀을 때
         $("#memberMemoMask").click(function () {
-            $(this).hide();
-            $(".memberMemoWindow").hide();
+        	$("#memberMemoMask, .memberMemoWindow").hide();
 
+        });
+        
+        //큰 사진을 눌렀을 때 
+        $(".closeWindow").click(function () {
+        	$("#memberMemoMask, .memberMemoWindow").hide();
+        });
+        
+      	//작은 사진을 눌렀을 때 
+        $("#profileImgDiv").click(function () {
+        	$("#form1").css('display', 'none');
+        	$("#form2").css('display', 'block');
+        });
+      	
+      //큰 사진을 눌렀을 때 
+        $(".closeWindow2").click(function () {
+        	$("#form1").css('display', 'block');
+        	$("#form2").css('display', 'none');
         });
 
     });
@@ -236,6 +258,9 @@
 </script>
 </head>
 <body>
+	
+	<input type="hidden" id="profileImg-text" value="" />
+
     <div id="memo-wrap">
         <div id="memo-container">
             <div id="memberMemoMask"></div>
@@ -248,58 +273,67 @@
            			login.authId < 3}">
            			
 	           		<!-- <input style="display: none;" type="file" accept=".jpg, .heic" id="profile-img-change" name="profileImage"> -->
-						<div id="originImgDiv" class="profile-img-wrap">
-							<img id="originImgId" src="" class="originImgId-img">
+						<div id="form1">
+						
+							<div id="originImgDiv" class="profile-img-wrap">
+								<img id="originImgId" src="" class="originImgId-img">
+							</div>
+							<div id="profileImgDiv" class="profile-img-wrap">
+								<img id="profileImgId" src="" class="profileImge-img">
+							</div>
+		           		
+				            <div class="form">
+				                <form enctype="application/x-www-form-urlencoded" id="memberPopModifyForm">
+				                    <div class="form-middle">
+				                    	<input type="hidden" id="attId" name="attId" value="" />
+				                    	<input type="hidden" id="memoPopId" name="memoPopId" value="" />
+				                    	<input type="hidden" id="memoPopName" name="memoPopName" value="" />
+				                    	<input type="hidden" id="userAuthId" name="userAuthId" value="${login.authId }" />
+				                    	
+				                        <p class="jiche-p">지체 상황</p>
+				                        <label>
+				                            <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
+				                        </label>
+				                        
+				                        <p class="sayu-p">예배 불참 사유</p>
+				                        
+				                        <div class="sayu-month">
+				                        	${attendanceSearch.month}월
+				                        </div>
+					                    
+					                    <div style="text-align: center;">
+							        		<select class="basic-select sayu-date-select" id="sundays" name="sundays" onchange="getSayu(this.value)">
+							        			<c:forEach var="sun" items="${sunday }" varStatus="i">
+													<option value="${i.index+1}">${sun}일</option>
+												</c:forEach>
+							        		</select>
+							        		<input type="text" class="basic-input sayu-input" id="sayu" name="sayu" placeholder="사유" value="" autocomplete="off">
+							 	        </div>
+				                    </div>
+				                </form>
+				            </div>
+			            
+				            <div>
+								<p style="text-align:center; background:#ffffff; padding:5px; margin-top:15px;">
+									<button class="memberMemoRegist" onclick="memberMemoAndSayuRegist()">저장</button>
+									<button class="memberMemoClose">닫기</button>
+								</p>
+							</div>
+						
 						</div>
-						<div id="profileImgDiv" class="profile-img-wrap">
-							<img id="profileImgId" src="" class="profileImge-img">
-						</div>
-	           		
-			            <div class="form">
-			                <form enctype="application/x-www-form-urlencoded" id="memberPopModifyForm">
-			                    <div class="form-middle">
-			                    	<input type="hidden" id="attId" name="attId" value="" />
-			                    	<input type="hidden" id="memoPopId" name="memoPopId" value="" />
-			                    	<input type="hidden" id="memoPopName" name="memoPopName" value="" />
-			                    	<input type="hidden" id="userAuthId" name="userAuthId" value="${login.authId }" />
-			                    	
-			                        <p class="jiche-p">지체 상황</p>
-			                        <label>
-			                            <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
-			                        </label>
-			                        
-			                        <p class="sayu-p">예배 불참 사유</p>
-			                        
-			                        <div class="sayu-month">
-			                        	${attendanceSearch.month}월
-			                        </div>
-				                    
-				                    <div style="text-align: center;">
-						        		<select class="basic-select sayu-date-select" id="sundays" name="sundays" onchange="getSayu(this.value)">
-						        			<c:forEach var="sun" items="${sunday }" varStatus="i">
-												<option value="${i.index+1}">${sun}일</option>
-											</c:forEach>
-						        		</select>
-						        		<input type="text" class="basic-input sayu-input" id="sayu" name="sayu" placeholder="사유" value="" autocomplete="off">
-						 	        </div>
-			                    </div>
-			                </form>
-			            </div>
-		            
-			            <div>
-							<p style="text-align:center; background:#ffffff; padding:5px; margin-top:15px;">
-								<button class="memberMemoRegist" onclick="memberMemoAndSayuRegist()">저장</button>
-								<button class="memberMemoClose">닫기</button>
-							</p>
+						
+						
+						<div id="form2" class="closeWindow2" style="display: none">
+							<img id="profileImgId2" src="" class="profileImgId-img2">
 						</div>
 			
 					</c:when>
 					<c:otherwise>
 						
-						<div id="originImgDiv">
+						<div id="originImgDiv" class="closeWindow">
 							<img id="originImgId" src="" class="originImgId-img2">
 						</div>
-						<div id="profileImgDiv">
+						<div id="profileImgDiv" class="closeWindow">
 							<img id="profileImgId" src="" class="profileImgId-img2">
 						</div>
 						

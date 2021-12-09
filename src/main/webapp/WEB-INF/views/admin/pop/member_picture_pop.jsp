@@ -132,9 +132,13 @@
 
         //검은 막을 눌렀을 때
         $("#memberPictureMask").click(function () {
-            $(this).hide();
-            $(".memberPictureWindow").hide();
+        	$("#memberPictureMask, .memberPictureWindow").hide();
 
+        });
+        
+      	//큰 사진을 눌렀을 때 
+        $(".closeWindow").click(function () {
+        	$("#memberPictureMask, .memberPictureWindow").hide();
         });
 
     });
@@ -150,7 +154,7 @@
            	
            		<div id="mName" style="font-size: 20px; margin-bottom: 5px;"></div>
            		
-					<div id="profileImgDiv">
+					<div id="profileImgDiv" class="closeWindow">
 						<img id="profileImgId" src="" class="profileImgId-img2">
 					</div>
             </div>
