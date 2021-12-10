@@ -65,7 +65,7 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 400px;
+		max-height: 409px;
 		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
@@ -94,7 +94,7 @@
 }
 
 /* 테블릿 */
-@media (min-width: 680px) and (max-width: 1200px) {
+@media (min-width: 680px) and (max-width: 1050px) {
 
 	.profileImge-img {
 		border-radius:7px !important;
@@ -141,11 +141,11 @@
 }
 
 /* pc */
-@media (min-width: 1201px) {
+@media (min-width: 1051px) {
 
 	.profileImge-img {
 		border-radius:7px !important;
-		height:200px !important;
+		height:180px !important;
 		max-width: 68% !important;
 	}
 	
@@ -158,7 +158,7 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 400px;
+		max-height: 480px;
 		max-width: 90%;
 		margin-left: 15px;
 		margin-bottom: 10px;
@@ -289,7 +289,7 @@
       	//작은 사진을 눌렀을 때 
         $("#profileImgDiv").click(function () {
         	$("#form1").css('display', 'none');
-        	document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + profileImg;
+        	document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + $("#profileImg-text").val();
         	$("#form2").css('display', 'block');
         });
       	
