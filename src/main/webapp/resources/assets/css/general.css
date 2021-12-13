@@ -21,7 +21,7 @@
 	text-align:center;
 }
 .member-modify-profileImg-regist-div2 {
-	width: 90%;
+	width: 113%;
 }
 .member-modify-profileImg-regist-span {
 	font-size: 13px;	
@@ -33,7 +33,7 @@
 	text-align:center;
 }
 .member-regist-profileImg-regist-div2 {
-	width: 90%;
+	width: 113%;
 }
 .member-regist-profileImg-regist-span {
 	font-size: 13px;	
@@ -3115,7 +3115,7 @@
 	/* login start */
 	.container .header {
 		margin-left: 0px;
-		margin-top: 54px;
+		margin-top: 33px;
 	}
 	.main-header > nav {
 		padding: 27px 0 0 0;
@@ -3130,12 +3130,12 @@
 	}
 	.container .header p {
 		padding: 0px;
-		font-size: 30px;
+		font-size: 22px;
 		text-align: center;
 		line-height: 0px;
 	}
 	.container .header a {
-		font-size: 30px;
+		font-size: 22px;
 		margin-left: 10px;
 	}
 	.container .form .form-middle-login {
@@ -3303,7 +3303,7 @@
 		height: 45px;
 		font-size: 20px;
 		margin: auto;
-		width: 500px;
+		width: 440px;
 		border-radius: 10px;
 	}
 	
@@ -3311,10 +3311,10 @@
 		margin: 0 0 25px 0;
 	}
 	.form input[type=text], .form input[type=password], .form input[type=number], .form textarea {
-		width: 500px;
+		width: 440px;
 	}
 	.customer-select select {
-		width: 500px;
+		width: 440px;
 		margin: 20px auto 30px auto;
 	}
 	
@@ -3347,14 +3347,14 @@
 		height: 45px;
 		font-size: 20px;
 		margin: auto;
-		width: 500px;
+		width: 440px;
 		border-radius: 10px;
 	}
 	.container .form .form-bottom button.remove-btn {
     	height: 45px;
 		font-size: 20px;
 		margin: auto;
-		width: 500px;
+		width: 440px;
 		border-radius: 10px;
 	}
 	.window{
