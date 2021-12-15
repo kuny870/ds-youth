@@ -1,13 +1,18 @@
 package org.ds.dsyouth.controller.rest;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.ds.dsyouth.controller.rest.common.ResponseCode;
 import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.service.AttendanceService;
+import org.ds.dsyouth.utils.DateHelper;
 import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -211,6 +216,72 @@ public class AttendanceRestController {
 		return response;
 	}
 	
+	
+	/**
+	 * 개인 출석률 불러오기
+	 * @param memberId
+	 * @return
+	 */
+	@RequestMapping(value = "/member/attPer", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse attPer( 
+			@ModelAttribute Attendance att) {
+
+		RestResponse response = new RestResponse();
+		
+		try {
+
+			String year = DateHelper.getYear();
+			Integer monthTmp = StringHelper.parseInt(DateHelper.getMonth());
+	    	String month = monthTmp.toString();
+	    	
+	    	att.setYear(year);
+	    	att.setMonth(month);
+
+	    	
+	    	Integer attCnt1 = 0;
+	    	Integer attCnt2 = 0;
+	    	Integer attCnt3 = 0;
+	    	
+	    	// 특정 날짜가 몇번째 주 인지 구하기
+	    	int weekTotalCnt = DateHelper.getWeekOfYear() - 1;
+			int week1Cnt = 0;
+			int week2Cnt = 0;
+			
+			
+	    	if(att.getYear().equals(year) && monthTmp < 7) {
+	    		attCnt1 = attendanceService.getAttPer1(att);
+	    		week1Cnt = weekTotalCnt;
+	    	}else {
+	    		attCnt1 = attendanceService.getAttPer2(att);
+	    		attCnt2 = attendanceService.getAttPer3(att);
+	    		
+	    		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		        Date date = sdf.parse(att.getYear() + "0630"); 
+				week1Cnt = DateHelper.getWeekOfYear(sdf.format(date)) - 1;
+				week2Cnt = weekTotalCnt - week1Cnt;
+	    	}
+			
+			attCnt3 = attendanceService.getAttPer4(att);
+
+			
+			att.setWeekTotalCnt(weekTotalCnt);
+			att.setWeek1Cnt(week1Cnt);
+			att.setWeek2Cnt(week2Cnt);
+			
+			att.setAttCnt1(attCnt1);
+			att.setAttCnt2(attCnt2);
+			att.setAttCnt3(attCnt3);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		response.setData(att);
+		
+		return response;
+	}
 	
 	
 }

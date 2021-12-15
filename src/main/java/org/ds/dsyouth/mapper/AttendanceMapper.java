@@ -22,4 +22,9 @@ public interface AttendanceMapper {
 	Attendance selectOneAttendance(Attendance att);	// 출석부 id 하나 불러오기
 	
 	boolean deleteAttSayu(Attendance att);	// 사유 삭제
+	
+	Integer selectAttPer1(Attendance att); // 상반기 때 상반기 출석률 불러오기
+	Integer selectAttPer2(Attendance att); // 하반기 때 상반기 출석률 불러오기
+	Integer selectAttPer3(Attendance att); // 하반기 때 하반기 출석률 불러오기
+	Integer selectAttPer4(Attendance att); // 년 개인 출석률 불러오기
 }

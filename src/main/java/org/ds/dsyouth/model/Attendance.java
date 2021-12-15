@@ -21,6 +21,13 @@ public class Attendance {
 	private String sayu4;
 	private String sayu5;
 	
+	private Integer attCnt1;
+	private Integer attCnt2;
+	private Integer attCnt3;
+	private Integer weekTotalCnt;
+	private Integer week1Cnt;
+	private Integer week2Cnt;
+	
 	private String lastFirstWeek;
 	private String lastSecondWeek;
 	private String lastThirdWeek;
@@ -267,5 +274,43 @@ public class Attendance {
 	public void setLastSayu5(String lastSayu5) {
 		this.lastSayu5 = lastSayu5;
 	}
+	public Integer getAttCnt1() {
+		return attCnt1;
+	}
+	public void setAttCnt1(Integer attCnt1) {
+		this.attCnt1 = attCnt1;
+	}
+	
+	public Integer getAttCnt2() {
+		return attCnt2;
+	}
+	public void setAttCnt2(Integer attCnt2) {
+		this.attCnt2 = attCnt2;
+	}
+	public Integer getAttCnt3() {
+		return attCnt3;
+	}
+	public void setAttCnt3(Integer attCnt3) {
+		this.attCnt3 = attCnt3;
+	}
+	public Integer getWeekTotalCnt() {
+		return weekTotalCnt;
+	}
+	public void setWeekTotalCnt(Integer weekTotalCnt) {
+		this.weekTotalCnt = weekTotalCnt;
+	}
+	public Integer getWeek1Cnt() {
+		return week1Cnt;
+	}
+	public void setWeek1Cnt(Integer week1Cnt) {
+		this.week1Cnt = week1Cnt;
+	}
+	public Integer getWeek2Cnt() {
+		return week2Cnt;
+	}
+	public void setWeek2Cnt(Integer week2Cnt) {
+		this.week2Cnt = week2Cnt;
+	}
+	
 	
 }

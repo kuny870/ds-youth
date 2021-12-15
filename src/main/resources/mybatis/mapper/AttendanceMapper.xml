@@ -782,4 +782,99 @@
 			AND id = #{id}
 	</update>
 	
+	<!-- 상반기 때 상반기 출석률 불러오기 -->
+	<select id="selectAttPer1" parameterType="Attendance" resultType="int">
+		SELECT 
+			(firstCnt + secondCnt + thirdCnt + fourthCnt + fifthCnt) AS att_total_cnt
+		FROM
+		(
+			SELECT 
+				count(case when first_week='Y' then 1 end) as firstCnt
+			    , count(case when second_week='Y' then 1 end) as secondCnt
+			    , count(case when third_week='Y' then 1 end) as thirdCnt
+			    , count(case when fourth_week='Y' then 1 end) as fourthCnt
+			    , count(case when fifth_week='Y' then 1 end) as fifthCnt
+			FROM 
+				attendance_${year}
+			WHERE 
+				member_id = #{memberId} 
+				and att_yn = 'Y'  
+				<![CDATA[
+					and month < ${month + 1} 
+				]]>
+		) a;
+	</select>
+	
+	<!-- 하반기 때 상반기 출석률 불러오기 -->
+	<select id="selectAttPer2" parameterType="Attendance" resultType="int">
+		SELECT 
+			(firstCnt + secondCnt + thirdCnt + fourthCnt + fifthCnt) AS att_total_cnt
+		FROM
+		(
+			SELECT 
+				count(case when first_week='Y' then 1 end) as firstCnt
+			    , count(case when second_week='Y' then 1 end) as secondCnt
+			    , count(case when third_week='Y' then 1 end) as thirdCnt
+			    , count(case when fourth_week='Y' then 1 end) as fourthCnt
+			    , count(case when fifth_week='Y' then 1 end) as fifthCnt
+			FROM 
+				attendance_${year}
+			WHERE 
+				member_id = #{memberId} 
+				and att_yn = 'Y'  
+				<![CDATA[
+					and month < 7
+				]]>
+		) a;
+	</select>
+	
+	<!-- 하반기 때 하반기 개인 출석률 불러오기 -->
+	<select id="selectAttPer3" parameterType="Attendance" resultType="int">
+		SELECT 
+			(firstCnt + secondCnt + thirdCnt + fourthCnt + fifthCnt) AS att_total_cnt
+		FROM
+		(
+			SELECT 
+				count(case when first_week='Y' then 1 end) as firstCnt
+			    , count(case when second_week='Y' then 1 end) as secondCnt
+			    , count(case when third_week='Y' then 1 end) as thirdCnt
+			    , count(case when fourth_week='Y' then 1 end) as fourthCnt
+			    , count(case when fifth_week='Y' then 1 end) as fifthCnt
+			FROM 
+				attendance_${year}
+			WHERE 
+				member_id = #{memberId} 
+				and att_yn = 'Y'
+				and month > 6  
+				<![CDATA[
+					and month < ${month + 1} 
+				]]>
+		) a;
+	</select>
+	
+	<!-- 년 개인 출석률 불러오기 -->
+	<select id="selectAttPer4" parameterType="Attendance" resultType="int">
+		SELECT 
+			(firstCnt + secondCnt + thirdCnt + fourthCnt + fifthCnt) AS att_total_cnt
+		FROM
+		(
+			SELECT 
+				count(case when first_week='Y' then 1 end) as firstCnt
+			    , count(case when second_week='Y' then 1 end) as secondCnt
+			    , count(case when third_week='Y' then 1 end) as thirdCnt
+			    , count(case when fourth_week='Y' then 1 end) as fourthCnt
+			    , count(case when fifth_week='Y' then 1 end) as fifthCnt
+			FROM 
+				attendance_${year}
+			WHERE 
+				member_id = #{memberId} 
+				and att_yn = 'Y'  
+				<![CDATA[
+					and month < ${month + 1} 
+				]]>
+		) a;
+	</select>
+	
+	
+	
 </mapper>

@@ -18,4 +18,9 @@ public interface AttendanceService {
 	
 	boolean	removeAttSayu(Attendance att);	// 사유 삭제
 	
+	Integer getAttPer1(Attendance att);	// 상반기 때 상반기 출석률 불러오기
+	Integer getAttPer2(Attendance att);	// 하반기 때 상반기 출석률 불러오기
+	Integer getAttPer3(Attendance att);	// 하반기 때 하반기 출석률 불러오기
+	Integer getAttPer4(Attendance att);	// 년 출석률 불러오기
+	
 }

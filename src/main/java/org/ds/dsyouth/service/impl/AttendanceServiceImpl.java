@@ -127,4 +127,36 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return attendanceMapper.updateAttendanceOrd(att);
 	}
 
+	/**
+	 * 상반기 때 상반기 출석률 불러오기
+	 */
+	@Override
+	public Integer getAttPer1(Attendance att) {
+		return attendanceMapper.selectAttPer1(att);
+	}
+	
+	/**
+	 * 하반기 때 상반기 출석률 불러오기
+	 */
+	@Override
+	public Integer getAttPer2(Attendance att) {
+		return attendanceMapper.selectAttPer2(att);
+	}
+	
+	/**
+	 * 하반기 때 하반기 출석률 불러오기
+	 */
+	@Override
+	public Integer getAttPer3(Attendance att) {
+		return attendanceMapper.selectAttPer3(att);
+	}
+	
+	/**
+	 * 년 출석률 불러오기
+	 */
+	@Override
+	public Integer getAttPer4(Attendance att) {
+		return attendanceMapper.selectAttPer4(att);
+	}
+
 }
