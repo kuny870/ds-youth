@@ -20,13 +20,13 @@
 
 .profile-img-wrap {
 	text-align:right !important; 
-	margin-top:-83px !important; 
+	margin-top:-105px !important; 
 	margin-right: 1px !important;
 }
 
 .originImgId-img {
 	border-radius:7px !important;  
-	height:40px !important;
+	height:100px !important;
 }
 
 .originImgId-img2 {
@@ -53,7 +53,7 @@
 	.profileImge-img {
 		border-radius:7px !important; 
 		height:150px !important;
-		max-width: 68% !important;
+		max-width: 60% !important;
 	}
 	
 	.jiche-textarea {
@@ -98,7 +98,7 @@
 
 	.profileImge-img {
 		border-radius:7px !important;
-		height:200px !important;
+		height:180px !important;
 		max-width: 68% !important;
 	}
 	
@@ -111,7 +111,7 @@
 	
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 950px;
+		max-height: 480px;
 		max-width: 90%;
 		margin-left: 20px;
 		margin-bottom: 20px;
@@ -119,11 +119,11 @@
 	
 	.memberMemoWindow {
 	    position: fixed;
-	    width: 80%;
-	    left: 45%;
+	    width: 60%;
+	    left: 55%;
 	    margin-left: -35%; /* half of width */
 	    /* height: 300px; */
-	    top: 25%;
+	    top: 36%;
 	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	
@@ -277,15 +277,15 @@
             {
                 if(result.success) { // show response from the php script.
                 	
-                	$('#attPer1Input').val(result.data.attCnt1 + '/' + result.data.week1Cnt + ' , ' + Math.floor((result.data.attCnt1/result.data.week1Cnt)*100) + '%');
-                	$('#attPer2Input').val(result.data.attCnt2 + '/' + result.data.week2Cnt + ' , ' + Math.floor((result.data.attCnt2/result.data.week2Cnt)*100) + '%');
-                	$('#attPer3Input').val(result.data.attCnt3 + '/' + result.data.weekTotalCnt + ' , ' + Math.floor((result.data.attCnt3/result.data.weekTotalCnt)*100) + '%');
+                	$('#attPer1Input').val(result.data.attCnt1 + '/' + result.data.week1Cnt + '(' + Math.floor((result.data.attCnt1/result.data.week1Cnt)*100) + '%)');
+                	$('#attPer2Input').val(result.data.attCnt2 + '/' + result.data.week2Cnt + '(' + Math.floor((result.data.attCnt2/result.data.week2Cnt)*100) + '%)');
+                	$('#attPer3Input').val(result.data.attCnt3 + '/' + result.data.weekTotalCnt + '(' + Math.floor((result.data.attCnt3/result.data.weekTotalCnt)*100) + '%)');
                 	
-                	$('#attPer1').text('· 상반기 출석률 : ' + $('#attPer1Input').val());
-                	$('#attPer2').text('· 하반기 출석률 : ' + $('#attPer2Input').val());
-                	$('#attPerT').text('· 올한해 출석률 : ' + $('#attPer3Input').val());
+                	$('#attPer1').text('· 상: ' + $('#attPer1Input').val());
+                	$('#attPer2').text('· 하: ' + $('#attPer2Input').val());
+                	$('#attPerT').text('· 년: ' + $('#attPer3Input').val());
                 	
-                	$('#att-per2').text('· 출석률: (상)' + $('#attPer1Input').val() + ' | (하)' + $('#attPer2Input').val() + ' | (년)' + $('#attPer3Input').val());
+                	$('#att-per2').text('· 출석률 - 상: ' + $('#attPer1Input').val() + ' 하: ' + $('#attPer2Input').val() + ' 년: ' + $('#attPer3Input').val());
                 	
                 }else {
 
@@ -301,8 +301,6 @@
 
     $(document).ready(function(){
 
-    	$("#att-per2").css('display', 'none');
-    	
         //닫기 버튼을 눌렀을 때
         $(".memberMemoWindow .memberMemoClose").click(function (e) {
             //링크 기본동작은 작동하지 않도록 한다.
@@ -334,7 +332,6 @@
         	$("#form2").css('display', 'block');
         	
         	$("#att-per1").css('display', 'none');
-        	$("#att-per2").css('display', 'block');
         });
       	
       //큰 사진을 눌렀을 때 
@@ -367,17 +364,16 @@
            	
            		<div id="mName" style="font-size: 20px; margin-bottom: 5px;"></div>
            		
-           		<div class="att-per2" id="att-per2" style="margin-left: 10px; margin-bottom:5px;"></div>
-           		
            		<c:choose>
            			<c:when test="${ (((attendanceSearch.teamId == 4 || attendanceSearch.teamId == 8) && (login.teamId == 4 || login.teamId == 8)) && login.authId == 3) || 
            			(attendanceSearch.teamId == login.teamId && login.authId == 3) || 
            			login.authId < 3}">
            			
            			<div class="att-per1" id="att-per1">
-	           			<p id="attPer1" style="margin-left: 10px;"></p>
-	           			<p id="attPer2" style="margin-left: 10px;"></p>
-	           			<p id="attPerT" style="margin-left: 10px;"></p>
+           				<p id="attPerTitle" style="margin-left: 5px;">- 출석률</p>
+	           			<p id="attPer1" style="margin-left: 5px;"></p>
+	           			<p id="attPer2" style="margin-left: 5px;"></p>
+	           			<p id="attPerT" style="margin-left: 5px;"></p>
            			</div>
            			
 	           		<!-- <input style="display: none;" type="file" accept=".jpg, .heic" id="profile-img-change" name="profileImage"> -->
@@ -438,9 +434,7 @@
 					</c:when>
 					<c:otherwise>
 						
-						<div class="att-per2" id="att-per2" style="margin-left: 10px; margin-bottom:5px;">
-		           			· 출석률 : (상)26/26, 100% (하)20/26, 80% (년)46/52, 90%
-		           		</div>
+						<div class="att-per2" id="att-per2" style="margin-left: 10px; margin-bottom:5px;"></div>
            		
 						<div id="originImgDiv" class="closeWindow">
 							<img id="originImgId" src="" class="originImgId-img2">
