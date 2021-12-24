@@ -158,7 +158,7 @@
                             </select>                        
 	                   </div>
 	                   
-	                   <p class="jiche-p">지체 상황</p>
+	                   <p class="jiche-p2">지체 상황</p>
                    	   <label>
                            <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
                        </label>

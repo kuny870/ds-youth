@@ -26,7 +26,7 @@
 
 .originImgId-img {
 	border-radius:7px !important;  
-	height:100px !important;
+	height:115px !important;
 }
 
 .originImgId-img2 {
@@ -309,6 +309,12 @@
             $('#attPer1').text('');
         	$('#attPer2').text('');
         	$('#attPerT').text('');
+        	
+        	$("#form1").css('display', 'block');
+        	$("#form2").css('display', 'none');
+        	
+        	$("#att-per1").css('display', 'block');
+        	$("#att-per2").css('display', 'none');
         });
 
         //검은 막을 눌렀을 때
@@ -317,6 +323,12 @@
         	$('#attPer1').text('');
         	$('#attPer2').text('');
         	$('#attPerT').text('');
+        	
+        	$("#form1").css('display', 'block');
+        	$("#form2").css('display', 'none');
+        	
+        	$("#att-per1").css('display', 'block');
+        	$("#att-per2").css('display', 'none');
 
         });
         

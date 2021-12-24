@@ -8,11 +8,11 @@ $(document).ready(function(){
 });
 
 
-$('#name').focusout(function() {
+$('#name').blur(function() {
 	
 	if($('#loginDepartId').val() != 1) {
 		
-		var url = contextPath + "/rest/member/regist/nameCheck"
+		var url = contextPath + "/rest/member/regist/nameCheck";
 		
 	    $.ajax({
 	        type: "POST",
@@ -36,12 +36,16 @@ $('#name').focusout(function() {
 	            	}).then(function (result) {
 	            		
 	            		if(result.value) {
-	            			
-	            			$('#memState').val(res.data.memState);
-	            			$('#htel').val(res.data.htel);
-	            			$('#samePeriodId').val(res.data.samePeriodId);
-	            			$('#memo').val(res.data.memo);
-	           				$("input:radio[name='gender']:radio[value=" + res.data.gender + "]").prop('checked', true);
+
+//	            			$('#originImg').val(res.data.originProfileImg);
+//	            			$('#replaceProfileImg').val(res.data.replaceProfileImg);
+	            			if(res.data.memState != null){$('#memState').val(res.data.memState);}
+	            			if(res.data.htel != null){$('#htel').val(res.data.htel);}	
+	            			if(res.data.samePeriodId != null){$('#samePeriodId').val(res.data.samePeriodId);}
+	            			if(res.data.memo != null){$('#memo').val(res.data.memo);}
+	            			if(res.data.gender != null) {
+	            				$("input:radio[name='gender']:radio[value=" + res.data.gender + "]").prop('checked', true);	            				
+	            			}
 	            			
 	            		}
 	            		
@@ -250,7 +254,6 @@ $("#memberRegistForm").submit(function(e) {
 	e.preventDefault(); // avoid to execute the actual submit of the form.
    
 });
-
 
 
 /*function execDaumPostcode() {

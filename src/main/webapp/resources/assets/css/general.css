@@ -1,11 +1,11 @@
-.jiche-p {
+.jiche-p2 {
 	margin-bottom: 5px;
 	font-size: 15px;
 	margin-top: 15px;
     margin-left: 13px;
 }
 
-.jiche-textarea {
+.jiche-textarea2 {
 	height:105px !important; 
 }
 
@@ -2828,7 +2828,7 @@
 /* pc */
 @media (min-width: 680px) {
 	
-	.jiche-p {
+	.jiche-p2 {
 		margin-bottom: 5px;
 		font-size: 15px;
 		margin-top: 0px;

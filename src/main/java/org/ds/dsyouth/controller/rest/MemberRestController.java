@@ -98,13 +98,24 @@ public class MemberRestController {
 			
 			List<Member> memberList = memberService.getMemberByName(member);
 
-			MemberTmp mtp = new MemberTmp();
-			mtp.setMemState(memberList.get(0).getMemState());
-			mtp.setHtel(memberList.get(0).getHtel());
-			mtp.setMemo(memberList.get(0).getMemo());
-			mtp.setSamePeriodId(memberList.get(0).getSamePeriodId());
-			mtp.setGender(memberList.get(0).getGender());
-			response.setData(mtp);
+			if(memberList != null) {
+				
+				MemberTmp mtp = new MemberTmp();
+				mtp.setMemState(memberList.get(0).getMemState());
+				mtp.setHtel(memberList.get(0).getHtel());
+				mtp.setMemo(memberList.get(0).getMemo());
+				mtp.setSamePeriodId(memberList.get(0).getSamePeriodId());
+				mtp.setGender(memberList.get(0).getGender());
+				mtp.setOriginProfileImg(memberList.get(0).getOriginProfileImg());
+				mtp.setReplaceProfileImg(memberList.get(0).getReplaceProfileImg());
+				response.setData(mtp);
+				
+			}else {
+
+				response.setSuccess(false);
+				
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
