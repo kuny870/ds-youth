@@ -2875,7 +2875,7 @@
 	
 	/* admin auth */
 	.sales-table > .table-wrap2 {
-		width: 850px;
+		width: 640px;
 		padding: 0px;
 	}
 	.sales-table > .table-wrap2 > table th {
@@ -2902,17 +2902,17 @@
 		font-size: 15px;
 	}
 	.md-button2 {
-		width: 720px;
+		width: 640px;
 		font-size: 25px;
 	}
 	
 	/* admin depart */
 	.md-input {
-		width: 800px;
+		width: 650px;
 		height: 45px;
 	}
 	.md-button {
-		width: 800px;
+		width: 650px;
 		height: 45px;
 		font-size: 20px !important;
 	}
@@ -2928,11 +2928,11 @@
 	}
 	.admin-team-input {
 		font-size: 20px !important;
-		width: 558px;
-		margin-left: 20px;
+		width: 400px;
+		margin-left: 28px;
 	}
 	.admin-team-input-div {
-		width: 800px;
+		width: 650px;
 		margin: auto;
 	}
 	
@@ -2947,7 +2947,7 @@
 	}
 	.admin-temp-pw {
 		font-size: 22px;
-		margin: 20px 0 -20px 44px;
+		margin: 20px 0 -20px 70px;
 	}
 	.admin-remove-btn {
 		width: 73px;
@@ -2979,22 +2979,21 @@
 		font-size: 18px;
 	}
 	.admin-group-name-div {
-		width: 800px;
+		width: 650px;
 		margin: auto;
 	}
 	.admin-group-select {
-		margin-left: 0px;
-		width: 200px;
+		margin-left: 1px;
+		width: 170px;
 	}
 	.admin-order-input {
 		font-size: 20px !important;
-		margin-left: 36px !important;
-		margin-right: 20px !important;
+		margin-left: 20px !important;
 		width: 80px;
 	}
 	.admin-group-input {
 		font-size: 20px !important;
-		width: 450px;
+		width: 340px;
 		margin-left: 10px !important;
 		margin-right: 0px !important;
 	}
@@ -3030,7 +3029,7 @@
 		margin-left: 17%;
 	}
 	.sales-table > .table-wrap {
-		width: 750px;
+		width: 650px;
 		padding: 0px;
 	}
 	.sales-table > .table-wrap > table th{
@@ -3114,7 +3113,7 @@
 		width: 250px;
 	}
 	.sales-table > .table-wrap > table .th-17p0 {
-		width: 170px;
+		width: 100px;
 	}
 	.sales-table > .table-wrap > table .th-30p4 {
 		width: 170px;

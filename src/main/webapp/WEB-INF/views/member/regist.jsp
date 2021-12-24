@@ -117,9 +117,9 @@
                             </select>                        
 	                   </div>
 	                   
-	                   <p class="jiche-p2">지체 상황</p>
+	                   <p class="jiche-p2" style="display: none;">지체 상황</p>
                        <label>
-                           <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
+                           <textarea class="jiche-textarea" style="display: none;" rows="20" id="memo" name="memo" placeholder=""></textarea>
                        </label>
 	                   
 	                   <!-- 새가족일 경우 인도자 -->
