@@ -35,7 +35,6 @@ public class Member {
 	private Attendance attendance;
 	private MemberState memberState;
 	
-	
 	public String getMemoFlag() {
 		return memoFlag;
 	}

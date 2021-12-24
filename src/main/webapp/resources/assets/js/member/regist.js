@@ -4,7 +4,69 @@ $(document).ready(function(){
 		var newMember = document.getElementById('new-member');
 		newMember.style.display = 'block';
 	}
+	
 });
+
+
+$('#name').focusout(function() {
+	
+	if($('#loginDepartId').val() != 1) {
+		
+		var url = contextPath + "/rest/member/regist/nameCheck"
+		
+	    $.ajax({
+	        type: "POST",
+	        url: url,
+	        data: {
+	        	name : $('#name').val()
+	        },
+	        success: function(res)
+	        {
+	        	
+	            if(res.success) { // show response from the php script.
+	            	
+	            	Swal.fire({
+	            	    title: '중복 지체 불러오기',
+	            	    html: "중복된 이름의 지체정보가 있습니다. 불러오시겠습니까?",
+	            	    showCancelButton: true,
+	            	    cancelButtonText: '취소',
+	            	    confirmButtonText: '확인',
+	            	    allowOutsideClick: true,
+	            	    reverseButtons: true
+	            	}).then(function (result) {
+	            		
+	            		if(result.value) {
+	            			
+	            			$('#memState').val(res.data.memState);
+	            			$('#htel').val(res.data.htel);
+	            			$('#samePeriodId').val(res.data.samePeriodId);
+	            			$('#memo').val(res.data.memo);
+	           				$("input:radio[name='gender']:radio[value=" + res.data.gender + "]").prop('checked', true);
+	            			
+	            		}
+	            		
+	            	});
+	            	
+	            }else {
+
+	            }
+	        }, error:function(xhr){
+	            console.log(xhr.responseText);
+	            Swal.fire({
+	                text: "정보를 불러오는데 실패 했습니다",
+	                confirmButtonText: '확인',
+	                allowOutsideClick: true
+	            });
+	            return;
+	        }
+	     });
+	    
+	}
+	
+    
+});
+	
+
 
 
 function getTeam(val){
@@ -74,6 +136,8 @@ function getNewMemberDetail(val){
      	memberGradDate.value = '';
      }
 }
+
+
 
 
 // 멤버 등록

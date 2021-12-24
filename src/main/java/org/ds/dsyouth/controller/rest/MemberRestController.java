@@ -3,6 +3,7 @@ package org.ds.dsyouth.controller.rest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -12,6 +13,7 @@ import org.ds.dsyouth.controller.rest.common.RestResponse;
 import org.ds.dsyouth.exception.IdDuplicatedException;
 import org.ds.dsyouth.model.Attendance;
 import org.ds.dsyouth.model.Member;
+import org.ds.dsyouth.model.MemberTmp;
 import org.ds.dsyouth.service.AttendanceService;
 import org.ds.dsyouth.service.MemberService;
 import org.ds.dsyouth.utils.FileUploadHelper;
@@ -81,6 +83,39 @@ public class MemberRestController {
 		
 		return response;
 	}
+	
+	/**
+	 * 중복 이름 체크
+	 * @param member
+	 * @return
+	 */
+	@RequestMapping(value = "/member/regist/nameCheck", method = RequestMethod.POST, produces = "application/json")
+	public RestResponse member_regist_nameCheck(Member member) {
+
+		RestResponse response = new RestResponse();
+	
+		try {
+			
+			List<Member> memberList = memberService.getMemberByName(member);
+
+			MemberTmp mtp = new MemberTmp();
+			mtp.setMemState(memberList.get(0).getMemState());
+			mtp.setHtel(memberList.get(0).getHtel());
+			mtp.setMemo(memberList.get(0).getMemo());
+			mtp.setSamePeriodId(memberList.get(0).getSamePeriodId());
+			mtp.setGender(memberList.get(0).getGender());
+			response.setData(mtp);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setSuccess(false);
+			response.setResCode(ResponseCode.UNKOWN);
+		}
+		
+		return response;
+	}
+	
+	
 	
 	
 	/**

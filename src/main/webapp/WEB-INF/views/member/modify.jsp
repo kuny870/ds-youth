@@ -16,7 +16,7 @@
 	<link href="${resourcesPath}/assets/css/common.css?${nowTime}" rel="stylesheet">
 	<link href="${resourcesPath}/assets/css/general.css?${nowTime}" rel="stylesheet">
   </head>
-
+  
 <body>
 
 	<div class="container">
@@ -68,6 +68,7 @@
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	<input type="hidden" id="id" name="id" value="${member.id }" />
+                    	<input type="hidden" id="memoInput" name="memoInput" value="${member.memo}" />
                     	
 	            		
 	            		<%-- <c:choose>
@@ -156,6 +157,11 @@
 								</c:forEach>
                             </select>                        
 	                   </div>
+	                   
+	                   <p class="jiche-p">지체 상황</p>
+                   	   <label>
+                           <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
+                       </label>
 	                   
 	                   <!-- 새가족일 경우 인도자 -->
 	                   <div id="new-member" style="display: none;">

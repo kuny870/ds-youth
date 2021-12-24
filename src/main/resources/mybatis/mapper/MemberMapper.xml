@@ -43,6 +43,9 @@
                  <if test="name != null">
                        name,
                  </if>
+                 <if test="memo != null">
+                       memo,
+                 </if>
                  <if test="guider != null">
                        guider,
                  </if>
@@ -86,6 +89,9 @@
           <trim prefix="values (" suffix=")" suffixOverrides=",">
 	           <if test="name != null">
 	                 #{name},
+	           </if>
+	           <if test="memo != null">
+	                 #{memo},
 	           </if>
 	           <if test="guider != null">
 	                 #{guider},
@@ -137,6 +143,9 @@
     		mod_date = now(),
 			<if test="name != null">
 				name = #{name},
+			</if>
+			<if test="memo != null">
+				memo = #{memo},
 			</if>
 			<if test="guider != null">
 				guider = #{guider},
@@ -504,6 +513,42 @@
 			AND m.id = #{id}
 			AND m.del_yn = 'N'
 	</select>
+	
+	
+	<!-- Name 값으로 멤버 불러오기 -->
+	<select id="selectMemberByName" parameterType="Member" resultMap="MemberMap">
+		SELECT
+			m.id
+		    , m.name
+		    , m.memo
+		    , m.guider
+		    , m.depart_id
+		    , m.team_id
+		    , m.date_of_birth
+		    , m.htel
+		    , m.gender
+		    , m.same_period_id
+		    , m.mem_state
+		    , m.origin_profile_img
+		    , m.replace_profile_img
+		    , m.member_reg_date
+		    , m.member_grad_date
+		    , sp.birth_year as sp_birth_year
+		FROM member m
+		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
+		WHERE 1=1
+			AND m.name = #{name}
+			AND m.del_yn = 'N'
+			AND (
+				m.depart_id = 1
+				<![CDATA[
+					AND (date_format(now(), '%Y') - sp.birth_year) > 25
+				]]>
+				OR (m.team_id = 4 OR m.team_id = 8)
+				) 
+			
+	</select>
+	
 
 	
 	<!-- 그룹의 cnt 구하기 -->

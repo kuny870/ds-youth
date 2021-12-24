@@ -15,6 +15,7 @@ public interface MemberService {
 	boolean removeMember(Member member);
 	
 	Member getMember(Member member);			// id 값으로 member 객체 불러오기
+	List<Member> getMemberByName(Member member);			// name 값으로 member 객체 불러오기
 	List<Member> getMemberListByGroupGrade(Group group);	// 순장 data를 가지고 있는 memberList 가져오기
 	List<Member> getMemberList(Group group);	// group 값으로 팀 멤버 불러오기
 	List<Member> getMemberListByRemove();	// 삭제된 팀 멤버 불러오기

@@ -1,3 +1,14 @@
+.jiche-p {
+	margin-bottom: 5px;
+	font-size: 15px;
+	margin-top: 15px;
+    margin-left: 13px;
+}
+
+.jiche-textarea {
+	height:105px !important; 
+}
+
 .member-modify-profileImg {
 	border-radius:7px;
 	height:120px;
@@ -2814,8 +2825,15 @@
 }
 */
 
-/* mobile */
+/* pc */
 @media (min-width: 680px) {
+	
+	.jiche-p {
+		margin-bottom: 5px;
+		font-size: 15px;
+		margin-top: 0px;
+    	margin-left: 0px;
+	}
 	
 	.header-product .shop-link-login{
 	   width:100px;

@@ -17,6 +17,7 @@ public interface MemberMapper {
 	boolean updateMemberMemoFlag(Member member);
 	boolean deleteMember(Member member);
 	Member selectMember(Member member);
+	List<Member> selectMemberByName(Member member);
 	List<Member> selectMemberListByRemove();
 	List<Member> selectMemberListByGroupGrade(Group group);	// 순장 data를 가지고 있는 memberList 값 가져오기
 	List<Member> selectMemberListBySamePeriod(String sId);	// 전체 멤버 불러오기 by 동기

@@ -108,6 +108,7 @@ public class MemberController {
 			
 		ModelAndView mav = new ModelAndView("member/regist");
 		
+		mav.addObject("user", user);
 		mav.addObject("samePeriodList", samePeriodList);
 		mav.addObject("memberStateList", memberStateList);
 		mav.addObject("departList", departList);

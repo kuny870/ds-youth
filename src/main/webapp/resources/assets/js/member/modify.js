@@ -14,6 +14,14 @@ $(document).ready(function(){
 		newMember.style.display = 'block';
 	}
 	
+	var memMemo = $('#memoInput').val();
+	
+		memMemo = memMemo.split('<br/>').join("\r\n");
+		memMemo = memMemo.split('#001').join("'");
+		memMemo = memMemo.split('#002').join('"');
+		
+		$('#memo').val(memMemo);
+	
 });
 
 
@@ -102,6 +110,11 @@ function memberModify() {
 	var $dateOfBirth = $('#dateOfBirth');
 	var $htel = $('#htel');
 	var $originImg = $('#originImg');
+	
+	var memo = $("#memo").val();
+	memo = memo.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+	memo = memo.split("'").join('#001');
+	memo = memo.split('"').join('#002');
 
 	var validateMessage = null;
 	var validateFocus = null;
@@ -180,6 +193,7 @@ function memberModify() {
 		    		              ,guider : $('#guider').val()
 		    		              ,memberRegDate : $('#memberRegDate').val()
 		    		              ,memberGradDate : $('#memberGradDate').val()
+		    		              ,memo : memo
 		    		              ,gender : $('input[name="gender"]:checked').val()
 		    		          },
 		    		          success: function(result)
