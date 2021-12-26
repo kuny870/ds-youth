@@ -262,7 +262,7 @@
 					        
 			WHERE 1=1
 				AND m.del_yn = 'N'
-				AND m.mem_state NOT IN ('5', '6')
+				AND at.mem_state NOT IN ('5', '6')
 				<if test="teamId != null and teamId != '' and teamId != 99">
 					<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 						AND t.id = #{teamId}
@@ -342,7 +342,7 @@
         
 		WHERE 1=1
 			AND m.del_yn = 'N'
-			AND m.mem_state NOT IN ('5', '6')
+			AND at.mem_state NOT IN ('5', '6')
 			<if test="teamId != null and teamId != '' and teamId != 99">
 				<if test="teamId != 4 and teamId != 8 and teamId != 98 and teamId != 97">
 					AND t.id = #{teamId}
