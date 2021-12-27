@@ -688,6 +688,7 @@
 			</when>
 			<otherwise>
 				mem_state = '1'
+				, mem_state_date = null
 			</otherwise>
 		</choose>
 		WHERE 
