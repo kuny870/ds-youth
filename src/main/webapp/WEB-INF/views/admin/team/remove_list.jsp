@@ -29,17 +29,17 @@
 					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
 						 <select class="select-member-list-team" id="memberType" name="memberType" onchange="adminTeamListSearch();">
 						 <c:set var="selected" value="" />
-						 <c:if test="${'removeMember' eq memberSearch.memberType }">
+						 <c:if test="${memberSearch.memberType eq 'removeMember' }">
 						 	<c:set var="selected" value="selected" />
 						 </c:if>
 						 	<option value="removeMember" ${selected }>삭제팀원</option>
 						 <c:set var="selected" value="" />
-						 <c:if test="${'graduatedMember' eq memberSearch.memberType }">
+						 <c:if test="${memberSearch.memberType eq 'graduatedMember' }">
 						 	<c:set var="selected" value="selected" />
 						 </c:if>
 						 	<option value="graduatedMember" ${selected }>졸업팀원</option>
 					 	<c:set var="selected" value="" />
-						 <c:if test="${'completionMember' eq memberSearch.memberType }">
+						 <c:if test="${memberSearch.memberType eq 'completionMember' }">
 						 	<c:set var="selected" value="selected" />
 						 </c:if>
 						 	<option value="completionMember" ${selected }>새가족수료팀원</option>
@@ -77,7 +77,17 @@
 			                        	<th class="th-17p0">부서</th>
 			                        	<th class="th-14p3">팀</th>
 			                            <th>이름</th>
-			                            <th class="th-30p4">삭제시간</th>
+			                            <c:choose>
+			                            	<c:when test="${memberSearch.memberType eq 'removeMember' }">
+			                            		<th class="th-30p4">삭제시간</th>
+			                            	</c:when>
+			                            	<c:when test="${memberSearch.memberType eq 'graduatedMember' }">
+			                            		<th class="th-30p4">졸업시간</th>
+			                            	</c:when>
+			                            	<c:otherwise>
+			                            		<th class="th-30p4">수료시간</th>
+			                            	</c:otherwise>
+			                            </c:choose>
 			                            <th class="th-14p3"></th>
 			                        </tr>
 			                    </thead>

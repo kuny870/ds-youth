@@ -15,6 +15,7 @@ import org.ds.dsyouth.utils.DateHelper;
 import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -250,7 +251,24 @@ public class MemberServiceImpl implements MemberService {
 	 */
 	@Override
 	public boolean restoreMember(Member member) {
-		return memberMapper.restoreMember(member);
+		
+		boolean result = memberMapper.restoreMember(member);
+		
+		if(!"removeMember".equals(member.getMemberType())) {
+			Integer currnetMonth = Integer.parseInt(DateHelper.getMonth());
+			
+			Attendance att = new Attendance();
+			att.setMemberId(member.getId().toString());
+			att.setYear(DateHelper.getYear());
+			att.setMemState("1");
+			
+			for(Integer i = currnetMonth; i < 13; i++) {
+				att.setMonth(i.toString());
+				attendanceMapper.updateAttendanceMemState(att);
+			}
+		}
+		
+		return result;
 	}
 
 }
