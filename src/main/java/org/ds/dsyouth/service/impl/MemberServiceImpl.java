@@ -15,7 +15,6 @@ import org.ds.dsyouth.utils.DateHelper;
 import org.ds.dsyouth.utils.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -94,6 +93,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 기본정보(상태값) 변경 후
 		Member m_after = memberMapper.selectMember(member);
+		
+		// 졸업 or 수료시 날짜 입력
+		if("5".equals(m_after.getMemState()) || "6".equals(m_after.getMemState())) {
+			memberMapper.updateMemberStateDate(member);
+		}
 		
 		// 멤버 상태값 변경 전, 후 값이 다를 경우 출석부에도 변경
 		if(! m_before.getMemState().equals(m_after.getMemState())) {

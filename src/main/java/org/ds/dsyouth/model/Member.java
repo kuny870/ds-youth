@@ -27,6 +27,7 @@ public class Member {
 	private String memState;
 	private String delYn;
 	private String delDate;
+	private String memStateDate;
 	
 	private String memberType;
 	
@@ -37,6 +38,12 @@ public class Member {
 	private Attendance attendance;
 	private MemberState memberState;
 	
+	public String getMemStateDate() {
+		return memStateDate;
+	}
+	public void setMemStateDate(String memStateDate) {
+		this.memStateDate = memStateDate;
+	}
 	public String getMemberType() {
 		return memberType;
 	}

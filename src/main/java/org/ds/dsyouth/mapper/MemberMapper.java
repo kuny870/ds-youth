@@ -13,6 +13,7 @@ public interface MemberMapper {
 
 	boolean insertMember(Member member);
 	boolean updateMember(Member member);
+	boolean updateMemberStateDate(Member member);
 	boolean updateMemberMemo(Member member);
 	boolean updateMemberMemoFlag(Member member);
 	boolean deleteMember(Member member);

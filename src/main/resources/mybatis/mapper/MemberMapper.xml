@@ -26,6 +26,7 @@
 	    <result column="mem_state" jdbcType="VARCHAR" property="memState" />
 	    <result column="del_yn" jdbcType="VARCHAR" property="delYn" />
 	    <result column="del_date" jdbcType="VARCHAR" property="delDate" />
+	    <result column="mem_state_date" jdbcType="VARCHAR" property="memStateDate" />
 	    
 	    <association property="depart" resultMap="org.ds.dsyouth.mapper.AdminMapper.DepartMap" columnPrefix="d_" />
 	    <association property="memberState" resultMap="org.ds.dsyouth.mapper.AdminMapper.MemberStateMap" columnPrefix="ms_" />
@@ -186,8 +187,16 @@
 	    </set>
 		WHERE id = #{id}
 	</update>
-
-
+	
+	
+	<!-- 멤버 정보 수정 -->
+	<update id="updateMemberStateDate" parameterType="Member">
+		UPDATE member SET
+        	mem_state_date = now()
+		WHERE id = #{id}
+	</update>
+	
+	
  	<!-- 멤버 메모 수정 -->
 	<update id="updateMemberMemo" parameterType="Member">
 		UPDATE member SET
@@ -635,6 +644,7 @@
 		    , m.reg_date
 		    , m.mod_date
 		    , m.mem_state
+		    , m.mem_state_date
 		    , m.del_yn
 		    , m.del_date
 		    , d.d_name as d_d_name

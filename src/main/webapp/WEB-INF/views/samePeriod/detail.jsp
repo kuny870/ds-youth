@@ -45,7 +45,7 @@
 			                <table>
 			                    <thead>
 			                        <tr>
-			                            <th class="th-20p0">부서</th>
+			                            <th class="th-140px">부서</th>
 			                        	<th class="th-20p0">팀</th>
 			                            <th class="th-26p3">이름</th>
 			                            <th>연락처</th>

@@ -2592,6 +2592,9 @@
 .sales-table > .table-wrap > table .th-30p4{
     width: 30.4vw
 }
+.sales-table > .table-wrap > table .th-140px {
+	width: 20.0vw;
+}
 
 .sales-table > .table-wrap > table td{
     border: 1px solid #e8edf4;
@@ -3123,6 +3126,9 @@
 	}
 	.sales-table > .table-wrap > table .th-30p4{
 	    width: 250px;
+	}
+	.sales-table > .table-wrap > table .th-140px {
+		width: 140px;
 	}
 	
 	.font-size-3vw {

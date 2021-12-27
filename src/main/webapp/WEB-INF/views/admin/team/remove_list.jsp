@@ -79,13 +79,13 @@
 			                            <th>이름</th>
 			                            <c:choose>
 			                            	<c:when test="${memberSearch.memberType eq 'removeMember' }">
-			                            		<th class="th-30p4">삭제시간</th>
+			                            		<th class="th-30p4">삭제날짜</th>
 			                            	</c:when>
 			                            	<c:when test="${memberSearch.memberType eq 'graduatedMember' }">
-			                            		<th class="th-30p4">졸업시간</th>
+			                            		<th class="th-30p4">졸업날짜</th>
 			                            	</c:when>
 			                            	<c:otherwise>
-			                            		<th class="th-30p4">수료시간</th>
+			                            		<th class="th-30p4">수료날짜</th>
 			                            	</c:otherwise>
 			                            </c:choose>
 			                            <th class="th-14p3"></th>
@@ -97,7 +97,14 @@
 									    	<td>${member.depart.dName}</td>
 									    	<td>${member.team.tShortName}</td>
 									    	<td>${member.name}</td>
-				                            <td>${member.delDate}</td>
+									    	<c:choose>
+				                            	<c:when test="${memberSearch.memberType eq 'removeMember' }">
+				                            		<td>${member.delDate}</td>
+				                            	</c:when>
+				                            	<c:otherwise>
+				                            		<td>${member.memStateDate}</td>
+				                            	</c:otherwise>
+				                            </c:choose>
 				                            <td>
 				                            	<input type="hidden" id="${member.id}-input-hidden" value="${member.name}" />
 										    	<button class="basic-btn admin-restore-btn" onclick="restore(${member.id}, '${memberSearch.memberType}')">복구</button>
