@@ -28,6 +28,8 @@ public class Member {
 	private String delYn;
 	private String delDate;
 	
+	private String memberType;
+	
 	private Depart depart;
 	private Team team;
 	private Group group;
@@ -35,6 +37,12 @@ public class Member {
 	private Attendance attendance;
 	private MemberState memberState;
 	
+	public String getMemberType() {
+		return memberType;
+	}
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
 	public String getMemoFlag() {
 		return memoFlag;
 	}

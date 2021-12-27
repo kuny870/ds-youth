@@ -616,7 +616,7 @@
 	
 	
 	<!-- 삭제된 멤버 불러오기 -->
-	<select id="selectMemberListByRemove" resultMap="MemberMap">
+	<select id="selectMemberListByRemove" parameterType="org.ds.dsyouth.search.MemberSearch" resultMap="MemberMap">
 		SELECT
 			m.id
 		    , m.name
@@ -645,7 +645,17 @@
 		LEFT OUTER JOIN team t ON t.id = m.team_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		WHERE 1=1
-			AND m.del_yn = 'Y'
+		<choose>
+			<when test="memberType == 'removeMember'">
+				AND m.del_yn = 'Y'
+			</when>
+			<when test="memberType == 'graduatedMember'">
+				AND m.mem_state = '6'
+			</when>
+			<when test="memberType == 'completionMember'">
+				AND m.mem_state = '5'
+			</when>
+		</choose>
 		ORDER BY
 			m.depart_id ASC
 			, FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC
@@ -658,8 +668,15 @@
 		UPDATE 
 			member
 		SET 
-			del_yn = 'N'
-			, del_date = null
+		<choose>
+			<when test="memberType == 'removeMember'">
+				del_yn = 'N'
+				, del_date = null
+			</when>
+			<otherwise>
+				mem_state = '1'
+			</otherwise>
+		</choose>
 		WHERE 
 			id = #{id}
 	</update>

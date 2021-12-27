@@ -18,6 +18,7 @@ import org.ds.dsyouth.model.SamePeriod;
 import org.ds.dsyouth.model.Team;
 import org.ds.dsyouth.model.User;
 import org.ds.dsyouth.model.YearSeason;
+import org.ds.dsyouth.search.MemberSearch;
 import org.ds.dsyouth.service.AdminService;
 import org.ds.dsyouth.service.AuthService;
 import org.ds.dsyouth.service.MemberService;
@@ -129,13 +130,14 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/teamList", method = RequestMethod.GET)
-	public ModelAndView admin_teamList() {
+	public ModelAndView admin_teamList(MemberSearch memberSearch) {
 
-		List<Member> memberList = memberService.getMemberListByRemove();
+		List<Member> memberList = memberService.getMemberListByRemove(memberSearch);
 		
 		ModelAndView mav = new ModelAndView("admin/team/remove_list");
 		
 		mav.addObject("memberList", memberList);
+		mav.addObject("memberSearch", memberSearch);
 		
 		return mav;
 	}

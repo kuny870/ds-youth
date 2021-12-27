@@ -241,9 +241,15 @@ public class AttendanceRestController {
 	    	Integer attCnt1 = 0;
 	    	Integer attCnt2 = 0;
 	    	Integer attCnt3 = 0;
+	    	int weekTotalCnt = 0;
 	    	
 	    	// 특정 날짜가 몇번째 주 인지 구하기
-	    	int weekTotalCnt = DateHelper.getWeekOfYear() - 1;
+	    	if("12".equals(month)) {
+	    		weekTotalCnt = DateHelper.getWeekOfYear(Integer.toString((Integer.parseInt(DateHelper.getDate("yyyyMMdd")) - 7)));
+	    	}else {
+	    		weekTotalCnt = DateHelper.getWeekOfYear() - 1;
+	    	}
+	    	
 			int week1Cnt = 0;
 			int week2Cnt = 0;
 			

@@ -1,5 +1,5 @@
 //멤버 복구
-function restore(id) {
+function restore(id, memberType) {
 	
 	var $targetInputHidden = $("input[id="+ id + "-input-hidden]");
 	
@@ -22,6 +22,7 @@ function restore(id) {
     	          url: url,
     	          data: {
     	        	  id : id
+    	        	  , memberType : memberType
     	          }, // serializes the form’s elements.
     	          success: function(result)
     	          {

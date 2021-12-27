@@ -17,6 +17,7 @@ public class MemberSearch {
 	private String endDate;
 	private String year;
 	private int month;
+	private String memberType;
 	
 	public MemberSearch() {
 		this.setPageNo(1);
@@ -26,11 +27,20 @@ public class MemberSearch {
 		this.boardSize = 10;
 		this.year = DateHelper.getYear();
 		this.month = StringHelper.parseInt(DateHelper.getMonth());
+		this.memberType = "removeMember";
 		
 		setStartRow(pageNo);
 	}
 	
 	
+	public String getMemberType() {
+		return memberType;
+	}
+
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+
 	public String getYear() {
 		return year;
 	}

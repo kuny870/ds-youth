@@ -24,6 +24,50 @@
             
 				<div class="div-container-non-width">
 				
+				
+				<div class="div-container">
+					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
+						 <select class="select-member-list-team" id="memberType" name="memberType" onchange="adminTeamListSearch();">
+						 <c:set var="selected" value="" />
+						 <c:if test="${'removeMember' eq memberSearch.memberType }">
+						 	<c:set var="selected" value="selected" />
+						 </c:if>
+						 	<option value="removeMember" ${selected }>삭제팀원</option>
+						 <c:set var="selected" value="" />
+						 <c:if test="${'graduatedMember' eq memberSearch.memberType }">
+						 	<c:set var="selected" value="selected" />
+						 </c:if>
+						 	<option value="graduatedMember" ${selected }>졸업팀원</option>
+					 	<c:set var="selected" value="" />
+						 <c:if test="${'completionMember' eq memberSearch.memberType }">
+						 	<c:set var="selected" value="selected" />
+						 </c:if>
+						 	<option value="completionMember" ${selected }>새가족수료팀원</option>
+	                    </select>   
+                    </div>
+                    
+                    <div class="customer-select-search" style="width: 36%; margin-left: -17px; float: left; visibility: hidden;">
+						 <select class="select-member-list-group" id="groupId" name="groupId" onchange="memberSearch();">
+						 	<option value="" >순 전체</option>
+	                       	<c:forEach var="group" items="${groupList }">
+	                       		<c:set var="selected" value="" />
+	                       		<c:if test="${group.id eq memberSearch.groupId }">
+									<c:set var="selected" value="selected" />
+								</c:if>
+								<option value="${group.id}" ${selected }>${group.gName}</option>
+							</c:forEach>
+	                    </select>
+                    </div>    
+                    
+                    <div class="customer-select-search" style="width: 22%; margin-left:-33px; margin-right:-3px; float: left;">
+                         <input type="text" class="md-input2" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
+		            </div>
+		            <div>
+		            	<button class="basic-btn member-list-btn" onclick="adminTeamListSearch();">검색</button>
+		            </div>
+		            
+		            
+		            				
 					<div class="sales-table">
 			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">
 
@@ -46,7 +90,7 @@
 				                            <td>${member.delDate}</td>
 				                            <td>
 				                            	<input type="hidden" id="${member.id}-input-hidden" value="${member.name}" />
-										    	<button class="basic-btn admin-restore-btn" onclick="restore(${member.id})">복구</button>
+										    	<button class="basic-btn admin-restore-btn" onclick="restore(${member.id}, ${memberSearch.memberType})">복구</button>
 				                            </td>
 		        		                </tr>
 									</c:forEach>

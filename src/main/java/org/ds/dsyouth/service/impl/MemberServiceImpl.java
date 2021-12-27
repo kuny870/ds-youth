@@ -241,8 +241,8 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public List<Member> getMemberListByRemove() {
-		return memberMapper.selectMemberListByRemove();
+	public List<Member> getMemberListByRemove(MemberSearch memberSearch) {
+		return memberMapper.selectMemberListByRemove(memberSearch);
 	}
 	
 	/**

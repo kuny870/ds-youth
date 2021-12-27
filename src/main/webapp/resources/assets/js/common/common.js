@@ -113,6 +113,15 @@ function family() {			// 수련회 가족 list (검색 정보 포함)
 	location.href = contextPath + "/admin/retreat/family/list/" + fId;
 }
 
+
+//팀원 관리 - 삭제,졸업,수료
+function adminTeamListSearch() {
+	var memberType = $('#memberType').val();
+	var sNameKW = $('#nameKW').val();
+	var name = encodeURI(encodeURI(sNameKW));
+	location.href = contextPath + "/admin/teamList?memberType=" + memberType + "&nameKW=" + name;
+}
+
 //출석 조회
 function attendanceSearch() {
 //	$('#loading').show();
