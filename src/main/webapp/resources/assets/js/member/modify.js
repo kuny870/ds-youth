@@ -243,7 +243,7 @@ function memberRemove(id) {
 	
 	var sTeamId = $('#sTeamId').val();
 	var sGroupId = $('#sGroupId').val();
-	var sNameKW = $('#sNameKW').val();
+	var name = $('#sNameKW').val();
 	var pageNo = $('#pageNo').val();
 	var $name = $('#name');
 	
@@ -275,7 +275,8 @@ function memberRemove(id) {
     	                      confirmButtonText: '확인',
     	                      allowOutsideClick: true
     	                  }).then(function() {
-    	                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + sNameKW + "&pageNo=" + pageNo;
+    	                	  name = encodeURI(encodeURI(name));
+    	                	  location.href = contextPath + "/member/list?teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + name + "&pageNo=" + pageNo;
     	                  });
     	              }else {
     	            	  Swal.fire({

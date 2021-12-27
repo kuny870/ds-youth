@@ -1,3 +1,12 @@
+function adminTeamListSearchBefore(){
+	$('#nameKW').val('');
+	adminTeamListSearch();
+}
+
+function enterKeyEvent() {
+	adminTeamListSearch();
+}
+
 //멤버 복구
 function restore(id, memberType) {
 	

@@ -27,7 +27,7 @@
 				
 				<div class="div-container">
 					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
-						 <select class="select-member-list-team" id="memberType" name="memberType" onchange="adminTeamListSearch();">
+						 <select class="select-member-list-team" id="memberType" name="memberType" onchange="adminTeamListSearchBefore();">
 						 <c:set var="selected" value="" />
 						 <c:if test="${memberSearch.memberType eq 'removeMember' }">
 						 	<c:set var="selected" value="selected" />
@@ -42,7 +42,7 @@
 						 <c:if test="${memberSearch.memberType eq 'completionMember' }">
 						 	<c:set var="selected" value="selected" />
 						 </c:if>
-						 	<option value="completionMember" ${selected }>새가족수료팀원</option>
+						 	<option value="completionMember" ${selected }>새가족수료</option>
 	                    </select>   
                     </div>
                     
@@ -100,7 +100,7 @@
 				                            <td>${member.delDate}</td>
 				                            <td>
 				                            	<input type="hidden" id="${member.id}-input-hidden" value="${member.name}" />
-										    	<button class="basic-btn admin-restore-btn" onclick="restore(${member.id}, ${memberSearch.memberType})">복구</button>
+										    	<button class="basic-btn admin-restore-btn" onclick="restore(${member.id}, '${memberSearch.memberType}')">복구</button>
 				                            </td>
 		        		                </tr>
 									</c:forEach>

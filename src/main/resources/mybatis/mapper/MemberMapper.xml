@@ -656,6 +656,9 @@
 				AND m.mem_state = '5'
 			</when>
 		</choose>
+		<if test="nameKW != null and nameKW != ''">
+			AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+		</if>
 		ORDER BY
 			m.depart_id ASC
 			, FIELD(t.t_short_name, '동산','등대','언약', '기쁨', '열공', '은행', '정감', '새가족') ASC

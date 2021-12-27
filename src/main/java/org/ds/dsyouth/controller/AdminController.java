@@ -128,10 +128,14 @@ public class AdminController {
 	/**
 	 * 팀원 관리
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/admin/teamList", method = RequestMethod.GET)
-	public ModelAndView admin_teamList(MemberSearch memberSearch) {
+	public ModelAndView admin_teamList(MemberSearch memberSearch) throws UnsupportedEncodingException {
 
+		String nameKW = java.net.URLDecoder.decode(memberSearch.getNameKW(), "UTF-8");
+		memberSearch.setNameKW(nameKW);
+		
 		List<Member> memberList = memberService.getMemberListByRemove(memberSearch);
 		
 		ModelAndView mav = new ModelAndView("admin/team/remove_list");
