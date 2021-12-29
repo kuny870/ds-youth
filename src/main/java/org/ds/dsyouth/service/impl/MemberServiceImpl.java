@@ -63,6 +63,7 @@ public class MemberServiceImpl implements MemberService {
 					att.setMemberId(member.getId().toString());
 					att.setYear(newYear.toString());
 					att.setMonth(i.toString());
+					
 					att.setAttYn("Y");
 					attendanceMapper.insertAttendance(att);
 					att.setAttYn("N");
