@@ -63,10 +63,10 @@
 			                <table>
 			                    <thead>
 			                        <tr>
-			                            <th class="th-14p3">팀</th>
-			                            <th class="th-7p6">순서</th>
+			                            <th class="th-80p0">팀</th>
+			                            <th class="th-60p0">순서</th>
 			                            <th>순공부명</th>
-			                            <th class="th-22p0">순장</th>
+			                            <th class="th-115p0">순장</th>
 			                            <th class="th-20p0"></th>
 			                        </tr>
 			                    </thead>
