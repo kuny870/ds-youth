@@ -2991,12 +2991,12 @@
 	}
 	.admin-order-input {
 		font-size: 20px !important;
-		margin-left: 20px !important;
+		margin-left: 32px !important;
 		width: 80px;
 	}
 	.admin-group-input {
 		font-size: 20px !important;
-		width: 340px;
+		width: 335px;
 		margin-left: 10px !important;
 		margin-right: 0px !important;
 	}
@@ -3129,6 +3129,9 @@
 	}
 	.sales-table > .table-wrap > table .th-140px {
 		width: 140px;
+	}
+	.sales-table > .table-wrap > table .th-18p0{
+		width: 150px
 	}
 	
 	.font-size-3vw {
@@ -3289,7 +3292,7 @@
 	}
 	.admin-order-input {
 		font-size: 25px;
-		margin-right: 1.8vw;
+		margin-right: 18px;
 		margin-left: -0.9vw;
 	}
 	.admin-group-input {
