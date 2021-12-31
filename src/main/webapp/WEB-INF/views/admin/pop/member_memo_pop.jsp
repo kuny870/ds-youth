@@ -47,10 +47,15 @@
 	font-size: 15px;
 }
 
+.profileImgId2 {
+	cursor: pointer;
+}
+
 /* 폰 */
 @media (max-width: 679px) {
 
 	.profileImge-img {
+		cursor: pointer;
 		border-radius:7px !important; 
 		height:150px !important;
 		max-width: 60% !important;
@@ -97,6 +102,7 @@
 @media (min-width: 680px) and (max-width: 1050px) {
 
 	.profileImge-img {
+		cursor: pointer;
 		border-radius:7px !important;
 		height:180px !important;
 		max-width: 68% !important;
@@ -144,6 +150,7 @@
 @media (min-width: 1051px) {
 
 	.profileImge-img {
+		cursor: pointer;
 		border-radius:7px !important;
 		height:180px !important;
 		max-width: 68% !important;
@@ -333,12 +340,12 @@
         });
         
         //큰 사진을 눌렀을 때 
-        $(".closeWindow").click(function () {
+        $(".originImgId-img2").click(function () {
         	$("#memberMemoMask, .memberMemoWindow").hide();
         });
         
       	//작은 사진을 눌렀을 때 
-        $("#profileImgDiv").click(function () {
+        $("#profileImgId").click(function () {
         	$("#form1").css('display', 'none');
         	document.getElementById('profileImgId2').src= resourcesPath + '/assets/images/profileImg/' + $("#profileImg-text").val();
         	$("#form2").css('display', 'block');
@@ -347,7 +354,7 @@
         });
       	
       //큰 사진을 눌렀을 때 
-        $(".closeWindow2").click(function () {
+        $(".profileImgId2").click(function () {
         	$("#form1").css('display', 'block');
         	$("#form2").css('display', 'none');
         	
@@ -440,7 +447,7 @@
 						
 						
 						<div id="form2" class="closeWindow2" style="display: none">
-							<img id="profileImgId2" src="" class="profileImgId-img2">
+							<img class="profileImgId2" id="profileImgId2" src="" class="profileImgId-img2">
 						</div>
 			
 					</c:when>

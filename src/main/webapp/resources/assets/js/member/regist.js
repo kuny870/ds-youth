@@ -45,6 +45,10 @@ $('#name').blur(function() {
             				$("input:radio[name='gender']:radio[value=" + res.data.gender + "]").prop('checked', true);	            				
             			}
             			
+            			$('#registFlag').val("1");
+            			if(res.data.originProfileImg != null){$('#originProfileImg2').val(res.data.originProfileImg);}
+            			if(res.data.replaceProfileImg != null){$('#replaceProfileImg2').val(res.data.replaceProfileImg);}
+            			
             		}
             		
             	});
@@ -187,7 +191,7 @@ $("#memberRegistForm").submit(function(e) {
           data: form.serialize(), // serializes the form’s elements.
           success: function(result)
           {
-              if(result.text != "") {
+              if(result.text != "" && $('#replaceProfileImg2').val() == "" ) {
             	  
             	  $('#memberId').val(result.text);
             	  

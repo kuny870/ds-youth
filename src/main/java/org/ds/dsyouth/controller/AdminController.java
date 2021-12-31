@@ -174,37 +174,24 @@ public class AdminController {
 			HttpServletRequest request, 
 			Group group) {
 
-		String thisYear = "";
-		String thisMonth = DateHelper.getMonth();
-		
-		if(group.getYear() == null) {
-			thisYear = DateHelper.getYear();
-		}else {
-			thisYear = group.getYear();
-		}
-		
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute(Constants.SESSION_USER);
 		group.setTeamId(user.getTeamId().toString());
 		
+		String thisYear = "";
+		String thisMonth = DateHelper.getMonth();
+		
+		int yearInt = StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1;
+		
 		List<Team> teamList = adminService.getTeamList();
 		List<Group> groupList = adminService.getGroupList(group);
 		List<Member> memberList = memberService.getMemberListByGroupGrade(group);
-		List<YearSeason> seasonList = adminService.getYearSeasonList(thisYear);
+		List<YearSeason> seasonList = adminService.getYearSeasonList(group.getYear());
 		
 		// 각 순에 대한 인원 카운트
 		for(int i = 0; i < groupList.size(); i++) {
 			int cnt = memberService.getGroupCnt(groupList.get(i));
 			groupList.get(i).setCnt(cnt);
-		}
-		
-		thisYear = DateHelper.getYear();
-		
-		int yearInt = StringHelper.parseIntAndArrayRange(thisYear);
-		
-		// 12월에 다음해 순명 등록 가능
-		if("12".equals(thisMonth)) {
-			yearInt++;
 		}
 		
 		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
@@ -223,7 +210,7 @@ public class AdminController {
 		mav.addObject("memberList", memberList);
 		mav.addObject("seasonList", seasonList);
 		mav.addObject("yearList", yearList);
-		mav.addObject("thisYear", thisYear);
+		mav.addObject("thisYear", group.getYear());
 		mav.addObject("group", group);
 		
 		return mav;

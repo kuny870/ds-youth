@@ -72,6 +72,11 @@ public class MemberRestController {
 		}
 	
 		try {
+			// 지체 불러오기 시 사진 등록
+			if("1".equals(member.getRegistFlag())) {
+				member.setOriginProfileImg(member.getOriginProfileImg2());
+				member.setReplaceProfileImg(member.getReplaceProfileImg2());
+			}
 			String memberId = memberService.registMember(member);
 			response.setText(memberId);
 			

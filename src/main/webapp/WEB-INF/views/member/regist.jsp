@@ -49,6 +49,10 @@
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	
+                    	<input type="hidden" id="registFlag" name="registFlag" value="">
+                    	<input type="hidden" id="originProfileImg2" name="originProfileImg2" value="">
+                    	<input type="hidden" id="replaceProfileImg2" name="replaceProfileImg2" value="">
+                    	
                     	<!-- <label>
                     		<input type="hidden" id="longAbsent" name="longAbsent" value="" />
                         	<input type="checkbox" id="longAbsentChk" name="longAbsentChk">

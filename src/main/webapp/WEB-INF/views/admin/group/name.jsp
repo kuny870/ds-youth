@@ -28,10 +28,10 @@
 					
 					<div class="customer-select-search" style="width: 30%; margin-left: 6%; float: left;">
 						<!-- 년 선택 -->
-                   		<select class="select-admin-group-name-year" id="year" name="year" onchange="getSeason(this.value);">
+                   		<select class="select-admin-group-name-year" id="year" name="year" onchange="getSeason(this.value); groupSearch()">
 	                       	<c:forEach var="year" items="${yearList }">
 	                       		<c:set var="selected" value="" />
-								<c:if test="${year eq group.year }">
+								<c:if test="${year eq thisYear }">
 									<c:set var="selected" value="selected" />
 								</c:if>
 								<option value="${year}" ${selected} >${year}년</option>
@@ -41,7 +41,7 @@
                     
                     <div class="customer-select-search" style="width: 35%; margin-left: 5%; float: left;">
 						<!-- 상반기 / 하반기 선택 -->
-                   		<select class="select-admin-group-name-season" id="seasonFlag" name="seasonFlag">
+                   		<select class="select-admin-group-name-season" id="seasonFlag" name="seasonFlag" onchange="groupSearch()">
 	                       	<c:forEach var="ss" items="${seasonList }">
 	                       		<c:set var="selected" value="" />
 								<c:if test="${ss.seasonFlag eq group.seasonFlag }">

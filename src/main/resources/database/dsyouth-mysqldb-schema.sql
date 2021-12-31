@@ -1,5 +1,7 @@
 -- safe 모드 해제
 SET SQL_SAFE_UPDATES = 0;
+-- db 한글 인코딩 설정
+alter database dsschool default CHARACTER SET 'utf8';
 
 drop table auth;
 drop table depart;

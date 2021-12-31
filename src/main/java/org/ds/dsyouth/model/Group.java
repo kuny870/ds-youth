@@ -1,11 +1,13 @@
 package org.ds.dsyouth.model;
 
 import org.ds.dsyouth.utils.DateHelper;
+import org.ds.dsyouth.utils.StringHelper;
 
 public class Group {
 
 	private Integer id;
 	private String year;
+	private String month;
 	private String season;
 	private String seasonFlag;
 	private String departId;
@@ -20,13 +22,14 @@ public class Group {
 	private Team team;
 	
 	public Group() {
-		this.year = DateHelper.getYear();
-		if(Integer.parseInt(DateHelper.getYear()) == 2020 && Integer.parseInt(DateHelper.getMonth()) > 8) {
-			this.seasonFlag = "3";
-		}else if( (Integer.parseInt(DateHelper.getYear()) == 2021 && Integer.parseInt(DateHelper.getMonth()) > 5) || (Integer.parseInt(DateHelper.getYear()) != 2021 && Integer.parseInt(DateHelper.getMonth()) > 6) ) {
-			this.seasonFlag = "2";
-		}else {
+		this.month = DateHelper.getMonth();
+		if("12".equals(month)) {
+			this.year = Integer.toString((StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1));
+		}
+		if( Integer.parseInt(DateHelper.getMonth()) == 12 || Integer.parseInt(DateHelper.getMonth()) < 6 ) {
 			this.seasonFlag = "1";
+		}else {
+			this.seasonFlag = "2";
 		}
 	}
 	

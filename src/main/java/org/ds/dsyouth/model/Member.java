@@ -31,6 +31,10 @@ public class Member {
 	
 	private String memberType;
 	
+	private String registFlag;
+	private String originProfileImg2;
+	private String replaceProfileImg2;
+	
 	private Depart depart;
 	private Team team;
 	private Group group;
@@ -38,6 +42,25 @@ public class Member {
 	private Attendance attendance;
 	private MemberState memberState;
 	
+
+	public String getRegistFlag() {
+		return registFlag;
+	}
+	public void setRegistFlag(String registFlag) {
+		this.registFlag = registFlag;
+	}
+	public String getOriginProfileImg2() {
+		return originProfileImg2;
+	}
+	public void setOriginProfileImg2(String originProfileImg2) {
+		this.originProfileImg2 = originProfileImg2;
+	}
+	public String getReplaceProfileImg2() {
+		return replaceProfileImg2;
+	}
+	public void setReplaceProfileImg2(String replaceProfileImg2) {
+		this.replaceProfileImg2 = replaceProfileImg2;
+	}
 	public String getMemStateDate() {
 		return memStateDate;
 	}
