@@ -35,7 +35,7 @@ btn
     height: 40px;
     border-radius: 1.3333333333333335vw;
     /* background-color: #f63b70; */
-    background-color: #284AF3;
+    background-color: #3874CB;
     font-size: 18px;
     font-weight: 500;
     color: #ffffff;
@@ -45,7 +45,7 @@ btn
 }
 .link {
     /* color: #f22653; */
-    color: #284AF3;
+    color: #3874CB;
     text-decoration: none;
 }
 .tab {
@@ -72,7 +72,7 @@ btn
 }
 
 .tab li .btn-tab.selected {
-    border-bottom: solid #284AF3;
+    border-bottom: solid #3874CB;
     border-bottom-width: 1.3333333333333335vw;    
     cursor: default;
 }

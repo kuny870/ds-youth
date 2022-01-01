@@ -201,18 +201,18 @@
 
 .main-img {width: 12%;}
 
-.css-leader-list-a > a {text-decoration: none; color: #284AF3; font-size: 3.5vw; line-height: 8.8vw;}
-.css-group-name-a > a {text-decoration: none; color: #284AF3; font-size: 3vw;}
-.css-team-list-a > a {text-decoration: none; color: #284AF3; font-size: 3vw;}
+.css-leader-list-a > a {text-decoration: none; color: #3874CB; font-size: 3.5vw; line-height: 8.8vw;}
+.css-group-name-a > a {text-decoration: none; color: #3874CB; font-size: 3vw;}
+.css-team-list-a > a {text-decoration: none; color: #3874CB; font-size: 3vw;}
 
-.css-a > a {text-decoration: none; color: #284AF3; font-size: 3.5vw;}
-.css-a2 > a {text-decoration: none; color: #284AF3; font-size: 3.5vw;}
-.css-a3 > a {text-decoration: none; color: #284AF3; font-size: 3.5vw; line-height: 11vw;}
+.css-a > a {text-decoration: none; color: #3874CB; font-size: 3.5vw;}
+.css-a2 > a {text-decoration: none; color: #3874CB; font-size: 3.5vw;}
+.css-a3 > a {text-decoration: none; color: #3874CB; font-size: 3.5vw; line-height: 11vw;}
 .center {text-align: center;}
 
 .bible-title {
 	font-size: 5.5vw;
-	color: #284AF3; 
+	color: #3874CB; 
 	margin-left: 20px; 
 	margin-bottom: 10px;
 }
@@ -224,7 +224,7 @@
 }
 
 .on-style {
-	color: #284AF3;
+	color: #3874CB;
     font-size: 3vw;
     cursor: pointer;
 }
@@ -370,13 +370,13 @@
 .basic-btn {
 	cursor: pointer;
 	border-radius: 5px; 
-	background-color: #284AF3; 
+	background-color: #3874CB; 
 	color:#fff;
 }
 
 .excel-down-btn {
 	border-radius: 3px; 
-	background-color: #284AF3; 
+	background-color: #3874CB; 
 	color:#fff;
 	height: 27px;
 }
@@ -413,14 +413,14 @@
 	width: 9vw;
 	height: 6.5vw;
 	font-size: 2.5vw;
-	background-color: #284AF3;
+	background-color: #3874CB;
 }
 
 .admin-modify-btn {
 	width: 9vw;
 	height: 6.5vw;
 	font-size: 2.5vw;
-	background-color: #284AF3;
+	background-color: #3874CB;
 }
 
 .admin-reset-btn {
@@ -771,7 +771,7 @@
 }
 .container .form .form-bottom-link a.link{
     font-size: 4.444444444444445VW;
-    color: #284AF3;
+    color: #3874CB;
     display: block;
 }
 .container .form .form-bottom {
@@ -1053,7 +1053,7 @@
     font-size: 8.844444444444445vw;
     font-weight: 700;
     text-align: left;
-    color: #284AF3;    
+    color: #3874CB;    
 }
 .contents-product .section .product-info .price .cost {
     display: inline-block;
@@ -1186,7 +1186,7 @@
 .product-option-modal ul .item .left span {
     font-size: 3.733333333333334vw;
     font-weight: 900;
-    color: #284AF3;    
+    color: #3874CB;    
 }
 .product-option-modal ul .item .center {
     margin: 3.822222222222222vw 19.91111111111111vw 3.822222222222222vw 10.044444444444444vw;
@@ -1413,10 +1413,10 @@
     font-size: 4.4444444444vw;
 }
 .form-middle-pay .form-pay .pay-radio-chk{
-    border: 0.2666666666vw solid #284AF3;
+    border: 0.2666666666vw solid #3874CB;
 }
 .form-middle-pay .form-pay .pay-radio-chk > span{
-    color: #284AF3;
+    color: #3874CB;
 }
 .form-payinfo > .title{
 	font-size: 4.8vw;
@@ -1502,7 +1502,7 @@
 	display: block;
 	font-size: 3.7333333333vw;
 	font-weight: 500;
-	color: #284AF3;
+	color: #3874CB;
 	margin: 0 0 0 11.73333333333vw; 
 }
 
@@ -1560,7 +1560,7 @@
     padding: 0 0.97777777777vw;
     font-size: 2.2222222222vw;
     line-height: 3.5555555555vw;
-    background: #284AF3;
+    background: #3874CB;
     color: #fff;
 }
 .order-wrap > .order > .state > .address{
@@ -1593,7 +1593,7 @@
 .order-wrap > .order .col-right > .sale-price{
     padding: 0.9vw 0;
     font-size: 3.5555555555vw;
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
 }
 .order-wrap > .order .col-right > .sale-price > .cost{
@@ -1615,8 +1615,8 @@
     text-decoration: none;
 }
 .order-wrap > .order .col-right > .btn-question >.approval{
-    border: 0.2666666666vw solid #284AF3;
-    color: #284AF3;
+    border: 0.2666666666vw solid #3874CB;
+    color: #3874CB;
     margin: 0 0.4444444444vw 0 0;
 }
 .order-wrap > .order > .dates{
@@ -1644,7 +1644,7 @@
     margin: 0 2.8444444444vw 0 0;
     font-size: 2.8444444444vw;
     font-weight: 700;
-    color: #284AF3;
+    color: #3874CB;
 }
 
 /*coupon*/
@@ -1683,7 +1683,7 @@
 .coupon-list .coupon .col-left > .discount{
     font-size: 5.8222222222vw;
     line-height: 30.2222222222vw;
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
 }
 .coupon-list .coupon .col-right{
@@ -1787,7 +1787,7 @@
 }
 .paid-info > h4{
     font-size: 3.5555555555vw;
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
     padding: 0 0 2.2222222222vw 0;
 }
@@ -1802,7 +1802,7 @@
 .paid-info .row-total .label{
     font-size: 5.3333333333vw;
     line-height: 6.6666666666vw;
-    color: #284AF3;
+    color: #3874CB;
 }
 .paid-info .col-right{
     float: right;
@@ -1819,7 +1819,7 @@
 .paid-info .col-right .total{
     font-size: 6.2222222222vw;
     line-height: 6.6666666666vw;
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
 }
 .paid-info .col-right .total > span{
@@ -1890,7 +1890,7 @@
 .seller-wrap{
     height: 35.5555555555vw;
     text-align: center;
-    background-image: linear-gradient(340deg, #ff789e, #284AF3);
+    background-image: linear-gradient(340deg, #ff789e, #3874CB);
 }
 .seller-wrap > .profile{
     padding: 4vw 0 2.2222222222vw 0;
@@ -2154,7 +2154,7 @@
 }
 .com-down-wrap .link > a{
     display: block;
-    color: #284AF3;
+    color: #3874CB;
     text-decoration: none;
     font-weight: 700;
 }
@@ -2236,7 +2236,7 @@
     height: 9.6vw;
     border: 0.2666666666vw solid #ff5379;
     border-radius: 0 4.8vw 4.8vw 0;
-    background: #284AF3;
+    background: #3874CB;
 
 }
 .form .search-wrap > .search-bar > .btn-search > img{
@@ -2324,7 +2324,7 @@
     display: inline-block;
     font-size: 3.1111111111vw;
     font-weight: 700;
-    color: #284AF3;
+    color: #3874CB;
 }
 .sales-matched-wrap > .sales-matched > .date {
     display: inline-block;
@@ -2369,7 +2369,7 @@
     padding: 0 1.0666666666vw;
     font-size: 2.2222222222vw;
     line-height: 3.5555555555vw;
-    background: #284AF3;
+    background: #3874CB;
     color: #fff;
 }
 .sales-list-wrap > .sales > .title{
@@ -2421,7 +2421,7 @@
     padding: 0 1.02222222222vw;
     font-size: 2.2222222222vw;
     line-height: 3.5555555555vw;
-    background: #284AF3;
+    background: #3874CB;
     color: #fff;
     font-weight: 400;
 }
@@ -2480,7 +2480,7 @@
     display: inline-block;
     padding: 0.8888888888vw;
     font-size: 2.2222222222vw;
-    background: #284AF3;
+    background: #3874CB;
     color: #fff;
 }
 .sales-row > .sales-wrap > .state > .noti-cancle{
@@ -2525,7 +2525,7 @@
     font-weight: 500;
 }
 .sales-row > .sales-wrap .col-right > .sale-price{ 
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
 }
 .sales-row > .sales-wrap .col-right > .sale-price > .cost{ 
@@ -2759,7 +2759,7 @@
 .search-wrap > .search .col-right > .sale-price{
     font-family: 'Montserrat', sans-serif;
     font-size: 4.4888888888vw;
-    color: #284AF3;
+    color: #3874CB;
     font-weight: 700;
 }
 .search-wrap > .search .col-right > .sale-price > .kor{
@@ -2807,14 +2807,14 @@
     line-height: 6.577777777vw;
     color: #fff;
     text-decoration: none;
-    background: #284AF3;
+    background: #3874CB;
 }
 
 .search-wrap > .search .col-right > .btn-noti > a{
     position: relative;
     padding: 0 0 0 4.5333333333vw;
-    border: 0.3555555555vw solid #284AF3;
-    color: #284AF3;
+    border: 0.3555555555vw solid #3874CB;
+    color: #3874CB;
     line-height: 5.86666666666vw;
     background: #fff;
     font-weight: 700;
@@ -3208,7 +3208,7 @@
 		
 		font-family: 'Noto Sans KR', sans-serif;
     	border-radius: 5px;
-	    background-color: #284AF3;
+	    background-color: #3874CB;
 	    font-weight: 500;
     	color: #ffffff;
     	cursor: pointer;
