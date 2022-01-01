@@ -47,7 +47,7 @@
 	font-size: 15px;
 }
 
-.profileImgId2 {
+.profileImgId-img2 {
 	cursor: pointer;
 }
 
@@ -340,7 +340,7 @@
         });
         
         //큰 사진을 눌렀을 때 
-        $(".originImgId-img2").click(function () {
+        $(".closeWindow").click(function () {
         	$("#memberMemoMask, .memberMemoWindow").hide();
         });
         
@@ -354,7 +354,7 @@
         });
       	
       //큰 사진을 눌렀을 때 
-        $(".profileImgId2").click(function () {
+        $(".profileImgId-img2").click(function () {
         	$("#form1").css('display', 'block');
         	$("#form2").css('display', 'none');
         	
@@ -447,7 +447,7 @@
 						
 						
 						<div id="form2" class="closeWindow2" style="display: none">
-							<img class="profileImgId2" id="profileImgId2" src="" class="profileImgId-img2">
+							<img id="profileImgId2" src="" class="profileImgId-img2">
 						</div>
 			
 					</c:when>
