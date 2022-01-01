@@ -2565,6 +2565,9 @@
 .sales-table > .table-wrap > table .th-7p6{
     width: 7.6vw
 }
+.sales-table > .table-wrap > table .th-60p0{
+    width: 7.6vw
+}
 .sales-table > .table-wrap > table .th-8p3{
     width: 8.3vw
 }
@@ -2573,6 +2576,9 @@
 }
 .sales-table > .table-wrap > table .th-14p3{
     width: 14.3vw
+}
+.sales-table > .table-wrap > table .th-80p0{
+    width: 12.3vw
 }
 .sales-table > .table-wrap > table .th-17p0{
     width: 17.0vw
@@ -2585,6 +2591,9 @@
 }
 .sales-table > .table-wrap > table .th-22p0{
     width: 22.0vw
+}
+.sales-table > .table-wrap > table .th-115p0 {
+	width: 19.0vw;
 }
 .sales-table > .table-wrap > table .th-26p3{
     width: 26.3vw
@@ -2991,12 +3000,12 @@
 	}
 	.admin-order-input {
 		font-size: 20px !important;
-		margin-left: 20px !important;
+		margin-left: 32px !important;
 		width: 80px;
 	}
 	.admin-group-input {
 		font-size: 20px !important;
-		width: 340px;
+		width: 335px;
 		margin-left: 10px !important;
 		margin-right: 0px !important;
 	}
@@ -3100,6 +3109,9 @@
 	.sales-table > .table-wrap > table .th-7p6 {
 		width: 76px;
 	}
+	.sales-table > .table-wrap > table .th-60p0 {
+		width: 60px;
+	}
 	.sales-table > .table-wrap > table .th-20p0 {
 		width: 180px;
 	}
@@ -3111,6 +3123,9 @@
 	}
 	.sales-table > .table-wrap > table .th-14p3 {
 		width: 110px;
+	}
+	.sales-table > .table-wrap > table .th-80p0 {
+		width: 80px;
 	}
 	.sales-table > .table-wrap > table .th-26p3 {
 		width: 250px;
@@ -3124,11 +3139,17 @@
 	.sales-table > .table-wrap > table .th-22p0 {
 		width: 150px;
 	}
+	.sales-table > .table-wrap > table .th-115p0 {
+		width: 115px;
+	}
 	.sales-table > .table-wrap > table .th-30p4{
 	    width: 250px;
 	}
 	.sales-table > .table-wrap > table .th-140px {
 		width: 140px;
+	}
+	.sales-table > .table-wrap > table .th-18p0{
+		width: 150px
 	}
 	
 	.font-size-3vw {
@@ -3289,7 +3310,7 @@
 	}
 	.admin-order-input {
 		font-size: 25px;
-		margin-right: 1.8vw;
+		margin-right: 18px;
 		margin-left: -0.9vw;
 	}
 	.admin-group-input {

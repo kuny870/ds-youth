@@ -25,6 +25,8 @@ public class Group {
 		this.month = DateHelper.getMonth();
 		if("12".equals(month)) {
 			this.year = Integer.toString((StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1));
+		}else {
+			this.year = Integer.toString(StringHelper.parseIntAndArrayRange(DateHelper.getYear()));
 		}
 		if( Integer.parseInt(DateHelper.getMonth()) == 12 || Integer.parseInt(DateHelper.getMonth()) < 6 ) {
 			this.seasonFlag = "1";

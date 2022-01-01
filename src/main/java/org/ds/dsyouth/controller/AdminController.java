@@ -181,8 +181,6 @@ public class AdminController {
 		String thisYear = "";
 		String thisMonth = DateHelper.getMonth();
 		
-		int yearInt = StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1;
-		
 		List<Team> teamList = adminService.getTeamList();
 		List<Group> groupList = adminService.getGroupList(group);
 		List<Member> memberList = memberService.getMemberListByGroupGrade(group);
@@ -192,6 +190,14 @@ public class AdminController {
 		for(int i = 0; i < groupList.size(); i++) {
 			int cnt = memberService.getGroupCnt(groupList.get(i));
 			groupList.get(i).setCnt(cnt);
+		}
+
+		int yearInt = 0;
+		
+		if("12".equals(thisMonth)) {
+			yearInt = StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1;
+		}else {
+			yearInt = StringHelper.parseIntAndArrayRange(DateHelper.getYear());
 		}
 		
 		// 이번년도 부터 이전년도의 출석부 존재하는 모든 년도 구하기
