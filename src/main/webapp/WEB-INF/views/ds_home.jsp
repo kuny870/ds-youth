@@ -97,7 +97,7 @@
 			
 				.container {
 					text-align: center;
-					margin-top: 70px;
+					margin-top: 40px;
 				}
 				
 				.logo1 {
@@ -151,7 +151,7 @@
 			
 				.container {
 					text-align: center;
-					margin-top: 100px;
+					margin-top: 40px;
 				}
 				
 				.logo1 {
