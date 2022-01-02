@@ -44,11 +44,26 @@ public class AuthController {
 
 	
 	/**
+	 * DS HOME 화면
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
+	public ModelAndView ds_home(HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav = new ModelAndView("ds_home");
+		
+		return mav;
+	}
+	
+	/**
 	 * 로그인 화면
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = {"/", "/dsyouth", "/login", "/dsyouth/login"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/dsyouth", "/login", "/dsyouth/login"}, method = RequestMethod.GET)
 	public ModelAndView login2(HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView();
