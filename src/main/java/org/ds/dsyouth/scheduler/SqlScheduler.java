@@ -90,6 +90,22 @@ public class SqlScheduler {
 		
 		scheduleMapper.sqlQuery(value);
 		
+		value = "CREATE INDEX MEMBER_ID_INDEX ON attendance_" + nextYear + "(member_id)";
+		System.out.println(">>>>>>> " + value);
+		scheduleMapper.sqlQuery(value);
+		
+		value = "CREATE INDEX GROUP_ID_INDEX ON attendance_" + nextYear + "(group_id)";
+		System.out.println(">>>>>>> " + value);
+		scheduleMapper.sqlQuery(value);
+		
+		value = "CREATE INDEX MONTH_INDEX ON attendance_" + nextYear + "(month)";
+		System.out.println(">>>>>>> " + value);
+		scheduleMapper.sqlQuery(value);
+		
+		value = "CREATE INDEX MEM_STATE_INDEX ON attendance_" + nextYear + "(mem_state)";
+		System.out.println(">>>>>>> " + value);
+		scheduleMapper.sqlQuery(value);
+		
 	}
 	
 	/**
