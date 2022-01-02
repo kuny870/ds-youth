@@ -19,7 +19,7 @@
     <div class="container">
             <div class="header">
                 <h1>회원가입</h1>
-                <p>이미 가입하셨나요?<a href="${contextPath }/login" class="link">로그인</a></p>
+                <p>이미 가입하셨나요?<a href="${contextPath }/dsyouth/login" class="link">로그인</a></p>
             </div>
             
             <div class="form">

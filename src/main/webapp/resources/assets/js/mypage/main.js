@@ -14,7 +14,7 @@ function logout(val) {
           success: function(result)
           {
               if(result.success) { // show response from the php script.
-            	  location.href = contextPath + "/login";
+            	  location.href = contextPath + "/dsyouth/login";
               }else {
             	  Swal.fire({
 	                    text: result.message,
