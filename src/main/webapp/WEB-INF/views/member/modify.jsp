@@ -65,6 +65,7 @@
                     <div class="form-middle">
                     	<input type="hidden" id="sTeamId" name="sTeamId" value="${memberSearch.teamId }" />
                     	<input type="hidden" id="sGroupId" name="sGroupId" value="${memberSearch.groupId }" />
+                    	<input type="hidden" id="sMemStateId" name="sMemStateId" value="${memberSearch.memStateId }" />
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	<input type="hidden" id="id" name="id" value="${member.id }" />

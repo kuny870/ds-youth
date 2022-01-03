@@ -251,6 +251,9 @@
 				<if test="groupId != null and groupId != '' and groupId != 0">
 					AND at.group_id = #{groupId}
 				</if>
+				<if test="memStateId != null and memStateId != '' and memStateId != 0">
+					AND m.mem_state = #{memStateId}
+				</if>
 				<if test="nameKW != null and nameKW != ''">
 					AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
 					AND m.mem_state NOT IN ('5')
@@ -305,6 +308,9 @@
 			</if>
 			<if test="groupId != null and groupId != '' and groupId != 0">
 				AND at.group_id = #{groupId}
+			</if>
+			<if test="memStateId != null and memStateId != '' and memStateId != 0">
+				AND m.mem_state = #{memStateId}
 			</if>
 			<if test="nameKW != null and nameKW != ''">
 				AND m.name LIKE CONCAT ('%', #{nameKW}, '%')

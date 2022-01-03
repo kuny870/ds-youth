@@ -11,6 +11,7 @@ public class MemberSearch {
 	private int startRow; // 화면에 보이게 될 게시글이 디비에서 몇번째인지
 	private String teamId; // 팀 검색 조건
 	private String groupId; // 순 검색 조건
+	private String memStateId; // 멤버 상태별 검색 조건
 	private String nameKW; // 이름 검색 조건
 	private int boardSize; // 한 화면에 보이게 될 게시글 개수
 	private String startDate;
@@ -23,6 +24,7 @@ public class MemberSearch {
 		this.setPageNo(1);
 		this.setTeamId("");
 		this.setGroupId("");
+		this.setMemStateId("");
 		this.setNameKW("");
 		this.boardSize = 10;
 		this.year = DateHelper.getYear();
@@ -32,7 +34,14 @@ public class MemberSearch {
 		setStartRow(pageNo);
 	}
 	
-	
+	public String getMemStateId() {
+		return memStateId;
+	}
+
+	public void setMemStateId(String memStateId) {
+		this.memStateId = memStateId;
+	}
+
 	public String getMemberType() {
 		return memberType;
 	}

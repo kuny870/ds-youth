@@ -583,7 +583,7 @@
 	
 	<!-- 회원 상태 값 불러오기 -->
 	<select id="selectMemberStateList" resultMap="MemberStateMap">
-		select * from member_state where del_yn = 'N'
+		select * from member_state where del_yn = 'N' order by ord asc
 	</select>
 	
 </mapper>

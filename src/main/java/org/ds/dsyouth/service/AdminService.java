@@ -49,6 +49,7 @@ public interface AdminService {
 	List<SamePeriod> getSamePeriodList();
 	boolean removeSamePeriod(SamePeriod samePeriod);
 	
+	// 멤버 상태 값 불러오기
 	List<MemberState> getMemberStateList();
 	
 	List<YearSeason> getYearSeasonList(String thisYear);

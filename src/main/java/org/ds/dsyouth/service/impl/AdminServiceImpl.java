@@ -279,7 +279,9 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.selectGroupListByTeam(group);
 	}
 	
-	
+	/**
+	 * 멤버 상태값 불러오기
+	 */
 	@Override
 	public List<MemberState> getMemberStateList() {
 		return adminMapper.selectMemberStateList();

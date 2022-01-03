@@ -2,9 +2,9 @@ function enterKeyEvent() {
 	memberSearch();
 }
 
-function memberModify(id, pageNo, teamId, groupId, nameKW) {
+function memberModify(id, pageNo, teamId, groupId, memStateId, nameKW) {
 	var name = encodeURI(encodeURI(nameKW));
-	location.href = contextPath + "/member/modify?id=" + id + "&pageNo=" + pageNo + "&teamId=" + teamId + "&groupId=" + groupId + "&nameKW=" + name;
+	location.href = contextPath + "/member/modify?id=" + id + "&pageNo=" + pageNo + "&teamId=" + teamId + "&groupId=" + groupId + "&memStateId=" + memStateId + "&nameKW=" + name;
 }
 
 function fnGetCtgSub(sParam){
@@ -51,13 +51,14 @@ function fnGetCtgSub(sParam){
 var pageModule = (function () {
      function movePage(param) {
             // location.pathname ===> 현재 페이지의 URL경로 반환 ===> http://localhost:8080/flower/pop/sender/list
-           location.href = location.pathname + "?pageNo=" + param.pageNo + "&teamId=" + param.teamId + "&groupId=" + param.groupId + "&nameKW=" + param.nameKW;
+           location.href = location.pathname + "?pageNo=" + param.pageNo + "&teamId=" + param.teamId + "&groupId=" + param.groupId + "&memStateId=" + param.memStateId + "&nameKW=" + param.nameKW;
      }
      
      return {
            movePage : function(pageNo) {
         	   	 var teamId = $('#teamId').val();
-        		 var groupId = $('#groupId').val();
+        	   	 var groupId = $('#groupId').val();
+        	   	 var memStateId = $('#memStateId').val();
         		 var nameKW = $('#nameKW').val();
         		 var name = encodeURI(encodeURI(nameKW));
                  // 페이지 번호를 JSON형태로 저장해서 파라미터로 보낸다.
@@ -65,6 +66,7 @@ var pageModule = (function () {
                            pageNo : pageNo,
                            teamId : teamId,
                            groupId : groupId,
+                           memStateId : memStateId,
                            nameKW : name
                      };
                 movePage(param);

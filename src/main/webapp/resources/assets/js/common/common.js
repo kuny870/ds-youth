@@ -138,10 +138,11 @@ function memberList() {
 //	$('#loading').show();
 	var sTeamId = $('#sTeamId').val();
 	var sGroupId = $('#sGroupId').val();
+	var sMemStateId = $('#sMemStateId').val();
 	var sNameKW = $('#sNameKW').val();
 	var pageNo = $('#pageNo').val();
 	var name = encodeURI(encodeURI(sNameKW));
-	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&nameKW=" + name;
+	location.href = contextPath + "/member/list?pageNo=" + pageNo + "&teamId=" + sTeamId + "&groupId=" + sGroupId + "&memStateId=" + sMemStateId + "&nameKW=" + name;
 }
 
 //팀원 등록 페이지 이동
@@ -158,9 +159,10 @@ function memberSearch() {
 //	$('#loading').show();
 	var teamId = $('#teamId').val();
 	var groupId = $('#groupId').val();
+	var memStateId = $('#memStateId').val();
 	var nameKW = $('#nameKW').val();
 	var name = encodeURI(encodeURI(nameKW));
-	var param = {pageNo : 1, teamId : teamId, groupId : groupId, nameKW : name};
+	var param = {pageNo : 1, teamId : teamId, groupId : groupId, memStateId : memStateId, nameKW : name};
 	pageModule.searchPage(param);
 }
 

@@ -61,6 +61,7 @@ public class MemberController {
 		
 		List<Depart> departList = adminService.getDepartList();
 		List<Team> teamList = adminService.getTeamList();
+		List<MemberState> memStateList = adminService.getMemberStateList();
 		Group group = new Group();
 		group.setTeamId(memberSearch.getTeamId());
 		List<Group> groupList = adminService.getGroupListByTeam(group);
@@ -74,6 +75,7 @@ public class MemberController {
 		mav.addObject("departList", departList);
 		mav.addObject("teamList", teamList);
 		mav.addObject("groupList", groupList);
+		mav.addObject("memStateList", memStateList);
 		mav.addObject("memberSearch", memberSearch);
 		mav.addObject("year", year);
 		

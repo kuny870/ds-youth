@@ -34,7 +34,7 @@
 			    
             
 				<div class="div-container">
-					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left;">
+					<div class="customer-select-search member-list-select1">
 						 <select class="select-member-list-team" id="teamId" name="teamId" onchange="fnGetCtgSub(this.value); memberSearch();">
 						 	<option value="" >팀 전체</option>
 	                       	<c:forEach var="team" items="${teamList }">
@@ -47,7 +47,7 @@
 	                    </select>   
                     </div>
                     
-                    <div class="customer-select-search" style="width: 36%; margin-left: -17px; float: left;">
+                    <div class="customer-select-search member-list-select2">
 						 <select class="select-member-list-group" id="groupId" name="groupId" onchange="memberSearch();">
 						 	<option value="" >순 전체</option>
 	                       	<c:forEach var="group" items="${groupList }">
@@ -60,8 +60,21 @@
 	                    </select>
                     </div>        
                     
-                    <div class="customer-select-search" style="width: 22%; margin-left:-33px; margin-right:-3px; float: left;">
-                         <input type="text" class="md-input2" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
+                    <div class="customer-select-search member-list-select3">
+						 <select class="select-member-list-memState" id="memStateId" name="memStateId" onchange="memberSearch();">
+						 	<option value="" >전체</option>
+	                       	<c:forEach var="memState" items="${memStateList }">
+	                       		<c:set var="selected" value="" />
+	                       		<c:if test="${memState.id eq memberSearch.memStateId }">
+									<c:set var="selected" value="selected" />
+								</c:if>
+								<option value="${memState.id}" ${selected }>${memState.mState}</option>
+							</c:forEach>
+	                    </select>
+                    </div>
+                    
+                    <div class="customer-select-search member-list-input1">
+                         <input type="text" class="md-input4" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${memberSearch.nameKW }" style="border: 1px solid #ccc;">
 		            </div>
 		            <div>
 		            	<button class="basic-btn member-list-btn" onclick="memberSearch()">검색</button>
@@ -95,7 +108,7 @@
 				                            <td>${ ((memberSearch.pageNo - 1) * 10) + (i.index + 1) }</td>
 				                            <td>
 				                            	<div class="css-team-list-a">
-				                            		<a href="javascript:memberModify('${mem.id}','${memberSearch.pageNo}','${memberSearch.teamId}','${memberSearch.groupId}','${memberSearch.nameKW }')">
+				                            		<a href="javascript:memberModify('${mem.id}','${memberSearch.pageNo}','${memberSearch.teamId}','${memberSearch.groupId}', '${memberSearch.memStateId}', '${memberSearch.nameKW }')">
 				                            			${mem.name}
 				                            			<c:if test="${mem.samePeriodId != null }">
 				                            				<c:set var="yearTmp" value="${year - mem.samePeriod.birthYear}"/>
