@@ -85,9 +85,9 @@
 			                <table>
 			                    <thead>
 			                        <tr>
-			                            <th class="th-7p6">No</th>
-			                            <th class="th-20p0">이름 (동기)</th>
-			                            <th class="th-9p0">팀</th>
+			                            <th class="th-67p0">No</th>
+			                            <th class="th-120p0">이름 (동기)</th>
+			                            <th class="th-90p0">팀</th>
 			                            <th>
 				                            <c:choose>
 							                	<c:when test="${memberSearch.teamId == 4 || memberSearch.teamId == 8}">
@@ -98,8 +98,8 @@
 							                	</c:otherwise>
 							                </c:choose>
 						                </th>
-			                            <th class="th-7p6">성별</th>
-			                            <th class="th-14p3">연락처</th>
+			                            <th class="th-60p0">성별</th>
+			                            <th class="th-80p1">연락처</th>
 			                        </tr>
 			                    </thead>
 			                    <tbody>
