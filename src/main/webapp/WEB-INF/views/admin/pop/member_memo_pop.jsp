@@ -202,6 +202,8 @@
     	$("#form1").css('display', 'block');
     	$("#form2").css('display', 'none');
     	
+    	$("#att-per2").css('display', 'block');
+    	
     	$('#profileImg-text').val(profileImg);
     	
     	var memMemo = mMemo;
@@ -284,9 +286,25 @@
             {
                 if(result.success) { // show response from the php script.
                 	
-                	$('#attPer1Input').val(result.data.attCnt1 + '/' + result.data.week1Cnt + '(' + Math.floor((result.data.attCnt1/result.data.week1Cnt)*100) + '%)');
-                	$('#attPer2Input').val(result.data.attCnt2 + '/' + result.data.week2Cnt + '(' + Math.floor((result.data.attCnt2/result.data.week2Cnt)*100) + '%)');
-                	$('#attPer3Input').val(result.data.attCnt3 + '/' + result.data.weekTotalCnt + '(' + Math.floor((result.data.attCnt3/result.data.weekTotalCnt)*100) + '%)');
+                	var average1 = 0;
+                	var average2 = 0;
+                	var average3 = 0;
+                	
+                	if(result.data.week1Cnt != 0){
+                		average1 = Math.floor((result.data.attCnt1/result.data.week1Cnt)*100);
+                	}
+                	
+                	if(result.data.week2Cnt != 0){
+                		average2 = Math.floor((result.data.attCnt2/result.data.week2Cnt)*100);
+                	}
+                	
+                	if(result.data.week3Cnt != 0){
+                		average3 = Math.floor((result.data.attCnt3/result.data.weekTotalCnt)*100);
+                	}
+                	
+                	$('#attPer1Input').val(result.data.attCnt1 + '/' + result.data.week1Cnt + '(' + average1 + '%)');
+                	$('#attPer2Input').val(result.data.attCnt2 + '/' + result.data.week2Cnt + '(' + average2 + '%)');
+                	$('#attPer3Input').val(result.data.attCnt3 + '/' + result.data.weekTotalCnt + '(' + average3 + '%)');
                 	
                 	$('#attPer1').text('· 상: ' + $('#attPer1Input').val());
                 	$('#attPer2').text('· 하: ' + $('#attPer2Input').val());
