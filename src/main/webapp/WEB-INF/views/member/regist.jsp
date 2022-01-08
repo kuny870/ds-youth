@@ -46,6 +46,7 @@
                     	<input type="hidden" id="regUser" name="regUser" value="${login.id }" />
                     	<input type="hidden" id="sTeamId" name="sTeamId" value="${memberSearch.teamId }" />
                     	<input type="hidden" id="sGroupId" name="sGroupId" value="${memberSearch.groupId }" />
+                    	<input type="hidden" id="sMemStateId" name="sMemStateId" value="${memberSearch.memStateId }" />
                     	<input type="hidden" id="sNameKW" name="sNameKW" value="${memberSearch.nameKW }" />
                     	<input type="hidden" id="pageNo" name="pageNo" value="${memberSearch.pageNo }" />
                     	
@@ -131,15 +132,15 @@
 		                   <label>
 	                            <input type="text" class="md-input" id="guider" name="guider" placeholder='인도자 (선택)' value="" autocomplete="off" style="margin-top: 6vw;">                        
 	                       </label>
-	                       <div style="width: 80%; margin-top: 15px;">
-		                       <table style="width: 100%; table-layout: fixed;">
+	                       <div class="member-regist-guider-div" style="width: 80%; margin-top: 15px;">
+		                       <table class="member-regist-guider-table" style="width: 100%; table-layout: fixed;">
 			                       	<tr>
 				                       	<td>
-				                            <span style="margin-left: 10px;">등록일</span>
+				                            <span class="member-regist-guider-text" style="margin-left: 10px;">등록일</span>
 				                            <input style="margin-right: 5px;" type="date" class="customer-calendar" id="memberRegDate" name="memberRegDate" value="">
 				                        </td>
 				                        <td>
-				                            <span style="margin-left: 15px;">수료일</span>
+				                            <span class="member-regist-guider-text" style="margin-left: 15px;">수료일</span>
 				                            <input style="margin-left: 5px;" type="date" class="customer-calendar" id="memberGradDate" name="memberGradDate" value="">                        
 				                       </td>
 			                       </tr>

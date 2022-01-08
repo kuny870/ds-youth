@@ -68,6 +68,10 @@ public class MemberController {
 
 		String year = DateHelper.getYear();
 		
+		if("8".equals(memberSearch.getTeamId())) {
+			memberSearch.setTeamId("4");
+		}
+		
 		ModelAndView mav = new ModelAndView("member/list");
 		
 		mav.addObject("paging", paging);
