@@ -103,9 +103,9 @@
                             <input type="text" class="md-input" id="name" name="name" placeholder="이름 (필수)" value="${member.name}">
                         </label>   
                         <!-- 생년월일 -->                     
-                        <%-- <label>
+                        <label>
                             <input type="number" pattern="\d*" class="md-input" id="dateOfBirth" name="dateOfBirth" placeholder="생년월일 (ex:870421) (선택)" value="${member.dateOfBirth}" maxlength="6" oninput="numberMaxLength(this);" autocomplete="off">
-                        </label> --%>
+                        </label>
                         <!-- 휴대폰 번호 -->
                         <label>
                             <input type="number" pattern="\d*" class="md-input" id="htel" name="htel" placeholder='휴대폰 "-" 빼고 입력 (선택)' value="${member.htel}" maxlength="11" oninput="numberMaxLength(this);" autocomplete="off">

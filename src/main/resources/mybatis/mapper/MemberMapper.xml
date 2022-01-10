@@ -608,13 +608,14 @@
 			, m.same_period_id
             , sp.birth_year as sp_birth_year
 			, m.htel
+			, m.date_of_birth
 		FROM member m
 		LEFT OUTER JOIN team t ON t.id = m.team_id
 		LEFT OUTER JOIN same_period sp ON sp.id = m.same_period_id
 		LEFT OUTER JOIN attendance_${year} at ON at.member_id = m.id
 		LEFT OUTER JOIN `group` g ON g.id = at.group_id
 		LEFT OUTER JOIN member_state ms ON ms.id = m.mem_state
-		WHERE at.month = 8
+		WHERE at.month = #{month}
 			AND m.mem_state != 5 
 			AND m.mem_state != 6 
 			AND m.del_yn = 'N'

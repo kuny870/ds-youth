@@ -44,6 +44,7 @@ public class GenericExcelViewTeamList extends AbstractExcelView {
 	          HSSFCell cell2_2 = row.createCell(2);
 	          HSSFCell cell2_3 = row.createCell(3);
 	          HSSFCell cell2_4 = row.createCell(4);
+	          HSSFCell cell2_5 = row.createCell(5);
 	              
 	          cell2_0.setCellValue(new HSSFRichTextString(memberExcel.get(x).getTeam().gettShortName()));
 	          
@@ -85,6 +86,7 @@ public class GenericExcelViewTeamList extends AbstractExcelView {
            	  
 	          cell2_3.setCellValue(new HSSFRichTextString(memberExcel.get(x).getName() + samePeriodStr));
 	          cell2_4.setCellValue(new HSSFRichTextString(memberExcel.get(x).getHtel()));
+	          cell2_5.setCellValue(new HSSFRichTextString(memberExcel.get(x).getDateOfBirth()));
 		}
 	            
         // column 크기 조정
@@ -93,6 +95,7 @@ public class GenericExcelViewTeamList extends AbstractExcelView {
     	sheet.setColumnWidth(2, 3000 );
     	sheet.setColumnWidth(3, 3000 );
     	sheet.setColumnWidth(4, 3600 );
+    	sheet.setColumnWidth(5, 3200 );
         	
 	}	// size check end
         	

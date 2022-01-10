@@ -107,6 +107,7 @@ public class MemberRestController {
 				
 				MemberTmp mtp = new MemberTmp();
 				mtp.setMemState(memberList.get(0).getMemState());
+				mtp.setDateOfBirth(memberList.get(0).getDateOfBirth());
 				mtp.setHtel(memberList.get(0).getHtel());
 				mtp.setMemo(memberList.get(0).getMemo());
 				mtp.setSamePeriodId(memberList.get(0).getSamePeriodId());

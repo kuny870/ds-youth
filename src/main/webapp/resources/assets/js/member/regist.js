@@ -38,6 +38,7 @@ $('#name').blur(function() {
 //	            			$('#originImg').val(res.data.originProfileImg);
 //	            			$('#replaceProfileImg').val(res.data.replaceProfileImg);
             			if(res.data.memState != null){$('#memState').val(res.data.memState);}
+            			if(res.data.dateOfBirth != null){$('#dateOfBirth').val(res.data.dateOfBirth);}	
             			if(res.data.htel != null){$('#htel').val(res.data.htel);}	
             			if(res.data.samePeriodId != null){$('#samePeriodId').val(res.data.samePeriodId);}
             			if(res.data.memo != null){$('#memo').val(res.data.memo);}
@@ -162,10 +163,10 @@ $("#memberRegistForm").submit(function(e) {
 	if ($name.val() == "") {
 		validateMessage = '이름을 입력해 주세요';
 		validateFocus = $name;
-	}/* else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
+	} else if ($dateOfBirth.val() != "" && dateOfBirthRegex.test($dateOfBirth.val())===false) {
 		validateMessage = '생년월일을 다시 확인해 주세요';
 		validateFocus = $dateOfBirth;
-	} */else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
+	} else if ($htel.val() != "" && htelRegex.test($htel.val())===false) {
 		validateMessage = '휴대폰 번호를 다시 확인해 주세요';
 		validateFocus = $htel;
 	}

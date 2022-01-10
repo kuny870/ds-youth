@@ -241,8 +241,8 @@ public class MemberServiceImpl implements MemberService {
 	 * 팀별 명단 불러오기
 	 */
 	@Override
-	public List<Member> getMemberListForExcel(Map year) {
-		return memberMapper.selectMemberListForExcel(year);
+	public List<Member> getMemberListForExcel(Map map) {
+		return memberMapper.selectMemberListForExcel(map);
 	}
 
 
