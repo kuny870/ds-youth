@@ -139,6 +139,7 @@
 		LEFT OUTER JOIN depart d ON d.id = u.depart_id
 		LEFT OUTER JOIN team t ON t.id = u.team_id
 		WHERE u.login_id != 'admin'
+			AND u.login_id != 'dev'
 			AND u.del_yn = 'N'
 		ORDER BY
 			<if test="id == 8">
@@ -177,7 +178,7 @@
 		LEFT OUTER JOIN auth a ON a.id = u.auth_id
 		LEFT OUTER JOIN depart d ON d.id = u.depart_id
 		LEFT OUTER JOIN team t ON t.id = u.team_id
-		where u.login_id != 'admin'
+		where u.login_id != 'admin' and u.login_id != 'dev'
 		order by u.del_yn asc, d.d_name asc, t.t_short_name asc, u.name asc
 	</select>
   	
