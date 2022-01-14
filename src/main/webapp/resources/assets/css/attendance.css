@@ -253,7 +253,7 @@
 	}
 
 	.search-div {
-		width: 750px !important;
+		width: 740px !important;
 		margin: auto !important;
 	}
 	.attendance-table {
@@ -281,6 +281,7 @@
 	.div-container {
 		margin-top: 40px !important;
 		margin-bottom: 130px !important;
+		width: 740px !important;
 	}
 	.header-att {
 		height: 88px !important;

@@ -63,7 +63,7 @@
 
 	.profileImgId-img2 {
 		border-radius:7px;
-		max-height: 950px;
+		max-height: 550px;
 		max-width: 90%;
 		margin-left: 20px;
 		margin-bottom: 20px;
@@ -75,7 +75,7 @@
 	    left: 45%;
 	    margin-left: -35%; /* half of width */
 	    /* height: 300px; */
-	    top: 25%;
+	    top: 33%;
 	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	
@@ -109,7 +109,7 @@
 	    left: 57%;
 	    margin-left: -35%; /* half of width */
 	    /* height: 300px; */
-	    top: 38%;
+	    top: 45%;
 	    margin-top: -200px; /* half of height */
 	    overflow: auto;
 	
