@@ -27,10 +27,26 @@
             
 				<div class="div-container">
 					
+					<div class="customer-select-search" style="width: 36%; margin-left: 7px; float: left; visibility: hidden;">
+						 <select class="select-member-list-team" id="memberType" name="memberType" onchange="adminTeamListSearchBefore();">
+	                    </select>   
+                    </div>
+                    
+                    <div class="customer-select-search" style="width: 36%; margin-left: -17px; float: left; visibility: hidden;">
+						 <select class="select-member-list-group" id="groupId" name="groupId" onchange="memberSearch();">
+	                    </select>
+                    </div>
+                    
+                    <div class="customer-select-search" style="width: 22%; margin-left:-33px; margin-right:-3px; float: left;">
+                         <input type="text" class="md-input2" id="nameKW" name="nameKW" onkeyup="if(window.event.keyCode==13){(enterKeyEvent())}" placeholder="이름" value="${group.nameKW }" style="border: 1px solid #ccc;">		            </div>
+		            <div>
+		            	<button class="basic-btn member-list-btn" onclick="adminGroupDetailSearch();">검색</button>
+		            </div>
+		            
 					<div class="admin-group-detail-text">
 						＊ 순장으로 임명 시 이름을 클릭해 주세요
 					</div>
-
+					
 					<div class="sales-table">
 			            <div class="table-wrap" style="padding: 0.466667vw 0 0 0;">
 

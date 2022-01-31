@@ -224,16 +224,16 @@
 		
 	    <div class="container">
 	    	<div class="logo1">
-	    		<a href="http://keonhee.synology.me/dsyouth"><img src="${resourcesPath}/assets/images/logo/dsyouth_icon.png" class="dsyouth"></a>
-	    		<a href="http://keonhee.synology.me:2/dshigh"><img src="${resourcesPath}/assets/images/logo/dshigh_icon.png" class="dshigh"></a>
+	    		<a href="http://keonhee.synology.me/dsyouth"><img src="${resourcesPath}/assets/images/logo/dsyouth_icon.png?${nowTime}" class="dsyouth"></a>
+	    		<a href="http://keonhee.synology.me:2/dshigh"><img src="${resourcesPath}/assets/images/logo/dshigh_icon.png?${nowTime}" class="dshigh"></a>
 	    	</div>
 	    	<div class="logo2">
-	    		<a href="http://keonhee.synology.me:2/dsmiddle"><img src="${resourcesPath}/assets/images/logo/dsmiddle_icon.png" class="dsmiddle"></a>
-	    		<a href="http://keonhee.synology.me:2/dselementary"><img src="${resourcesPath}/assets/images/logo/dselementary_icon.png" class="dselementary"></a>
+	    		<a href="http://keonhee.synology.me:2/dsmiddle"><img src="${resourcesPath}/assets/images/logo/dsmiddle_icon.png?${nowTime}" class="dsmiddle"></a>
+	    		<a href="http://keonhee.synology.me:2/dselementary"><img src="${resourcesPath}/assets/images/logo/dselementary_icon.png?${nowTime}" class="dselementary"></a>
 	    	</div>
 	    	<div class="logo3">
-	    		<img src="${resourcesPath}/assets/images/logo/dschildhood_icon.png" class="dschildhood">
-	    		<img src="${resourcesPath}/assets/images/logo/dskinder_icon.png" class="dskinder">
+	    		<img src="${resourcesPath}/assets/images/logo/dschildhood_icon.png?${nowTime}" class="dschildhood">
+	    		<img src="${resourcesPath}/assets/images/logo/dskinder_icon.png?${nowTime}" class="dskinder">
 	    	</div>
 	    	
 	    </div>

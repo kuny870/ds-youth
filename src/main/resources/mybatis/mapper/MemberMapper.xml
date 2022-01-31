@@ -385,6 +385,9 @@
 					AND at.month BETWEEN 10 and 12
 				</when>
 			</choose>
+			<if test="nameKW != null and nameKW != ''">
+				AND m.name LIKE CONCAT ('%', #{nameKW}, '%')
+			</if>
 			<!-- AND IF(#{season} = '상반기', at.month BETWEEN 1 and 6, at.month BETWEEN 7 and 12) -->
 		GROUP BY
 			at.member_id

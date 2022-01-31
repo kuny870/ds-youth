@@ -46,7 +46,7 @@
 	          </div>
 	          <div class="form-bottom-link">
 	            <label class="radio-inline useCookie">
-	            <input type="checkbox" id="useCookieCheckBox" name="useCookieCheckBox">
+	            <input type="checkbox" id="useCookieCheckBox" name="useCookieCheckBox" style="cursor: pointer;">
 	            <input type="hidden" id="useCookie" name="useCookie" value="">
                		<span>로그인 상태 유지</span>
 	            </label>

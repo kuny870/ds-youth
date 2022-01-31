@@ -122,6 +122,14 @@ function adminTeamListSearch() {
 	location.href = contextPath + "/admin/teamList?memberType=" + memberType + "&nameKW=" + name;
 }
 
+//순명 관리 상세
+function adminGroupDetailSearch() {
+	var groupId = $('#gId').val();
+	var sNameKW = $('#nameKW').val();
+	var name = encodeURI(encodeURI(sNameKW));
+	location.href = contextPath + "/admin/group/detail?id=" + groupId + "&nameKW=" + name;
+}
+
 //출석 조회
 function attendanceSearch() {
 //	$('#loading').show();

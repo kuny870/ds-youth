@@ -21,6 +21,13 @@ public class Attendance {
 	private String sayu4;
 	private String sayu5;
 	
+	private String onYn1;
+	private String onYn2;
+	private String onYn3;
+	private String onYn4;
+	private String onYn5;
+	
+	
 	private Integer attCnt1;
 	private Integer attCnt2;
 	private Integer attCnt3;
@@ -39,9 +46,16 @@ public class Attendance {
 	private String lastSayu4;
 	private String lastSayu5;
 	
+	private String lastOnYn1;
+	private String lastOnYn2;
+	private String lastOnYn3;
+	private String lastOnYn4;
+	private String lastOnYn5;
+	
 	private String seasonFlag;
 	private Integer totalLastYear;
-	private String removeFlag;
+	private String removeFlag1;
+	private String removeFlag2;
 	private Integer attOrd;
 	
 	private Member member;
@@ -49,11 +63,17 @@ public class Attendance {
 	private Team team;
 	private Group group;
 	
-	public String getRemoveFlag() {
-		return removeFlag;
+	public String getRemoveFlag1() {
+		return removeFlag1;
 	}
-	public void setRemoveFlag(String removeFlag) {
-		this.removeFlag = removeFlag;
+	public void setRemoveFlag1(String removeFlag1) {
+		this.removeFlag1 = removeFlag1;
+	}
+	public String getRemoveFlag2() {
+		return removeFlag2;
+	}
+	public void setRemoveFlag2(String removeFlag2) {
+		this.removeFlag2 = removeFlag2;
 	}
 	public Integer getTotalLastYear() {
 		return totalLastYear;
@@ -311,6 +331,65 @@ public class Attendance {
 	public void setWeek2Cnt(Integer week2Cnt) {
 		this.week2Cnt = week2Cnt;
 	}
-	
+	public String getOnYn1() {
+		return onYn1;
+	}
+	public void setOnYn1(String onYn1) {
+		this.onYn1 = onYn1;
+	}
+	public String getOnYn2() {
+		return onYn2;
+	}
+	public void setOnYn2(String onYn2) {
+		this.onYn2 = onYn2;
+	}
+	public String getOnYn3() {
+		return onYn3;
+	}
+	public void setOnYn3(String onYn3) {
+		this.onYn3 = onYn3;
+	}
+	public String getOnYn4() {
+		return onYn4;
+	}
+	public void setOnYn4(String onYn4) {
+		this.onYn4 = onYn4;
+	}
+	public String getOnYn5() {
+		return onYn5;
+	}
+	public void setOnYn5(String onYn5) {
+		this.onYn5 = onYn5;
+	}
+	public String getLastOnYn1() {
+		return lastOnYn1;
+	}
+	public void setLastOnYn1(String lastOnYn1) {
+		this.lastOnYn1 = lastOnYn1;
+	}
+	public String getLastOnYn2() {
+		return lastOnYn2;
+	}
+	public void setLastOnYn2(String lastOnYn2) {
+		this.lastOnYn2 = lastOnYn2;
+	}
+	public String getLastOnYn3() {
+		return lastOnYn3;
+	}
+	public void setLastOnYn3(String lastOnYn3) {
+		this.lastOnYn3 = lastOnYn3;
+	}
+	public String getLastOnYn4() {
+		return lastOnYn4;
+	}
+	public void setLastOnYn4(String lastOnYn4) {
+		this.lastOnYn4 = lastOnYn4;
+	}
+	public String getLastOnYn5() {
+		return lastOnYn5;
+	}
+	public void setLastOnYn5(String lastOnYn5) {
+		this.lastOnYn5 = lastOnYn5;
+	}
 	
 }

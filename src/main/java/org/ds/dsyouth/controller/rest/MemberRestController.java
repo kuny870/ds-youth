@@ -214,7 +214,7 @@ public class MemberRestController {
 	@RequestMapping(value = "/member/memo", method = RequestMethod.POST, produces = "application/json")
 	public RestResponse member_memo_edit( 
 			@ModelAttribute Member member,
-			String sundays, String sayu, Integer attId, String thisYear, String userAuthId) {
+			String sundays, String onYn, String sayu, Integer attId, String thisYear, String userAuthId) {
 
 		RestResponse response = new RestResponse();
 		
@@ -224,14 +224,19 @@ public class MemberRestController {
 			
 			if("1".equals(sundays)) {
 				att.setSayu1(sayu);
+				att.setOnYn1(onYn);
 			}else if("2".equals(sundays)) {
 				att.setSayu2(sayu);
+				att.setOnYn2(onYn);
 			}else if("3".equals(sundays)) {
 				att.setSayu3(sayu);
+				att.setOnYn3(onYn);
 			}else if("4".equals(sundays)) {
 				att.setSayu4(sayu);
+				att.setOnYn4(onYn);
 			}else{
 				att.setSayu5(sayu);
+				att.setOnYn5(onYn);
 			}
 			att.setId(attId);
 			att.setYear(thisYear);

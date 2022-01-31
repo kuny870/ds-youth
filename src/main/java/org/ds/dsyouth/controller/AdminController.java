@@ -226,12 +226,18 @@ public class AdminController {
 	/**
 	 * 순명 관리 상세
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/admin/group/detail", method = RequestMethod.GET)
-	public ModelAndView admin_group_detail(Group group)	{
+	public ModelAndView admin_group_detail(Group group) throws UnsupportedEncodingException	{
+		
+		String name = group.getNameKW();
 		
 		group = adminService.getGroup(group.getId());
 		String thisYear = DateHelper.getYear();
+		
+		String nameKW = java.net.URLDecoder.decode(name, "UTF-8");
+		group.setNameKW(nameKW);
 		
 		List<Member> memberList = memberService.getMemberList(group);
 		List<MemberState> memberStateList = adminService.getMemberStateList();

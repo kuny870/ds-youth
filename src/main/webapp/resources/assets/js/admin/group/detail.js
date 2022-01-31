@@ -1,3 +1,7 @@
+function enterKeyEvent() {
+	adminGroupDetailSearch();
+}
+
 // 순공부 적용
 function attGroup() {
 

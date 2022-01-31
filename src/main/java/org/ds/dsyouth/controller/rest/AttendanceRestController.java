@@ -234,9 +234,7 @@ public class AttendanceRestController {
 			Integer monthTmp = StringHelper.parseInt(DateHelper.getMonth());
 	    	String month = monthTmp.toString();
 	    	
-	    	att.setYear(year);
 	    	att.setMonth(month);
-
 	    	
 	    	Integer attCnt1 = 0;
 	    	Integer attCnt2 = 0;
@@ -244,10 +242,12 @@ public class AttendanceRestController {
 	    	int weekTotalCnt = 0;
 	    	
 	    	// 특정 날짜가 몇번째 주 인지 구하기
-	    	if("12".equals(month)) {
+	    	if(att.getYear().equals(year) && "12".equals(month)) {
 	    		weekTotalCnt = DateHelper.getWeekOfYear(Integer.toString((Integer.parseInt(DateHelper.getDate("yyyyMMdd")) - 7)));
-	    	}else {
+	    	}else if (att.getYear().equals(year)){
 	    		weekTotalCnt = DateHelper.getWeekOfYear() - 1;
+	    	}else {
+	    		weekTotalCnt = 52;
 	    	}
 	    	
 			int week1Cnt = 0;

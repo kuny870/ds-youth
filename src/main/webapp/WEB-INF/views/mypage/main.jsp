@@ -24,13 +24,13 @@
     <div class="container">
    		<div class="header-product">
             <p class="main_title text-center" style="background: white;">
-                 <img src="${resourcesPath }/assets/images/dsyouth_icon.png?${nowTime}" class="main-img">
+                 <img src="${resourcesPath }/assets/images/logo/dsyouth_icon.png?${nowTime}" class="main-img">
                  <span class="main-title cursor-pointer" onclick="window.open('http://gofile.me/6NANj/xsaXoR5gx', '_blanck'); return false;"> 청년부</span>
             </p>
             <div class="mypage-wrap">
             
                 <!-- 엘더 이상 -->
-                <c:if test="${login.authId <= 6}">
+                <c:if test="${login.authId <= 4}">
                 	<h3>관리자</h3>
                 	<div class="mypage-rows">
 	                    <div class="mypage-row">

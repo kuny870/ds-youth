@@ -64,13 +64,10 @@
 			                </div>
 		                </c:if>
 		                
-		                <!-- 팀장 이상 -->
-					    <c:if test="${login.authId <= 4}">
-	                    	<div class="admin-list-div">
-		                		<!-- <label class="admin-list-label">부서</label> -->
-		                		<button class="basic-btn admin-list-btn" onclick="teamList()">팀원(삭제,졸업,수료) 관리</button>
-		                	</div>
-					    </c:if>
+                    	<div class="admin-list-div">
+	                		<!-- <label class="admin-list-label">부서</label> -->
+	                		<button class="basic-btn admin-list-btn" onclick="teamList()">팀원(삭제,졸업,수료) 관리</button>
+	                	</div>
 		                
 		                <div class="admin-list-div">
 		                	<!-- <label class="admin-list-label">순</label> -->

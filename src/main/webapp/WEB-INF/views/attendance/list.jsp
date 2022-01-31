@@ -522,17 +522,35 @@
 												                            	</c:if>
 												                            	<td class="lastAtt">
 												                            		<c:choose>
-												                            			<c:when test="${att.lastSayu1 != '' && att.lastSayu1 != null}">
+												                            			<c:when test="${(att.lastSayu1 != '' && att.lastSayu1 != null) || att.lastOnYn1 == 'Y'}">
 												                            				
 												                            				<c:choose>
 									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu1}', '${i.index+1}', '1', '0')" title="${att.lastSayu1}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn1 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:when>
 									                            								<c:otherwise>
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu1}', '${i.index+1}', '0', '0')" title="${att.lastSayu1}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn1 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:otherwise>
 									                            							</c:choose>
@@ -550,17 +568,35 @@
 												                            	</c:if>
 												                            	<td class="lastAtt">
 												                            		<c:choose>
-												                            			<c:when test="${att.lastSayu2 != '' && att.lastSayu2 != null}">
+												                            			<c:when test="${(att.lastSayu2 != '' && att.lastSayu2 != null) || att.lastOnYn2 == 'Y'}">
 												                            				
 												                            				<c:choose>
 									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu2}', '${i.index+1}', '1', '0')" title="${att.lastSayu2}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn2 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:when>
 									                            								<c:otherwise>
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu2}', '${i.index+1}', '0', '0')" title="${att.lastSayu2}" class="none-underline">
-										                            									사유
+										                            									
+																										<c:choose>
+											                            									<c:when test="${att.lastOnYn2 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:otherwise>
 									                            							</c:choose>
@@ -579,17 +615,35 @@
 												                            	</c:if>
 												                            	<td class="lastAtt">
 												                            		<c:choose>
-												                            			<c:when test="${att.lastSayu3 != '' && att.lastSayu3 != null}">
+												                            			<c:when test="${(att.lastSayu3 != '' && att.lastSayu3 != null) || att.lastOnYn3 == 'Y'}">
 												                            			
 												                            				<c:choose>
 									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu3}', '${i.index+1}', '1', '0')" title="${att.lastSayu3}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn3 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:when>
 									                            								<c:otherwise>
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu3}', '${i.index+1}', '0', '0')" title="${att.lastSayu3}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn3 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:otherwise>
 									                            							</c:choose>
@@ -614,17 +668,35 @@
 												                            	</c:if>
 												                            	<td class="lastAtt" style="${borderRight}">
 												                            		<c:choose>
-												                            			<c:when test="${att.lastSayu4 != '' && att.lastSayu4 != null}">
+												                            			<c:when test="${(att.lastSayu4 != '' && att.lastSayu4 != null) || att.lastOnYn4 == 'Y'}">
 												                            			
 												                            				<c:choose>
 									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu4}', '${i.index+1}', '1', '0')" title="${att.lastSayu4}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn4 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:when>
 									                            								<c:otherwise>
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu4}', '${i.index+1}', '0', '0')" title="${att.lastSayu4}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn4 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:otherwise>
 									                            							</c:choose>
@@ -649,17 +721,35 @@
 												                            	</c:if>
 												                            	<td class="lastAtt" style="${borderRight}">
 												                            		<c:choose>
-												                            			<c:when test="${att.lastSayu5 != '' && att.lastSayu5 != null}">
+												                            			<c:when test="${(att.lastSayu5 != '' && att.lastSayu5 != null) || att.lastOnYn5 == 'Y'}">
 												                            			
 												                            				<c:choose>
 									                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu5}', '${i.index+1}', '1', '0')" title="${att.lastSayu5}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn5 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:when>
 									                            								<c:otherwise>
 									                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${lastSun }', '${att.lastSayu5}', '${i.index+1}', '0', '0')" title="${att.lastSayu5}" class="none-underline">
-										                            									사유
+										                            									
+										                            									<c:choose>
+											                            									<c:when test="${att.lastOnYn5 == 'Y'}">
+											                            										온
+										                            										</c:when>
+										                            										<c:otherwise>
+										                            											사유									                            										
+										                            										</c:otherwise>
+									                            										</c:choose>
+									                            										
 										                            								</a>
 									                            								</c:otherwise>
 									                            							</c:choose>
@@ -689,17 +779,35 @@
 											                            	</c:if>
 											                            	<td>
 											                            		<c:choose>
-											                            			<c:when test="${att.sayu1 != '' && att.sayu1 != null}">
+											                            			<c:when test="${(att.sayu1 != '' && att.sayu1 != null) || att.onYn1 == 'Y'}">
 											                            				
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '1', '1')" title="${att.sayu1}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn1 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+									                            										
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu1}', '${i.index+1}', '0', '1')" title="${att.sayu1}" class="none-underline">
-									                            									사유
+									                            									
+									                            									<c:choose>
+										                            									<c:when test="${att.onYn1 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:otherwise>
 								                            							</c:choose>
@@ -717,17 +825,35 @@
 											                            	</c:if>
 											                            	<td>
 											                            		<c:choose>
-											                            			<c:when test="${att.sayu2 != '' && att.sayu2 != null}">
+											                            			<c:when test="${(att.sayu2 != '' && att.sayu2 != null) || att.onYn2 == 'Y'}">
 											                            				
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '1', '1')" title="${att.sayu2}" class="none-underline">
-									                            									사유
+									                            									
+									                            									<c:choose>
+										                            									<c:when test="${att.onYn2 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu2}', '${i.index+1}', '0', '1')" title="${att.sayu2}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn2 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:otherwise>
 								                            							</c:choose>
@@ -746,17 +872,35 @@
 											                            	</c:if>
 											                            	<td>
 											                            		<c:choose>
-											                            			<c:when test="${att.sayu3 != '' && att.sayu3 != null}">
+											                            			<c:when test="${(att.sayu3 != '' && att.sayu3 != null) || att.onYn3 == 'Y'}">
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '1', '1')" title="${att.sayu3}" class="none-underline">
-									                            									사유
+									                            									
+									                            									<c:choose>
+										                            									<c:when test="${att.onYn3 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu3}', '${i.index+1}', '0', '1')" title="${att.sayu3}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn3 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:otherwise>
 								                            							</c:choose>
@@ -775,17 +919,35 @@
 											                            	</c:if>
 											                            	<td>
 											                            		<c:choose>
-											                            			<c:when test="${att.sayu4 != '' && att.sayu4 != null}">
+											                            			<c:when test="${(att.sayu4 != '' && att.sayu4 != null) || att.onYn4 == 'Y'}">
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '1', '1')" title="${att.sayu4}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn4 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu4}', '${i.index+1}', '0', '1')" title="${att.sayu4}" class="none-underline">
-									                            									사유
+									                            									
+									                            									<c:choose>
+										                            									<c:when test="${att.onYn4 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:otherwise>
 								                            							</c:choose>
@@ -804,17 +966,35 @@
 											                            	</c:if>
 											                            	<td>
 											                            		<c:choose>
-											                            			<c:when test="${att.sayu5 != '' && att.sayu5 != null}">
+											                            			<c:when test="${(att.sayu5 != '' && att.sayu5 != null) || att.onYn5 == 'Y'}">
 											                            			
 											                            				<c:choose>
 								                            								<c:when test="${((att.member.teamId == login.teamId && login.authId == 3) || login.authId < 3)}">
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '1', '1')" title="${att.sayu5}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn5 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:when>
 								                            								<c:otherwise>
 								                            									<a href="javascript:sayuPop('${att.id }', '${att.member.name }', '${sun }', '${att.sayu5}', '${i.index+1}', '0', '1')" title="${att.sayu5}" class="none-underline">
-									                            									사유
+									                            									
+																									<c:choose>
+										                            									<c:when test="${att.onYn5 == 'Y'}">
+										                            										온
+									                            										</c:when>
+									                            										<c:otherwise>
+									                            											사유									                            										
+									                            										</c:otherwise>
+								                            										</c:choose>
+								                            										
 									                            								</a>
 								                            								</c:otherwise>
 								                            							</c:choose>

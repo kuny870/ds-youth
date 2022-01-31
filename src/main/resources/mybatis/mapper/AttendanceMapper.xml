@@ -23,6 +23,11 @@
 		<result column="sayu3" jdbcType="VARCHAR" property="sayu3" />
 		<result column="sayu4" jdbcType="VARCHAR" property="sayu4" />
 		<result column="sayu5" jdbcType="VARCHAR" property="sayu5" />
+		<result column="on_yn1" jdbcType="VARCHAR" property="onYn1" />
+		<result column="on_yn2" jdbcType="VARCHAR" property="onYn2" />
+		<result column="on_yn3" jdbcType="VARCHAR" property="onYn3" />
+		<result column="on_yn4" jdbcType="VARCHAR" property="onYn4" />
+		<result column="on_yn5" jdbcType="VARCHAR" property="onYn5" />
 		
 		<result column="last_first_week" jdbcType="VARCHAR" property="lastFirstWeek" />
 		<result column="last_second_week" jdbcType="VARCHAR" property="lastSecondWeek" />
@@ -34,6 +39,11 @@
 		<result column="last_sayu3" jdbcType="VARCHAR" property="lastSayu3" />
 		<result column="last_sayu4" jdbcType="VARCHAR" property="lastSayu4" />
 		<result column="last_sayu5" jdbcType="VARCHAR" property="lastSayu5" />
+		<result column="last_on_yn1" jdbcType="VARCHAR" property="lastOnYn1" />
+		<result column="last_on_yn2" jdbcType="VARCHAR" property="lastOnYn2" />
+		<result column="last_on_yn3" jdbcType="VARCHAR" property="lastOnYn3" />
+		<result column="last_on_yn4" jdbcType="VARCHAR" property="lastOnYn4" />
+		<result column="last_on_yn5" jdbcType="VARCHAR" property="lastOnYn5" />
 		
 		<result column="total_last_year" jdbcType="INTEGER" property="totalLastYear" />
 		<result column="att_ord" jdbcType="INTEGER" property="attOrd" />
@@ -184,6 +194,11 @@
 		    , at.sayu3 AS sayu3
 		    , at.sayu4 AS sayu4
 		    , at.sayu5 AS sayu5
+		    , at.on_yn1 AS on_yn1
+		    , at.on_yn2 AS on_yn2
+		    , at.on_yn3 AS on_yn3
+		    , at.on_yn4 AS on_yn4
+		    , at.on_yn5 AS on_yn5
 		    
 		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
 		    	
@@ -197,6 +212,11 @@
 		    , at2.sayu3 AS last_sayu3
 		    , at2.sayu4 AS last_sayu4
 		    , at2.sayu5 AS last_sayu5
+		    , at2.on_yn1 AS last_on_yn1
+		    , at2.on_yn2 AS last_on_yn2
+		    , at2.on_yn3 AS last_on_yn3
+		    , at2.on_yn4 AS last_on_yn4
+		    , at2.on_yn5 AS last_on_yn5
 		    	
 		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
 		    
@@ -250,6 +270,11 @@
 			    , at.sayu3 AS sayu3
 			    , at.sayu4 AS sayu4
 			    , at.sayu5 AS sayu5
+			    , at.on_yn1 AS on_yn1
+			    , at.on_yn2 AS on_yn2
+			    , at.on_yn3 AS on_yn3
+			    , at.on_yn4 AS on_yn4
+			    , at.on_yn5 AS on_yn5
 			    
 			    , at.member_id AS member_id
 			    , at.att_yn AS att_yn
@@ -424,6 +449,11 @@
 		    , at.sayu3 AS sayu3
 		    , at.sayu4 AS sayu4
 		    , at.sayu5 AS sayu5
+		    , at.on_yn1 AS on_yn1
+		    , at.on_yn2 AS on_yn2
+		    , at.on_yn3 AS on_yn3
+		    , at.on_yn4 AS on_yn4
+		    , at.on_yn5 AS on_yn5
 		    
 		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 start -->
 		    	
@@ -437,6 +467,11 @@
 		    , at2.sayu3 AS last_sayu3
 		    , at2.sayu4 AS last_sayu4
 		    , at2.sayu5 AS last_sayu5
+		    , at2.on_yn1 AS last_on_yn1
+		    , at2.on_yn2 AS last_on_yn2
+		    , at2.on_yn3 AS last_on_yn3
+		    , at2.on_yn4 AS last_on_yn4
+		    , at2.on_yn5 AS last_on_yn5
 		    	
 		    <!-- 전달 출석부 포함하기위한 JOIN 서브 쿼리 end -->
 		    
@@ -491,6 +526,11 @@
 			    , at.sayu3 AS sayu3
 			    , at.sayu4 AS sayu4
 			    , at.sayu5 AS sayu5
+			    , at.on_yn1 AS on_yn1
+			    , at.on_yn2 AS on_yn2
+			    , at.on_yn3 AS on_yn3
+			    , at.on_yn4 AS on_yn4
+			    , at.on_yn5 AS on_yn5
 			    
 			    , at.member_id AS member_id
 			    , at.att_yn AS att_yn
@@ -664,6 +704,21 @@
 	      	<if test="sayu5 != null">
 	        	sayu5 = #{sayu5},
 	      	</if>
+      		<if test="onYn1 != null">
+	        	on_yn1 = #{onYn1},
+	      	</if>
+	      	<if test="onYn2 != null">
+	        	on_yn2 = #{onYn2},
+	      	</if>
+	      	<if test="onYn3 != null">
+	        	on_yn3 = #{onYn3},
+	      	</if>
+	      	<if test="onYn4 != null">
+	        	on_yn4 = #{onYn4},
+	      	</if>
+	      	<if test="onYn5 != null">
+	        	on_yn5 = #{onYn5},
+	      	</if>
 	    </set>
 		WHERE 1=1
 			AND id = #{id}
@@ -777,7 +832,9 @@
 	<!-- 출석부 사유 삭제 -->
 	<update id="deleteAttSayu" parameterType="Attendance">
 		UPDATE attendance_${year}
-		SET ${removeFlag} = ''
+		SET 
+			${removeFlag1} = ''
+			, ${removeFlag2} = 'N'
 		WHERE 1=1
 			AND id = #{id}
 	</update>

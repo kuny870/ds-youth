@@ -17,11 +17,13 @@ public class Group {
 	private Integer cnt;
 	private Integer regUser;
 	private String delYn;
+	private String nameKW; // 이름 검색 조건
 	
 	private Depart depart;
 	private Team team;
 	
 	public Group() {
+		this.setNameKW("");
 		this.month = DateHelper.getMonth();
 		if("12".equals(month)) {
 			this.year = Integer.toString((StringHelper.parseIntAndArrayRange(DateHelper.getYear()) + 1));
@@ -35,6 +37,22 @@ public class Group {
 		}
 	}
 	
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getNameKW() {
+		return nameKW;
+	}
+
+	public void setNameKW(String nameKW) {
+		this.nameKW = nameKW;
+	}
+
 	public String getSeasonFlag() {
 		return seasonFlag;
 	}

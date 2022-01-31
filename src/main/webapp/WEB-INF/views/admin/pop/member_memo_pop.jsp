@@ -274,6 +274,7 @@
         	
         } // if end
         
+        
         var url = contextPath + "/rest/member/attPer";
         $.ajax({
             type: "POST",
@@ -281,6 +282,7 @@
             traditional : true,
             data: {
             	memberId : memberId
+            	, year: $("#year").val()
             }, // serializes the form’s elements.
             success: function(result)
             {
@@ -436,7 +438,13 @@
 				                            <textarea class="jiche-textarea" rows="20" id="memo" name="memo" placeholder=""></textarea>
 				                        </label>
 				                        
-				                        <p class="sayu-p">예배 불참 사유</p>
+				                        <p class="sayu-p">예배 불참 사유
+				                        	<label class="radio-inline" style="margin-left: 10px;">
+						                        <input type="checkbox" id="onlineCheckBox" name="onlineCheckBox" style="width:12px; height:12px; cursor: pointer;">
+									            <input type="hidden" id="onlineCookie" name="onlineCookie" value="">
+								               	<span style="font-size: 14px;">온라인 예배 참석</span>
+							            	</label>
+				                        </p>
 				                        
 				                        <div class="sayu-month">
 				                        	${attendanceSearch.month}월

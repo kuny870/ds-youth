@@ -75,10 +75,10 @@ $(function() {
 });
 
 
-
 // 사유 불러오기
 function getSayu(val){
 	var sayu;
+	var onYn;
 	var id = $("#attId").val();
 	var year = $("#thisYear").val();
 	
@@ -94,17 +94,30 @@ function getSayu(val){
             if(result.success) {
             	if(val == "1"){
             		sayu = result.data.sayu1;
+            		onYn = result.data.onYn1;
             	}else if(val == "2"){
             		sayu = result.data.sayu2;
+            		onYn = result.data.onYn2;
             	}else if(val == "3"){
             		sayu = result.data.sayu3;
+            		onYn = result.data.onYn3;
             	}else if(val == "4"){
             		sayu = result.data.sayu4;
+            		onYn = result.data.onYn4;
             	}else {
             		sayu = result.data.sayu5;
+            		onYn = result.data.onYn5;
             	}
             	
             	$('#sayu').val(sayu);
+
+            	if(onYn == 'Y'){
+            		var chk = document.getElementById("onlineCheckBox");
+                	chk.checked = 'Y';
+            	}else {
+            		var chk = document.getElementById("onlineCheckBox");
+                	chk.checked = '';
+            	}
             	
             }
         },
@@ -128,18 +141,24 @@ function sayuRemove() {
 	var id = $('#attId2').val();
 	var year = $('#thisYear').val();
 	var ord = $('#ord').val();
-	var removeFlag;
+	var removeFlag1;
+	var removeFlag2;
 	
 	if(ord == "1") {
-		removeFlag = "sayu1"
+		removeFlag1 = "sayu1";
+		removeFlag2 = "on_yn1";
 	}else if(ord == "2") {
-		removeFlag = "sayu2"
+		removeFlag1 = "sayu2";
+		removeFlag2 = "on_yn2";
 	}else if(ord == "3") {
-		removeFlag = "sayu3"
+		removeFlag1 = "sayu3";
+		removeFlag2 = "on_yn3";
 	}else if(ord == "4") {
-		removeFlag = "sayu4"
+		removeFlag1 = "sayu4";
+		removeFlag2 = "on_yn4";
 	}else {
-		removeFlag = "sayu5"
+		removeFlag1 = "sayu5";
+		removeFlag2 = "on_yn5";
 	}
 	
 	$.ajax({
@@ -148,7 +167,8 @@ function sayuRemove() {
         data:{ 
         	id : id
         	, year : year
-        	, removeFlag : removeFlag
+        	, removeFlag1 : removeFlag1
+        	, removeFlag2 : removeFlag2
         },
         success: function(result)
         {
@@ -199,6 +219,13 @@ function memberMemoAndSayuRegist() {
 	// 예배 불참 사유 data
 	var attId = $("#attId").val();
 	var sundays = $("#sundays").val();
+	
+	var onYn = 'N';
+	var on_yn = document.getElementById("onlineCheckBox");
+	if(on_yn.checked) {
+		onYn = 'Y';
+	}
+	
 	var sayu = $("#sayu").val();
 	sayu = sayu.split('"').join('');
 	sayu = sayu.split("'").join('');
@@ -214,6 +241,7 @@ function memberMemoAndSayuRegist() {
         	id : memberId
         	, memo : memo
         	, sundays : sundays
+        	, onYn : onYn
         	, sayu : sayu
         	, attId : attId
         	, thisYear : thisYear
